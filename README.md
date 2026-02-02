@@ -2,6 +2,12 @@
 
 A Python-based RSS feed aggregator designed to track and archive news stories from student media outlets across the United States. The pipeline automatically fetches, deduplicates, and stores articles in a CSV database.
 
+## TODO
+- [ ] add frontend
+- [ ] categorzie by theme
+- [ ] add time series analysis
+- [ ] integrate SOCKs tools?
+
 ## Overview
 
 This repository contains an automated news scraping system that:
