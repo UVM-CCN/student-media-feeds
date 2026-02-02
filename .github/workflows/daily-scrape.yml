@@ -1,0 +1,39 @@
+name: Daily News Scrape
+
+on:
+  schedule:
+    # Runs at 11:59 PM UTC daily (cron format: minute hour day month day-of-week)
+    - cron: '59 23 * * *'
+  workflow_dispatch:  # Allows manual triggering from GitHub UI
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  # Allow the workflow to commit changes
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install feedparser listparser
+      
+      - name: Run scraper
+        run: python scrape.py
+      
+      - name: Commit and push if changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add news_database.csv
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)
