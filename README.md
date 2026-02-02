@@ -16,7 +16,9 @@ This repository contains an automated news scraping system that:
 ```
 .
 ├── scrape.py                           # Main pipeline script
-├── news_database.csv                   # CSV database of all scraped stories
+├── news_database.csv                   # CSV database of all scraped 
+├── feed_discoverer.py                   # will check if RSS feed available for given column in CSV file
+├── ccn_nap_master.csv                   # CSV used to detect if RSS feed available
 ├── feeds/
 │   └── feedly-export-20260130.opml    # OPML file with RSS feed subscriptions
 ├── .github/
