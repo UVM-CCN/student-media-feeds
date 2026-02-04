@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+>
+    <style>
+        html { font-family: Arial, sans-serif; margin: 20px; background-color: #ededed; color: #333 }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 8px; border: 1px solid #ccc; color: #333; text-align: left; }
+        th { background-color: #f4f4f4; color: #333 !important }
+        .filter { margin-bottom: 10px; }
+        .theme-count { margin-bottom: 20px; }
+        .theme-count p { margin: 5px 0; }
+        .theme-count span { font-weight: bold; }
+        .sort-buttons { margin-bottom: 10px; }
+        .sort-buttons button { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h1>News Dashboard</h1>
+    <div class="filter">
+        <label>Filter by theme:</label>
+        <input type="text" id="themeFilter" placeholder="Enter theme..." />
+    </div>
+    <div class="theme-count">
+        <p>Theme Counts:</p>
+        <div id="themeCounts"></div>
+    </div>
+    <div class="sort-buttons">
+        <button onclick="sortThemes('asc')">Sort A-Z</button>
+        <button onclick="sortThemes('desc')">Sort Z-A</button>
+    </div>
+    <table id="newsTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Link</th>
+                <th>Source</th>
+                <th>Published</th>
+                <th>Theme</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Stories will appear here -->
+        </tbody>
+    </table>
+
+    <script>
+        // load news_database.csv on page load using PapaParse and display in table
+        document.addEventListener('DOMContentLoaded', function() {
+            Papa.parse('news_database.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    const data = results.data;
+                    displayStories(data);
+                    displayThemeCounts(data);
+                    setupFilter(data);
+                    console.log(data)
+                }
+            });
+        });
+
+        function displayStories(data) {
+            const tbody = d3.select('#newsTable tbody');
+            tbody.html(''); // Clear existing rows
+
+            data.forEach(story => {
+                const row = tbody.append('tr');
+                row.append('td').text(story.title);
+                row.append('td').html(`<a href="${story.link}" target="_blank">Link</a>`);
+                row.append('td').text(story.source);
+                row.append('td').text(story.published);
+                row.append('td').text(story.theme);
+            });
+        }
+
+        function displayThemeCounts(data) {
+            // Split pipe-separated themes and count each individually
+            const themeCounts = {};
+            data.forEach(story => {
+                if (story.theme) {
+                    const themes = story.theme.split('|').map(t => t.trim()).filter(t => t);
+                    themes.forEach(theme => {
+                        themeCounts[theme] = (themeCounts[theme] || 0) + 1;
+                    });
+                }
+            });
+            
+            const themeCountsDiv = d3.select('#themeCounts');
+            themeCountsDiv.html(''); // Clear existing counts
+
+            // Sort themes alphabetically
+            const sortedThemes = Object.keys(themeCounts).sort();
+            sortedThemes.forEach(theme => {
+                themeCountsDiv.append('p').attr('class', 'tag is-primary').html(`${theme}: <span>${themeCounts[theme]}</span>`);
+            });
+
+            // if user clicks on a theme count, filter stories by that theme
+            themeCountsDiv.selectAll('p').on('click', function() {
+                const selectedTheme = d3.select(this).text().split(':')[0];
+                const filteredData = data.filter(story => {
+                    if (!story.theme) return false;
+                    const themes = story.theme.split('|').map(t => t.trim());
+                    return themes.includes(selectedTheme);
+                });
+                displayStories(filteredData);
+                displayThemeCounts(filteredData);
+            });
+        }
+
+        function setupFilter(data) {
+            const filterInput = d3.select('#themeFilter');
+            filterInput.on('input', function() {
+                const filterValue = this.value.toLowerCase();
+                // Filter stories where ANY of their pipe-separated themes match
+                const filteredData = data.filter(story => {
+                    if (!story.theme) return false;
+                    const themes = story.theme.split('|').map(t => t.trim().toLowerCase());
+                    return themes.some(theme => theme.includes(filterValue));
+                });
+                displayStories(filteredData);
+                displayThemeCounts(filteredData);
+            });
+        }
+
+        
+    </script>
+</body>
+</html>
