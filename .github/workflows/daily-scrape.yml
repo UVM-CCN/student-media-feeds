@@ -32,6 +32,9 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scrape.py
+
+      - name: Validate CSV output
+        run: python scripts/validate_news_csv.py news_database.csv
       
       - name: Commit and push if changes
         run: |
