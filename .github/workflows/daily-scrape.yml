@@ -35,10 +35,11 @@ jobs:
 
       - name: Validate CSV output
         run: python scripts/validate_news_csv.py news_database.csv
-      
+      - name: Generate analytics report
+        run: python analytics.py      
       - name: Commit and push if changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add news_database.csv
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)
+          git add news_database.csv analytics/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database and analytics - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)

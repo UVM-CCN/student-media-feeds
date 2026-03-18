@@ -1,136 +1,622 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>News Dashboard</title>
+    <title>Student Media Analytics Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
     <style>
-        html { font-family: Arial, sans-serif; margin: 20px; background-color: #ededed; color: #333 }
+        :root {
+            --primary: #3273dc;
+            --info: #209cee;
+            --success: #48c774;
+            --warning: #ffdd57;
+            --danger: #f14668;
+        }
+        * { color: #000; }
+        html { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        body { padding: 20px; color: #000; }
+        h1, h2, h3, h4, h5, h6, p, span, a, label, div, button { color: #000; }
+        .dashboard-header { margin-bottom: 30px; }
+        .dashboard-header h1 { color: #000; }
+        .dashboard-header p { color: #000; }
+        .tabs { border-bottom: 2px solid #ddd; margin-bottom: 20px; }
+        .tabs a { margin-right: 20px; padding: 10px 5px; text-decoration: none; color: #000; cursor: pointer; }
+        .tabs a.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .browse-panel, .analytics-panel { background: white; padding: 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 8px; border: 1px solid #ccc; color: #333; text-align: left; }
-        th { background-color: #f4f4f4; color: #333 !important }
-        .filter { margin-bottom: 10px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; color: #000; }
+        th { background-color: #f9f9f9; font-weight: bold; color: #000; }
+        .filter { margin-bottom: 15px; }
+        .filter label { color: #000; }
+        .filter input { padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 300px; color: #000; background: white; }
         .theme-count { margin-bottom: 20px; }
-        .theme-count p { margin: 5px 0; }
-        .theme-count span { font-weight: bold; }
-        .sort-buttons { margin-bottom: 10px; }
-        .sort-buttons button { margin-right: 10px; }
-        .tag { cursor: pointer; margin: 5px; }
+        .theme-count p { margin: 10px 0; font-size: 14px; color: #000; }
+        .theme-count span { font-weight: bold; color: #000; }
+        .sort-buttons { margin-bottom: 15px; }
+        .sort-buttons button { margin-right: 10px; padding: 8px 12px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .sort-buttons button:hover { background: #1d6bb8; }
+        .tag { cursor: pointer; margin: 5px; padding: 6px 12px; background: #e8f4f8; border: 1px solid #b3d9e8; border-radius: 4px; display: inline-block; color: #000; }
+        .tag:hover { background: #d0e8f2; }
+        .chart-container { margin: 30px 0; background: white; padding: 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .chart-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #000; }
+        svg text { fill: #000; color: #000; }
+        .axis-label text { fill: #000; }
+        .legend { display: inline-block; margin-right: 15px; font-size: 13px; color: #000; }
+        .legend-color { display: inline-block; width: 12px; height: 12px; margin-right: 5px; vertical-align: middle; }
+        .sentiment-positive { color: #48c774; font-weight: bold; }
+        .sentiment-neutral { color: #ffdd57; font-weight: bold; }
+        .sentiment-negative { color: #f14668; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .filter-pill { 
+            display: inline-flex; 
+            align-items: center; 
+            background: #3273dc; 
+            color: white; 
+            padding: 8px 12px; 
+            border-radius: 20px; 
+            margin: 5px 5px 5px 0; 
+            font-size: 14px; 
+        }
+        #activeFilters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        #keywordCounts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .filter-pill-remove { 
+            cursor: pointer; 
+            margin-left: 8px; 
+            font-weight: bold; 
+            font-size: 16px;
+        }
+        .filter-pill-remove:hover { 
+            opacity: 0.8; 
+        }
+        @media (max-width: 1200px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <h1>News Dashboard</h1>
-    <div class="filter">
-        <label>Filter by theme:</label>
-        <input type="text" id="themeFilter" placeholder="Enter theme..." />
+    <div class="dashboard-header">
+        <h1 class="title">Student Media Analytics Dashboard</h1>
+        <p class="subtitle">Tracking themes, keywords, and sentiment in student journalism</p>
     </div>
-    <div class="theme-count">
-        <p>Theme Counts:</p>
-        <div id="themeCounts"></div>
-    </div>
-    <div class="sort-buttons">
-        <button onclick="sortThemes('asc')">Sort A-Z</button>
-        <button onclick="sortThemes('desc')">Sort Z-A</button>
-    </div>
-    <table id="newsTable">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Link</th>
-                <th>Source</th>
-                <th>Published</th>
-                <th>Theme</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Stories will appear here -->
-        </tbody>
-    </table>
 
+    <div class="tabs">
+        <a class="tab-link active" data-tab="browse">Browse Stories</a>
+        <a class="tab-link" data-tab="analytics">Analytics & Trends</a>
+    </div>
+    <!-- Browse Tab -->
+    <div id="browse" class="tab-content active browse-panel">
+        <div class="filter">
+            <label><strong>Filter by keyword:</strong></label>
+            <input type="text" id="keywordFilter" placeholder="Enter keyword..." />
+        </div>
+        <div id="activeFiltersContainer" style="margin-bottom: 15px; display: none;">
+            <p><strong>Active Filters:</strong></p>
+            <div id="activeFilters"></div>
+        </div>
+        <div class="theme-count">
+            <p><strong>Top Keywords:</strong></p>
+            <div id="keywordCounts"></div>
+        </div>
+        <div class="sort-buttons">
+            <button onclick="sortThemes('asc')">Sort A-Z</button>
+            <button onclick="sortThemes('desc')">Sort Z-A</button>
+        </div>
+        <table id="newsTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Link</th>
+                    <th>Source</th>
+                    <th>Published</th>
+                    <th>Theme</th>
+                    <th>Sentiment</th>
+                    <th>Keywords</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Stories will appear here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div id="analytics" class="tab-content analytics-panel">
+        <div class="chart-container">
+            <div class="chart-title">📊 Stories Over Time</div>
+            <div id="timeSeriesChart"></div>
+        </div>
+
+        <div class="grid">
+            <div class="chart-container">
+                <div class="chart-title">🏷️ Top Themes</div>
+                <div id="themesChart"></div>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">😊 Sentiment Distribution</div>
+                <div id="sentimentChart"></div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">🔑 Top Keywords</div>
+            <div id="keywordsChart"></div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">📰 Stories by Source</div>
+            <div id="sourcesChart"></div>
+        </div>
+    </div>
     <script>
-        // load news_database.csv on page load using PapaParse and display in table
+        let allStories = [];
+        let analyticsData = {};
+        let activeKeywordFilters = [];
+
+        // Load data on page load
         document.addEventListener('DOMContentLoaded', function() {
+            // Load CSV
             Papa.parse('news_database.csv', {
                 download: true,
                 header: true,
                 complete: function(results) {
-                    const data = results.data;
-                    displayStories(data);
-                    displayThemeCounts(data);
-                    setupFilter(data);
-                    console.log(data)
+                    allStories = results.data.filter(story => story.title);
+                    displayStories(allStories);
+                    displayKeywordCounts(allStories);
+                    setupFilter(allStories);
                 }
+            });
+
+            // Load analytics JSON
+            fetch('analytics/analytics.json')
+                .then(response => response.json())
+                .then(data => {
+                    analyticsData = data;
+                    renderCharts();
+                })
+                .catch(err => console.warn('Analytics data not yet available:', err));
+
+            // Setup tab switching
+            document.querySelectorAll('.tab-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchTab(tabName);
+                });
             });
         });
 
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (tabName === 'analytics' && Object.keys(analyticsData).length > 0) {
+                setTimeout(renderCharts, 100);
+            }
+        }
+
         function displayStories(data) {
             const tbody = d3.select('#newsTable tbody');
-            tbody.html(''); // Clear existing rows
+            tbody.html('');
 
             data.forEach(story => {
                 const row = tbody.append('tr');
-                row.append('td').text(story.title);
-                row.append('td').html(`<a href="${story.link}" target="_blank">Link</a>`);
+                row.append('td').text(story.title).style('max-width', '300px').style('overflow', 'auto');
+                row.append('td').html(`<a href="${story.link}" target="_blank" style="color: #0066cc;">Link</a>`);
                 row.append('td').text(story.source);
                 row.append('td').text(story.published);
-                row.append('td').text(story.theme);
+                row.append('td').html(`<span class="tag">${story.theme || 'Unclassified'}</span>`);
+                
+                const sentiment = (story.sentiment_label || 'neutral').toLowerCase();
+                const sentimentClass = `sentiment-${sentiment}`;
+                row.append('td').html(`<span class="${sentimentClass}">${sentiment}</span>`);
+                
+                row.append('td').text(story.keywords || '—').style('font-size', '12px');
             });
         }
 
-        function displayThemeCounts(data) {
-            // Split pipe-separated themes and count each individually
-            const themeCounts = {};
+        function displayKeywordCounts(data) {
+            const keywordCounts = {};
             data.forEach(story => {
-                if (story.theme) {
-                    const themes = story.theme.split('|').map(t => t.trim()).filter(t => t);
-                    themes.forEach(theme => {
-                        themeCounts[theme] = (themeCounts[theme] || 0) + 1;
+                const keywordsStr = (story.keywords || '').trim();
+                if (keywordsStr) {
+                    const keywords = keywordsStr.split('|').map(k => k.trim());
+                    keywords.forEach(keyword => {
+                        if (keyword) {
+                            keywordCounts[keyword] = (keywordCounts[keyword] || 0) + 1;
+                        }
                     });
                 }
             });
             
-            const themeCountsDiv = d3.select('#themeCounts');
-            themeCountsDiv.html(''); // Clear existing counts
+            const keywordCountsDiv = d3.select('#keywordCounts');
+            keywordCountsDiv.html('');
 
-            // Sort themes alphabetically
-            const sortedThemes = Object.keys(themeCounts).sort();
-            sortedThemes.forEach(theme => {
-                themeCountsDiv.append('p').attr('class', 'tag is-primary').html(`${theme}: <span>${themeCounts[theme]}</span>`);
-            });
+            // Sort by count descending, then alphabetically
+            const sortedKeywords = Object.entries(keywordCounts)
+                .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+                .slice(0, 20); // Show top 20 keywords
 
-            // if user clicks on a theme count, filter stories by that theme
-            themeCountsDiv.selectAll('p').on('click', function() {
-                const selectedTheme = d3.select(this).text().split(':')[0];
-                const filteredData = data.filter(story => {
-                    if (!story.theme) return false;
-                    const themes = story.theme.split('|').map(t => t.trim());
-                    return themes.includes(selectedTheme);
+            sortedKeywords.forEach(([keyword, count]) => {
+                const isActive = activeKeywordFilters.includes(keyword);
+                const tagDiv = keywordCountsDiv.append('div');
+                const tagEl = tagDiv.append('p').attr('class', 'tag').style('background-color', isActive ? '#3273dc' : '#e8f4f8').style('color', isActive ? 'white' : '#000');
+                
+                tagEl.html(`${keyword}: <span>${count}</span>`);
+                
+                tagEl.on('click', function() {
+                    event.stopPropagation();
+                    toggleKeywordFilter(keyword);
                 });
-                displayStories(filteredData);
-                displayThemeCounts(filteredData);
             });
+        }
+
+        function toggleKeywordFilter(keyword) {
+            const index = activeKeywordFilters.indexOf(keyword);
+            if (index > -1) {
+                activeKeywordFilters.splice(index, 1);
+            } else {
+                activeKeywordFilters.push(keyword);
+            }
+            updateFilterDisplay();
+        }
+
+        function removeKeywordFilter(keyword) {
+            const index = activeKeywordFilters.indexOf(keyword);
+            if (index > -1) {
+                activeKeywordFilters.splice(index, 1);
+            }
+            updateFilterDisplay();
+        }
+
+        function updateFilterDisplay() {
+            const activeFiltersDiv = d3.select('#activeFilters');
+            const containerDiv = d3.select('#activeFiltersContainer');
+
+            if (activeKeywordFilters.length === 0) {
+                containerDiv.style('display', 'none');
+                activeFiltersDiv.html('');
+                displayStories(allStories);
+                displayKeywordCounts(allStories);
+            } else {
+                containerDiv.style('display', 'block');
+                activeFiltersDiv.html('');
+
+                activeKeywordFilters.forEach(keyword => {
+                    const pillDiv = activeFiltersDiv.append('div').attr('class', 'filter-pill').html(`${keyword}<span class="filter-pill-remove">✕</span>`);
+                    pillDiv.on('click', function() {
+                        removeKeywordFilter(keyword);
+                    });
+                });
+
+                // Filter stories by all active keywords (AND logic)
+                const filteredData = allStories.filter(story => {
+                    const keywordsStr = (story.keywords || '');
+                    const storyKeywords = keywordsStr.split('|').map(k => k.trim());
+                    return activeKeywordFilters.every(filter => storyKeywords.includes(filter));
+                });
+
+                displayStories(filteredData);
+                displayKeywordCounts(filteredData);
+            }
         }
 
         function setupFilter(data) {
-            const filterInput = d3.select('#themeFilter');
-            filterInput.on('input', function() {
+            d3.select('#keywordFilter').on('input', function() {
                 const filterValue = this.value.toLowerCase();
-                // Filter stories where ANY of their pipe-separated themes match
-                const filteredData = data.filter(story => {
-                    if (!story.theme) return false;
-                    const themes = story.theme.split('|').map(t => t.trim().toLowerCase());
-                    return themes.some(theme => theme.includes(filterValue));
+                let filteredData = data.filter(story => {
+                    const keywordsStr = (story.keywords || '').toLowerCase();
+                    return keywordsStr.includes(filterValue);
                 });
+
+                // Also apply active filters (AND logic)
+                if (activeKeywordFilters.length > 0) {
+                    filteredData = filteredData.filter(story => {
+                        const keywordsStr = (story.keywords || '');
+                        const storyKeywords = keywordsStr.split('|').map(k => k.trim());
+                        return activeKeywordFilters.every(filter => storyKeywords.includes(filter));
+                    });
+                }
+
                 displayStories(filteredData);
-                displayThemeCounts(filteredData);
+                displayKeywordCounts(filteredData);
             });
         }
 
-        
+        function sortThemes(direction) {
+            // Placeholder for sorting logic if needed
+            console.log('Sort:', direction);
+        }
+
+        // D3 Chart Rendering Functions
+        function renderCharts() {
+            if (!analyticsData.timeseries) return;
+
+            renderTimeSeriesChart();
+            renderThemesChart();
+            renderSentimentChart();
+            renderKeywordsChart();
+            renderSourcesChart();
+        }
+
+        function renderTimeSeriesChart() {
+            const margin = { top: 20, right: 20, bottom: 60, left: 60 };
+            const width = 900 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+
+            d3.select('#timeSeriesChart').html('');
+            const svg = d3.select('#timeSeriesChart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const dates = Object.keys(analyticsData.timeseries).sort();
+            const data = dates.map(date => ({
+                date: date,
+                total: analyticsData.timeseries[date].total
+            }));
+
+            const xScale = d3.scaleBand()
+                .domain(data.map(d => d.date))
+                .range([0, width])
+                .padding(0.1);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.total)])
+                .range([height, 0]);
+
+            // Bars
+            svg.selectAll('.bar')
+                .data(data)
+                .enter()
+                .append('rect')
+                .attr('x', d => xScale(d.date))
+                .attr('y', d => yScale(d.total))
+                .attr('width', xScale.bandwidth())
+                .attr('height', d => height - yScale(d.total))
+                .attr('fill', '#3273dc');
+
+            // X Axis with reduced labels for clarity
+            const tickDates = [];
+            const interval = Math.ceil(data.length / 8); // Show ~8 labels
+            for (let i = 0; i < data.length; i += interval) {
+                tickDates.push(data[i].date);
+            }
+
+            const xAxis = svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickValues(tickDates));
+            
+            xAxis.selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end')
+                .style('font-size', '11px');
+
+            // Y Axis
+            svg.append('g')
+                .call(d3.axisLeft(yScale))
+                .attr('class', 'axis-label');
+
+            // Y Label
+            svg.append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', 0 - margin.left)
+                .attr('x', 0 - (height / 2))
+                .attr('dy', '1em')
+                .style('text-anchor', 'middle')
+                .text('Stories');
+        }
+
+        function renderThemesChart() {
+            const themes = analyticsData.themes || {};
+            const topThemes = Object.entries(themes)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const margin = { top: 20, right: 20, bottom: 100, left: 60 };
+            const width = 450 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+
+            d3.select('#themesChart').html('');
+            const svg = d3.select('#themesChart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const xScale = d3.scaleBand()
+                .domain(topThemes.map(d => d[0]))
+                .range([0, width])
+                .padding(0.1);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(topThemes, d => d[1])])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(topThemes)
+                .enter()
+                .append('rect')
+                .attr('x', d => xScale(d[0]))
+                .attr('y', d => yScale(d[1]))
+                .attr('width', xScale.bandwidth())
+                .attr('height', d => height - yScale(d[1]))
+                .attr('fill', '#3273dc');
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end')
+                .style('font-size', '11px');
+
+            svg.append('g')
+                .call(d3.axisLeft(yScale));
+        }
+
+        function renderSentimentChart() {
+            const sentiment = analyticsData.sentiment || {};
+            const data = [
+                { label: 'Positive', value: sentiment.positive || 0, color: '#48c774' },
+                { label: 'Neutral', value: sentiment.neutral || 0, color: '#ffdd57' },
+                { label: 'Negative', value: sentiment.negative || 0, color: '#f14668' }
+            ];
+
+            const width = 450;
+            const height = 300;
+            const radius = Math.min(width, height) / 2 - 40;
+
+            d3.select('#sentimentChart').html('');
+            const svg = d3.select('#sentimentChart')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('transform', `translate(${width/2},${height/2})`);
+
+            const pie = d3.pie().value(d => d.value);
+            const arc = d3.arc().innerRadius(0).outerRadius(radius);
+
+            svg.selectAll('.arc')
+                .data(pie(data))
+                .enter()
+                .append('g')
+                .attr('class', 'arc')
+                .append('path')
+                .attr('d', arc)
+                .attr('fill', d => d.data.color);
+
+            // Legend
+            const legend = svg.append('g')
+                .attr('transform', `translate(${-radius - 50}, ${-radius + 20})`);
+
+            data.forEach((d, i) => {
+                legend.append('rect')
+                    .attr('x', 0)
+                    .attr('y', i * 25)
+                    .attr('width', 12)
+                    .attr('height', 12)
+                    .attr('fill', d.color);
+
+                legend.append('text')
+                    .attr('x', 20)
+                    .attr('y', i * 25 + 10)
+                    .text(`${d.label}: ${d.value}`)
+                    .style('font-size', '12px');
+            });
+        }
+
+        function renderKeywordsChart() {
+            const keywords = analyticsData.keywords || {};
+            const topKeywords = Object.entries(keywords)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 12);
+
+            const margin = { top: 20, right: 20, bottom: 100, left: 60 };
+            const width = 900 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+
+            d3.select('#keywordsChart').html('');
+            const svg = d3.select('#keywordsChart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const xScale = d3.scaleBand()
+                .domain(topKeywords.map(d => d[0]))
+                .range([0, width])
+                .padding(0.1);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(topKeywords, d => d[1])])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(topKeywords)
+                .enter()
+                .append('rect')
+                .attr('x', d => xScale(d[0]))
+                .attr('y', d => yScale(d[1]))
+                .attr('width', xScale.bandwidth())
+                .attr('height', d => height - yScale(d[1]))
+                .attr('fill', '#209cee');
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end')
+                .style('font-size', '11px');
+
+            svg.append('g')
+                .call(d3.axisLeft(yScale));
+        }
+
+        function renderSourcesChart() {
+            const sources = analyticsData.sources || {};
+            const topSources = Object.entries(sources)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const margin = { top: 20, right: 20, bottom: 100, left: 60 };
+            const width = 900 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+
+            d3.select('#sourcesChart').html('');
+            const svg = d3.select('#sourcesChart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const xScale = d3.scaleBand()
+                .domain(topSources.map(d => d[0]))
+                .range([0, width])
+                .padding(0.1);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(topSources, d => d[1])])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(topSources)
+                .enter()
+                .append('rect')
+                .attr('x', d => xScale(d[0]))
+                .attr('y', d => yScale(d[1]))
+                .attr('width', xScale.bandwidth())
+                .attr('height', d => height - yScale(d[1]))
+                .attr('fill', '#48c774');
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end')
+                .style('font-size', '11px');
+
+            svg.append('g')
+                .call(d3.axisLeft(yScale));
+        }
     </script>
 </body>
 </html>
