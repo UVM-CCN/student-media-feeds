@@ -583,5 +583,14 @@ def run_daily_update():
     else:
         logging.error("No feeds found to process.")
 
+    # Generate analytics report for dashboard
+    try:
+        from analytics import AnalyticsEngine
+        analytics = AnalyticsEngine(DATABASE)
+        analytics.run()
+        logging.info("Analytics report generated successfully.")
+    except Exception as e:
+        logging.error("Failed to generate analytics report: %s", e)
+
 if __name__ == "__main__":
     run_daily_update()
