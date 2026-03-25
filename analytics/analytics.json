@@ -1,81 +1,81 @@
 {
-  "generated_at": "2026-03-24T02:34:32.026949+00:00",
-  "total_stories": 5108,
+  "generated_at": "2026-03-25T02:34:37.160433+00:00",
+  "total_stories": 5232,
   "themes": {
-    "Fellowship | Experience | Communities | Reviews | Expertise": 155,
-    "Polk | Alabama | Tennessee | Woman | Hillsborough": 145,
-    "Semester | Classroom | Campus | Alumni | Freshman": 113,
-    "Hurricane | Jumps | Spots | Vets | Libr": 91,
-    "Street | Activities | Rainbows | Conference | Opportunities": 85,
-    "Advance | The | Ditv | Tournament | Wrestling": 72,
-    "Policy | Savings | Construction | Ceo | Economics": 72,
-    "Kenton | Tulsas | Tickets | Butte | Tulsa": 67,
-    "Undefeated | Dome | Syracuses | Falls | Overtime": 63,
-    "Stratton | Committee | Elections | Democrats | Reelection": 62,
-    "Orchards | Celebrates | Events | Concourse | Festival": 61,
-    "Chua | Cracking | Humble | Contributions | Threats": 61,
-    "Careers | Community | Richmazzeo | Students | Professions": 60,
-    "Nationwide | Met | Bryants | Nassau | Warehouse": 58,
-    "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 57,
-    "Emsa | Battleground | Sedentary | League | Increasingly": 52,
-    "Cafe | St | Restaurant | Restaurants | Colorado": 48,
-    "Renews | Regional | East | Uscanada | Stake": 48,
-    "Housing | Administrative | Employees | Staff | Employeestudent": 48,
-    "Houses | Donates | Billops | Ann | Networkcampaign": 47
+    "Fellowship | Explores | Environmental | Communities | Reviews": 161,
+    "Alumni | Professors | Freshmen | Semester | Campus": 150,
+    "Near | Life | Lakeland | Prison | Florida": 120,
+    "Hurricane | Jumps | Spots | Vets | Libr": 92,
+    "West | Phoenix | Arizona | Sweet | Falls": 87,
+    "Advocates | The | Sound | 30Th | At": 83,
+    "Experiences | Event | Activities | Wall | The": 82,
+    "Playground | Mayfield | Jersey | Michigans | Michigan": 79,
+    "Facultyconduct | Cdc | Faculty | Lowe | March": 79,
+    "Redistricting | Stratton | Ballot | Committee | Elections": 77,
+    "Batteries | Journal | Leaders | Department | Brill": 76,
+    "Womens | Weekend | Routs | Cornell | Upset": 63,
+    "Veteran | Careers | Accreditation | Encounters | Improving": 62,
+    "Alumnus | Alumni | Fellows | Consortium | Memeticwarfarehow": 62,
+    "Game | Watching | York | Carcassonne | Tokyo": 59,
+    "County | Hempstead | Plymouth | Community | Nationwide": 58,
+    "Atwater | Houses | Spent | Palmer | Ads": 56,
+    "Infrastructure | Campaign | Renews | Military | Hormuz": 55,
+    "City | District | St | Colorado | Cafe": 53,
+    "Jacksons | Alley | Beverly | Cottages | Kennywood": 50
   },
   "sentiment": {
-    "neutral": 4698,
-    "positive": 309,
+    "neutral": 4821,
+    "positive": 310,
     "negative": 101
   },
   "keywords": {
-    "students": 227,
+    "students": 231,
     "comment": 219,
-    "student": 198,
+    "student": 199,
     "utulsa": 130,
-    "college": 106,
+    "college": 108,
     "dean": 106,
     "tulsa": 100,
-    "state": 91,
-    "community": 84,
+    "state": 98,
+    "florida": 87,
+    "community": 85,
+    "school": 84,
     "faculty": 83,
-    "school": 83,
+    "business": 82,
+    "syracuse": 82,
     "professor": 81,
-    "business": 81,
-    "syracuse": 81,
-    "florida": 80,
     "first": 78,
-    "university": 74,
+    "university": 75,
     "research": 70,
-    "utah": 65,
+    "utah": 70,
+    "trump": 65,
     "desk": 64,
     "engineering": 63,
+    "women": 62,
     "alumna": 62,
-    "women": 61,
+    "health": 61,
+    "center": 60,
     "named": 60,
-    "center": 59,
-    "health": 59,
-    "trump": 59,
-    "receives": 57,
-    "basketball": 55,
-    "city": 55
+    "city": 58,
+    "basketball": 57,
+    "receives": 57
   },
   "sources": {
-    "The University of Tulsa": 2310,
-    "The NewsHouse": 289,
-    "Tampa Free Press": 253,
-    "The Salt Lake Tribune": 197,
-    "The Seattle Medium": 66,
-    "Honolulu Civil Beat": 61,
-    "The Daily Iowan": 60,
-    "Cronkite News": 55,
-    "Caplin News": 55,
-    "Voice of OC": 51,
+    "The University of Tulsa": 2311,
+    "The NewsHouse": 292,
+    "Tampa Free Press": 283,
+    "The Salt Lake Tribune": 214,
+    "The Seattle Medium": 73,
+    "The Daily Iowan": 70,
+    "Honolulu Civil Beat": 68,
+    "Caplin News": 60,
+    "Cronkite News": 59,
+    "Voice of OC": 55,
+    "Purple Media Network": 50,
     "Comments for Tampa Free Press": 50,
-    "Purple Media Network": 40,
-    "Nashville Banner": 36,
-    "Wisconsin Watch": 35,
-    "Capitol News Illinois": 33
+    "Nashville Banner": 39,
+    "Capitol News Illinois": 37,
+    "Wisconsin Watch": 36
   },
   "timeseries": {
     "2022-04-19": {
@@ -98,9 +98,10 @@
     "2022-04-20": {
       "total": 9,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 3,
-        "Utah | Jackson | Jazzs | This | Michigan": 1,
-        "Stratton | Committee | Elections | Democrats | Reelection": 1
+        "Redistricting | Stratton | Ballot | Committee | Elections": 2,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 1,
+        "Petersburg | In | Major | Life | Into": 1,
+        "Near | Life | Lakeland | Prison | Florida": 1
       },
       "sentiment": {
         "neutral": 9
@@ -124,7 +125,7 @@
     "2024-11-10": {
       "total": 1,
       "themes": {
-        "Zoning | Housing | Homes | Approvals | Rent": 1
+        "Housing | Rent | Renting | Stakeholder | Lender": 1
       },
       "sentiment": {
         "neutral": 1
@@ -143,7 +144,7 @@
     "2024-11-11": {
       "total": 1,
       "themes": {
-        "Orchards | Celebrates | Events | Concourse | Festival": 1
+        "Where | Screenings | Colorado | Weekend | Plantation": 1
       },
       "sentiment": {
         "neutral": 1
@@ -161,7 +162,9 @@
     },
     "2024-11-15": {
       "total": 2,
-      "themes": {},
+      "themes": {
+        "Alumni | Professors | Freshmen | Semester | Campus": 1
+      },
       "sentiment": {
         "neutral": 2
       },
@@ -182,7 +185,7 @@
     "2024-11-23": {
       "total": 1,
       "themes": {
-        "Art | Culture | Is | Song | Word": 1
+        "Culture | Word | Timeline | Tv | Policies": 1
       },
       "sentiment": {
         "neutral": 1
@@ -200,8 +203,7 @@
     "2024-11-24": {
       "total": 2,
       "themes": {
-        "Zoning | Housing | Homes | Approvals | Rent": 1,
-        "Integrity | Intelligence | Rethinking | Muncie | Move": 1
+        "Housing | Rent | Renting | Stakeholder | Lender": 1
       },
       "sentiment": {
         "neutral": 2
@@ -257,8 +259,8 @@
     "2024-12-10": {
       "total": 2,
       "themes": {
-        "Zoning | Housing | Homes | Approvals | Rent": 1,
-        "Wolves | Whittier | Haymond | Colorado | Wrangle": 1
+        "Housing | Rent | Renting | Stakeholder | Lender": 1,
+        "Towns | Habitat | Garden | Grove | Shelter": 1
       },
       "sentiment": {
         "neutral": 2
@@ -320,7 +322,7 @@
     "2025-03-19": {
       "total": 1,
       "themes": {
-        "Discusses | Consumers | Industry | Thinking | Affordability": 1
+        "Farmers | Agricultural | Soybean | Consumers | Businesses": 1
       },
       "sentiment": {
         "neutral": 1
@@ -338,9 +340,7 @@
     },
     "2025-04-15": {
       "total": 1,
-      "themes": {
-        "Camden | Washington | Cities | Abandoned | Fires": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -357,7 +357,7 @@
     "2025-04-24": {
       "total": 1,
       "themes": {
-        "Orchards | Celebrates | Events | Concourse | Festival": 1
+        "Where | Screenings | Colorado | Weekend | Plantation": 1
       },
       "sentiment": {
         "neutral": 1
@@ -376,7 +376,7 @@
     "2025-05-01": {
       "total": 1,
       "themes": {
-        "Kenton | Tulsas | Tickets | Butte | Tulsa": 1
+        "Advocates | The | Sound | 30Th | At": 1
       },
       "sentiment": {
         "neutral": 1
@@ -394,9 +394,7 @@
     },
     "2025-05-07": {
       "total": 1,
-      "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -414,11 +412,12 @@
     "2025-05-08": {
       "total": 10,
       "themes": {
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1,
-        "Zoning | Housing | Homes | Approvals | Rent": 1,
-        "Westport | Historic | Weston | Farewell | Bridge": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1,
-        "Kenton | Tulsas | Tickets | Butte | Tulsa": 1
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1,
+        "Housing | Rent | Renting | Stakeholder | Lender": 1,
+        "February | Park | Dec | South": 1,
+        "Debates | Governing | Deny | Government | Flags": 1,
+        "City | District | St | Colorado | Cafe": 1,
+        "Advocates | The | Sound | 30Th | At": 1
       },
       "sentiment": {
         "neutral": 10
@@ -442,7 +441,7 @@
     "2025-05-09": {
       "total": 1,
       "themes": {
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1
+        "City | District | St | Colorado | Cafe": 1
       },
       "sentiment": {
         "neutral": 1
@@ -461,7 +460,7 @@
     "2025-05-14": {
       "total": 1,
       "themes": {
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1
+        "City | District | St | Colorado | Cafe": 1
       },
       "sentiment": {
         "neutral": 1
@@ -514,7 +513,7 @@
     "2025-05-23": {
       "total": 1,
       "themes": {
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1
       },
       "sentiment": {
         "neutral": 1
@@ -532,7 +531,7 @@
     "2025-05-28": {
       "total": 1,
       "themes": {
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1
       },
       "sentiment": {
         "neutral": 1
@@ -550,7 +549,7 @@
     "2025-09-24": {
       "total": 1,
       "themes": {
-        "Sorry": 1
+        "No": 1
       },
       "sentiment": {
         "neutral": 1
@@ -565,7 +564,7 @@
     "2025-09-29": {
       "total": 2,
       "themes": {
-        "Sorry": 2
+        "No": 2
       },
       "sentiment": {
         "neutral": 2
@@ -580,7 +579,7 @@
     "2025-10-15": {
       "total": 2,
       "themes": {
-        "Sorry": 2
+        "No": 2
       },
       "sentiment": {
         "neutral": 2
@@ -595,7 +594,7 @@
     "2025-10-22": {
       "total": 1,
       "themes": {
-        "Sorry": 1
+        "No": 1
       },
       "sentiment": {
         "neutral": 1
@@ -610,7 +609,7 @@
     "2025-10-30": {
       "total": 1,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 1
+        "Near | Life | Lakeland | Prison | Florida": 1
       },
       "sentiment": {
         "neutral": 1
@@ -627,7 +626,7 @@
     "2025-11-06": {
       "total": 1,
       "themes": {
-        "Stratton | Committee | Elections | Democrats | Reelection": 1
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1
       },
       "sentiment": {
         "neutral": 1
@@ -663,7 +662,7 @@
     "2025-11-19": {
       "total": 3,
       "themes": {
-        "Sorry": 2
+        "No": 2
       },
       "sentiment": {
         "positive": 1,
@@ -702,7 +701,7 @@
     "2025-12-06": {
       "total": 1,
       "themes": {
-        "Easton | Kalama | Celebrating | Unifying | Craft": 1
+        "Literary | Writing | Literature | Writer | Nehfunded": 1
       },
       "sentiment": {
         "neutral": 1
@@ -720,7 +719,9 @@
     },
     "2025-12-10": {
       "total": 1,
-      "themes": {},
+      "themes": {
+        "Tpusa | Southern | Chapter | Scholars | Book": 1
+      },
       "sentiment": {
         "neutral": 1
       },
@@ -738,7 +739,7 @@
     "2025-12-12": {
       "total": 1,
       "themes": {
-        "Hospital | Jeff | Enrollments | Pharmacy | Brockport": 1
+        "Arizona | Production | Transportation | Mn | Cuts": 1
       },
       "sentiment": {
         "neutral": 1
@@ -774,7 +775,7 @@
     "2025-12-20": {
       "total": 1,
       "themes": {
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 1
+        "County | Hempstead | Plymouth | Community | Nationwide": 1
       },
       "sentiment": {
         "neutral": 1
@@ -793,7 +794,7 @@
     "2025-12-28": {
       "total": 1,
       "themes": {
-        "Residents | Travelers | Street | Getaways | Sidewalks": 1
+        "Shelters | Aid | Residents | Dc | Utah": 1
       },
       "sentiment": {
         "neutral": 1
@@ -811,7 +812,7 @@
     "2026-01-07": {
       "total": 2,
       "themes": {
-        "Camden | Washington | Cities | Abandoned | Fires": 1
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1
       },
       "sentiment": {
         "neutral": 2
@@ -835,7 +836,7 @@
     "2026-01-12": {
       "total": 1,
       "themes": {
-        "Camden | Washington | Cities | Abandoned | Fires": 1
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1
       },
       "sentiment": {
         "neutral": 1
@@ -853,9 +854,7 @@
     },
     "2026-01-13": {
       "total": 1,
-      "themes": {
-        "Camden | Washington | Cities | Abandoned | Fires": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -872,7 +871,9 @@
     },
     "2026-01-14": {
       "total": 1,
-      "themes": {},
+      "themes": {
+        "Game | Watching | York | Carcassonne | Tokyo": 1
+      },
       "sentiment": {
         "neutral": 1
       },
@@ -887,8 +888,8 @@
     "2026-01-15": {
       "total": 2,
       "themes": {
-        "Exhibition | Memories | Forgotten | Galleries | Content": 1,
-        "Semester | Classroom | Campus | Alumni | Freshman": 1
+        "Media | Content | Project | Photos | Photography": 1,
+        "Alumni | Professors | Freshmen | Semester | Campus": 1
       },
       "sentiment": {
         "neutral": 2
@@ -912,7 +913,7 @@
     "2026-01-16": {
       "total": 1,
       "themes": {
-        "Residents | Refuge | They | Securing | Revealed": 1
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1
       },
       "sentiment": {
         "neutral": 1
@@ -931,7 +932,7 @@
     "2026-01-21": {
       "total": 1,
       "themes": {
-        "Of": 1
+        "Phone": 1
       },
       "sentiment": {
         "neutral": 1
@@ -947,7 +948,7 @@
     "2026-01-22": {
       "total": 1,
       "themes": {
-        "Of": 1
+        "Phone": 1
       },
       "sentiment": {
         "neutral": 1
@@ -962,9 +963,7 @@
     },
     "2026-01-25": {
       "total": 1,
-      "themes": {
-        "Discusses | Consumers | Industry | Thinking | Affordability": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -982,7 +981,7 @@
     "2026-01-26": {
       "total": 3,
       "themes": {
-        "Zoning | Housing | Homes | Approvals | Rent": 1
+        "Housing | Rent | Renting | Stakeholder | Lender": 1
       },
       "sentiment": {
         "neutral": 3
@@ -1007,9 +1006,7 @@
     },
     "2026-01-27": {
       "total": 1,
-      "themes": {
-        "Camden | Washington | Cities | Abandoned | Fires": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -1027,10 +1024,9 @@
     "2026-01-28": {
       "total": 4,
       "themes": {
-        "Kenton | Tulsas | Tickets | Butte | Tulsa": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1,
-        "Policy | Savings | Construction | Ceo | Economics": 1,
-        "Of": 1
+        "Advocates | The | Sound | 30Th | At": 1,
+        "Batteries | Journal | Leaders | Department | Brill": 1,
+        "Phone": 1
       },
       "sentiment": {
         "positive": 1,
@@ -1057,7 +1053,7 @@
     "2026-01-29": {
       "total": 1,
       "themes": {
-        "Of": 1
+        "Phone": 1
       },
       "sentiment": {
         "neutral": 1
@@ -1073,8 +1069,9 @@
     "2026-01-30": {
       "total": 4,
       "themes": {
-        "Covinas | Newly | Provides | Nea | Pandemicera": 1,
-        "Residents | Refuge | They | Securing | Revealed": 1
+        "Dangers | Philadelphias | Covinas | Pandemicera | Poor": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1
       },
       "sentiment": {
         "positive": 1,
@@ -1101,8 +1098,8 @@
     "2026-01-31": {
       "total": 3,
       "themes": {
-        "Zoning | Housing | Homes | Approvals | Rent": 1,
-        "Advance | The | Ditv | Tournament | Wrestling": 1
+        "Housing | Rent | Renting | Stakeholder | Lender": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1
       },
       "sentiment": {
         "neutral": 2,
@@ -1127,7 +1124,8 @@
     "2026-02-01": {
       "total": 2,
       "themes": {
-        "Advance | The | Ditv | Tournament | Wrestling": 1
+        "Jacksons | Alley | Beverly | Cottages | Kennywood": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1150,9 +1148,8 @@
     "2026-02-02": {
       "total": 3,
       "themes": {
-        "Advance | The | Ditv | Tournament | Wrestling": 1,
-        "Centers | Conference | Cal | Cuts | Cjc": 1,
-        "Careers | Community | Richmazzeo | Students | Professions": 1
+        "West | Phoenix | Arizona | Sweet | Falls": 1,
+        "News | Predicted | Crisis": 1
       },
       "sentiment": {
         "neutral": 3
@@ -1176,13 +1173,10 @@
     "2026-02-03": {
       "total": 9,
       "themes": {
-        "Grant | Faculty | Prestigious | Law | Major": 1,
-        "Cheltenham | Insights | Activities | Decade | Promotes": 1,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Covinas | Newly | Provides | Nea | Pandemicera": 1,
-        "Semester | Classroom | Campus | Alumni | Freshman": 1,
-        "Camden | Washington | Cities | Abandoned | Fires": 1,
-        "More | These | Daring": 1
+        "Dangers | Philadelphias | Covinas | Pandemicera | Poor": 1,
+        "Alumni | Professors | Freshmen | Semester | Campus": 1,
+        "Game | Watching | York | Carcassonne | Tokyo": 1,
+        "Advocates | The | Sound | 30Th | At": 1
       },
       "sentiment": {
         "neutral": 9
@@ -1208,8 +1202,8 @@
     "2026-02-04": {
       "total": 5,
       "themes": {
-        "Recruiting | Worship | Pizzazz | Leaders | Battalion": 1,
-        "Advance | The | Ditv | Tournament | Wrestling": 1,
+        "Recruiting | Campus | Renovations | Boston | Freshmen": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1,
         "Hurricane | Jumps | Spots | Vets | Libr": 1
       },
       "sentiment": {
@@ -1238,9 +1232,9 @@
     "2026-02-05": {
       "total": 6,
       "themes": {
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 2,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Spring | Alaska | Science | Burning | Season": 1
+        "County | Hempstead | Plymouth | Community | Nationwide": 2,
+        "Where | Screenings | Colorado | Weekend | Plantation": 1,
+        "Alaska | Podcast | Podcasting | Conversations | Colorado": 1
       },
       "sentiment": {
         "neutral": 6
@@ -1267,9 +1261,10 @@
     "2026-02-06": {
       "total": 8,
       "themes": {
-        "Stratton | Committee | Elections | Democrats | Reelection": 2,
-        "Undefeated | Dome | Syracuses | Falls | Overtime": 2,
-        "Utah | Saints | Smith | Tribune | Lives": 1
+        "Redistricting | Stratton | Ballot | Committee | Elections": 2,
+        "Womens | Weekend | Routs | Cornell | Upset": 2,
+        "Childhood | Reconomy | Youth | Teens | Promising": 1,
+        "Ocpas | Recounts | Headlines | Apus | Allegiance": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1297,9 +1292,9 @@
     "2026-02-07": {
       "total": 5,
       "themes": {
-        "Residents | Travelers | Street | Getaways | Sidewalks": 2,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Colgate | Cal | Opener | Stony | Snaps": 1
+        "Shelters | Aid | Residents | Dc | Utah": 2,
+        "Where | Screenings | Colorado | Weekend | Plantation": 1,
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1
       },
       "sentiment": {
         "neutral": 5
@@ -1326,8 +1321,8 @@
     "2026-02-08": {
       "total": 2,
       "themes": {
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Colgate | Cal | Opener | Stony | Snaps": 1
+        "City | District | St | Colorado | Cafe": 1,
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1353,9 +1348,10 @@
       "total": 7,
       "themes": {
         "Hurricane | Jumps | Spots | Vets | Libr": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 1,
-        "Stratton | Committee | Elections | Democrats | Reelection": 1
+        "City | District | St | Colorado | Cafe": 1,
+        "County | Hempstead | Plymouth | Community | Nationwide": 1,
+        "Review | The | To | Through | 40Th": 1,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1
       },
       "sentiment": {
         "neutral": 7
@@ -1383,7 +1379,7 @@
       "total": 2,
       "themes": {
         "Hurricane | Jumps | Spots | Vets | Libr": 1,
-        "Topic 25": 1
+        "Newsletter | Business | Spring | Programs | March": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1408,11 +1404,11 @@
       "total": 8,
       "themes": {
         "Hurricane | Jumps | Spots | Vets | Libr": 2,
-        "Essay | Rising | Writing | Character | Achievement": 1,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Colgate | Cal | Opener | Stony | Snaps": 1,
-        "Utah | Jackson | Jazzs | This | Michigan": 1
+        "Alumnus | Scholarship | Collegiate | Alumni | Academy": 1,
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1,
+        "Where | Screenings | Colorado | Weekend | Plantation": 1,
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 1
       },
       "sentiment": {
         "neutral": 7,
@@ -1440,10 +1436,10 @@
     "2026-02-12": {
       "total": 7,
       "themes": {
-        "Sustainable | Pioneers | Lifelong | Tours | Revolutionize": 1,
-        "Of": 1,
-        "Spring | Alaska | Science | Burning | Season": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1
+        "Phone": 1,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1,
+        "Alaska | Podcast | Podcasting | Conversations | Colorado": 1,
+        "City | District | St | Colorado | Cafe": 1
       },
       "sentiment": {
         "neutral": 7
@@ -1471,11 +1467,11 @@
     "2026-02-13": {
       "total": 6,
       "themes": {
-        "Kenton | Tulsas | Tickets | Butte | Tulsa": 2,
-        "Covinas | Newly | Provides | Nea | Pandemicera": 1,
-        "Sustainable | Pioneers | Lifelong | Tours | Revolutionize": 1,
-        "Colgate | Cal | Opener | Stony | Snaps": 1,
-        "Undefeated | Dome | Syracuses | Falls | Overtime": 1
+        "Advocates | The | Sound | 30Th | At": 2,
+        "Dangers | Philadelphias | Covinas | Pandemicera | Poor": 1,
+        "Endowment | Interim | Doctoral | Faculty | Degree": 1,
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1,
+        "Womens | Weekend | Routs | Cornell | Upset": 1
       },
       "sentiment": {
         "neutral": 5,
@@ -1503,7 +1499,7 @@
     "2026-02-14": {
       "total": 2,
       "themes": {
-        "Camden | Washington | Cities | Abandoned | Fires": 1
+        "Womens | Weekend | Routs | Cornell | Upset": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1528,7 +1524,7 @@
     "2026-02-15": {
       "total": 1,
       "themes": {
-        "Colgate | Cal | Opener | Stony | Snaps": 1
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1
       },
       "sentiment": {
         "positive": 1
@@ -1547,7 +1543,7 @@
     "2026-02-16": {
       "total": 1,
       "themes": {
-        "Colgate | Cal | Opener | Stony | Snaps": 1
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1
       },
       "sentiment": {
         "negative": 1
@@ -1566,9 +1562,9 @@
     "2026-02-17": {
       "total": 4,
       "themes": {
-        "Deportation | Schools | Hyattsville | News | Immigration": 1,
-        "Citys | Advocates | Postsecondary | Charlestown | Racism": 1,
-        "Kenton | Tulsas | Tickets | Butte | Tulsa": 1
+        "Protests | Nationwide | Deportation | Immigration | Crackdown": 1,
+        "Uga | Journalismscom | Events | Postsecondary | Harvey": 1,
+        "Advocates | The | Sound | 30Th | At": 1
       },
       "sentiment": {
         "neutral": 4
@@ -1595,12 +1591,12 @@
     "2026-02-18": {
       "total": 8,
       "themes": {
-        "Emsa | Battleground | Sedentary | League | Increasingly": 1,
+        "Competency | Sportsincollege | Elevating | Recruited | Premier": 1,
         "Hurricane | Jumps | Spots | Vets | Libr": 1,
-        "Recipients | Funding | Grant | Neh | Rethinking": 1,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 1,
-        "Sorry": 1,
-        "Jacksons | Studios | Alley | Browns | Beverly": 1
+        "Rivers | Opportunities": 1,
+        "County | Hempstead | Plymouth | Community | Nationwide": 1,
+        "No": 1,
+        "Jacksons | Alley | Beverly | Cottages | Kennywood": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1628,11 +1624,11 @@
     "2026-02-19": {
       "total": 8,
       "themes": {
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 2,
-        "Shark | Fund | Presidential | Education | Grants": 1,
-        "Of": 1,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1,
-        "Landlords | Permit | Revocation | Parole | Police": 1
+        "County | Hempstead | Plymouth | Community | Nationwide": 2,
+        "Justice | Pursue | Competitive | Powerful | Minor": 1,
+        "Phone": 1,
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1,
+        "Lawmakers | Lawmaker | Funding | Legislation | Advocates": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1661,11 +1657,12 @@
     "2026-02-20": {
       "total": 8,
       "themes": {
-        "Landlords | Permit | Revocation | Parole | Police": 2,
-        "Citys | Advocates | Postsecondary | Charlestown | Racism": 1,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1,
-        "July | Dies | Fall | Posthumously": 1,
-        "Spring | Alaska | Science | Burning | Season": 1
+        "Lawmakers | Lawmaker | Funding | Legislation | Advocates": 1,
+        "Uga | Journalismscom | Events | Postsecondary | Harvey": 1,
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1,
+        "Presidentelect | Democracy | Legislative | President | Presidents": 1,
+        "Alaska | Podcast | Podcasting | Conversations | Colorado": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1695,9 +1692,9 @@
     "2026-02-21": {
       "total": 4,
       "themes": {
-        "Stratton | Committee | Elections | Democrats | Reelection": 1,
-        "Colgate | Cal | Opener | Stony | Snaps": 1,
-        "Lawmakers | Municipalities | Congressional | District | Coalition": 1
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1,
+        "Arizona | Production | Transportation | Mn | Cuts": 1,
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1
       },
       "sentiment": {
         "neutral": 4
@@ -1739,9 +1736,11 @@
     "2026-02-23": {
       "total": 6,
       "themes": {
-        "Topic 25": 1,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 1,
-        "Renews | Regional | East | Uscanada | Stake": 1
+        "Newsletter | Business | Spring | Programs | March": 1,
+        "Where | Screenings | Colorado | Weekend | Plantation": 1,
+        "County | Hempstead | Plymouth | Community | Nationwide": 1,
+        "Game | Watching | York | Carcassonne | Tokyo": 1,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 1
       },
       "sentiment": {
         "neutral": 5,
@@ -1767,10 +1766,13 @@
     "2026-02-24": {
       "total": 12,
       "themes": {
-        "Hospital | Jeff | Enrollments | Pharmacy | Brockport": 3,
-        "Citys | Advocates | Postsecondary | Charlestown | Racism": 1,
-        "Fellowship | Experience | Communities | Reviews | Expertise": 1,
-        "Colgate | Cal | Opener | Stony | Snaps": 1
+        "Arizona | Production | Transportation | Mn | Cuts": 2,
+        "Uga | Journalismscom | Events | Postsecondary | Harvey": 1,
+        "Batteries | Journal | Leaders | Department | Brill": 1,
+        "Housing | Rent | Renting | Stakeholder | Lender": 1,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1,
+        "Advocates | The | Sound | 30Th | At": 1,
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1
       },
       "sentiment": {
         "neutral": 11,
@@ -1802,12 +1804,13 @@
     "2026-02-25": {
       "total": 11,
       "themes": {
-        "Recipients | Funding | Grant | Neh | Rethinking": 1,
-        "Stratton | Committee | Elections | Democrats | Reelection": 1,
-        "Discusses | Consumers | Industry | Thinking | Affordability": 1,
-        "Fellowship | Experience | Communities | Reviews | Expertise": 1,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 1,
-        "Houses | Donates | Billops | Ann | Networkcampaign": 1
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1,
+        "Farmers | Agricultural | Soybean | Consumers | Businesses": 1,
+        "Fellowship | Explores | Environmental | Communities | Reviews": 1,
+        "County | Hempstead | Plymouth | Community | Nationwide": 1,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1,
+        "Advocates | The | Sound | 30Th | At": 1,
+        "Atwater | Houses | Spent | Palmer | Ads": 1
       },
       "sentiment": {
         "neutral": 11
@@ -1838,16 +1841,14 @@
     "2026-02-26": {
       "total": 14,
       "themes": {
-        "Fellowship | Experience | Communities | Reviews | Expertise": 1,
-        "Covinas | Newly | Provides | Nea | Pandemicera": 1,
-        "Cheltenham | Insights | Activities | Decade | Promotes": 1,
-        "Of": 1,
-        "Citys | Advocates | Postsecondary | Charlestown | Racism": 1,
-        "Camp | Fall | Training | Meets | County": 1,
-        "Spring | Alaska | Science | Burning | Season": 1,
-        "Journalism | Reporter | Newspaper | Professor | Yorker": 1,
-        "Centers | Conference | Cal | Cuts | Cjc": 1,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1
+        "Fellowship | Explores | Environmental | Communities | Reviews": 1,
+        "Dangers | Philadelphias | Covinas | Pandemicera | Poor": 1,
+        "Phone": 1,
+        "Uga | Journalismscom | Events | Postsecondary | Harvey": 1,
+        "County | Commissioners | Jackson | Staff | Where": 1,
+        "Alaska | Podcast | Podcasting | Conversations | Colorado": 1,
+        "Landscape | Communities | Hones | Contributes | Community": 1,
+        "News | Predicted | Crisis": 1
       },
       "sentiment": {
         "neutral": 11,
@@ -1880,14 +1881,13 @@
     "2026-02-27": {
       "total": 17,
       "themes": {
-        "Street | Activities | Rainbows | Conference | Opportunities": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1,
-        "Landlords | Permit | Revocation | Parole | Police": 1,
-        "Sorry": 1,
-        "Hosts | Honor | In | Fellowship | 10Thanniversary": 1,
-        "Undefeated | Dome | Syracuses | Falls | Overtime": 1,
-        "Westport | Historic | Weston | Farewell | Bridge": 1,
-        "Zoning | Housing | Homes | Approvals | Rent": 1
+        "Experiences | Event | Activities | Wall | The": 1,
+        "City | District | St | Colorado | Cafe": 1,
+        "No": 1,
+        "Crisis | Racialized | Health | History | Unr": 1,
+        "Womens | Weekend | Routs | Cornell | Upset": 1,
+        "February | Park | Dec | South": 1,
+        "Housing | Rent | Renting | Stakeholder | Lender": 1
       },
       "sentiment": {
         "neutral": 16,
@@ -1919,11 +1919,10 @@
     "2026-02-28": {
       "total": 8,
       "themes": {
-        "Covinas | Newly | Provides | Nea | Pandemicera": 1,
-        "Cheltenham | Insights | Activities | Decade | Promotes": 1,
-        "Discusses | Consumers | Industry | Thinking | Affordability": 1,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Undefeated | Dome | Syracuses | Falls | Overtime": 1
+        "Dangers | Philadelphias | Covinas | Pandemicera | Poor": 1,
+        "Arizona | Production | Transportation | Mn | Cuts": 1,
+        "Farmers | Agricultural | Soybean | Consumers | Businesses": 1,
+        "Womens | Weekend | Routs | Cornell | Upset": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1953,8 +1952,8 @@
     "2026-03-01": {
       "total": 3,
       "themes": {
-        "Undefeated | Dome | Syracuses | Falls | Overtime": 2,
-        "Easton | Kalama | Celebrating | Unifying | Craft": 1
+        "Womens | Weekend | Routs | Cornell | Upset": 2,
+        "Literary | Writing | Literature | Writer | Nehfunded": 1
       },
       "sentiment": {
         "neutral": 2,
@@ -1980,13 +1979,11 @@
     "2026-03-02": {
       "total": 13,
       "themes": {
-        "Landlords | Permit | Revocation | Parole | Police": 3,
-        "Fellowship | Experience | Communities | Reviews | Expertise": 1,
+        "Fellowship | Explores | Environmental | Communities | Reviews": 1,
+        "Lawmakers | Lawmaker | Funding | Legislation | Advocates": 1,
         "Hurricane | Jumps | Spots | Vets | Libr": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Sorry": 1,
-        "Deportation | Schools | Hyattsville | News | Immigration": 1
+        "City | District | St | Colorado | Cafe": 1,
+        "No": 1
       },
       "sentiment": {
         "neutral": 13
@@ -2017,16 +2014,16 @@
     "2026-03-03": {
       "total": 20,
       "themes": {
-        "Stratton | Committee | Elections | Democrats | Reelection": 2,
-        "Renews | Regional | East | Uscanada | Stake": 2,
-        "Residents | Refuge | They | Securing | Revealed": 1,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1,
-        "Deportation | Schools | Hyattsville | News | Immigration": 1,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 2,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1,
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1,
+        "Protests | Nationwide | Deportation | Immigration | Crackdown": 1,
         "Hurricane | Jumps | Spots | Vets | Libr": 1,
-        "Sustainable | Pioneers | Lifelong | Tours | Revolutionize": 1,
-        "Perspectives | Alumni | Content | Report | Research": 1,
-        "Residents | Travelers | Street | Getaways | Sidewalks": 1,
-        "Art | Culture | Is | Song | Word": 1
+        "Facultyconduct | Cdc | Faculty | Lowe | March": 1,
+        "Shelters | Aid | Residents | Dc | Utah": 1,
+        "Culture | Word | Timeline | Tv | Policies": 1,
+        "Alumni | Professors | Freshmen | Semester | Campus": 1,
+        "Womens | Weekend | Routs | Cornell | Upset": 1
       },
       "sentiment": {
         "neutral": 17,
@@ -2059,13 +2056,16 @@
     "2026-03-04": {
       "total": 18,
       "themes": {
-        "Arizona | Signed | Pledge | Nj | Coverage": 1,
-        "Stratton | Committee | Elections | Democrats | Reelection": 1,
-        "Centers | Conference | Cal | Cuts | Cjc": 1,
-        "Camden | Washington | Cities | Abandoned | Fires": 1,
-        "Semester | Classroom | Campus | Alumni | Freshman": 1,
-        "Art | Culture | Is | Song | Word": 1,
-        "Westport | Historic | Weston | Farewell | Bridge": 1
+        "Arizona | Centers | Aps | Backs | Coverage": 1,
+        "Recruiting | Campus | Renovations | Boston | Freshmen": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1,
+        "Fellowship | Explores | Environmental | Communities | Reviews": 1,
+        "News | Predicted | Crisis": 1,
+        "Towns | Habitat | Garden | Grove | Shelter": 1,
+        "Jacksons | Alley | Beverly | Cottages | Kennywood": 1,
+        "Culture | Word | Timeline | Tv | Policies": 1,
+        "February | Park | Dec | South": 1
       },
       "sentiment": {
         "neutral": 17,
@@ -2097,15 +2097,16 @@
     "2026-03-05": {
       "total": 19,
       "themes": {
-        "Renews | Regional | East | Uscanada | Stake": 3,
-        "Fellowship | Experience | Communities | Reviews | Expertise": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1,
-        "Houses | Donates | Billops | Ann | Networkcampaign": 1,
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 1,
-        "Hospital | Jeff | Enrollments | Pharmacy | Brockport": 1,
-        "Advance | The | Ditv | Tournament | Wrestling": 1,
-        "Spring | Alaska | Science | Burning | Season": 1,
-        "Westport | Historic | Weston | Farewell | Bridge": 1
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 2,
+        "Fellowship | Explores | Environmental | Communities | Reviews": 1,
+        "City | District | St | Colorado | Cafe": 1,
+        "Atwater | Houses | Spent | Palmer | Ads": 1,
+        "Near | Life | Lakeland | Prison | Florida": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1,
+        "Alaska | Podcast | Podcasting | Conversations | Colorado": 1,
+        "Jacksons | Alley | Beverly | Cottages | Kennywood": 1,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1,
+        "February | Park | Dec | South": 1
       },
       "sentiment": {
         "neutral": 19
@@ -2136,16 +2137,16 @@
     "2026-03-06": {
       "total": 29,
       "themes": {
-        "Renews | Regional | East | Uscanada | Stake": 2,
-        "Hospital | Jeff | Enrollments | Pharmacy | Brockport": 2,
-        "Residents | Travelers | Street | Getaways | Sidewalks": 1,
-        "Arizona | Signed | Pledge | Nj | Coverage": 1,
-        "Easton | Kalama | Celebrating | Unifying | Craft": 1,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Cheltenham | Insights | Activities | Decade | Promotes": 1,
-        "Anaheim | Hikes | Seattle | Oncampus | Higher": 1,
-        "Taxpayers | Commissioners | Permit | Trash | Supervisors": 1,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 2,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 2,
+        "Arizona | Production | Transportation | Mn | Cuts": 2,
+        "Shelters | Aid | Residents | Dc | Utah": 1,
+        "Arizona | Centers | Aps | Backs | Coverage": 1,
+        "Literary | Writing | Literature | Writer | Nehfunded": 1,
+        "Where | Screenings | Colorado | Weekend | Plantation": 1,
+        "Further | Schools | Segregation | Economics | Csu": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1,
+        "Debates | Governing | Deny | Government | Flags": 1
       },
       "sentiment": {
         "neutral": 28,
@@ -2177,8 +2178,9 @@
     "2026-03-07": {
       "total": 10,
       "themes": {
-        "Residents | Travelers | Street | Getaways | Sidewalks": 1,
-        "Colgate | Cal | Opener | Stony | Snaps": 1
+        "Shelters | Aid | Residents | Dc | Utah": 1,
+        "Dangers | Philadelphias | Covinas | Pandemicera | Poor": 1,
+        "Seminoles | Lax | Thriller | Cal | Colgate": 1
       },
       "sentiment": {
         "neutral": 10
@@ -2209,10 +2211,10 @@
     "2026-03-08": {
       "total": 6,
       "themes": {
-        "Utah | Saints | Smith | Tribune | Lives": 1,
-        "Hosts | Honor | In | Fellowship | 10Thanniversary": 1,
-        "Understanding | What | Article | Nature | Highperformance": 1,
-        "Integrity | Intelligence | Rethinking | Muncie | Move": 1
+        "Ocpas | Recounts | Headlines | Apus | Allegiance": 1,
+        "Crisis | Racialized | Health | History | Unr": 1,
+        "August | Competition | Staff | Member | Faculty": 1,
+        "Move | Future | Promises | Threats | Question": 1
       },
       "sentiment": {
         "neutral": 6
@@ -2240,13 +2242,14 @@
     "2026-03-09": {
       "total": 16,
       "themes": {
-        "Journalism | Reporter | Newspaper | Professor | Yorker": 1,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 1,
-        "Street | Activities | Rainbows | Conference | Opportunities": 1,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 1,
-        "Wolves | Whittier | Haymond | Colorado | Wrangle": 1,
-        "Utah | Saints | Smith | Tribune | Lives": 1,
-        "Westport | Historic | Weston | Farewell | Bridge": 1
+        "Landscape | Communities | Hones | Contributes | Community": 1,
+        "County | Hempstead | Plymouth | Community | Nationwide": 1,
+        "Experiences | Event | Activities | Wall | The": 1,
+        "City | District | St | Colorado | Cafe": 1,
+        "Towns | Habitat | Garden | Grove | Shelter": 1,
+        "West | Phoenix | Arizona | Sweet | Falls": 1,
+        "Ocpas | Recounts | Headlines | Apus | Allegiance": 1,
+        "February | Park | Dec | South": 1
       },
       "sentiment": {
         "neutral": 16
@@ -2277,16 +2280,16 @@
     "2026-03-10": {
       "total": 24,
       "themes": {
-        "House | Neighborhood | Plans | Future | Lofts": 4,
-        "Hospital | Jeff | Enrollments | Pharmacy | Brockport": 2,
-        "Services | Wisconsinmadison | Treatment | Promising | Nights": 1,
-        "Utah | Jackson | Jazzs | This | Michigan": 1,
-        "Cheltenham | Insights | Activities | Decade | Promotes": 1,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1,
-        "Fellowship | Experience | Communities | Reviews | Expertise": 1,
-        "Camden | Washington | Cities | Abandoned | Fires": 1,
-        "Lawmakers | Municipalities | Congressional | District | Coalition": 1,
-        "Renews | Regional | East | Uscanada | Stake": 1
+        "Maconbibb | Restricts | Denies | Restrict | Ga": 4,
+        "Tpusa | Southern | Chapter | Scholars | Book": 1,
+        "Childhood | Reconomy | Youth | Teens | Promising": 1,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 1,
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1,
+        "Justice | Pursue | Competitive | Powerful | Minor": 1,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1,
+        "Congressional | Lawmaker | Camps | Effort | Coalition": 1,
+        "Arizona | Production | Transportation | Mn | Cuts": 1,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 1
       },
       "sentiment": {
         "neutral": 22,
@@ -2319,16 +2322,16 @@
     "2026-03-11": {
       "total": 24,
       "themes": {
-        "Zoning | Housing | Homes | Approvals | Rent": 2,
-        "Residents | Wildfires | Shelters | Evacuation | Safety": 1,
-        "Arizona | Signed | Pledge | Nj | Coverage": 1,
-        "Houses | Donates | Billops | Ann | Networkcampaign": 1,
-        "Wolves | Whittier | Haymond | Colorado | Wrangle": 1,
-        "Exhibition | Memories | Forgotten | Galleries | Content": 1,
-        "Fellowship | Experience | Communities | Reviews | Expertise": 1,
-        "Utah | Jackson | Jazzs | This | Michigan": 1,
-        "Centers | Conference | Cal | Cuts | Cjc": 1,
-        "Residents | Refuge | They | Securing | Revealed": 1
+        "Housing | Rent | Renting | Stakeholder | Lender": 2,
+        "Evacuation | Safety | Bills | Monthly | Potholes": 1,
+        "Next | Securing | Looking | That | In": 1,
+        "Arizona | Centers | Aps | Backs | Coverage": 1,
+        "Atwater | Houses | Spent | Palmer | Ads": 1,
+        "Towns | Habitat | Garden | Grove | Shelter": 1,
+        "Arizona | Production | Transportation | Mn | Cuts": 1,
+        "Culture | Word | Timeline | Tv | Policies": 1,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 1,
+        "News | Predicted | Crisis": 1
       },
       "sentiment": {
         "neutral": 24
@@ -2357,33 +2360,33 @@
       }
     },
     "2026-03-12": {
-      "total": 23,
+      "total": 24,
       "themes": {
-        "Houston | Celebtration | Tu | Cusa | Missouri": 2,
-        "Orchards | Celebrates | Events | Concourse | Festival": 2,
+        "Houston | State | Missouri | Senior | Swept": 2,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1,
         "Hurricane | Jumps | Spots | Vets | Libr": 1,
-        "Breaking | Seattle | Rise | Advocacy | Summit": 1,
-        "Renews | Regional | East | Uscanada | Stake": 1,
-        "Stratton | Committee | Elections | Democrats | Reelection": 1,
-        "Jacksons | Studios | Alley | Browns | Beverly": 1,
-        "Camp | Fall | Training | Meets | County": 1,
-        "Essay | Rising | Writing | Character | Achievement": 1,
-        "Cheltenham | Insights | Activities | Decade | Promotes": 1
+        "Ecosystems | Growing | Explores | Advocacy | Insights": 1,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 1,
+        "Fellowship | Explores | Environmental | Communities | Reviews": 1,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1,
+        "Jacksons | Alley | Beverly | Cottages | Kennywood": 1,
+        "County | Commissioners | Jackson | Staff | Where": 1,
+        "Alumnus | Scholarship | Collegiate | Alumni | Academy": 1
       },
       "sentiment": {
-        "neutral": 23
+        "neutral": 24
       },
       "keywords": {
+        "state": 3,
         "officials": 2,
+        "free": 2,
         "music": 2,
         "senators": 2,
-        "state": 2,
         "public": 1,
         "shelters": 1,
         "tornado": 1,
         "advise": 1,
-        "cardinals": 1,
-        "quarterfinals": 1
+        "cardinals": 1
       },
       "sources": {
         "CNS Maryland": 5,
@@ -2399,16 +2402,16 @@
     "2026-03-13": {
       "total": 37,
       "themes": {
-        "Houses | Donates | Billops | Ann | Networkcampaign": 3,
-        "Recipients | Funding | Grant | Neh | Rethinking": 2,
+        "Atwater | Houses | Spent | Palmer | Ads": 3,
+        "Rivers | Opportunities": 2,
         "Hurricane | Jumps | Spots | Vets | Libr": 2,
-        "Emsa | Battleground | Sedentary | League | Increasingly": 2,
-        "Anaheim | Hikes | Seattle | Oncampus | Higher": 1,
-        "Kenton | Tulsas | Tickets | Butte | Tulsa": 1,
-        "Easton | Kalama | Celebrating | Unifying | Craft": 1,
-        "Taxpayers | Commissioners | Permit | Trash | Supervisors": 1,
-        "Wolves | Whittier | Haymond | Colorado | Wrangle": 1,
-        "Integrity | Intelligence | Rethinking | Muncie | Move": 1
+        "Alumni | Professors | Freshmen | Semester | Campus": 1,
+        "Further | Schools | Segregation | Economics | Csu": 1,
+        "Advocates | The | Sound | 30Th | At": 1,
+        "Review | The | To | Through | 40Th": 1,
+        "Literary | Writing | Literature | Writer | Nehfunded": 1,
+        "Debates | Governing | Deny | Government | Flags": 1,
+        "Towns | Habitat | Garden | Grove | Shelter": 1
       },
       "sentiment": {
         "neutral": 37
@@ -2439,13 +2442,13 @@
     "2026-03-14": {
       "total": 14,
       "themes": {
-        "Residents | Refuge | They | Securing | Revealed": 2,
-        "Integrity | Intelligence | Rethinking | Muncie | Move": 1,
-        "Houston | Celebtration | Tu | Cusa | Missouri": 1,
-        "Renews | Regional | East | Uscanada | Stake": 1,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1,
-        "Orchards | Celebrates | Events | Concourse | Festival": 1,
-        "Citys | Advocates | Postsecondary | Charlestown | Racism": 1
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 1,
+        "Move | Future | Promises | Threats | Question": 1,
+        "Houston | State | Missouri | Senior | Swept": 1,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 1,
+        "Culture | Word | Timeline | Tv | Policies": 1,
+        "Where | Screenings | Colorado | Weekend | Plantation": 1,
+        "Uga | Journalismscom | Events | Postsecondary | Harvey": 1
       },
       "sentiment": {
         "neutral": 14
@@ -2476,8 +2479,8 @@
     "2026-03-15": {
       "total": 11,
       "themes": {
-        "Advance | The | Ditv | Tournament | Wrestling": 6,
-        "Exhibition | Exhibitions | Collecting | Buried | Exhibit": 1
+        "West | Phoenix | Arizona | Sweet | Falls": 7,
+        "Dorchester | Revolutionized | Local | Essay | Harlem": 1
       },
       "sentiment": {
         "neutral": 10,
@@ -2507,16 +2510,16 @@
     "2026-03-16": {
       "total": 34,
       "themes": {
-        "Recruiting | Worship | Pizzazz | Leaders | Battalion": 5,
-        "Advance | The | Ditv | Tournament | Wrestling": 4,
-        "House | Neighborhood | Plans | Future | Lofts": 2,
-        "Policy | Savings | Construction | Ceo | Economics": 1,
-        "Covinas | Newly | Provides | Nea | Pandemicera": 1,
-        "Zoning | Housing | Homes | Approvals | Rent": 1,
-        "Residents | Refuge | They | Securing | Revealed": 1,
-        "Taxpayers | Commissioners | Permit | Trash | Supervisors": 1,
-        "Emsa | Battleground | Sedentary | League | Increasingly": 1,
-        "Anaheim | Hikes | Seattle | Oncampus | Higher": 1
+        "Recruiting | Campus | Renovations | Boston | Freshmen": 5,
+        "West | Phoenix | Arizona | Sweet | Falls": 4,
+        "Maconbibb | Restricts | Denies | Restrict | Ga": 2,
+        "Batteries | Journal | Leaders | Department | Brill": 1,
+        "Dangers | Philadelphias | Covinas | Pandemicera | Poor": 1,
+        "Crisis | Racialized | Health | History | Unr": 1,
+        "Celebrates | Apurados | Por | Hispanic | El": 1,
+        "Housing | Rent | Renting | Stakeholder | Lender": 1,
+        "Debates | Governing | Deny | Government | Flags": 1,
+        "Further | Schools | Segregation | Economics | Csu": 1
       },
       "sentiment": {
         "neutral": 34
@@ -2545,26 +2548,26 @@
       }
     },
     "2026-03-17": {
-      "total": 67,
+      "total": 68,
       "themes": {
-        "Lawmakers | Municipalities | Congressional | District | Coalition": 4,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 3,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 2,
-        "Camp | Fall | Training | Meets | County": 2,
-        "Zoning | Housing | Homes | Approvals | Rent": 2,
-        "Houston | Celebtration | Tu | Cusa | Missouri": 2,
-        "Camden | Washington | Cities | Abandoned | Fires": 2,
-        "Topic 82": 2,
-        "Utah | Jackson | Jazzs | This | Michigan": 2,
-        "Centers | Conference | Cal | Cuts | Cjc": 2
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 3,
+        "County | Hempstead | Plymouth | Community | Nationwide": 3,
+        "Congressional | Lawmaker | Camps | Effort | Coalition": 3,
+        "City | District | St | Colorado | Cafe": 2,
+        "County | Commissioners | Jackson | Staff | Where": 2,
+        "Houston | State | Missouri | Senior | Swept": 2,
+        "Arizona | Centers | Aps | Backs | Coverage": 2,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 2,
+        "News | Predicted | Crisis": 2,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 2
       },
       "sentiment": {
-        "neutral": 66,
+        "neutral": 67,
         "positive": 1
       },
       "keywords": {
         "utah": 8,
-        "senate": 3,
+        "senate": 4,
         "years": 3,
         "county": 3,
         "public": 2,
@@ -2588,16 +2591,16 @@
     "2026-03-18": {
       "total": 102,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 10,
-        "Stratton | Committee | Elections | Democrats | Reelection": 8,
-        "Lawmakers | Municipalities | Congressional | District | Coalition": 6,
-        "Utah | Saints | Smith | Tribune | Lives": 3,
-        "Renews | Regional | East | Uscanada | Stake": 3,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 3,
-        "Advance | The | Ditv | Tournament | Wrestling": 3,
-        "Recruiting | Worship | Pizzazz | Leaders | Battalion": 2,
-        "Landlords | Permit | Revocation | Parole | Police": 2,
-        "Zoning | Housing | Homes | Approvals | Rent": 2
+        "Near | Life | Lakeland | Prison | Florida": 9,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 6,
+        "Congressional | Lawmaker | Camps | Effort | Coalition": 5,
+        "City | District | St | Colorado | Cafe": 4,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 3,
+        "West | Phoenix | Arizona | Sweet | Falls": 3,
+        "Recruiting | Campus | Renovations | Boston | Freshmen": 2,
+        "Housing | Rent | Renting | Stakeholder | Lender": 2,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 2,
+        "Netflix | Temple | Temples | Church | Clash": 2
       },
       "sentiment": {
         "neutral": 97,
@@ -2630,16 +2633,16 @@
     "2026-03-19": {
       "total": 130,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 9,
-        "Stratton | Committee | Elections | Democrats | Reelection": 7,
-        "Advance | The | Ditv | Tournament | Wrestling": 7,
-        "Utah | Jackson | Jazzs | This | Michigan": 5,
-        "Renews | Regional | East | Uscanada | Stake": 5,
-        "Residents | Wildfires | Shelters | Evacuation | Safety": 5,
-        "Utah | Saints | Smith | Tribune | Lives": 4,
-        "Integrity | Intelligence | Rethinking | Muncie | Move": 4,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 3,
-        "Centers | Conference | Cal | Cuts | Cjc": 3
+        "West | Phoenix | Arizona | Sweet | Falls": 7,
+        "Near | Life | Lakeland | Prison | Florida": 7,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 5,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 5,
+        "Evacuation | Safety | Bills | Monthly | Potholes": 5,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 4,
+        "Move | Future | Promises | Threats | Question": 4,
+        "Advocates | The | Sound | 30Th | At": 3,
+        "Shelters | Aid | Residents | Dc | Utah": 3,
+        "County | Hempstead | Plymouth | Community | Nationwide": 3
       },
       "sentiment": {
         "neutral": 127,
@@ -2671,16 +2674,16 @@
     "2026-03-20": {
       "total": 126,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 15,
-        "Advance | The | Ditv | Tournament | Wrestling": 8,
-        "Residents | Wildfires | Shelters | Evacuation | Safety": 7,
-        "Renews | Regional | East | Uscanada | Stake": 6,
-        "Utah | Jackson | Jazzs | This | Michigan": 5,
-        "Centers | Conference | Cal | Cuts | Cjc": 3,
-        "Landlords | Permit | Revocation | Parole | Police": 2,
-        "House | Neighborhood | Plans | Future | Lofts": 2,
-        "Presidency | Venezuelaborn | Immigrants | Hace | Venezuela": 2,
-        "Cafe | St | Restaurant | Restaurants | Colorado": 2
+        "Near | Life | Lakeland | Prison | Florida": 14,
+        "West | Phoenix | Arizona | Sweet | Falls": 9,
+        "Evacuation | Safety | Bills | Monthly | Potholes": 7,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 6,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 5,
+        "News | Predicted | Crisis": 3,
+        "Playground | Mayfield | Jersey | Michigans | Michigan": 3,
+        "Maconbibb | Restricts | Denies | Restrict | Ga": 2,
+        "Alumni | Professors | Freshmen | Semester | Campus": 2,
+        "Celebrates | Apurados | Por | Hispanic | El": 2
       },
       "sentiment": {
         "neutral": 123,
@@ -2712,16 +2715,16 @@
     "2026-03-21": {
       "total": 78,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 12,
-        "Advance | The | Ditv | Tournament | Wrestling": 8,
-        "Utah | Saints | Smith | Tribune | Lives": 4,
-        "Renews | Regional | East | Uscanada | Stake": 4,
-        "Recruiting | Worship | Pizzazz | Leaders | Battalion": 3,
-        "Utah | Jackson | Jazzs | This | Michigan": 3,
-        "Deportation | Schools | Hyattsville | News | Immigration": 3,
-        "Residents | Wildfires | Shelters | Evacuation | Safety": 2,
-        "Lawmakers | Municipalities | Congressional | District | Coalition": 2,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 2
+        "Near | Life | Lakeland | Prison | Florida": 10,
+        "West | Phoenix | Arizona | Sweet | Falls": 9,
+        "Netflix | Temple | Temples | Church | Clash": 4,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 4,
+        "Recruiting | Campus | Renovations | Boston | Freshmen": 3,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 3,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 3,
+        "Evacuation | Safety | Bills | Monthly | Potholes": 2,
+        "City | District | St | Colorado | Cafe": 2,
+        "Congressional | Lawmaker | Camps | Effort | Coalition": 2
       },
       "sentiment": {
         "neutral": 78
@@ -2752,16 +2755,16 @@
     "2026-03-22": {
       "total": 78,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 15,
-        "Advance | The | Ditv | Tournament | Wrestling": 9,
-        "Renews | Regional | East | Uscanada | Stake": 5,
-        "Utah | Saints | Smith | Tribune | Lives": 4,
-        "Residents | Wildfires | Shelters | Evacuation | Safety": 3,
-        "Recruiting | Worship | Pizzazz | Leaders | Battalion": 2,
-        "Years | Traditions | Dedicated | Brotherhood | Picnic": 2,
-        "Undefeated | Dome | Syracuses | Falls | Overtime": 2,
-        "Centers | Conference | Cal | Cuts | Cjc": 1,
-        "Camden | Washington | Cities | Abandoned | Fires": 1
+        "Near | Life | Lakeland | Prison | Florida": 10,
+        "West | Phoenix | Arizona | Sweet | Falls": 9,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 6,
+        "Netflix | Temple | Temples | Church | Clash": 4,
+        "Evacuation | Safety | Bills | Monthly | Potholes": 3,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 3,
+        "Petersburg | In | Major | Life | Into": 3,
+        "Recruiting | Campus | Renovations | Boston | Freshmen": 2,
+        "Fostering | Afraternity | Fellowship | At | Fraternity": 2,
+        "Fellowship | Explores | Environmental | Communities | Reviews": 2
       },
       "sentiment": {
         "neutral": 78
@@ -2790,33 +2793,34 @@
       }
     },
     "2026-03-23": {
-      "total": 99,
+      "total": 106,
       "themes": {
-        "Polk | Alabama | Tennessee | Woman | Hillsborough": 12,
-        "Renews | Regional | East | Uscanada | Stake": 5,
-        "Utah | Jackson | Jazzs | This | Michigan": 4,
-        "Residents | Wildfires | Shelters | Evacuation | Safety": 4,
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 3,
-        "Centers | Conference | Cal | Cuts | Cjc": 3,
-        "Advance | The | Ditv | Tournament | Wrestling": 2,
-        "Wolves | Whittier | Haymond | Colorado | Wrangle": 2,
-        "Lawmakers | Municipalities | Congressional | District | Coalition": 2,
-        "Citys | Advocates | Postsecondary | Charlestown | Racism": 2
+        "Near | Life | Lakeland | Prison | Florida": 11,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 6,
+        "Anchors | Jackson | Steven | Byu | Jazzs": 4,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 4,
+        "Evacuation | Safety | Bills | Monthly | Potholes": 4,
+        "Towns | Habitat | Garden | Grove | Shelter": 3,
+        "News | Predicted | Crisis": 3,
+        "West | Phoenix | Arizona | Sweet | Falls": 2,
+        "Veteran | Careers | Accreditation | Encounters | Improving": 2,
+        "Congressional | Lawmaker | Camps | Effort | Coalition": 2
       },
       "sentiment": {
-        "neutral": 99
+        "neutral": 105,
+        "positive": 1
       },
       "keywords": {
         "florida": 12,
+        "march": 6,
         "basketball": 4,
+        "state": 4,
+        "students": 4,
         "court": 4,
-        "march": 4,
         "arrested": 3,
         "coach": 3,
         "arizona": 3,
-        "state": 3,
-        "park": 3,
-        "national": 3
+        "park": 3
       },
       "sources": {
         "Tampa Free Press": 28,
@@ -2830,29 +2834,76 @@
       }
     },
     "2026-03-24": {
-      "total": 4,
+      "total": 105,
       "themes": {
-        "Nationwide | Met | Bryants | Nassau | Warehouse": 1
+        "Near | Life | Lakeland | Prison | Florida": 7,
+        "Infrastructure | Campaign | Renews | Military | Hormuz": 5,
+        "Recruiting | Campus | Renovations | Boston | Freshmen": 4,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 4,
+        "Congressional | Lawmaker | Camps | Effort | Coalition": 3,
+        "News | Predicted | Crisis": 3,
+        "Evacuation | Safety | Bills | Monthly | Potholes": 3,
+        "Netflix | Temple | Temples | Church | Clash": 2,
+        "County | Hempstead | Plymouth | Community | Nationwide": 2,
+        "Housing | Rent | Renting | Stakeholder | Lender": 2
       },
       "sentiment": {
-        "neutral": 4
+        "neutral": 105
       },
       "keywords": {
-        "agents": 2,
-        "desperation": 1,
-        "grows": 1,
-        "still": 1,
-        "getting": 1,
-        "deployed": 1,
-        "phoenix": 1,
-        "airports": 1,
-        "security": 1,
-        "chicago": 1
+        "trump": 6,
+        "florida": 6,
+        "utah": 5,
+        "bill": 4,
+        "iran": 4,
+        "state": 4,
+        "agents": 3,
+        "security": 3,
+        "education": 3,
+        "city": 3
       },
       "sources": {
-        "Cronkite News": 2,
-        "Tampa Free Press": 1,
-        "Grady Newsource": 1
+        "Tampa Free Press": 28,
+        "The Salt Lake Tribune": 16,
+        "Purple Media Network": 7,
+        "The Seattle Medium": 7,
+        "Honolulu Civil Beat": 7,
+        "Cronkite News": 6,
+        "Caplin News": 5,
+        "Capitol News Illinois": 4
+      }
+    },
+    "2026-03-25": {
+      "total": 14,
+      "themes": {
+        "West | Phoenix | Arizona | Sweet | Falls": 4,
+        "County | Hempstead | Plymouth | Community | Nationwide": 1,
+        "Near | Life | Lakeland | Prison | Florida": 1,
+        "Redistricting | Stratton | Ballot | Committee | Elections": 1,
+        "Jacksons | Alley | Beverly | Cottages | Kennywood": 1,
+        "News | Predicted | Crisis": 1,
+        "Move | Future | Promises | Threats | Question": 1,
+        "Further | Schools | Segregation | Economics | Csu": 1
+      },
+      "sentiment": {
+        "neutral": 14
+      },
+      "keywords": {
+        "iowa": 6,
+        "opinion": 2,
+        "could": 1,
+        "access": 1,
+        "water": 1,
+        "salt": 1,
+        "lake": 1,
+        "clearwater": 1,
+        "police": 1,
+        "officer": 1
+      },
+      "sources": {
+        "The Daily Iowan": 10,
+        "Tampa Free Press": 3,
+        "The Salt Lake Tribune": 1
       }
     }
   }
