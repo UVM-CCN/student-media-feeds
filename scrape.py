@@ -301,6 +301,47 @@ class NewsPipeline:
             logging.error(f"Error reading URL list: {e}")
             return []
 
+    def remove_comment_articles(self) -> None:
+        """
+        Filters out comment articles from the dataset.
+        Removes rows where:
+        - Title starts with 'Comment on'
+        - Source contains 'Comments for'
+        """
+        if not os.path.exists(self.output_file):
+            return
+
+        with open(self.output_file, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+
+        initial_count = len(rows)
+        
+        # Filter out comment articles
+        filtered_rows = []
+        for row in rows:
+            title = (row.get('title') or '').strip().lower()
+            source = (row.get('source') or '').strip().lower()
+            
+            # Check if title starts with "comment on"
+            if title.startswith('comment on'):
+                continue
+            
+            # Check if source contains "comments for"
+            if 'comments for' in source:
+                continue
+            
+            filtered_rows.append(row)
+
+        removed_count = initial_count - len(filtered_rows)
+        
+        if removed_count > 0:
+            normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in filtered_rows]
+            self._write_rows_atomic(normalized_rows)
+            logging.info(f"Removed {removed_count} comment articles. Kept {len(filtered_rows)} articles.")
+        else:
+            logging.info("No comment articles found to remove.")
+
     def tag_stories_with_bertopic(self):
         """
         Uses BERTopic to cluster headlines into themes locally.
@@ -571,6 +612,7 @@ def run_daily_update():
 
     if unique_feeds:
         pipeline.fetch_stories(unique_feeds)
+        pipeline.remove_comment_articles()
         pipeline.enrich_missing_metadata()
         
         # Using BERTopic for local, rate-limit-free thematic analysis

@@ -3,8 +3,9 @@ import json
 import os
 import datetime
 import logging
+import email.utils
 from collections import Counter, defaultdict
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 
 logging.basicConfig(
     level=logging.INFO,
@@ -28,18 +29,29 @@ class AnalyticsEngine:
             stories = list(reader)
         return stories
 
-    def extract_date(self, timestamp_str: str) -> str:
+    def extract_date(self, timestamp_str: str) -> Optional[str]:
         """Extract YYYY-MM-DD from various timestamp formats."""
         if not timestamp_str:
             return None
         
         timestamp_str = timestamp_str.strip()
+
+        # First try robust RFC 2822 parsing used by many RSS feeds,
+        # e.g. "Mon, 24 Jun 2019 17:48:00 -0500".
+        try:
+            dt = email.utils.parsedate_to_datetime(timestamp_str)
+            if dt is not None:
+                return dt.strftime("%Y-%m-%d")
+        except (TypeError, ValueError, IndexError):
+            pass
         
         # Try formats in order of likelihood
         formats = [
             "%Y-%m-%d %H:%M:%S",           # 2026-02-03 11:52:48
             "%Y-%m-%dT%H:%M:%S",          # 2026-02-03T11:52:48
             "%Y-%m-%dT%H:%M:%S%z",        # 2026-02-03T11:52:48+0000
+            "%a, %d %b %Y %H:%M:%S %z",   # Mon, 24 Jun 2019 17:48:00 -0500
+            "%a, %d %b %Y %H:%M:%S",      # Mon, 24 Jun 2019 17:48:00
             "%d %b %Y %H:%M:%S %z",       # 19 Dec 2025 19:19:34 +0000
             "%d %b %Y %H:%M:%S",          # 19 Dec 2025 19:19:34
         ]
@@ -137,7 +149,7 @@ class AnalyticsEngine:
                 "themes": dict(by_date[date]["themes"].most_common(10)),
                 "sentiment": dict(by_date[date]["sentiment"]),
                 "keywords": dict(by_date[date]["keywords"].most_common(10)),
-                "sources": dict(by_date[date]["sources"].most_common(8)),
+                "sources": dict(by_date[date]["sources"].most_common()),
             }
         return result
 

@@ -44,6 +44,8 @@
         .chart-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #000; }
         svg text { fill: #000; color: #000; }
         .axis-label text { fill: #000; }
+        .brush .selection { fill: rgba(50, 115, 220, 0.22); stroke: #3273dc; }
+        .chart-note { font-size: 12px; color: #444; margin-bottom: 8px; }
         .legend { display: inline-block; margin-right: 15px; font-size: 13px; color: #000; }
         .legend-color { display: inline-block; width: 12px; height: 12px; margin-right: 5px; vertical-align: middle; }
         .sentiment-positive { color: #48c774; font-weight: bold; }
@@ -106,6 +108,11 @@
             <p><strong>Top Keywords:</strong></p>
             <div id="keywordCounts"></div>
         </div>
+        <div class="chart-container">
+            <div class="chart-title">Stories Published by Date</div>
+            <div class="chart-note">Use the brush below to zoom the time range.</div>
+            <div id="browseTimeSeriesChart"></div>
+        </div>
         <div class="sort-buttons">
             <button onclick="sortThemes('asc')">Sort A-Z</button>
             <button onclick="sortThemes('desc')">Sort Z-A</button>
@@ -114,10 +121,10 @@
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Link</th>
+                    <!-- <th>Link</th> -->
                     <th>Source</th>
                     <th>Published</th>
-                    <th>Theme</th>
+                    <!-- <th>Theme</th> -->
                     <th>Sentiment</th>
                     <th>Keywords</th>
                 </tr>
@@ -171,6 +178,7 @@
                     allStories = results.data.filter(story => story.title);
                     displayStories(allStories);
                     displayKeywordCounts(allStories);
+                    renderBrowseTimeSeriesChart(allStories);
                     setupFilter(allStories);
                 }
             });
@@ -209,13 +217,18 @@
             const tbody = d3.select('#newsTable tbody');
             tbody.html('');
 
+            // create function for more human readable date formatting
+            const parseDate = d3.timeParse('%a, %d %b %Y %H:%M:%S %Z');
+            const formatDate = d3.timeFormat('%b %d, %Y');
+
             data.forEach(story => {
                 const row = tbody.append('tr');
-                row.append('td').text(story.title).style('max-width', '300px').style('overflow', 'auto');
-                row.append('td').html(`<a href="${story.link}" target="_blank" style="color: #0066cc;">Link</a>`);
+                row.append('td').html(`<a href="${story.link}" target="_blank" style="color: #0066cc;">${story.title}</a>`);
                 row.append('td').text(story.source);
-                row.append('td').text(story.published);
-                row.append('td').html(`<span class="tag">${story.theme || 'Unclassified'}</span>`);
+                row.append('td').text(formatDate(parseDate(story.published)));
+
+                // NOTE: temporarily removing theme, not as informative as keywords
+                // row.append('td').html(`<span class="tag">${story.theme || 'Unclassified'}</span>`);
                 
                 const sentiment = (story.sentiment_label || 'neutral').toLowerCase();
                 const sentimentClass = `sentiment-${sentiment}`;
@@ -245,7 +258,7 @@
             // Sort by count descending, then alphabetically
             const sortedKeywords = Object.entries(keywordCounts)
                 .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-                .slice(0, 20); // Show top 20 keywords
+                .slice(0, 40); // Show top 40 keywords
 
             sortedKeywords.forEach(([keyword, count]) => {
                 const isActive = activeKeywordFilters.includes(keyword);
@@ -288,6 +301,7 @@
                 activeFiltersDiv.html('');
                 displayStories(allStories);
                 displayKeywordCounts(allStories);
+                renderBrowseTimeSeriesChart(allStories);
             } else {
                 containerDiv.style('display', 'block');
                 activeFiltersDiv.html('');
@@ -308,6 +322,7 @@
 
                 displayStories(filteredData);
                 displayKeywordCounts(filteredData);
+                renderBrowseTimeSeriesChart(filteredData);
             }
         }
 
@@ -330,6 +345,7 @@
 
                 displayStories(filteredData);
                 displayKeywordCounts(filteredData);
+                renderBrowseTimeSeriesChart(filteredData);
             });
         }
 
@@ -338,7 +354,178 @@
             console.log('Sort:', direction);
         }
 
-        // D3 Chart Rendering Functions
+        function renderBrowseTimeSeriesChart(stories) {
+            const container = d3.select('#browseTimeSeriesChart');
+            container.html('');
+
+            const parsePublishedDate = (publishedValue) => {
+                if (!publishedValue) return null;
+                const parsed = new Date(publishedValue);
+                if (Number.isNaN(parsed.getTime())) return null;
+                return new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
+            };
+
+            const dailyCounts = d3.rollups(
+                stories,
+                v => v.length,
+                d => parsePublishedDate(d.published)
+            )
+            .filter(([date]) => date instanceof Date && !Number.isNaN(date.getTime()))
+            .sort((a, b) => a[0] - b[0])
+            .map(([date, count]) => ({ date, count }));
+
+            if (!dailyCounts.length) {
+                container.append('p').text('No valid published dates available for this view.');
+                return;
+            }
+
+            const containerNode = container.node();
+            const maxWidth = Math.max(760, containerNode.getBoundingClientRect().width || 900);
+
+            const margin = { top: 16, right: 24, bottom: 100, left: 56 };
+            const margin2 = { top: 320, right: 24, bottom: 30, left: 56 };
+            const width = maxWidth - margin.left - margin.right;
+            const height = 320 - margin.top - margin.bottom;
+            const height2 = 380 - margin2.top - margin2.bottom;
+
+            const svg = container
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', 390)
+                .attr('viewBox', `0 0 ${width + margin.left + margin.right} 390`)
+                .attr('preserveAspectRatio', 'xMidYMid meet');
+
+            const focus = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const context = svg.append('g')
+                .attr('transform', `translate(${margin2.left},${margin2.top})`);
+
+            const x = d3.scaleTime()
+                .domain(d3.extent(dailyCounts, d => d.date))
+                .range([0, width]);
+
+            const x2 = d3.scaleTime()
+                .domain(x.domain())
+                .range([0, width]);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(dailyCounts, d => d.count)])
+                .nice()
+                .range([height, 0]);
+
+            const y2 = d3.scaleLinear()
+                .domain(y.domain())
+                .range([height2, 0]);
+
+            const barPixel = Math.max(1, width / dailyCounts.length);
+            const focusBarWidth = Math.max(1, Math.min(20, barPixel * 0.9));
+            const contextBarWidth = Math.max(1, Math.min(8, (width / dailyCounts.length) * 0.8));
+
+            const xAxis = d3.axisBottom(x)
+                .ticks(Math.min(10, Math.max(4, Math.floor(width / 110))))
+                .tickFormat(d3.timeFormat('%Y-%m-%d'));
+
+            const xAxis2 = d3.axisBottom(x2)
+                .ticks(Math.min(10, Math.max(4, Math.floor(width / 140))))
+                .tickFormat(d3.timeFormat('%Y-%m'));
+
+            const yAxis = d3.axisLeft(y).ticks(6);
+
+            const focusBars = focus.append('g')
+                .selectAll('rect')
+                .data(dailyCounts)
+                .enter()
+                .append('rect')
+                .attr('x', d => x(d.date) - (focusBarWidth / 2))
+                .attr('y', d => y(d.count))
+                .attr('width', focusBarWidth)
+                .attr('height', d => height - y(d.count))
+                .attr('fill', '#3273dc');
+
+            focus.append('g')
+                .attr('class', 'x-axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(xAxis)
+                .selectAll('text')
+                .attr('transform', 'rotate(-40)')
+                .style('text-anchor', 'end')
+                .style('font-size', '11px');
+
+            focus.append('g')
+                .attr('class', 'y-axis')
+                .call(yAxis);
+
+            focus.append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -(height / 2))
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .style('font-size', '12px')
+                .text('Stories');
+
+            focus.append('text')
+                .attr('x', width / 2)
+                .attr('y', height + 80)
+                .style('text-anchor', 'middle')
+                .style('font-size', '12px')
+                .text('Published Date');
+
+            context.append('g')
+                .selectAll('rect')
+                .data(dailyCounts)
+                .enter()
+                .append('rect')
+                .attr('x', d => x2(d.date) - (contextBarWidth / 2))
+                .attr('y', d => y2(d.count))
+                .attr('width', contextBarWidth)
+                .attr('height', d => height2 - y2(d.count))
+                .attr('fill', '#209cee');
+
+            context.append('g')
+                .attr('transform', `translate(0,${height2})`)
+                .call(xAxis2)
+                .selectAll('text')
+                .style('font-size', '10px');
+
+            const brush = d3.brushX()
+                .extent([[0, 0], [width, height2]])
+                .on('brush end', brushed);
+
+            context.append('g')
+                .attr('class', 'brush')
+                .call(brush)
+                .call(brush.move, x.range());
+
+            function brushed(event) {
+                if (!event.selection) return;
+                const [x0, x1] = event.selection;
+                const newDomain = [x2.invert(x0), x2.invert(x1)];
+
+                x.domain(newDomain);
+
+                const visibleCount = Math.max(
+                    1,
+                    dailyCounts.filter(d => d.date >= newDomain[0] && d.date <= newDomain[1]).length
+                );
+                const dynamicBarWidth = Math.max(1, Math.min(22, (width / visibleCount) * 0.9));
+
+                focusBars
+                    .attr('x', d => x(d.date) - (dynamicBarWidth / 2))
+                    .attr('width', dynamicBarWidth)
+                    .attr('y', d => y(d.count))
+                    .attr('height', d => height - y(d.count));
+
+                focus.select('.x-axis')
+                    .call(xAxis)
+                    .selectAll('text')
+                    .attr('transform', 'rotate(-40)')
+                    .style('text-anchor', 'end')
+                    .style('font-size', '11px');
+            }
+        }
+
+        // D3 Chart Rendering Functxions
         function renderCharts() {
             if (!analyticsData.timeseries) return;
 
@@ -350,6 +537,7 @@
         }
 
         function renderTimeSeriesChart() {
+            console.log('Rendering time series chart with data:', analyticsData.timeseries);
             const margin = { top: 20, right: 20, bottom: 60, left: 60 };
             const width = 900 - margin.left - margin.right;
             const height = 300 - margin.top - margin.bottom;
@@ -362,42 +550,61 @@
                 .append('g')
                 .attr('transform', `translate(${margin.left},${margin.top})`);
 
-            const dates = Object.keys(analyticsData.timeseries).sort();
-            const data = dates.map(date => ({
-                date: date,
-                total: analyticsData.timeseries[date].total
-            }));
+            const parseDate = d3.timeParse('%Y-%m-%d');
+            const parseDateUS = d3.timeParse('%m/%d/%Y');
+            const parseDateAlt = d3.timeParse('%Y/%m/%d');
+            const parseDateText = d3.timeParse('%b %d, %Y');
 
-            const xScale = d3.scaleBand()
-                .domain(data.map(d => d.date))
-                .range([0, width])
-                .padding(0.1);
+            const parseAnyDate = (value) => {
+                if (!value) return null;
+                return parseDate(value) || parseDateUS(value) || parseDateAlt(value) || parseDateText(value) || new Date(value);
+            };
+
+            const data = Object.entries(analyticsData.timeseries)
+                .map(([date, value]) => ({
+                    dateLabel: date,
+                    parsedDate: parseAnyDate(date),
+                    total: value.total
+                }))
+                .filter(d => d.parsedDate && !Number.isNaN(d.parsedDate.getTime()))
+                .sort((a, b) => a.parsedDate - b.parsedDate);
+
+            if (data.length === 0) return;
+
+            const xScale = d3.scaleTime()
+                .domain(d3.extent(data, d => d.parsedDate))
+                .range([0, width]);
 
             const yScale = d3.scaleLinear()
                 .domain([0, d3.max(data, d => d.total)])
                 .range([height, 0]);
 
-            // Bars
-            svg.selectAll('.bar')
+            const line = d3.line()
+                .x(d => xScale(d.parsedDate))
+                .y(d => yScale(d.total));
+
+            svg.append('path')
+                .datum(data)
+                .attr('fill', 'none')
+                .attr('stroke', '#3273dc')
+                .attr('stroke-width', 2.5)
+                .attr('d', line);
+
+            svg.selectAll('.point')
                 .data(data)
                 .enter()
-                .append('rect')
-                .attr('x', d => xScale(d.date))
-                .attr('y', d => yScale(d.total))
-                .attr('width', xScale.bandwidth())
-                .attr('height', d => height - yScale(d.total))
+                .append('circle')
+                .attr('class', 'point')
+                .attr('cx', d => xScale(d.parsedDate))
+                .attr('cy', d => yScale(d.total))
+                .attr('r', 3)
                 .attr('fill', '#3273dc');
-
-            // X Axis with reduced labels for clarity
-            const tickDates = [];
-            const interval = Math.ceil(data.length / 8); // Show ~8 labels
-            for (let i = 0; i < data.length; i += interval) {
-                tickDates.push(data[i].date);
-            }
 
             const xAxis = svg.append('g')
                 .attr('transform', `translate(0,${height})`)
-                .call(d3.axisBottom(xScale).tickValues(tickDates));
+                .call(d3.axisBottom(xScale)
+                    .ticks(Math.min(8, data.length))
+                    .tickFormat(d3.timeFormat('%Y-%m-%d')));
             
             xAxis.selectAll('text')
                 .attr('transform', 'rotate(-45)')
