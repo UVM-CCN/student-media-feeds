@@ -1,81 +1,81 @@
 {
-  "generated_at": "2026-04-24T02:58:08.460761+00:00",
-  "total_stories": 8702,
+  "generated_at": "2026-04-25T02:46:20.151059+00:00",
+  "total_stories": 8820,
   "themes": {
-    "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 441,
-    "Carolina | Lindsey | Naval | Standoff | Biggs": 160,
-    "School | College | November | Professor | Students": 148,
-    "Evacuation | Disaster | Floods | Storms | Shelters": 139,
-    "Huan | Nova | Advance": 114,
-    "News | Hurricane | Boasts | Accomplish | Support": 102,
-    "Exhibit | Exhibition | Studio | The | Museum": 99,
-    "Cpa | Oklahomasburgeoningfilm | Oklahoma | Tulsas | Tulsa": 98,
-    "Santa | Sweeps | Ties | Utah | Minnesota": 93,
-    "Road | Predictions | Phoenix | Underway | Molly": 93,
-    "Baseball | Opener | Baseballs | Softballs | Softball": 89,
-    "Meets | Room | Living | Thesuper | Party": 83,
-    "Dc | Defendants | Justice | Historians | Appeals": 79,
-    "Mcmorran | Locationbased | Progress | March": 77,
-    "Easter | Sunday | Conference | Saints | Record": 76,
-    "Landscape | Emsa | Battleground | Poa | Ohio": 73,
-    "Richmond | Oakwood | Coast | Campus | Nationwide": 66,
-    "Acc | Lindenwood | Opener | Mcnamara | Caps": 65,
-    "Workshops | Campus | Accommodations | Bronx | Milton": 63,
-    "Consortium | Contributions | Nationally | Scouts | Studies": 63
+    "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 477,
+    "Csu | College | Deans | Students | Schools": 153,
+    "Southern | Time | University | District | Race": 149,
+    "Evacuation | Disaster | Floods | Storms | Shelters": 143,
+    "Night | City | Twilight | Festival | Symphony": 122,
+    "Tribune | Mayor | Pay | Delegate | Arrests": 121,
+    "Festival | Fest | Theater | Theatre | Hollywood": 108,
+    "Campus | Colleges | Undergrads | Semester | Camp": 106,
+    "Alumnus | Conference | Year | Oklahoma | Oklahomasburgeoningfilm": 97,
+    "Congressional | Deadline | F35 | Warns | Troops": 92,
+    "Jackson | Jake | Coordinator | Hockey | Jr": 91,
+    "Engagement | Student | Students | Diversity | Tu": 87,
+    "Dc | Defendants | Justice | Pentagon | Historians": 83,
+    "Conference | Founder | Latest | Smith | Book": 81,
+    "March | Flu | Covid19 | Spring | Pandemic": 78,
+    "Initiatives | Communities | Savings | Projects | Renewable": 77,
+    "Fort | Sacramento | Road | Arizona | Phoenix": 76,
+    "Studentmanagers | Camp | Jose | Arenado | Arizona": 75,
+    "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 69,
+    "Supporting | Accommodations | Students | Stress | Advise": 67
   },
   "sentiment": {
-    "neutral": 8224,
+    "neutral": 8341,
     "positive": 340,
-    "negative": 138
+    "negative": 139
   },
   "keywords": {
-    "students": 299,
-    "florida": 296,
-    "utah": 242,
-    "trump": 236,
-    "student": 228,
+    "florida": 306,
+    "students": 303,
+    "utah": 243,
+    "trump": 237,
+    "student": 229,
     "comment": 223,
-    "county": 173,
-    "state": 168,
-    "school": 144,
-    "college": 139,
+    "county": 175,
+    "state": 169,
+    "school": 149,
+    "college": 140,
     "utulsa": 135,
-    "iowa": 131,
-    "city": 129,
-    "first": 126,
-    "bill": 118,
+    "iowa": 134,
+    "city": 131,
+    "first": 129,
+    "bill": 121,
     "community": 115,
-    "court": 114,
+    "court": 115,
     "dean": 114,
-    "women": 105,
+    "women": 106,
     "tulsa": 104,
     "letter": 102,
     "university": 99,
+    "house": 98,
     "faculty": 97,
-    "house": 96,
     "syracuse": 95,
+    "iran": 94,
     "professor": 90,
-    "health": 88,
-    "iran": 88,
-    "business": 86,
-    "center": 85
+    "health": 90,
+    "business": 87,
+    "april": 87
   },
   "sources": {
-    "The University of Tulsa": 2341,
-    "Tampa Free Press": 1172,
-    "The Salt Lake Tribune": 758,
+    "The University of Tulsa": 2342,
+    "Tampa Free Press": 1202,
+    "The Salt Lake Tribune": 770,
     "The NewsHouse": 363,
-    "The Seattle Medium": 271,
-    "The Daily Iowan": 265,
-    "Honolulu Civil Beat": 260,
-    "Caplin News": 194,
-    "Cronkite News": 170,
-    "Nashville Banner": 135,
-    "Voice of OC": 123,
-    "Carolina News and Reporter": 117,
-    "Capitol News Illinois": 115,
-    "Wisconsin Watch": 103,
-    "Purple Media Network": 91
+    "The Seattle Medium": 281,
+    "The Daily Iowan": 270,
+    "Honolulu Civil Beat": 268,
+    "Caplin News": 204,
+    "Cronkite News": 172,
+    "Nashville Banner": 141,
+    "Voice of OC": 127,
+    "Carolina News and Reporter": 124,
+    "Capitol News Illinois": 119,
+    "Wisconsin Watch": 107,
+    "Purple Media Network": 92
   },
   "timeseries": {
     "2020-03-05": {
@@ -97,7 +97,9 @@
     },
     "2022-01-26": {
       "total": 1,
-      "themes": {},
+      "themes": {
+        "Southern | Time | University | District | Race": 1
+      },
       "sentiment": {
         "neutral": 1
       },
@@ -114,9 +116,7 @@
     },
     "2022-03-25": {
       "total": 1,
-      "themes": {
-        "Festival | Colors | Glow | Festivities | Concourse": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -134,7 +134,7 @@
     "2022-04-19": {
       "total": 1,
       "themes": {
-        "Bills | Landmark | Voting | Bill | Door": 1
+        "Landmark | Crackdown | Rachelle | Travel | During": 1
       },
       "sentiment": {
         "neutral": 1
@@ -153,7 +153,8 @@
     "2022-04-20": {
       "total": 9,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 1
       },
       "sentiment": {
         "neutral": 9
@@ -194,7 +195,7 @@
     "2024-07-10": {
       "total": 1,
       "themes": {
-        "Renters | Residents | Controversial | Cooperative | Complying": 1
+        "Upheld | Piling | Complying | Eviction | Eugenes": 1
       },
       "sentiment": {
         "neutral": 1
@@ -213,7 +214,7 @@
     "2024-11-10": {
       "total": 1,
       "themes": {
-        "Renters | Residents | Controversial | Cooperative | Complying": 1
+        "Upheld | Piling | Complying | Eviction | Eugenes": 1
       },
       "sentiment": {
         "neutral": 1
@@ -231,7 +232,9 @@
     },
     "2024-11-11": {
       "total": 1,
-      "themes": {},
+      "themes": {
+        "Trolleys | Screenings | Dc | Fac | Toys": 1
+      },
       "sentiment": {
         "neutral": 1
       },
@@ -269,7 +272,7 @@
     "2024-11-23": {
       "total": 1,
       "themes": {
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 1
+        "Sc | Richmond | Confederate | Campus | Protests": 1
       },
       "sentiment": {
         "neutral": 1
@@ -287,7 +290,7 @@
     "2024-11-24": {
       "total": 2,
       "themes": {
-        "Renters | Residents | Controversial | Cooperative | Complying": 1
+        "Upheld | Piling | Complying | Eviction | Eugenes": 1
       },
       "sentiment": {
         "neutral": 2
@@ -309,7 +312,9 @@
     },
     "2024-12-01": {
       "total": 1,
-      "themes": {},
+      "themes": {
+        "Intervention | Unemployment | Downtown | Processing | Stats": 1
+      },
       "sentiment": {
         "neutral": 1
       },
@@ -343,7 +348,7 @@
     "2024-12-10": {
       "total": 2,
       "themes": {
-        "Lawsuit | Settle | Custody | Deadline | Overcrowded": 1
+        "Countys | County | Orange | Overcrowded | Shelters": 1
       },
       "sentiment": {
         "neutral": 2
@@ -367,8 +372,8 @@
     "2025-02-22": {
       "total": 2,
       "themes": {
-        "Irvines | Anchors | Highs | Fullerton | Brooklynites": 1,
-        "Arkansas | Struggles | Impacts | Signs | Bills": 1
+        "Dana | Faces | Subject | Transition | Reshape": 1,
+        "Legislative | Legislation | Spending | Legislators | Bills": 1
       },
       "sentiment": {
         "neutral": 2
@@ -441,7 +446,7 @@
     "2025-04-24": {
       "total": 1,
       "themes": {
-        "Festival | Colors | Glow | Festivities | Concourse": 1
+        "Trolleys | Screenings | Dc | Fac | Toys": 1
       },
       "sentiment": {
         "neutral": 1
@@ -460,7 +465,7 @@
     "2025-05-01": {
       "total": 1,
       "themes": {
-        "Columbia | Carolina | School | Wcu | Visiting": 1
+        "Night | City | Twilight | Festival | Symphony": 1
       },
       "sentiment": {
         "neutral": 1
@@ -479,7 +484,7 @@
     "2025-05-07": {
       "total": 1,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 1
       },
       "sentiment": {
         "neutral": 1
@@ -498,11 +503,9 @@
     "2025-05-08": {
       "total": 10,
       "themes": {
-        "Renters | Residents | Controversial | Cooperative | Complying": 1,
-        "South | District | Linked | Westport | Scout": 1,
-        "Bulletin | District | Cities | Municipal | Commissioners": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 1
+        "Upheld | Piling | Complying | Eviction | Eugenes": 1,
+        "Attitude | Pizza | Boasting | Transcend | Home": 1,
+        "Night | City | Twilight | Festival | Symphony": 1
       },
       "sentiment": {
         "neutral": 10
@@ -525,7 +528,9 @@
     },
     "2025-05-09": {
       "total": 1,
-      "themes": {},
+      "themes": {
+        "Attitude | Pizza | Boasting | Transcend | Home": 1
+      },
       "sentiment": {
         "neutral": 1
       },
@@ -543,7 +548,7 @@
     "2025-05-14": {
       "total": 1,
       "themes": {
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1
+        "Attitude | Pizza | Boasting | Transcend | Home": 1
       },
       "sentiment": {
         "neutral": 1
@@ -596,7 +601,7 @@
     "2025-05-23": {
       "total": 1,
       "themes": {
-        "Exhibit | Exhibition | Studio | The | Museum": 1
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1
       },
       "sentiment": {
         "neutral": 1
@@ -614,7 +619,7 @@
     "2025-05-28": {
       "total": 1,
       "themes": {
-        "Exhibit | Exhibition | Studio | The | Museum": 1
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1
       },
       "sentiment": {
         "neutral": 1
@@ -649,7 +654,7 @@
     "2025-09-24": {
       "total": 1,
       "themes": {
-        "Topic 89": 1
+        "Title": 1
       },
       "sentiment": {
         "neutral": 1
@@ -664,7 +669,7 @@
     "2025-09-29": {
       "total": 2,
       "themes": {
-        "Topic 89": 2
+        "Title": 2
       },
       "sentiment": {
         "neutral": 2
@@ -679,7 +684,7 @@
     "2025-10-15": {
       "total": 2,
       "themes": {
-        "Topic 89": 2
+        "Title": 2
       },
       "sentiment": {
         "neutral": 2
@@ -694,7 +699,7 @@
     "2025-10-22": {
       "total": 1,
       "themes": {
-        "Topic 89": 1
+        "Title": 1
       },
       "sentiment": {
         "neutral": 1
@@ -709,7 +714,7 @@
     "2025-10-30": {
       "total": 1,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 1
       },
       "sentiment": {
         "neutral": 1
@@ -726,7 +731,7 @@
     "2025-11-06": {
       "total": 1,
       "themes": {
-        "Punish | Authors | Energized | Madison | Lazar": 1
+        "Punish | Energized | It | Madison | Lazar": 1
       },
       "sentiment": {
         "neutral": 1
@@ -779,7 +784,7 @@
     "2025-11-19": {
       "total": 3,
       "themes": {
-        "Topic 89": 2
+        "Title": 2
       },
       "sentiment": {
         "positive": 1,
@@ -818,7 +823,7 @@
     "2025-12-06": {
       "total": 1,
       "themes": {
-        "Exhibit | Exhibition | Studio | The | Museum": 1
+        "Spring | Jordan | Flames | Bison | Bob": 1
       },
       "sentiment": {
         "neutral": 1
@@ -837,7 +842,7 @@
     "2025-12-10": {
       "total": 1,
       "themes": {
-        "Bag | Columbine | Bob | Basement | Floor": 1
+        "Author | Community | Activity | Making | Promotes": 1
       },
       "sentiment": {
         "neutral": 1
@@ -855,9 +860,7 @@
     },
     "2025-12-12": {
       "total": 1,
-      "themes": {
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -875,7 +878,7 @@
     "2025-12-17": {
       "total": 1,
       "themes": {
-        "Beachs | Boston | Columbia | Transportation | Infrastructure": 1
+        "Pays | Dcs | Ticket | Nonprofit | Huntington": 1
       },
       "sentiment": {
         "neutral": 1
@@ -894,7 +897,7 @@
     "2025-12-20": {
       "total": 1,
       "themes": {
-        "Santa | Sweeps | Ties | Utah | Minnesota": 1
+        "Tribune | Mayor | Pay | Delegate | Arrests": 1
       },
       "sentiment": {
         "neutral": 1
@@ -913,7 +916,7 @@
     "2025-12-28": {
       "total": 1,
       "themes": {
-        "Utah | Colorado | Dc | Guide | Residents": 1
+        "Rockville | Dull | Renos | Residents | Street": 1
       },
       "sentiment": {
         "neutral": 1
@@ -931,7 +934,7 @@
     "2026-01-07": {
       "total": 2,
       "themes": {
-        "Permitting | Upholds | Justice | Supreme | Municipal": 2
+        "Trumps | Justice | Oversight | Upholds | Courts": 2
       },
       "sentiment": {
         "neutral": 2
@@ -972,7 +975,7 @@
     "2026-01-13": {
       "total": 1,
       "themes": {
-        "Permitting | Upholds | Justice | Supreme | Municipal": 1
+        "Trumps | Justice | Oversight | Upholds | Courts": 1
       },
       "sentiment": {
         "neutral": 1
@@ -990,9 +993,7 @@
     },
     "2026-01-14": {
       "total": 1,
-      "themes": {
-        "Of": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -1007,7 +1008,7 @@
     "2026-01-15": {
       "total": 2,
       "themes": {
-        "Workshops | Campus | Accommodations | Bronx | Milton": 1
+        "Supporting | Accommodations | Students | Stress | Advise": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1117,7 +1118,7 @@
     "2026-01-27": {
       "total": 1,
       "themes": {
-        "Plant | Towns | Funding | Proposal | Progress": 1
+        "Improvements | Funding | Proposal | Courthouse | Sources": 1
       },
       "sentiment": {
         "neutral": 1
@@ -1136,7 +1137,8 @@
     "2026-01-28": {
       "total": 4,
       "themes": {
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 1
+        "Night | City | Twilight | Festival | Symphony": 1,
+        "Louisiana | Collaboration | Aid | Study | Communities": 1
       },
       "sentiment": {
         "positive": 1,
@@ -1177,8 +1179,8 @@
     "2026-01-30": {
       "total": 4,
       "themes": {
-        "Garden | Farms | Deserts | Agriculture | Initiatives": 1,
-        "Irvines | Anchors | Highs | Fullerton | Brooklynites": 1
+        "Schoolers | Residents | Deserts | Poverty | Ny": 1,
+        "Dana | Faces | Subject | Transition | Reshape": 1
       },
       "sentiment": {
         "positive": 1,
@@ -1205,7 +1207,7 @@
     "2026-01-31": {
       "total": 3,
       "themes": {
-        "Road | Predictions | Phoenix | Underway | Molly": 1
+        "Fort | Sacramento | Road | Arizona | Phoenix": 1
       },
       "sentiment": {
         "neutral": 2,
@@ -1230,7 +1232,8 @@
     "2026-02-01": {
       "total": 2,
       "themes": {
-        "Road | Predictions | Phoenix | Underway | Molly": 1
+        "Festival | Fest | Theater | Theatre | Hollywood": 1,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1253,8 +1256,8 @@
     "2026-02-02": {
       "total": 3,
       "themes": {
-        "Baseball | Opener | Baseballs | Softballs | Softball": 1,
-        "Election | News | Rescheduled | Caplin": 1
+        "Northern | Wild | Season | Trip | Photos": 1,
+        "April | Tuesday | Feb | Mar": 1
       },
       "sentiment": {
         "neutral": 3
@@ -1278,9 +1281,10 @@
     "2026-02-03": {
       "total": 9,
       "themes": {
-        "Huan | Nova | Advance": 1,
-        "Farms | Shortages | Nonprofits | Fewer | Restrictions": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1
+        "Engagement | Student | Students | Diversity | Tu": 1,
+        "Federal | Fundraising | Restrictions | Base | Relief": 1,
+        "Downtown | Gloomhaven | Exhibition | Creating | Campuswebcamslivestreambietz": 1,
+        "Festival | Fest | Theater | Theatre | Hollywood": 1
       },
       "sentiment": {
         "neutral": 9
@@ -1306,8 +1310,9 @@
     "2026-02-04": {
       "total": 5,
       "themes": {
-        "Leaders | Organization | Gov | Investigation | Housing": 1,
-        "News | Hurricane | Boasts | Accomplish | Support": 1
+        "Gov | Housing | Night | Investigation | Relocation": 1,
+        "Pays | Dcs | Ticket | Nonprofit | Huntington": 1,
+        "Campus | Colleges | Undergrads | Semester | Camp": 1
       },
       "sentiment": {
         "neutral": 5
@@ -1335,9 +1340,9 @@
     "2026-02-05": {
       "total": 6,
       "themes": {
-        "Santa | Sweeps | Ties | Utah | Minnesota": 2,
-        "Festival | Colors | Glow | Festivities | Concourse": 1,
-        "Village | Built | Archiving | Initiative | Gazette": 1
+        "Tribune | Mayor | Pay | Delegate | Arrests": 2,
+        "Trolleys | Screenings | Dc | Fac | Toys": 1,
+        "Metropolitan | Grand | Doring | Festival | Seattle": 1
       },
       "sentiment": {
         "neutral": 6
@@ -1364,9 +1369,11 @@
     "2026-02-06": {
       "total": 8,
       "themes": {
-        "Thinking | Newsnations | Dem | Statewide | Pollster": 2,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 2,
-        "Students | Student | Education | Campus | Collegiate": 1
+        "Legislators | Gov | Primaries | Voters | Incumbents": 2,
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 2,
+        "Amtrak | Fema | Wildfires | Avenue | Wildfire": 1,
+        "New | Reserve | Not | Key | Action": 1,
+        "Community | Area | Church | Congregation | Ministrys": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1394,9 +1401,9 @@
     "2026-02-07": {
       "total": 5,
       "themes": {
-        "Utah | Colorado | Dc | Guide | Residents": 2,
-        "Development | Achievement | Meet | The | To": 1,
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1
+        "Rockville | Dull | Renos | Residents | Street": 2,
+        "Foundation | Development | July | Beams": 1,
+        "Lax | Cal | Eastside | Laila | Donnie": 1
       },
       "sentiment": {
         "neutral": 5
@@ -1423,7 +1430,8 @@
     "2026-02-08": {
       "total": 2,
       "themes": {
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1
+        "Trolleys | Screenings | Dc | Fac | Toys": 1,
+        "Lax | Cal | Eastside | Laila | Donnie": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1448,11 +1456,11 @@
     "2026-02-09": {
       "total": 7,
       "themes": {
-        "News | Hurricane | Boasts | Accomplish | Support": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 1,
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1,
-        "Thinking | Newsnations | Dem | Statewide | Pollster": 1
+        "Campus | Colleges | Undergrads | Semester | Camp": 1,
+        "Attitude | Pizza | Boasting | Transcend | Home": 1,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 1,
+        "Hernandezs | Belonging | Culture | Rio | Multicultural": 1,
+        "Legislators | Gov | Primaries | Voters | Incumbents": 1
       },
       "sentiment": {
         "neutral": 7
@@ -1479,8 +1487,8 @@
     "2026-02-10": {
       "total": 2,
       "themes": {
-        "News | Hurricane | Boasts | Accomplish | Support": 1,
-        "Development | Achievement | Meet | The | To": 1
+        "Campus | Colleges | Undergrads | Semester | Camp": 1,
+        "Foundation | Development | July | Beams": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1504,10 +1512,10 @@
     "2026-02-11": {
       "total": 8,
       "themes": {
-        "News | Hurricane | Boasts | Accomplish | Support": 2,
-        "Huan | Nova | Advance": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1,
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1
+        "Campus | Colleges | Undergrads | Semester | Camp": 2,
+        "Corps | Carter | Contest | Alumnus | Cyrus": 1,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1,
+        "Lax | Cal | Eastside | Laila | Donnie": 1
       },
       "sentiment": {
         "neutral": 7,
@@ -1535,8 +1543,9 @@
     "2026-02-12": {
       "total": 7,
       "themes": {
-        "Village | Built | Archiving | Initiative | Gazette": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1
+        "Campus | Colleges | Undergrads | Semester | Camp": 1,
+        "Metropolitan | Grand | Doring | Festival | Seattle": 1,
+        "Attitude | Pizza | Boasting | Transcend | Home": 1
       },
       "sentiment": {
         "neutral": 7
@@ -1564,11 +1573,11 @@
     "2026-02-13": {
       "total": 7,
       "themes": {
-        "Garden | Farms | Deserts | Agriculture | Initiatives": 1,
-        "Facility | Place | Project | Innovative | Land": 1,
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1
+        "Night | City | Twilight | Festival | Symphony": 2,
+        "Schoolers | Residents | Deserts | Poverty | Ny": 1,
+        "Faculty | Lessons | Student | School | Research": 1,
+        "Lax | Cal | Eastside | Laila | Donnie": 1,
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 1
       },
       "sentiment": {
         "neutral": 6,
@@ -1597,7 +1606,8 @@
     "2026-02-14": {
       "total": 2,
       "themes": {
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 1
+        "Trumps | Justice | Oversight | Upholds | Courts": 1,
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 1
       },
       "sentiment": {
         "neutral": 2
@@ -1622,7 +1632,7 @@
     "2026-02-15": {
       "total": 1,
       "themes": {
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1
+        "Lax | Cal | Eastside | Laila | Donnie": 1
       },
       "sentiment": {
         "positive": 1
@@ -1641,7 +1651,7 @@
     "2026-02-16": {
       "total": 1,
       "themes": {
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1
+        "Lax | Cal | Eastside | Laila | Donnie": 1
       },
       "sentiment": {
         "negative": 1
@@ -1660,9 +1670,8 @@
     "2026-02-17": {
       "total": 4,
       "themes": {
-        "Jonesboro | Locating | Widens | Springfield | University": 1,
-        "District | County | Districts | Proposal | Summer": 1,
-        "Columbia | Carolina | School | Wcu | Visiting": 1
+        "Protests | Memphis | Concerns | Progress | Deportation": 1,
+        "Night | City | Twilight | Festival | Symphony": 1
       },
       "sentiment": {
         "neutral": 4
@@ -1689,12 +1698,12 @@
     "2026-02-18": {
       "total": 8,
       "themes": {
-        "Landscape | Emsa | Battleground | Poa | Ohio": 1,
-        "News | Hurricane | Boasts | Accomplish | Support": 1,
-        "March | Aarps | September | Scene | Suggestions": 1,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 1,
-        "Topic 89": 1,
-        "Meets | Room | Living | Thesuper | Party": 1
+        "Journeys | Sportsincollege | Athletic | Victorious | Showcased": 1,
+        "Campus | Colleges | Undergrads | Semester | Camp": 1,
+        "March | Aarps | September | Suggestions | April": 1,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 1,
+        "Title": 1,
+        "Festival | Fest | Theater | Theatre | Hollywood": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1722,10 +1731,11 @@
     "2026-02-19": {
       "total": 8,
       "themes": {
-        "Santa | Sweeps | Ties | Utah | Minnesota": 2,
-        "Huan | Nova | Advance": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1,
-        "Aides | Landlords | Police | Intervention | Shooting": 1
+        "Tribune | Mayor | Pay | Delegate | Arrests": 2,
+        "Engagement | Student | Students | Diversity | Tu": 1,
+        "Alumnus | Conference | Year | Oklahoma | Oklahomasburgeoningfilm": 1,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1754,11 +1764,12 @@
     "2026-02-20": {
       "total": 8,
       "themes": {
-        "Aides | Landlords | Police | Intervention | Shooting": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 1,
-        "Photos | Honor | Fall | In | Plans": 1,
-        "Village | Built | Archiving | Initiative | Gazette": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 1,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 1,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1,
+        "Zoos | Losses | Massacre | Thrill | Beavers": 1,
+        "Metropolitan | Grand | Doring | Festival | Seattle": 1,
+        "Night | City | Twilight | Festival | Symphony": 1
       },
       "sentiment": {
         "neutral": 8
@@ -1788,7 +1799,8 @@
     "2026-02-21": {
       "total": 4,
       "themes": {
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1
+        "Legislators | Gov | Primaries | Voters | Incumbents": 1,
+        "Lax | Cal | Eastside | Laila | Donnie": 1
       },
       "sentiment": {
         "neutral": 4
@@ -1812,9 +1824,7 @@
     },
     "2026-02-22": {
       "total": 1,
-      "themes": {
-        "State | Washington | Bears | Stadium | Southwest": 1
-      },
+      "themes": {},
       "sentiment": {
         "neutral": 1
       },
@@ -1832,8 +1842,9 @@
     "2026-02-23": {
       "total": 6,
       "themes": {
-        "August | May | Planned | Debate | Spotlight": 1,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 1
+        "Debate | Newsletter | Ferguson | School | This": 1,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 1,
+        "Downtown | Gloomhaven | Exhibition | Creating | Campuswebcamslivestreambietz": 1
       },
       "sentiment": {
         "neutral": 5,
@@ -1859,10 +1870,12 @@
     "2026-02-24": {
       "total": 12,
       "themes": {
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 3,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 1,
-        "City | Shelters | Businesses | Public | Residents": 1,
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1
+        "Patients | Careprotections | Benefits | Shortfalls | Effectiveness": 2,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 1,
+        "Initiatives | Communities | Savings | Projects | Renewable": 1,
+        "Postseason | Miami | Motorsports | Marshall | Mayfield": 1,
+        "Night | City | Twilight | Festival | Symphony": 1,
+        "Lax | Cal | Eastside | Laila | Donnie": 1
       },
       "sentiment": {
         "neutral": 11,
@@ -1894,11 +1907,10 @@
     "2026-02-25": {
       "total": 11,
       "themes": {
-        "Punish | Authors | Energized | Madison | Lazar": 1,
-        "Plan | Money | Friends | Journal | Them": 1,
-        "Dc | Defendants | Justice | Historians | Appeals": 1,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 1,
-        "City | Shelters | Businesses | Public | Residents": 1
+        "Executive | Hire | Recalls | Paychecks | State": 1,
+        "Dc | Defendants | Justice | Pentagon | Historians": 1,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 1,
+        "Postseason | Miami | Motorsports | Marshall | Mayfield": 1
       },
       "sentiment": {
         "neutral": 11
@@ -1929,13 +1941,13 @@
     "2026-02-26": {
       "total": 15,
       "themes": {
-        "District | County | Districts | Proposal | Summer": 1,
-        "School | College | November | Professor | Students": 1,
-        "Garden | Farms | Deserts | Agriculture | Initiatives": 1,
-        "Jonesboro | Locating | Widens | Springfield | University": 1,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 1,
-        "Village | Built | Archiving | Initiative | Gazette": 1,
-        "Conference | Champion | Competition | Finalists | Ucjc": 1
+        "Schools | School | Vouchers | Public | Housing": 1,
+        "Csu | College | Deans | Students | Schools": 1,
+        "Schoolers | Residents | Deserts | Poverty | Ny": 1,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 1,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 1,
+        "Metropolitan | Grand | Doring | Festival | Seattle": 1,
+        "Conference | Competition | Inaugural | Coleman | Alumni": 1
       },
       "sentiment": {
         "neutral": 12,
@@ -1968,15 +1980,14 @@
     "2026-02-27": {
       "total": 17,
       "themes": {
-        "Cpa | Oklahomasburgeoningfilm | Oklahoma | Tulsas | Tulsa": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1,
-        "Aides | Landlords | Police | Intervention | Shooting": 1,
-        "Media | Revised | Advancing | Advances | Advance": 1,
-        "Judicial | Jackson | Michael | Court | Of": 1,
-        "Topic 89": 1,
-        "Streets | Event | Crisis | Participation | History": 1,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 1,
-        "South | District | Linked | Westport | Scout": 1
+        "Alumnus | Conference | Year | Oklahoma | Oklahomasburgeoningfilm": 1,
+        "Attitude | Pizza | Boasting | Transcend | Home": 1,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 1,
+        "Columbia | Lawmakers | Legislature | Fcc | Revised": 1,
+        "Title": 1,
+        "Streets | Crisis | Next | Boston | Spotlights": 1,
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 1,
+        "Park | Police | Ct | District": 1
       },
       "sentiment": {
         "neutral": 16,
@@ -2008,8 +2019,8 @@
     "2026-02-28": {
       "total": 8,
       "themes": {
-        "States | Governor | Illinois | Bill | Wisconsin": 1,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 1
+        "Senate | Virginia | Georgia | Bill | Bills": 1,
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 1
       },
       "sentiment": {
         "neutral": 8
@@ -2039,8 +2050,8 @@
     "2026-03-01": {
       "total": 3,
       "themes": {
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 1,
+        "Spring | Jordan | Flames | Bison | Bob": 1
       },
       "sentiment": {
         "neutral": 2,
@@ -2066,13 +2077,14 @@
     "2026-03-02": {
       "total": 13,
       "themes": {
-        "City | Sustainability | Support | Developing | Space": 1,
-        "School | College | November | Professor | Students": 1,
-        "Aides | Landlords | Police | Intervention | Shooting": 1,
-        "News | Hurricane | Boasts | Accomplish | Support": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1,
-        "Topic 89": 1,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 1
+        "Csu | College | Deans | Students | Schools": 1,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 1,
+        "Campus | Colleges | Undergrads | Semester | Camp": 1,
+        "Cleaning | Review | Concerns | The | To": 1,
+        "Federal | Fundraising | Restrictions | Base | Relief": 1,
+        "Attitude | Pizza | Boasting | Transcend | Home": 1,
+        "Title": 1,
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 1
       },
       "sentiment": {
         "neutral": 13
@@ -2103,16 +2115,16 @@
     "2026-03-03": {
       "total": 20,
       "themes": {
-        "Support | Funding | Pay | Reconciliation | Affects": 2,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 2,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1,
-        "Jonesboro | Locating | Widens | Springfield | University": 1,
-        "News | Hurricane | Boasts | Accomplish | Support": 1,
-        "Mcmorran | Locationbased | Progress | March": 1,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 1,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 1,
-        "Consortium | Contributions | Nationally | Scouts | Studies": 1
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 2,
+        "Louisiana | Collaboration | Aid | Study | Communities": 1,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1,
+        "Protests | Memphis | Concerns | Progress | Deportation": 1,
+        "Campus | Colleges | Undergrads | Semester | Camp": 1,
+        "March | Flu | Covid19 | Spring | Pandemic": 1,
+        "Festival | Fest | Theater | Theatre | Hollywood": 1,
+        "Sc | Richmond | Confederate | Campus | Protests": 1,
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 1,
+        "Contributions | Nationally | Summit | Travels | Careers": 1
       },
       "sentiment": {
         "neutral": 17,
@@ -2145,14 +2157,16 @@
     "2026-03-04": {
       "total": 18,
       "themes": {
-        "Media | Lack | Landscape | Reporters | Journalism": 1,
-        "Media | Revised | Advancing | Advances | Advance": 1,
-        "Headlines | Surge | Drama | Giants | Campaign": 1,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 1,
-        "Leaders | Projects | Landmark | Mandates | Environmentalists": 1,
-        "Meets | Room | Living | Thesuper | Party": 1,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 1,
-        "South | District | Linked | Westport | Scout": 1
+        "Professor | Lecturer | Management | Assistantassociate | Meeting": 1,
+        "Conference | Competition | Inaugural | Coleman | Alumni": 1,
+        "Columbia | Lawmakers | Legislature | Fcc | Revised": 1,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 1,
+        "Csu | College | Deans | Students | Schools": 1,
+        "Campaign | Protest | Fundraiser | Local | Headlines": 1,
+        "Trumps | Justice | Oversight | Upholds | Courts": 1,
+        "Festival | Fest | Theater | Theatre | Hollywood": 1,
+        "Sc | Richmond | Confederate | Campus | Protests": 1,
+        "Park | Police | Ct | District": 1
       },
       "sentiment": {
         "neutral": 17,
@@ -2184,16 +2198,16 @@
     "2026-03-05": {
       "total": 20,
       "themes": {
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Road | Predictions | Phoenix | Underway | Molly": 2,
-        "Utah | Colorado | Dc | Guide | Residents": 1,
-        "School | College | November | Professor | Students": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1,
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 1,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 1,
-        "Of": 1,
-        "Village | Built | Archiving | Initiative | Gazette": 1,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 1
+        "Congressional | Deadline | F35 | Warns | Troops": 2,
+        "As | Agreement | Uscanada | Blockade | Trump": 1,
+        "Csu | College | Deans | Students | Schools": 1,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 1,
+        "Louisiana | Collaboration | Aid | Study | Communities": 1,
+        "Legislative | Legislation | Spending | Legislators | Bills": 1,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 1,
+        "New | Reserve | Not | Key | Action": 1,
+        "Metropolitan | Grand | Doring | Festival | Seattle": 1,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 1
       },
       "sentiment": {
         "neutral": 20
@@ -2224,16 +2238,16 @@
     "2026-03-06": {
       "total": 30,
       "themes": {
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 2,
-        "Exhibit | Exhibition | Studio | The | Museum": 2,
-        "Farms | Shortages | Nonprofits | Fewer | Restrictions": 2,
-        "Media | Lack | Landscape | Reporters | Journalism": 1,
-        "Utah | Colorado | Dc | Guide | Residents": 1,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 1,
-        "News | Candidates | Our | Western | Redistricting": 1,
-        "District | County | Districts | Proposal | Summer": 1,
-        "Bulletin | District | Cities | Municipal | Commissioners": 1,
-        "Utah | Lds | Debates | Legislature | Governing": 1
+        "Professor | Lecturer | Management | Assistantassociate | Meeting": 2,
+        "Rockville | Dull | Renos | Residents | Street": 1,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 1,
+        "Congressional | Deadline | F35 | Warns | Troops": 1,
+        "Spring | Jordan | Flames | Bison | Bob": 1,
+        "Immigration | Our | Strikes | Lawmakers | Agenda": 1,
+        "Schools | School | Vouchers | Public | Housing": 1,
+        "Turnaround | Power | Boil | Continue | Wnit": 1,
+        "Residents | Hikes | Municipal | Crisis | Bail": 1,
+        "Scientists | Sciencebased | Debates | Involvement | Encourage": 1
       },
       "sentiment": {
         "neutral": 29,
@@ -2265,11 +2279,11 @@
     "2026-03-07": {
       "total": 12,
       "themes": {
-        "Utah | Colorado | Dc | Guide | Residents": 2,
-        "Garden | Farms | Deserts | Agriculture | Initiatives": 1,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 1,
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 1,
-        "Toll | Cox | Coxs | Coverage | Taking": 1
+        "Rockville | Dull | Renos | Residents | Street": 2,
+        "Louisiana | Collaboration | Aid | Study | Communities": 2,
+        "Schoolers | Residents | Deserts | Poverty | Ny": 1,
+        "Lax | Cal | Eastside | Laila | Donnie": 1,
+        "Scott | Scotts | Kirk | Watch | Reveals": 1
       },
       "sentiment": {
         "neutral": 12
@@ -2300,12 +2314,11 @@
     "2026-03-08": {
       "total": 7,
       "themes": {
-        "Orchard | Amtrak | Metrorail | Blaze | Blazes": 1,
-        "Students | Student | Education | Campus | Collegiate": 1,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 1,
-        "Of | Defense | Including | Intelligence | Excellence": 1,
-        "Concerns | Caution | News | Threats | Accentarchives": 1,
-        "Honors | Celebrates | Journey | Brewer": 1
+        "Community | Area | Church | Congregation | Ministrys": 1,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 1,
+        "Faculty | Scholarship | Ceremony | College | Graduates": 1,
+        "Supporting | Accommodations | Students | Stress | Advise": 1,
+        "Share | Covid19 | Classroom | Discussion | Communicating": 1
       },
       "sentiment": {
         "neutral": 7
@@ -2334,16 +2347,16 @@
     "2026-03-09": {
       "total": 16,
       "themes": {
-        "Conference | Champion | Competition | Finalists | Ucjc": 1,
-        "Media | Lack | Landscape | Reporters | Journalism": 1,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 1,
-        "Huan | Nova | Advance": 1,
-        "Cpa | Oklahomasburgeoningfilm | Oklahoma | Tulsas | Tulsa": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1,
-        "Colorado | Cans | Borders | Highcountry | Less": 1,
-        "Road | Predictions | Phoenix | Underway | Molly": 1,
-        "Landscape | Emsa | Battleground | Poa | Ohio": 1,
-        "Students | Student | Education | Campus | Collegiate": 1
+        "Conference | Competition | Inaugural | Coleman | Alumni": 1,
+        "Landscape | Coverage | Lsus | Lsu | Klansmans": 1,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 1,
+        "Alumnus | Conference | Year | Oklahoma | Oklahomasburgeoningfilm": 1,
+        "Attitude | Pizza | Boasting | Transcend | Home": 1,
+        "Whittier | Borders | Towns | Classrooms | Deputies": 1,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 1,
+        "Educators | Sociology | Partnership | Considerations | Tu": 1,
+        "Journeys | Sportsincollege | Athletic | Victorious | Showcased": 1,
+        "Community | Area | Church | Congregation | Ministrys": 1
       },
       "sentiment": {
         "neutral": 16
@@ -2374,16 +2387,16 @@
     "2026-03-10": {
       "total": 24,
       "themes": {
-        "Talks | Future | Hotel | Lounge | Provide": 3,
-        "Arts | Murals | Studios | Mural | Historic": 1,
-        "Bag | Columbine | Bob | Basement | Floor": 1,
-        "Concerns | Caution | News | Threats | Accentarchives": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1,
-        "Huan | Nova | Advance": 1,
-        "Dc | Defendants | Justice | Historians | Appeals": 1,
-        "Leaders | Projects | Landmark | Mandates | Environmentalists": 1,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 1,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 1
+        "Outreach | Plans | Design | Regulations | Needs": 2,
+        "Southern | Time | University | District | Race": 2,
+        "26Th | 16Th | 23Rd | 30Th": 1,
+        "Author | Community | Activity | Making | Promotes": 1,
+        "Share | Covid19 | Classroom | Discussion | Communicating": 1,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1,
+        "Engagement | Student | Students | Diversity | Tu": 1,
+        "Dc | Defendants | Justice | Pentagon | Historians": 1,
+        "Trumps | Justice | Oversight | Upholds | Courts": 1,
+        "Patients | Careprotections | Benefits | Shortfalls | Effectiveness": 1
       },
       "sentiment": {
         "neutral": 22,
@@ -2416,16 +2429,16 @@
     "2026-03-11": {
       "total": 24,
       "themes": {
-        "Renters | Residents | Controversial | Cooperative | Complying": 2,
+        "Upheld | Piling | Complying | Eviction | Eugenes": 2,
         "Evacuation | Disaster | Floods | Storms | Shelters": 1,
-        "Farms | Shortages | Nonprofits | Fewer | Restrictions": 1,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 1,
-        "Remembering | Place | Wastefree | Universe | Rilla": 1,
-        "Bulletin | District | Cities | Municipal | Commissioners": 1,
-        "Lawsuit | Settle | Custody | Deadline | Overcrowded": 1,
-        "Dc | Defendants | Justice | Historians | Appeals": 1,
-        "Irvines | Anchors | Highs | Fullerton | Brooklynites": 1,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 1
+        "Federal | Fundraising | Restrictions | Base | Relief": 1,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 1,
+        "Remembering | Place | Wastefree | Universe | Catching": 1,
+        "Residents | Hikes | Municipal | Crisis | Bail": 1,
+        "Countys | County | Orange | Overcrowded | Shelters": 1,
+        "Dc | Defendants | Justice | Pentagon | Historians": 1,
+        "Anaheim | Anaheims | Stadium | Walia | Appraisal": 1,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 1
       },
       "sentiment": {
         "neutral": 24
@@ -2456,16 +2469,16 @@
     "2026-03-12": {
       "total": 26,
       "themes": {
-        "News | Candidates | Our | Western | Redistricting": 2,
-        "Meets | Room | Living | Thesuper | Party": 2,
-        "Garden | Farms | Deserts | Agriculture | Initiatives": 2,
-        "City | Shelters | Businesses | Public | Residents": 1,
-        "State | Honors | Memorial | Texas | Secure": 1,
-        "Bethel | Planting | Places | Screenings | Cooking": 1,
-        "News | Hurricane | Boasts | Accomplish | Support": 1,
-        "Entrepreneurship | Thrive | Ecosystems | Innovation | Entrepreneurial": 1,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 1,
-        "Punish | Authors | Energized | Madison | Lazar": 1
+        "Immigration | Our | Strikes | Lawmakers | Agenda": 2,
+        "Schoolers | Residents | Deserts | Poverty | Ny": 2,
+        "Postseason | Miami | Motorsports | Marshall | Mayfield": 1,
+        "Turnaround | Power | Boil | Continue | Wnit": 1,
+        "Therapy | Outcomes | Behavioral | Volunteer | Selfcare": 1,
+        "Trolleys | Screenings | Dc | Fac | Toys": 1,
+        "Campus | Colleges | Undergrads | Semester | Camp": 1,
+        "Summit | Construction | Citys | Bernardino | Emerging": 1,
+        "Slams | Bears | Gov | Stratton | Gain": 1,
+        "Night | City | Twilight | Festival | Symphony": 1
       },
       "sentiment": {
         "neutral": 26
@@ -2496,16 +2509,16 @@
     "2026-03-13": {
       "total": 37,
       "themes": {
-        "March | Aarps | September | Scene | Suggestions": 2,
-        "Exhibit | Exhibition | Studio | The | Museum": 2,
-        "News | Candidates | Our | Western | Redistricting": 2,
-        "Album | Works | Published | Head | Headliners": 1,
-        "Bulletin | District | Cities | Municipal | Commissioners": 1,
-        "Lawsuit | Settle | Custody | Deadline | Overcrowded": 1,
-        "News | Hurricane | Boasts | Accomplish | Support": 1,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 1,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 1,
-        "Students | Student | Education | Campus | Collegiate": 1
+        "March | Aarps | September | Suggestions | April": 2,
+        "Night | City | Twilight | Festival | Symphony": 2,
+        "Immigration | Our | Strikes | Lawmakers | Agenda": 2,
+        "Schools | School | Vouchers | Public | Housing": 1,
+        "Pays | Dcs | Ticket | Nonprofit | Huntington": 1,
+        "Spring | Jordan | Flames | Bison | Bob": 1,
+        "Fall | Runway | Business | Swing | Fashions": 1,
+        "Trumps | Justice | Oversight | Upholds | Courts": 1,
+        "Residents | Hikes | Municipal | Crisis | Bail": 1,
+        "Countys | County | Orange | Overcrowded | Shelters": 1
       },
       "sentiment": {
         "neutral": 37
@@ -2536,13 +2549,13 @@
     "2026-03-14": {
       "total": 14,
       "themes": {
-        "Concerns | Caution | News | Threats | Accentarchives": 1,
-        "State | Honors | Memorial | Texas | Secure": 1,
-        "Advocacy | Kent | Than | Experts | More": 1,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 1,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 1
+        "Share | Covid19 | Classroom | Discussion | Communicating": 1,
+        "Turnaround | Power | Boil | Continue | Wnit": 1,
+        "Congressional | Deadline | F35 | Warns | Troops": 1,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1,
+        "Sc | Richmond | Confederate | Campus | Protests": 1,
+        "Patients | Careprotections | Benefits | Shortfalls | Effectiveness": 1,
+        "Trolleys | Screenings | Dc | Fac | Toys": 1
       },
       "sentiment": {
         "neutral": 14
@@ -2573,9 +2586,11 @@
     "2026-03-15": {
       "total": 11,
       "themes": {
-        "Baseball | Opener | Baseballs | Softballs | Softball": 4,
-        "Road | Predictions | Phoenix | Underway | Molly": 1,
-        "Exhibit | Exhibition | Studio | The | Museum": 1
+        "Fort | Sacramento | Road | Arizona | Phoenix": 3,
+        "Northern | Wild | Season | Trip | Photos": 2,
+        "Classic | Wins | No | Final | Finalist": 1,
+        "Status | Earn | Earns | Place | Advance": 1,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 1
       },
       "sentiment": {
         "neutral": 10,
@@ -2605,16 +2620,16 @@
     "2026-03-16": {
       "total": 34,
       "themes": {
-        "Leaders | Organization | Gov | Investigation | Housing": 3,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Arts | Murals | Studios | Mural | Historic": 2,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 2,
-        "Secure | Coauthor | Policy | Agencies | Attorneys": 1,
-        "Rural | Yellowhorse | Dealing | Lives | Resilience": 1,
-        "Renters | Residents | Controversial | Cooperative | Complying": 1,
-        "Bulletin | District | Cities | Municipal | Commissioners": 1,
-        "Landscape | Emsa | Battleground | Poa | Ohio": 1,
-        "Redistricting | District | Ballot | Legislature | Constitutional": 1
+        "Gov | Housing | Night | Investigation | Relocation": 4,
+        "26Th | 16Th | 23Rd | 30Th": 2,
+        "Professor | Lecturer | Management | Assistantassociate | Meeting": 1,
+        "Initiatives | Communities | Savings | Projects | Renewable": 1,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 1,
+        "Postsecondary | Celebration | History | Washington | Promote": 1,
+        "Trolleys | Screenings | Dc | Fac | Toys": 1,
+        "Upheld | Piling | Complying | Eviction | Eugenes": 1,
+        "Residents | Hikes | Municipal | Crisis | Bail": 1,
+        "Student | Residents | Ncaa | Contests | Chicago": 1
       },
       "sentiment": {
         "neutral": 34
@@ -2645,16 +2660,16 @@
     "2026-03-17": {
       "total": 68,
       "themes": {
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 3,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 3,
-        "State | Honors | Memorial | Texas | Secure": 2,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 2,
-        "Historic | Chaotic | Deep | Joy | Mission": 2,
-        "Enrollment | Classrooms | Slavery | Schools | Curriculum": 2,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 2,
-        "Evacuation | Disaster | Floods | Storms | Shelters": 2,
-        "Conference | Champion | Competition | Finalists | Ucjc": 1,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 1
+        "Southern | Time | University | District | Race": 5,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 3,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Turnaround | Power | Boil | Continue | Wnit": 2,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 2,
+        "Baltimore | Researchers | Silence | Break | Native": 2,
+        "Pays | Dcs | Ticket | Nonprofit | Huntington": 2,
+        "Sc | Richmond | Confederate | Campus | Protests": 2,
+        "Evacuation | Disaster | Floods | Storms | Shelters": 2
       },
       "sentiment": {
         "neutral": 67,
@@ -2686,16 +2701,16 @@
     "2026-03-18": {
       "total": 103,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 9,
-        "Road | Predictions | Phoenix | Underway | Molly": 3,
-        "Renters | Residents | Controversial | Cooperative | Complying": 2,
-        "Permitting | Upholds | Justice | Supreme | Municipal": 2,
-        "Easter | Sunday | Conference | Saints | Record": 2,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 2,
-        "Utah | Colorado | Dc | Guide | Residents": 2,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 2,
-        "Support | Funding | Pay | Reconciliation | Affects": 2,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 9,
+        "Southern | Time | University | District | Race": 7,
+        "Act | Colorado | Presidential | Legislative | Saveamerica": 3,
+        "Gov | Housing | Night | Investigation | Relocation": 2,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 2,
+        "Upheld | Piling | Complying | Eviction | Eugenes": 2,
+        "Trumps | Justice | Oversight | Upholds | Courts": 2,
+        "Conference | Founder | Latest | Smith | Book": 2,
+        "Police | Commissioner | Reporting | Headlines | Concerns": 2,
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 2
       },
       "sentiment": {
         "neutral": 98,
@@ -2728,16 +2743,16 @@
     "2026-03-19": {
       "total": 130,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 8,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 8,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 5,
         "Evacuation | Disaster | Floods | Storms | Shelters": 5,
-        "Ciudadana | La | Dea | Los | Ms": 5,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 4,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 4,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 4,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Utah | Byu | Byus | Spartan | Longhorns": 3,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 3,
-        "Easter | Sunday | Conference | Saints | Record": 3
+        "Se | Ciudadana | Los | Pablo": 5,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 4,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 4,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 4,
+        "Police | Commissioner | Reporting | Headlines | Concerns": 3,
+        "Dc | Defendants | Justice | Pentagon | Historians": 3,
+        "Southern | Time | University | District | Race": 3
       },
       "sentiment": {
         "neutral": 127,
@@ -2769,16 +2784,16 @@
     "2026-03-20": {
       "total": 127,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 11,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 11,
         "Evacuation | Disaster | Floods | Storms | Shelters": 7,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 5,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 5,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 5,
-        "Advocate | Note | Following | Misconduct | Repercussions": 4,
-        "Utah | Byu | Byus | Spartan | Longhorns": 3,
-        "Headlines | Surge | Drama | Giants | Campaign": 3,
-        "Dc | Defendants | Justice | Historians | Appeals": 2,
-        "Ciudadana | La | Dea | Los | Ms": 2
+        "Jackson | Jake | Coordinator | Hockey | Jr": 5,
+        "Bring | Moves | Street | Wrongdoing | Survivors": 4,
+        "Status | Earn | Earns | Place | Advance": 4,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 4,
+        "Campaign | Protest | Fundraiser | Local | Headlines": 3,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 3,
+        "Dc | Defendants | Justice | Pentagon | Historians": 2,
+        "Se | Ciudadana | Los | Pablo": 2
       },
       "sentiment": {
         "neutral": 124,
@@ -2810,16 +2825,16 @@
     "2026-03-21": {
       "total": 79,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 9,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 5,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 4,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 4,
-        "Road | Predictions | Phoenix | Underway | Molly": 3,
-        "Easter | Sunday | Conference | Saints | Record": 3,
-        "Dc | Defendants | Justice | Historians | Appeals": 3,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 10,
+        "Florida | Tampa | Pinellas | Bay | Rico": 4,
+        "Protest | Restitution | Dealers | Settled | Rescue": 4,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Southern | Time | University | District | Race": 3,
+        "Conference | Founder | Latest | Smith | Book": 3,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 2,
-        "Support | Funding | Pay | Reconciliation | Affects": 2,
-        "Utah | Byu | Byus | Spartan | Longhorns": 2
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 2
       },
       "sentiment": {
         "neutral": 79
@@ -2850,16 +2865,16 @@
     "2026-03-22": {
       "total": 81,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 14,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 9,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 5,
-        "Road | Predictions | Phoenix | Underway | Molly": 2,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 15,
+        "Congressional | Deadline | F35 | Warns | Troops": 4,
+        "Status | Earn | Earns | Place | Advance": 3,
+        "Classic | Wins | No | Final | Finalist": 2,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 2,
+        "Gov | Housing | Night | Investigation | Relocation": 2,
         "Evacuation | Disaster | Floods | Storms | Shelters": 2,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 2,
-        "Easter | Sunday | Conference | Saints | Record": 2,
-        "Cal | Northeastern | Stanfords | Loss | Louisville": 2,
-        "Support | Funding | Pay | Reconciliation | Affects": 2,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 1
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 2,
+        "Conference | Founder | Latest | Smith | Book": 2,
+        "Lax | Cal | Eastside | Laila | Donnie": 2
       },
       "sentiment": {
         "neutral": 81
@@ -2890,16 +2905,16 @@
     "2026-03-23": {
       "total": 112,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 13,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 6,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 4,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 4,
         "Evacuation | Disaster | Floods | Storms | Shelters": 4,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 3,
-        "Road | Predictions | Phoenix | Underway | Molly": 3,
-        "Punish | Authors | Energized | Madison | Lazar": 3,
-        "Colorado | Cans | Borders | Highcountry | Less": 2,
-        "Lawmakers | Rural | Challenges | Shortages | Shortage": 2,
-        "Meets | Room | Living | Thesuper | Party": 2
+        "Sc | Richmond | Confederate | Campus | Protests": 3,
+        "Conference | Quarters | Anchors | Womens | Usfs": 3,
+        "Southern | Time | University | District | Race": 3,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
+        "Punish | Energized | It | Madison | Lazar": 3,
+        "Whittier | Borders | Towns | Classrooms | Deputies": 2,
+        "Promote | Community | Concerns | Informed | Challenges": 2
       },
       "sentiment": {
         "neutral": 111,
@@ -2931,16 +2946,16 @@
     "2026-03-24": {
       "total": 108,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 7,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 5,
-        "Easter | Sunday | Conference | Saints | Record": 3,
-        "Support | Funding | Pay | Reconciliation | Affects": 3,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 7,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 7,
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 4,
+        "Southern | Time | University | District | Race": 3,
+        "Conference | Founder | Latest | Smith | Book": 3,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 3,
-        "Disney | Nashville | Lake | City | Tom": 2,
-        "Leaders | Organization | Gov | Investigation | Housing": 2,
-        "Workshops | Campus | Accommodations | Bronx | Milton": 2,
-        "Enrollment | Classrooms | Slavery | Schools | Curriculum": 2,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 2
+        "Gov | Housing | Night | Investigation | Relocation": 2,
+        "Supporting | Accommodations | Students | Stress | Advise": 2,
+        "Student | Residents | Ncaa | Contests | Chicago": 2
       },
       "sentiment": {
         "neutral": 108
@@ -2971,16 +2986,16 @@
     "2026-03-25": {
       "total": 146,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 12,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 8,
-        "Support | Funding | Pay | Reconciliation | Affects": 3,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Meets | Room | Living | Thesuper | Party": 2,
-        "Headlines | Surge | Drama | Giants | Campaign": 2,
-        "Farms | Shortages | Nonprofits | Fewer | Restrictions": 2,
-        "Advocate | Note | Following | Misconduct | Repercussions": 2,
-        "School | College | November | Professor | Students": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
+        "Festival | Fest | Theater | Theatre | Hollywood": 3,
+        "Police | Commissioner | Reporting | Headlines | Concerns": 3,
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 3,
+        "Patients | Careprotections | Benefits | Shortfalls | Effectiveness": 3,
+        "Funding | Jihad | Blockade | Inaction | Florida": 2,
+        "Campaign | Protest | Fundraiser | Local | Headlines": 2,
+        "Status | Earn | Earns | Place | Advance": 2,
+        "Punish | Energized | It | Madison | Lazar": 2,
+        "Bring | Moves | Street | Wrongdoing | Survivors": 2
       },
       "sentiment": {
         "neutral": 145,
@@ -3012,16 +3027,16 @@
     "2026-03-26": {
       "total": 145,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 13,
-        "Ciudadana | La | Dea | Los | Ms": 6,
-        "Exhibit | Exhibition | Studio | The | Museum": 5,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 14,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 7,
+        "Se | Ciudadana | Los | Pablo": 6,
         "Evacuation | Disaster | Floods | Storms | Shelters": 5,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 5,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 4,
-        "Dc | Defendants | Justice | Historians | Appeals": 3,
-        "Orchard | Amtrak | Metrorail | Blaze | Blazes": 3,
-        "Support | Funding | Pay | Reconciliation | Affects": 3,
-        "Road | Predictions | Phoenix | Underway | Molly": 3
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 4,
+        "Dc | Defendants | Justice | Pentagon | Historians": 3,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 3,
+        "Amtrak | Fema | Wildfires | Avenue | Wildfire": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 3
       },
       "sentiment": {
         "neutral": 143,
@@ -3054,16 +3069,16 @@
     "2026-03-27": {
       "total": 141,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 8,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 6,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 5,
-        "Evacuation | Disaster | Floods | Storms | Shelters": 5,
-        "Support | Funding | Pay | Reconciliation | Affects": 4,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 4,
-        "Media | Revised | Advancing | Advances | Advance": 3,
-        "Disney | Nashville | Lake | City | Tom": 3,
-        "Bulletin | District | Cities | Municipal | Commissioners": 2,
-        "Easter | Sunday | Conference | Saints | Record": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 9,
+        "Classic | Wins | No | Final | Finalist": 5,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 5,
+        "Evacuation | Disaster | Floods | Storms | Shelters": 4,
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 3,
+        "Southern | Time | University | District | Race": 3,
+        "Columbia | Lawmakers | Legislature | Fcc | Revised": 3,
+        "Patients | Careprotections | Benefits | Shortfalls | Effectiveness": 3,
+        "Residents | Hikes | Municipal | Crisis | Bail": 2,
+        "Conference | Founder | Latest | Smith | Book": 2
       },
       "sentiment": {
         "neutral": 138,
@@ -3096,16 +3111,16 @@
     "2026-03-28": {
       "total": 66,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 14,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 5,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 5,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 2,
-        "Album | Works | Published | Head | Headliners": 2,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 2,
-        "Farming | Tourney | Expanding | Location | Outdoor": 2,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2,
-        "Garden | Farms | Deserts | Agriculture | Initiatives": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 14,
+        "Southern | Time | University | District | Race": 7,
+        "Sc | Richmond | Confederate | Campus | Protests": 5,
+        "Congressional | Deadline | F35 | Warns | Troops": 4,
+        "Attitude | Pizza | Boasting | Transcend | Home": 2,
+        "Night | City | Twilight | Festival | Symphony": 2,
+        "Share | Covid19 | Classroom | Discussion | Communicating": 2,
+        "Florida | Tampa | Pinellas | Bay | Rico": 2,
+        "Schoolers | Residents | Deserts | Poverty | Ny": 1,
+        "Dana | Faces | Subject | Transition | Reshape": 1
       },
       "sentiment": {
         "neutral": 65,
@@ -3137,16 +3152,16 @@
     "2026-03-29": {
       "total": 69,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 15,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 4,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 4,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 2,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 2,
-        "Streets | Event | Crisis | Participation | History": 2,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 2,
-        "Dc | Defendants | Justice | Historians | Appeals": 1,
-        "Ethics | California | Accountability | Misconduct | Florida": 1,
-        "Utah | Colorado | Dc | Guide | Residents": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 15,
+        "Congressional | Deadline | F35 | Warns | Troops": 4,
+        "Sc | Richmond | Confederate | Campus | Protests": 4,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 3,
+        "Southern | Time | University | District | Race": 3,
+        "Conference | Founder | Latest | Smith | Book": 2,
+        "Streets | Crisis | Next | Boston | Spotlights": 2,
+        "Expulsion | Assault | Aide | Counsel | Accused": 1,
+        "Classic | Wins | No | Final | Finalist": 1,
+        "Winter | Stress | What | March | More": 1
       },
       "sentiment": {
         "neutral": 66,
@@ -3178,16 +3193,16 @@
     "2026-03-30": {
       "total": 121,
       "themes": {
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 4,
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 4,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 3,
-        "Easter | Sunday | Conference | Saints | Record": 3,
-        "Dershowitz | Support | Citizenship | Slaves | Trumps": 3,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 3,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 2,
-        "Orchard | Amtrak | Metrorail | Blaze | Blazes": 2,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 6,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 4,
+        "Sc | Richmond | Confederate | Campus | Protests": 4,
+        "Attitude | Pizza | Boasting | Transcend | Home": 3,
+        "Conference | Founder | Latest | Smith | Book": 3,
+        "Funding | Jihad | Blockade | Inaction | Florida": 3,
+        "Rally | Outside | Takeaways | Crowds | Breaks": 3,
+        "Binghamton | Boston | Lindenwood | Revival | Mercyhurst": 3,
+        "Northern | Wild | Season | Trip | Photos": 2,
+        "Amtrak | Fema | Wildfires | Avenue | Wildfire": 2
       },
       "sentiment": {
         "neutral": 119,
@@ -3220,16 +3235,16 @@
     "2026-03-31": {
       "total": 140,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 12,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
         "Evacuation | Disaster | Floods | Storms | Shelters": 5,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 4,
-        "Meets | Room | Living | Thesuper | Party": 3,
-        "Toll | Cox | Coxs | Coverage | Taking": 3,
-        "Dc | Defendants | Justice | Historians | Appeals": 3,
-        "Conference | Champion | Competition | Finalists | Ucjc": 3,
-        "Dershowitz | Support | Citizenship | Slaves | Trumps": 2,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2,
-        "Gop | Wisconsin | Minnesota | Tennessee | Anderson": 2
+        "Festival | Fest | Theater | Theatre | Hollywood": 4,
+        "Night | City | Twilight | Festival | Symphony": 3,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 3,
+        "Conference | Competition | Inaugural | Coleman | Alumni": 3,
+        "Conference | Founder | Latest | Smith | Book": 3,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 2,
+        "Rally | Outside | Takeaways | Crowds | Breaks": 2,
+        "Florida | Tampa | Pinellas | Bay | Rico": 2
       },
       "sentiment": {
         "neutral": 137,
@@ -3261,16 +3276,16 @@
     "2026-04-01": {
       "total": 135,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 10,
-        "Easter | Sunday | Conference | Saints | Record": 4,
-        "Dershowitz | Support | Citizenship | Slaves | Trumps": 4,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 11,
+        "Southern | Time | University | District | Race": 6,
+        "Conference | Founder | Latest | Smith | Book": 4,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 4,
+        "Campaign | Protest | Fundraiser | Local | Headlines": 4,
+        "Rally | Outside | Takeaways | Crowds | Breaks": 4,
         "Evacuation | Disaster | Floods | Storms | Shelters": 4,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Dc | Defendants | Justice | Historians | Appeals": 3,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 3,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 3,
-        "Rural | Yellowhorse | Dealing | Lives | Resilience": 3,
-        "Lawmakers | Immigration | Immigrant | Senators | Senate": 2
+        "Venue | Respondents | Enrollments | Sponsors | Votes": 3,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
+        "Dc | Defendants | Justice | Pentagon | Historians": 3
       },
       "sentiment": {
         "neutral": 133,
@@ -3303,16 +3318,16 @@
     "2026-04-02": {
       "total": 135,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 13,
-        "Ciudadana | La | Dea | Los | Ms": 5,
-        "Dershowitz | Support | Citizenship | Slaves | Trumps": 4,
-        "This | Festivals | Roadwork | Delays | Riverwalk": 4,
-        "Easter | Sunday | Conference | Saints | Record": 4,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 13,
+        "Southern | Time | University | District | Race": 5,
+        "Se | Ciudadana | Los | Pablo": 5,
+        "Rally | Outside | Takeaways | Crowds | Breaks": 4,
+        "Storm | Buckhorn | Westshore | Southbound | Riverwalk": 4,
+        "Conference | Founder | Latest | Smith | Book": 4,
         "Evacuation | Disaster | Floods | Storms | Shelters": 4,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Road | Predictions | Phoenix | Underway | Molly": 3,
-        "Arkansas | Struggles | Impacts | Signs | Bills": 2,
-        "Orchard | Amtrak | Metrorail | Blaze | Blazes": 2
+        "Trolleys | Screenings | Dc | Fac | Toys": 2,
+        "Amtrak | Fema | Wildfires | Avenue | Wildfire": 2,
+        "Conference | Competition | Inaugural | Coleman | Alumni": 2
       },
       "sentiment": {
         "neutral": 132,
@@ -3345,16 +3360,16 @@
     "2026-04-03": {
       "total": 147,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 9,
-        "Road | Predictions | Phoenix | Underway | Molly": 7,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 4,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 10,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 8,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 5,
         "Evacuation | Disaster | Floods | Storms | Shelters": 4,
-        "Punish | Authors | Energized | Madison | Lazar": 4,
-        "Meets | Room | Living | Thesuper | Party": 3,
-        "Easter | Sunday | Conference | Saints | Record": 3,
-        "Judicial | Jackson | Michael | Court | Of": 3,
-        "Dc | Defendants | Justice | Historians | Appeals": 2,
-        "Near | Gulf | Plants | State": 2
+        "Punish | Energized | It | Madison | Lazar": 4,
+        "Festival | Fest | Theater | Theatre | Hollywood": 3,
+        "Dc | Defendants | Justice | Pentagon | Historians": 3,
+        "Conference | Founder | Latest | Smith | Book": 3,
+        "Marriage | Jackson | Race | Qa | Bethany": 3,
+        "Essay | Sustaining | Confronting | Rhetoric | Dysfunction": 2
       },
       "sentiment": {
         "neutral": 142,
@@ -3387,16 +3402,16 @@
     "2026-04-04": {
       "total": 67,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 13,
-        "Easter | Sunday | Conference | Saints | Record": 4,
-        "Dc | Defendants | Justice | Historians | Appeals": 3,
-        "Road | Predictions | Phoenix | Underway | Molly": 3,
-        "Farming | Tourney | Expanding | Location | Outdoor": 3,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 2,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 13,
+        "Southern | Time | University | District | Race": 8,
+        "Conference | Founder | Latest | Smith | Book": 4,
+        "Dc | Defendants | Justice | Pentagon | Historians": 3,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 1,
-        "March | Aarps | September | Scene | Suggestions": 1,
-        "Support | Funding | Pay | Reconciliation | Affects": 1
+        "March | Aarps | September | Suggestions | April": 1,
+        "Pennsylvania | Plan | Workers | Breakthrough | Airport": 1,
+        "Campaign | Protest | Fundraiser | Local | Headlines": 1,
+        "Protest | Restitution | Dealers | Settled | Rescue": 1
       },
       "sentiment": {
         "neutral": 63,
@@ -3429,16 +3444,16 @@
     "2026-04-05": {
       "total": 54,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 7,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 5,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 4,
-        "Easter | Sunday | Conference | Saints | Record": 2,
-        "Road | Predictions | Phoenix | Underway | Molly": 2,
-        "Farming | Tourney | Expanding | Location | Outdoor": 2,
-        "Enrollment | Classrooms | Slavery | Schools | Curriculum": 1,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 1,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 1,
-        "Dershowitz | Support | Citizenship | Slaves | Trumps": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 7,
+        "Southern | Time | University | District | Race": 5,
+        "Florida | Tampa | Pinellas | Bay | Rico": 4,
+        "Conference | Founder | Latest | Smith | Book": 2,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 2,
+        "Night | City | Twilight | Festival | Symphony": 1,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 1,
+        "Administrations | America | Trump | Rest | Once": 1,
+        "Congressional | Deadline | F35 | Warns | Troops": 1,
+        "Rally | Outside | Takeaways | Crowds | Breaks": 1
       },
       "sentiment": {
         "neutral": 52,
@@ -3470,16 +3485,16 @@
     "2026-04-06": {
       "total": 115,
       "themes": {
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 6,
-        "Road | Predictions | Phoenix | Underway | Molly": 6,
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 6,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 6,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 5,
         "Evacuation | Disaster | Floods | Storms | Shelters": 4,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Historic | Chaotic | Deep | Joy | Mission": 3,
-        "Headlines | Surge | Drama | Giants | Campaign": 2,
-        "Landscape | Emsa | Battleground | Poa | Ohio": 2,
-        "History | Gatherings | Inaugural | Alumnus | Alumnuszachary": 2,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 2
+        "Baltimore | Researchers | Silence | Break | Native": 3,
+        "Night | City | Twilight | Festival | Symphony": 2,
+        "As | Agreement | Uscanada | Blockade | Trump": 2,
+        "Congressional | Deadline | F35 | Warns | Troops": 2,
+        "Campaign | Protest | Fundraiser | Local | Headlines": 2,
+        "Northern | Wild | Season | Trip | Photos": 2,
+        "Journeys | Sportsincollege | Athletic | Victorious | Showcased": 2
       },
       "sentiment": {
         "neutral": 113,
@@ -3512,16 +3527,16 @@
     "2026-04-07": {
       "total": 132,
       "themes": {
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 16,
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 11,
-        "Road | Predictions | Phoenix | Underway | Molly": 4,
-        "Easter | Sunday | Conference | Saints | Record": 3,
-        "Meets | Room | Living | Thesuper | Party": 2,
-        "Irvines | Anchors | Highs | Fullerton | Brooklynites": 2,
-        "Bulletin | District | Cities | Municipal | Commissioners": 2,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 2,
-        "Ciudadana | La | Dea | Los | Ms": 2,
-        "District | County | Districts | Proposal | Summer": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 11,
+        "Congressional | Deadline | F35 | Warns | Troops": 9,
+        "Festival | Fest | Theater | Theatre | Hollywood": 3,
+        "Night | City | Twilight | Festival | Symphony": 3,
+        "As | Agreement | Uscanada | Blockade | Trump": 3,
+        "Conference | Founder | Latest | Smith | Book": 3,
+        "Dana | Faces | Subject | Transition | Reshape": 2,
+        "Residents | Hikes | Municipal | Crisis | Bail": 2,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 2,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 2
       },
       "sentiment": {
         "neutral": 130,
@@ -3553,16 +3568,16 @@
     "2026-04-08": {
       "total": 130,
       "themes": {
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 8,
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 8,
-        "Dc | Defendants | Justice | Historians | Appeals": 4,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Landscape | Emsa | Battleground | Poa | Ohio": 3,
-        "Easter | Sunday | Conference | Saints | Record": 3,
-        "Utah | Byu | Byus | Spartan | Longhorns": 3,
-        "Enrollment | Classrooms | Slavery | Schools | Curriculum": 3,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 10,
+        "Congressional | Deadline | F35 | Warns | Troops": 5,
+        "Southern | Time | University | District | Race": 4,
+        "Dc | Defendants | Justice | Pentagon | Historians": 4,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 3,
-        "Ciudadana | La | Dea | Los | Ms": 2
+        "Se | Ciudadana | Los | Pablo": 2,
+        "Student | Residents | Ncaa | Contests | Chicago": 2,
+        "Federal | Fundraising | Restrictions | Base | Relief": 2,
+        "Outreach | Plans | Design | Regulations | Needs": 2
       },
       "sentiment": {
         "neutral": 126,
@@ -3595,16 +3610,16 @@
     "2026-04-09": {
       "total": 127,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 12,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
         "Evacuation | Disaster | Floods | Storms | Shelters": 7,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 4,
-        "Campaign | Luther | Gus | Preaches | Jackson": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "This | Festivals | Roadwork | Delays | Riverwalk": 3,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 2,
-        "Headlines | Surge | Drama | Giants | Campaign": 2,
-        "Road | Predictions | Phoenix | Underway | Molly": 2
+        "Tribune | Mayor | Pay | Delegate | Arrests": 4,
+        "Bring | Moves | Street | Wrongdoing | Survivors": 3,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
+        "Storm | Buckhorn | Westshore | Southbound | Riverwalk": 3,
+        "Florida | Tampa | Pinellas | Bay | Rico": 2,
+        "Zoos | Losses | Massacre | Thrill | Beavers": 2,
+        "Venue | Respondents | Enrollments | Sponsors | Votes": 2,
+        "Campaign | Protest | Fundraiser | Local | Headlines": 2
       },
       "sentiment": {
         "neutral": 126,
@@ -3636,16 +3651,16 @@
     "2026-04-10": {
       "total": 133,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 11,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 5,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
+        "Dc | Defendants | Justice | Pentagon | Historians": 3,
+        "Patients | Careprotections | Benefits | Shortfalls | Effectiveness": 3,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 3,
-        "Aides | Landlords | Police | Intervention | Shooting": 2,
-        "Mueller | Survivors | Eyewitness | Testify | Investigating": 2,
-        "Dc | Defendants | Justice | Historians | Appeals": 2,
-        "Village | Built | Archiving | Initiative | Gazette": 2,
-        "Reserves | Future | Suffocating | Migration | Reintroduced": 2,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 2,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 2
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 2,
+        "Musks | Hakeem | Psaki | Trump | Clintons": 2,
+        "Metropolitan | Grand | Doring | Festival | Seattle": 2,
+        "Sc | Richmond | Confederate | Campus | Protests": 2
       },
       "sentiment": {
         "neutral": 132,
@@ -3677,16 +3692,16 @@
     "2026-04-11": {
       "total": 68,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 14,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 3,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 14,
+        "Southern | Time | University | District | Race": 5,
+        "Florida | Tampa | Pinellas | Bay | Rico": 3,
+        "Essay | Sustaining | Confronting | Rhetoric | Dysfunction": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 2,
-        "Thinking | Newsnations | Dem | Statewide | Pollster": 2,
-        "Headlines | Name | Leadership | Leaders | Free": 2,
-        "Farming | Tourney | Expanding | Location | Outdoor": 2,
-        "Easter | Sunday | Conference | Saints | Record": 2,
-        "Road | Predictions | Phoenix | Underway | Molly": 1
+        "Legislators | Gov | Primaries | Voters | Incumbents": 2,
+        "As | Agreement | Uscanada | Blockade | Trump": 2,
+        "Conference | Founder | Latest | Smith | Book": 2,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 1,
+        "Amtrak | Fema | Wildfires | Avenue | Wildfire": 1
       },
       "sentiment": {
         "neutral": 68
@@ -3717,16 +3732,16 @@
     "2026-04-12": {
       "total": 64,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 15,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 6,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Ethics | California | Accountability | Misconduct | Florida": 2,
-        "Funding | Governors | Democratic | Governor | Campaign": 2,
-        "Album | Works | Published | Head | Headliners": 2,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 2,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 15,
+        "Southern | Time | University | District | Race": 6,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
+        "Expulsion | Assault | Aide | Counsel | Accused": 2,
+        "Funding | Jihad | Blockade | Inaction | Florida": 2,
+        "Night | City | Twilight | Festival | Symphony": 2,
         "Evacuation | Disaster | Floods | Storms | Shelters": 2,
-        "Utah | Colorado | Dc | Guide | Residents": 1,
-        "This | Festivals | Roadwork | Delays | Riverwalk": 1
+        "Classic | Wins | No | Final | Finalist": 1,
+        "Rockville | Dull | Renos | Residents | Street": 1,
+        "Storm | Buckhorn | Westshore | Southbound | Riverwalk": 1
       },
       "sentiment": {
         "neutral": 63,
@@ -3758,16 +3773,16 @@
     "2026-04-13": {
       "total": 114,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 8,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 9,
         "Evacuation | Disaster | Floods | Storms | Shelters": 6,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 4,
-        "Warns | Update | Summit | Sunday | Hill": 4,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Exhibit | Exhibition | Studio | The | Museum": 3,
-        "Residents | Crosswalk | Night | Festival | Tourism": 3,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 2,
-        "Meets | Room | Living | Thesuper | Party": 2
+        "Families | Repercussions | Social | Controversial | Targets": 4,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 4,
+        "Essay | Commitments | Cities | Honors | Bringing": 4,
+        "Florida | Tampa | Pinellas | Bay | Rico": 3,
+        "Southern | Time | University | District | Race": 3,
+        "Northern | Wild | Season | Trip | Photos": 2,
+        "Festival | Fest | Theater | Theatre | Hollywood": 2,
+        "Expulsion | Assault | Aide | Counsel | Accused": 2
       },
       "sentiment": {
         "neutral": 112,
@@ -3800,16 +3815,16 @@
     "2026-04-14": {
       "total": 121,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 7,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 6,
-        "Warns | Update | Summit | Sunday | Hill": 3,
-        "Road | Predictions | Phoenix | Underway | Molly": 3,
-        "Evacuation | Disaster | Floods | Storms | Shelters": 3,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 3,
-        "Media | Revised | Advancing | Advances | Advance": 2,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2,
-        "Dc | Defendants | Justice | Historians | Appeals": 2,
-        "Ethics | California | Accountability | Misconduct | Florida": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 8,
+        "Evacuation | Disaster | Floods | Storms | Shelters": 4,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
+        "Families | Repercussions | Social | Controversial | Targets": 3,
+        "Southern | Time | University | District | Race": 3,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 3,
+        "Florida | Tampa | Pinellas | Bay | Rico": 2,
+        "Dc | Defendants | Justice | Pentagon | Historians": 2,
+        "Expulsion | Assault | Aide | Counsel | Accused": 2,
+        "Legislative | Legislation | Spending | Legislators | Bills": 2
       },
       "sentiment": {
         "neutral": 118,
@@ -3842,16 +3857,16 @@
     "2026-04-15": {
       "total": 149,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 13,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 6,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 13,
         "Evacuation | Disaster | Floods | Storms | Shelters": 5,
-        "Capitol | Medicaids | Medicaid | Funding | Lawmakers": 4,
-        "Aides | Landlords | Police | Intervention | Shooting": 2,
-        "Meets | Room | Living | Thesuper | Party": 2,
-        "Dc | Defendants | Justice | Historians | Appeals": 2,
-        "Advocacy | Kent | Than | Experts | More": 2,
-        "Warns | Update | Summit | Sunday | Hill": 2,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 2
+        "Patients | Careprotections | Benefits | Shortfalls | Effectiveness": 4,
+        "Congressional | Deadline | F35 | Warns | Troops": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 2,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 2,
+        "Festival | Fest | Theater | Theatre | Hollywood": 2,
+        "Dc | Defendants | Justice | Pentagon | Historians": 2,
+        "Conference | Founder | Latest | Smith | Book": 2
       },
       "sentiment": {
         "neutral": 148,
@@ -3883,16 +3898,16 @@
     "2026-04-16": {
       "total": 142,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 11,
-        "Ciudadana | La | Dea | Los | Ms": 6,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
+        "Se | Ciudadana | Los | Pablo": 6,
+        "Southern | Time | University | District | Race": 6,
         "Evacuation | Disaster | Floods | Storms | Shelters": 4,
-        "This | Festivals | Roadwork | Delays | Riverwalk": 4,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Therapy | Psychology | Ptsd | Foundation | Poverty": 2,
-        "Richmond | Oakwood | Coast | Campus | Nationwide": 2,
-        "Dc | Defendants | Justice | Historians | Appeals": 2,
-        "Mueller | Survivors | Eyewitness | Testify | Investigating": 2,
-        "Downtown | Tucsons | Durham | Bookshop | Tomorrow": 2
+        "Storm | Buckhorn | Westshore | Southbound | Riverwalk": 4,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 4,
+        "Therapy | Outcomes | Behavioral | Volunteer | Selfcare": 2,
+        "Festival | Fest | Theater | Theatre | Hollywood": 2,
+        "Sc | Richmond | Confederate | Campus | Protests": 2,
+        "Dc | Defendants | Justice | Pentagon | Historians": 2
       },
       "sentiment": {
         "neutral": 138,
@@ -3925,16 +3940,16 @@
     "2026-04-17": {
       "total": 118,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 11,
-        "Election | News | Rescheduled | Caplin": 4,
-        "Judicial | Jackson | Michael | Court | Of": 4,
-        "Lawsuit | Settle | Custody | Deadline | Overcrowded": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
+        "April | Tuesday | Feb | Mar": 4,
+        "Marriage | Jackson | Race | Qa | Bethany": 4,
+        "Southern | Time | University | District | Race": 4,
+        "Countys | County | Orange | Overcrowded | Shelters": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 3,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 2,
-        "City | Shelters | Businesses | Public | Residents": 2,
-        "Utah | Lds | Debates | Legislature | Governing": 2
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 2,
+        "Postseason | Miami | Motorsports | Marshall | Mayfield": 2,
+        "Scientists | Sciencebased | Debates | Involvement | Encourage": 2,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 2
       },
       "sentiment": {
         "neutral": 116,
@@ -3966,16 +3981,16 @@
     "2026-04-18": {
       "total": 71,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 13,
-        "Aides | Landlords | Police | Intervention | Shooting": 3,
-        "Place | Cal | Shortage | Casino | Job": 2,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2,
-        "Jonesboro | Locating | Widens | Springfield | University": 2,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 2,
-        "Irvines | Anchors | Highs | Fullerton | Brooklynites": 2,
-        "Utah | Lds | Debates | Legislature | Governing": 1,
-        "Bag | Columbine | Bob | Basement | Floor": 1,
-        "Thinking | Newsnations | Dem | Statewide | Pollster": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 14,
+        "Protests | Memphis | Concerns | Progress | Deportation": 3,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 3,
+        "Congressional | Deadline | F35 | Warns | Troops": 2,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 2,
+        "Southern | Time | University | District | Race": 2,
+        "Dana | Faces | Subject | Transition | Reshape": 2,
+        "Scientists | Sciencebased | Debates | Involvement | Encourage": 1,
+        "Author | Community | Activity | Making | Promotes": 1,
+        "Legislators | Gov | Primaries | Voters | Incumbents": 1
       },
       "sentiment": {
         "neutral": 70,
@@ -4007,16 +4022,16 @@
     "2026-04-19": {
       "total": 60,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 10,
-        "Easter | Sunday | Conference | Saints | Record": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 2,
-        "Unsustainable | Ensuring | Nonsensical | Essence | Shirley": 2,
-        "Bringing | Center | Modern | Culture | In": 2,
-        "Acc | Lindenwood | Opener | Mcnamara | Caps": 2,
-        "March | Aarps | September | Scene | Suggestions": 1,
-        "Rural | Yellowhorse | Dealing | Lives | Resilience": 1,
-        "Media | Lack | Landscape | Reporters | Journalism": 1
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
+        "Conference | Founder | Latest | Smith | Book": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Northern | Wild | Season | Trip | Photos": 2,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 2,
+        "Southern | Time | University | District | Race": 2,
+        "As | Agreement | Uscanada | Blockade | Trump": 2,
+        "Postsecondary | Celebration | History | Washington | Promote": 1,
+        "Landscape | Coverage | Lsus | Lsu | Klansmans": 1,
+        "Dc | Defendants | Justice | Pentagon | Historians": 1
       },
       "sentiment": {
         "neutral": 57,
@@ -4049,16 +4064,16 @@
     "2026-04-20": {
       "total": 127,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 10,
-        "Dc | Defendants | Justice | Historians | Appeals": 5,
-        "Evacuation | Disaster | Floods | Storms | Shelters": 5,
-        "Exhibit | Exhibition | Studio | The | Museum": 3,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 2,
-        "Florida | Endangered | Tampa | Pinellas | Deputies": 2,
-        "Scott | Interview | Drone | Funding | Carolina": 2,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 2,
-        "Lawsuit | Settle | Custody | Deadline | Overcrowded": 2,
-        "Aides | Landlords | Police | Intervention | Shooting": 2
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 12,
+        "Dc | Defendants | Justice | Pentagon | Historians": 4,
+        "Evacuation | Disaster | Floods | Storms | Shelters": 4,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Federation | Prez | Convenes | Trifecta | Jamaica": 2,
+        "Northern | Wild | Season | Trip | Photos": 2,
+        "Florida | Tampa | Pinellas | Bay | Rico": 2,
+        "Exposed | Secrets | Moves | Medical | Softball": 2,
+        "Congressional | Deadline | F35 | Warns | Troops": 2,
+        "Countys | County | Orange | Overcrowded | Shelters": 2
       },
       "sentiment": {
         "neutral": 123,
@@ -4091,16 +4106,16 @@
     "2026-04-21": {
       "total": 141,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 14,
-        "Ciudadana | La | Dea | Los | Ms": 3,
-        "Orchard | Amtrak | Metrorail | Blaze | Blazes": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Road | Predictions | Phoenix | Underway | Molly": 3,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 14,
+        "Southern | Time | University | District | Race": 5,
+        "Night | City | Twilight | Festival | Symphony": 3,
+        "Se | Ciudadana | Los | Pablo": 3,
+        "Amtrak | Fema | Wildfires | Avenue | Wildfire": 3,
+        "Fort | Sacramento | Road | Arizona | Phoenix": 3,
         "Evacuation | Disaster | Floods | Storms | Shelters": 3,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 2,
-        "Tourism | Downtown | Nazarene | Parks | Park": 2,
-        "Columbia | Carolina | School | Wcu | Visiting": 2,
-        "News | Candidates | Our | Western | Redistricting": 2
+        "Trumps | Justice | Oversight | Upholds | Courts": 2,
+        "Immigration | Our | Strikes | Lawmakers | Agenda": 2,
+        "Congressional | Deadline | F35 | Warns | Troops": 2
       },
       "sentiment": {
         "neutral": 140,
@@ -4132,16 +4147,16 @@
     "2026-04-22": {
       "total": 132,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 6,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 9,
+        "Studentmanagers | Camp | Jose | Arenado | Arizona": 5,
         "Evacuation | Disaster | Floods | Storms | Shelters": 5,
-        "Appeals | Amendment | Sparks | Redistricting | Congress": 4,
-        "Santa | Sweeps | Ties | Utah | Minnesota": 3,
-        "Punish | Authors | Energized | Madison | Lazar": 3,
-        "Maternal | Postpartum | Trauma | Microloan | Counselor": 3,
-        "Utah | Lds | Debates | Legislature | Governing": 3,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 2,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 2,
-        "State | Washington | Bears | Stadium | Southwest": 2
+        "Voting | Redistricting | Florida | Voters | Vote": 4,
+        "Tribune | Mayor | Pay | Delegate | Arrests": 3,
+        "Madison | Reporting | Seattle | Superintendents | Nickelodeon": 3,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 2,
+        "Northern | Wild | Season | Trip | Photos": 2,
+        "Expulsion | Assault | Aide | Counsel | Accused": 2,
+        "Residents | Hikes | Municipal | Crisis | Bail": 2
       },
       "sentiment": {
         "neutral": 130,
@@ -4174,16 +4189,16 @@
     "2026-04-23": {
       "total": 131,
       "themes": {
-        "Leaves | Pennsylvania | Lakeland | Hillsborough | St": 6,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 6,
         "Evacuation | Disaster | Floods | Storms | Shelters": 6,
-        "Ciudadana | La | Dea | Los | Ms": 5,
-        "Mueller | Survivors | Eyewitness | Testify | Investigating": 4,
-        "Orchard | Amtrak | Metrorail | Blaze | Blazes": 3,
-        "Baseball | Opener | Baseballs | Softballs | Softball": 3,
-        "Carolina | Lindsey | Naval | Standoff | Biggs": 3,
-        "Advocate | Note | Following | Misconduct | Repercussions": 2,
-        "Aides | Landlords | Police | Intervention | Shooting": 2,
-        "Lawmakers | Communities | Marylanders | Seagraves | Regulation": 2
+        "Se | Ciudadana | Los | Pablo": 5,
+        "Amtrak | Fema | Wildfires | Avenue | Wildfire": 3,
+        "Southern | Time | University | District | Race": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Bring | Moves | Street | Wrongdoing | Survivors": 2,
+        "Protest | Restitution | Dealers | Settled | Rescue": 2,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 2,
+        "Intervention | Unemployment | Downtown | Processing | Stats": 2
       },
       "sentiment": {
         "neutral": 129,
@@ -4213,33 +4228,70 @@
       }
     },
     "2026-04-24": {
-      "total": 12,
+      "total": 127,
       "themes": {
-        "Arkansas | Struggles | Impacts | Signs | Bills": 1,
-        "Album | Works | Published | Head | Headliners": 1,
-        "Intricacies | Increasingly | Boom | Game | Fairytale": 1
+        "Night | City | Twilight | Festival | Symphony": 5,
+        "Congressional | Deadline | F35 | Warns | Troops": 5,
+        "Evacuation | Disaster | Floods | Storms | Shelters": 5,
+        "Leaves | Pennsylvania | Lakeland | Pinellas | Hillsborough": 5,
+        "Protest | Restitution | Dealers | Settled | Rescue": 4,
+        "Metropolitan | Grand | Doring | Festival | Seattle": 4,
+        "Statewide | Communities | Explosion | Lawmakers | Vineland": 4,
+        "Exposed | Secrets | Moves | Medical | Softball": 3,
+        "Jackson | Jake | Coordinator | Hockey | Jr": 3,
+        "Florida | Tampa | Pinellas | Bay | Rico": 3
       },
       "sentiment": {
-        "neutral": 12
+        "neutral": 126,
+        "negative": 1
       },
       "keywords": {
-        "iowa": 3,
-        "president": 2,
-        "punk": 2,
-        "lipstick": 2,
-        "concerns": 1,
-        "consumer": 1,
-        "affordability": 1,
-        "fore": 1,
-        "legislative": 1,
-        "louisiana": 1
+        "florida": 10,
+        "iowa": 6,
+        "iran": 6,
+        "school": 5,
+        "senate": 4,
+        "april": 4,
+        "ditv": 4,
+        "wisconsin": 4,
+        "minnesota": 4,
+        "louisiana": 3
       },
       "sources": {
-        "The Daily Iowan": 5,
-        "LSU Manship School Statehouse Bureau": 2,
-        "Tampa Free Press": 2,
-        "The Eudora Times": 2,
-        "CNS Maryland": 1
+        "Tampa Free Press": 31,
+        "The Salt Lake Tribune": 12,
+        "The Daily Iowan": 10,
+        "The Seattle Medium": 10,
+        "Caplin News": 10,
+        "Honolulu Civil Beat": 8,
+        "Carolina News and Reporter": 7,
+        "Nashville Banner": 6
+      }
+    },
+    "2026-04-25": {
+      "total": 3,
+      "themes": {
+        "Hernandezs | Belonging | Culture | Rio | Multicultural": 1
+      },
+      "sentiment": {
+        "neutral": 3
+      },
+      "keywords": {
+        "does": 1,
+        "spend": 1,
+        "nearly": 1,
+        "billion": 1,
+        "bold": 1,
+        "tucson": 1,
+        "mariachi": 1,
+        "students": 1,
+        "conference": 1,
+        "ready": 1
+      },
+      "sources": {
+        "Crosstown": 1,
+        "Arizona Sonoran News": 1,
+        "Tampa Free Press": 1
       }
     }
   }
