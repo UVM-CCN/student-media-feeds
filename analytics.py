@@ -1,9 +1,12 @@
 import csv
+import glob
 import json
 import os
+import re
 import datetime
 import logging
 import email.utils
+import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
 from typing import Dict, List, Any, Optional
 
@@ -153,6 +156,43 @@ class AnalyticsEngine:
             }
         return result
 
+    def count_active_feeds(self) -> int:
+        """Count unique, non-broken feed URLs across all OPML files and extra_urls.txt."""
+        feed_urls: set[str] = set()
+
+        # Scan feeds/ directory for OPML files
+        for opml_path in glob.glob(os.path.join("feeds", "*.opml")):
+            try:
+                tree = ET.parse(opml_path)
+                for outline in tree.getroot().iter("outline"):
+                    url = outline.get("xmlUrl", "")
+                    if url and not re.search(r"feedly\.com/web/", url, re.IGNORECASE):
+                        feed_urls.add(url)
+            except Exception as e:
+                logging.warning("Could not parse OPML %s: %s", opml_path, e)
+
+        # Legacy root-level feeds.opml
+        if os.path.exists("feeds.opml"):
+            try:
+                tree = ET.parse("feeds.opml")
+                for outline in tree.getroot().iter("outline"):
+                    url = outline.get("xmlUrl", "")
+                    if url and not re.search(r"feedly\.com/web/", url, re.IGNORECASE):
+                        feed_urls.add(url)
+            except Exception as e:
+                logging.warning("Could not parse feeds.opml: %s", e)
+
+        # extra_urls.txt
+        for txt_name in ("extra_urls.txt", "discovered_feeds.txt"):
+            if os.path.exists(txt_name):
+                with open(txt_name) as f:
+                    for line in f:
+                        url = line.strip()
+                        if url:
+                            feed_urls.add(url)
+
+        return len(feed_urls)
+
     def generate_report(self) -> Dict[str, Any]:
         """Generate comprehensive analytics report."""
         stories = self.load_stories()
@@ -165,6 +205,7 @@ class AnalyticsEngine:
         report = {
             "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
             "total_stories": len(stories),
+            "total_feeds": self.count_active_feeds(),
             "themes": self.aggregate_by_theme(stories),
             "sentiment": self.aggregate_by_sentiment(stories),
             "keywords": self.aggregate_keywords_global(stories),

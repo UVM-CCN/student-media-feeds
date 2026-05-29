@@ -4,8 +4,8 @@ A Python-based RSS feed aggregator designed to track and archive news stories fr
 
 ## TODO
 - [x] add frontend
-- [ ] categorzie by theme
-- [ ] add time series analysis
+- [x] categorzie by theme
+- [x] add time series analysis
 - [ ] integrate SOCKs tools?
 
 ## Overview

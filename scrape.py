@@ -58,6 +58,7 @@ class NewsPipeline:
             "keywords",
             "sentiment_label",
             "sentiment_score",
+            "extraction_status",
         ]
         self._setup_csv()
 
@@ -345,39 +346,37 @@ class NewsPipeline:
     def tag_stories_with_bertopic(self):
         """
         Uses BERTopic to cluster headlines into themes locally.
-        This follows the 'Quick Start' pattern: fit_transform then map back to CSV.
+        Only processes rows that have no theme set; existing theme labels are preserved.
         """
         if not os.path.exists(self.output_file):
             return
 
-        # Load data into Pandas for easier manipulation
         df = pd.read_csv(self.output_file)
-        
-        # Ensure 'theme' column exists
+
         if 'theme' not in df.columns:
             df['theme'] = ""
 
-        # Use all titles for training the model
-        # Ensure no NaN/float values are passed to the embedding model
         df['title'] = df['title'].fillna("").astype(str)
-        valid_mask = df['title'].str.strip().astype(bool)
-        docs = df.loc[valid_mask, 'title'].tolist()
-        
-        logging.info(f"Starting local BERTopic analysis on {len(docs)} headlines...")
-        
+
+        # Only tag rows that have no theme yet
+        untagged_mask = df['theme'].fillna("").str.strip().eq("") & df['title'].str.strip().astype(bool)
+        docs = df.loc[untagged_mask, 'title'].tolist()
+
+        if not docs:
+            logging.info("All stories already have themes. Skipping BERTopic.")
+            return
+
+        logging.info("Starting local BERTopic analysis on %d untagged headlines...", len(docs))
+
         try:
-            # Initialize BERTopic with KeyBERTInspired representation for better topic labels
             topic_model = BERTopic(
                 language="english",
                 calculate_probabilities=False,
                 representation_model=KeyBERTInspired()
             )
-            
-            # Fit the model and extract topics
-            topics, probs = topic_model.fit_transform(docs)
-            
-            # Create a mapping of Topic ID to a readable label
-            topic_labels = {}
+
+            topics, _ = topic_model.fit_transform(docs)
+
             def is_valid_topic_id(t):
                 if t is None:
                     return False
@@ -385,7 +384,8 @@ class NewsPipeline:
                     return False
                 return True
 
-            topic_ids = sorted(set([t for t in topics if is_valid_topic_id(t)]))
+            topic_labels = {}
+            topic_ids = sorted(set(t for t in topics if is_valid_topic_id(t)))
             for topic_id in topic_ids:
                 if topic_id == -1:
                     topic_labels[topic_id] = "Unclassified"
@@ -395,36 +395,27 @@ class NewsPipeline:
                         words = []
                         if topic_words:
                             for w in topic_words[:5]:
-                                if isinstance(w, (list, tuple)) and len(w) > 0:
-                                    word_str = str(w[0]).strip()
-                                else:
-                                    word_str = str(w).strip()
-
+                                word_str = str(w[0] if isinstance(w, (list, tuple)) and w else w).strip()
                                 if word_str and not word_str.replace('.', '', 1).isdigit():
                                     words.append(word_str)
-                        if words:
-                            label = " | ".join([str(w) for w in words])
-                            topic_labels[topic_id] = label.title()
-                        else:
-                            topic_labels[topic_id] = f"Topic {topic_id}"
+                        topic_labels[topic_id] = " | ".join(words).title() if words else f"Topic {topic_id}"
                     except Exception as label_error:
-                        logging.warning(f"Could not create label for topic {topic_id}: {label_error}")
+                        logging.warning("Could not create label for topic %s: %s", topic_id, label_error)
                         topic_labels[topic_id] = f"Topic {topic_id}"
 
-            # Print all possible topics
-            possible_topics = sorted(set(topic_labels.values()))
-            print("Possible topics:", possible_topics)
+            logging.info("Possible topics: %s", sorted(set(topic_labels.values())))
 
-            # Map the results back to the dataframe
-            df.loc[valid_mask, 'theme'] = [topic_labels.get(t, "Unclassified") for t in topics]
-            
-            # Save back to CSV
-            df.to_csv(self.output_file, index=False)
-            num_themes = len([t for t in topic_labels.keys() if t != -1])
-            logging.info(f"Local tagging complete. Identified {num_themes} themes.")
-            
+            df.loc[untagged_mask, 'theme'] = [topic_labels.get(t, "Unclassified") for t in topics]
+
+            # Write back using the canonical header order via atomic write
+            normalized_rows = [{h: str(row.get(h, "")) for h in self.headers} for row in df.to_dict("records")]
+            self._write_rows_atomic(normalized_rows)
+
+            num_themes = sum(1 for t in topic_labels if t != -1)
+            logging.info("Local tagging complete. Identified %d themes across %d stories.", num_themes, len(docs))
+
         except Exception as e:
-            logging.exception(f"BERTopic tagging failed: {e}")
+            logging.exception("BERTopic tagging failed: %s", e)
 
     def tag_stories_with_ai(self, api_key: str):
         """
@@ -563,6 +554,7 @@ class NewsPipeline:
                         "keywords": enrichment["keywords"],
                         "sentiment_label": enrichment["sentiment_label"],
                         "sentiment_score": enrichment["sentiment_score"],
+                        "extraction_status": "",
                     })
                     existing_links.add(link)
                     feed_story_count += 1
@@ -599,14 +591,21 @@ def run_daily_update():
     pipeline = NewsPipeline(DATABASE)
 
     all_feeds = []
-    
-    # Check OPML files
+
+    # Scan feeds/ directory for any .opml files
+    if os.path.isdir("feeds"):
+        for fname in os.listdir("feeds"):
+            if fname.lower().endswith(".opml"):
+                all_feeds.extend(pipeline.parse_opml(os.path.join("feeds", fname)))
+
+    # Also check legacy root-level feeds.opml for backward compatibility
     if os.path.exists("feeds.opml"):
         all_feeds.extend(pipeline.parse_opml("feeds.opml"))
-    
-    # Check text list
-    if os.path.exists("discovered_feeds.txt"):
-        all_feeds.extend(pipeline.parse_url_list("discovered_feeds.txt"))
+
+    # Check text list (extra_urls.txt is the documented name; discovered_feeds.txt kept for compat)
+    for txt_name in ("extra_urls.txt", "discovered_feeds.txt"):
+        if os.path.exists(txt_name):
+            all_feeds.extend(pipeline.parse_url_list(txt_name))
 
     unique_feeds = list(set(all_feeds))
 
@@ -614,14 +613,22 @@ def run_daily_update():
         pipeline.fetch_stories(unique_feeds)
         pipeline.remove_comment_articles()
         pipeline.enrich_missing_metadata()
-        
+
         # Using BERTopic for local, rate-limit-free thematic analysis
         pipeline.tag_stories_with_bertopic()
-        
+
         # Commented out AI tagging to avoid rate limits
         # api_key = os.environ.get("GEMINI_API_KEY")
         # if api_key:
         #     pipeline.tag_stories_with_ai(api_key)
+
+        # Fetch + store full article text for any new stories.
+        # Idempotent: skips anything already extracted, retries transient failures.
+        try:
+            from fetch_full_text import process_pending_stories
+            process_pending_stories(DATABASE)
+        except Exception as e:
+            logging.error("Full-text extraction failed: %s", e)
     else:
         logging.error("No feeds found to process.")
 

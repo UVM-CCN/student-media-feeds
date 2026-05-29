@@ -1,6 +1,12 @@
 feedparser
 listparser
 requests
-bertopic
 beautifulsoup4
 pandas
+trafilatura
+
+# BERTopic and its required transitive dependencies
+bertopic
+sentence-transformers
+umap-learn
+hdbscan

@@ -35,9 +35,11 @@
         .theme-count { margin-bottom: 20px; }
         .theme-count p { margin: 10px 0; font-size: 14px; color: #000; }
         .theme-count span { font-weight: bold; color: #000; }
-        .sort-buttons { margin-bottom: 15px; }
-        .sort-buttons button { margin-right: 10px; padding: 8px 12px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; }
-        .sort-buttons button:hover { background: #1d6bb8; }
+        th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+        th.sortable:hover { background-color: #efefef; }
+        th.sortable::after { content: ' \2195'; color: #aaa; font-size: 11px; }
+        th.sortable.sort-asc::after { content: ' \2191'; color: #000; }
+        th.sortable.sort-desc::after { content: ' \2193'; color: #000; }
         .tag { cursor: pointer; margin: 5px; padding: 6px 12px; background: #e8f4f8; border: 1px solid #b3d9e8; border-radius: 4px; display: inline-block; color: #000; }
         .tag:hover { background: #d0e8f2; }
         .chart-container { margin: 30px 0; background: white; padding: 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -46,10 +48,20 @@
         .axis-label text { fill: #000; }
         .brush .selection { fill: rgba(50, 115, 220, 0.22); stroke: #3273dc; }
         .chart-note { font-size: 12px; color: #444; margin-bottom: 8px; }
+        .brush-range-filter {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .brush-range-filter input {
+            width: auto;
+        }
         .legend { display: inline-block; margin-right: 15px; font-size: 13px; color: #000; }
         .legend-color { display: inline-block; width: 12px; height: 12px; margin-right: 5px; vertical-align: middle; }
-        .sentiment-positive { color: #48c774; font-weight: bold; }
-        .sentiment-neutral { color: #ffdd57; font-weight: bold; }
+        .sentiment-positive { color: #0284b7; font-weight: bold; }
+        .sentiment-neutral { color: #ab8900; font-weight: bold; }
         .sentiment-negative { color: #f14668; font-weight: bold; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .filter-pill { 
@@ -70,8 +82,13 @@
         #keywordCounts {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 4px;
         }
+        #keywordCounts div {
+            font-size: 12px;
+            height: 32px;
+        }
+        
         .filter-pill-remove { 
             cursor: pointer; 
             margin-left: 8px; 
@@ -82,6 +99,10 @@
             opacity: 0.8; 
         }
         @media (max-width: 1200px) { .grid { grid-template-columns: 1fr; } }
+        .stat-cards { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+        .stat-card { background: white; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 16px 24px; min-width: 180px; }
+        .stat-card .stat-value { font-size: 32px; font-weight: bold; color: var(--primary); }
+        .stat-card .stat-label { font-size: 13px; color: #555; margin-top: 4px; }
     </style>
 </head>
 <body>
@@ -90,12 +111,38 @@
         <p class="subtitle">Tracking themes, keywords, and sentiment in student journalism</p>
     </div>
 
+    <div class="stat-cards">
+        <div class="stat-card">
+            <div class="stat-value" id="statTotalStories">—</div>
+            <div class="stat-label">Total stories in database</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="statStoriesYesterday">—</div>
+            <div class="stat-label">Stories added yesterday</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="statTotalFeeds">—</div>
+            <div class="stat-label">RSS feeds monitored</div>
+        </div>
+    </div>
+
     <div class="tabs">
         <a class="tab-link active" data-tab="browse">Browse Stories</a>
         <a class="tab-link" data-tab="analytics">Analytics & Trends</a>
     </div>
     <!-- Browse Tab -->
     <div id="browse" class="tab-content active browse-panel">
+        <div class="chart-container">
+            <div class="chart-title">Stories Published by Date</div>
+            <div class="chart-note">Use the brush below to zoom the time range.</div>
+            <div id="browseTimeSeriesChart"></div>
+        </div>
+        
+            <label style="font-size: 16px" class="brush-range-filter">
+                <input type="checkbox" id="brushRangeFilterToggle" />
+                <span>Filter results to only this date range</span>
+            </label>
+            <br><br>
         <div class="filter">
             <label><strong>Filter by keyword:</strong></label>
             <input type="text" id="keywordFilter" placeholder="Enter keyword..." />
@@ -108,25 +155,14 @@
             <p><strong>Top Keywords:</strong></p>
             <div id="keywordCounts"></div>
         </div>
-        <div class="chart-container">
-            <div class="chart-title">Stories Published by Date</div>
-            <div class="chart-note">Use the brush below to zoom the time range.</div>
-            <div id="browseTimeSeriesChart"></div>
-        </div>
-        <div class="sort-buttons">
-            <button onclick="sortThemes('asc')">Sort A-Z</button>
-            <button onclick="sortThemes('desc')">Sort Z-A</button>
-        </div>
         <table id="newsTable">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <!-- <th>Link</th> -->
-                    <th>Source</th>
-                    <th>Published</th>
-                    <!-- <th>Theme</th> -->
-                    <th>Sentiment</th>
-                    <th>Keywords</th>
+                    <th class="sortable" data-col="title">Title</th>
+                    <th class="sortable" data-col="source">Source</th>
+                    <th class="sortable sort-desc" data-col="published">Published</th>
+                    <th class="sortable" data-col="sentiment_label">Sentiment</th>
+                    <th class="sortable" data-col="keywords">Keywords</th>
                 </tr>
             </thead>
             <tbody>
@@ -167,6 +203,10 @@
         let allStories = [];
         let analyticsData = {};
         let activeKeywordFilters = [];
+        let browseChartRange = null;
+        let filterToBrushRangeEnabled = false;
+        let browseBrushFilterTimeoutId = null;
+        let sortState = { col: 'published', dir: 'desc' };
 
         // Load data on page load
         document.addEventListener('DOMContentLoaded', function() {
@@ -176,10 +216,9 @@
                 header: true,
                 complete: function(results) {
                     allStories = results.data.filter(story => story.title);
-                    displayStories(allStories);
-                    displayKeywordCounts(allStories);
-                    renderBrowseTimeSeriesChart(allStories);
-                    setupFilter(allStories);
+                    setupFilter();
+                    applyBrowseFilters();
+                    updateStatCards();
                 }
             });
 
@@ -189,8 +228,27 @@
                 .then(data => {
                     analyticsData = data;
                     renderCharts();
+                    updateStatCards();
                 })
                 .catch(err => console.warn('Analytics data not yet available:', err));
+
+            // Setup sortable column headers
+            document.querySelectorAll('#newsTable th.sortable').forEach(th => {
+                th.addEventListener('click', function() {
+                    const col = this.getAttribute('data-col');
+                    if (sortState.col === col) {
+                        sortState.dir = sortState.dir === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        sortState.col = col;
+                        sortState.dir = col === 'published' ? 'desc' : 'asc';
+                    }
+                    document.querySelectorAll('#newsTable th.sortable').forEach(h => {
+                        h.classList.remove('sort-asc', 'sort-desc');
+                    });
+                    this.classList.add(sortState.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+                    updateBrowseResultsOnly();
+                });
+            });
 
             // Setup tab switching
             document.querySelectorAll('.tab-link').forEach(link => {
@@ -200,6 +258,32 @@
                 });
             });
         });
+
+        function updateStatCards() {
+            // Total stories — from loaded CSV rows
+            if (allStories.length > 0) {
+                document.getElementById('statTotalStories').textContent = allStories.length.toLocaleString();
+            }
+
+            // Stories added yesterday — filter by captured_at date in UTC
+            if (allStories.length > 0) {
+                const now = new Date();
+                const yesterdayUTC = new Date(Date.UTC(
+                    now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - 1
+                ));
+                const yesterdayStr = yesterdayUTC.toISOString().slice(0, 10); // "YYYY-MM-DD"
+                const yesterdayCount = allStories.filter(s => {
+                    const ca = (s.captured_at || '').trim();
+                    return ca.slice(0, 10) === yesterdayStr;
+                }).length;
+                document.getElementById('statStoriesYesterday').textContent = yesterdayCount.toLocaleString();
+            }
+
+            // Total feeds — from analytics JSON
+            if (analyticsData.total_feeds != null) {
+                document.getElementById('statTotalFeeds').textContent = analyticsData.total_feeds.toLocaleString();
+            }
+        }
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -217,15 +301,39 @@
             const tbody = d3.select('#newsTable tbody');
             tbody.html('');
 
-            // create function for more human readable date formatting
-            const parseDate = d3.timeParse('%a, %d %b %Y %H:%M:%S %Z');
-            const formatDate = d3.timeFormat('%b %d, %Y');
+            // Use utcFormat so a date stored as midnight UTC doesn't shift to the previous day
+            // in browsers with a negative UTC offset (e.g. US timezones)
+            const formatDate = d3.utcFormat('%b %d, %Y');
+
+            // Sort data according to current sortState
+            const sorted = [...data].sort((a, b) => {
+                let valA, valB;
+                if (sortState.col === 'published') {
+                    valA = a.published ? new Date(a.published).getTime() : -Infinity;
+                    valB = b.published ? new Date(b.published).getTime() : -Infinity;
+                    if (isNaN(valA)) valA = -Infinity;
+                    if (isNaN(valB)) valB = -Infinity;
+                } else {
+                    valA = (a[sortState.col] || '').toLowerCase();
+                    valB = (b[sortState.col] || '').toLowerCase();
+                }
+                if (valA < valB) return sortState.dir === 'asc' ? -1 : 1;
+                if (valA > valB) return sortState.dir === 'asc' ? 1 : -1;
+                return 0;
+            });
+            data = sorted;
 
             data.forEach(story => {
                 const row = tbody.append('tr');
                 row.append('td').html(`<a href="${story.link}" target="_blank" style="color: #0066cc;">${story.title}</a>`);
                 row.append('td').text(story.source);
-                row.append('td').text(formatDate(parseDate(story.published)));
+                const publishedDate = story.published && story.published !== 'No Date'
+                    ? new Date(story.published)
+                    : null;
+                const publishedText = publishedDate && !isNaN(publishedDate)
+                    ? formatDate(publishedDate)
+                    : (story.published || '—');
+                row.append('td').text(publishedText);
 
                 // NOTE: temporarily removing theme, not as informative as keywords
                 // row.append('td').html(`<span class="tag">${story.theme || 'Unclassified'}</span>`);
@@ -274,6 +382,53 @@
             });
         }
 
+        function parsePublishedDateForBrowse(publishedValue) {
+            if (!publishedValue) return null;
+            const parsed = new Date(publishedValue);
+            if (Number.isNaN(parsed.getTime())) return null;
+            return new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
+        }
+
+        function getBrowseStoriesByKeywordFilters() {
+            const filterValue = (document.getElementById('keywordFilter')?.value || '').toLowerCase();
+
+            return allStories.filter(story => {
+                const keywordsStr = (story.keywords || '');
+                const matchesSearch = keywordsStr.toLowerCase().includes(filterValue);
+                if (!matchesSearch) return false;
+
+                if (activeKeywordFilters.length === 0) return true;
+                const storyKeywords = keywordsStr.split('|').map(k => k.trim());
+                return activeKeywordFilters.every(filter => storyKeywords.includes(filter));
+            });
+        }
+
+        function applyBrushRangeFilter(stories) {
+            if (!filterToBrushRangeEnabled || !browseChartRange) {
+                return stories;
+            }
+
+            return stories.filter(story => {
+                const publishedDate = parsePublishedDateForBrowse(story.published);
+                return publishedDate && publishedDate >= browseChartRange[0] && publishedDate <= browseChartRange[1];
+            });
+        }
+
+        function updateBrowseResultsOnly() {
+            const keywordFilteredStories = getBrowseStoriesByKeywordFilters();
+            const filteredStories = applyBrushRangeFilter(keywordFilteredStories);
+            displayStories(filteredStories);
+            displayKeywordCounts(filteredStories);
+        }
+
+        function applyBrowseFilters() {
+            const keywordFilteredStories = getBrowseStoriesByKeywordFilters();
+            const filteredStories = applyBrushRangeFilter(keywordFilteredStories);
+            displayStories(filteredStories);
+            displayKeywordCounts(filteredStories);
+            renderBrowseTimeSeriesChart(keywordFilteredStories);
+        }
+
         function toggleKeywordFilter(keyword) {
             const index = activeKeywordFilters.indexOf(keyword);
             if (index > -1) {
@@ -299,9 +454,7 @@
             if (activeKeywordFilters.length === 0) {
                 containerDiv.style('display', 'none');
                 activeFiltersDiv.html('');
-                displayStories(allStories);
-                displayKeywordCounts(allStories);
-                renderBrowseTimeSeriesChart(allStories);
+                applyBrowseFilters();
             } else {
                 containerDiv.style('display', 'block');
                 activeFiltersDiv.html('');
@@ -312,63 +465,34 @@
                         removeKeywordFilter(keyword);
                     });
                 });
-
-                // Filter stories by all active keywords (AND logic)
-                const filteredData = allStories.filter(story => {
-                    const keywordsStr = (story.keywords || '');
-                    const storyKeywords = keywordsStr.split('|').map(k => k.trim());
-                    return activeKeywordFilters.every(filter => storyKeywords.includes(filter));
-                });
-
-                displayStories(filteredData);
-                displayKeywordCounts(filteredData);
-                renderBrowseTimeSeriesChart(filteredData);
+                applyBrowseFilters();
             }
         }
 
-        function setupFilter(data) {
+        function setupFilter() {
             d3.select('#keywordFilter').on('input', function() {
-                const filterValue = this.value.toLowerCase();
-                let filteredData = data.filter(story => {
-                    const keywordsStr = (story.keywords || '').toLowerCase();
-                    return keywordsStr.includes(filterValue);
-                });
+                applyBrowseFilters();
+            });
 
-                // Also apply active filters (AND logic)
-                if (activeKeywordFilters.length > 0) {
-                    filteredData = filteredData.filter(story => {
-                        const keywordsStr = (story.keywords || '');
-                        const storyKeywords = keywordsStr.split('|').map(k => k.trim());
-                        return activeKeywordFilters.every(filter => storyKeywords.includes(filter));
-                    });
+            d3.select('#brushRangeFilterToggle').on('change', function() {
+                filterToBrushRangeEnabled = this.checked;
+                if (!filterToBrushRangeEnabled && browseBrushFilterTimeoutId) {
+                    clearTimeout(browseBrushFilterTimeoutId);
+                    browseBrushFilterTimeoutId = null;
                 }
-
-                displayStories(filteredData);
-                displayKeywordCounts(filteredData);
-                renderBrowseTimeSeriesChart(filteredData);
+                updateBrowseResultsOnly();
             });
         }
 
-        function sortThemes(direction) {
-            // Placeholder for sorting logic if needed
-            console.log('Sort:', direction);
-        }
 
         function renderBrowseTimeSeriesChart(stories) {
             const container = d3.select('#browseTimeSeriesChart');
             container.html('');
 
-            const parsePublishedDate = (publishedValue) => {
-                if (!publishedValue) return null;
-                const parsed = new Date(publishedValue);
-                if (Number.isNaN(parsed.getTime())) return null;
-                return new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
-            };
-
             const dailyCounts = d3.rollups(
                 stories,
                 v => v.length,
-                d => parsePublishedDate(d.published)
+                d => parsePublishedDateForBrowse(d.published)
             )
             .filter(([date]) => date instanceof Date && !Number.isNaN(date.getTime()))
             .sort((a, b) => a[0] - b[0])
@@ -392,7 +516,8 @@
                 .append('svg')
                 .attr('width', width + margin.left + margin.right)
                 .attr('height', 390)
-                .attr('viewBox', `0 0 ${width + margin.left + margin.right} 390`)
+                .attr('viewBox', `20 0 ${width + margin.left + margin.right} 390`)
+                
                 .attr('preserveAspectRatio', 'xMidYMid meet');
 
             const focus = svg.append('g')
@@ -492,17 +617,43 @@
                 .extent([[0, 0], [width, height2]])
                 .on('brush end', brushed);
 
-            context.append('g')
+            const brushGroup = context.append('g')
                 .attr('class', 'brush')
-                .call(brush)
-                .call(brush.move, x.range());
+                .call(brush);
+
+            const fullDomain = x2.domain();
+            const domainStart = fullDomain[0];
+            const domainEnd = fullDomain[1];
+            const oneYearAgo = d3.timeYear.offset(domainEnd, -1);
+            const defaultStart = oneYearAgo > domainStart ? oneYearAgo : domainStart;
+            brushGroup.call(brush.move, [x2(defaultStart), x2(domainEnd)]);
 
             function brushed(event) {
                 if (!event.selection) return;
                 const [x0, x1] = event.selection;
                 const newDomain = [x2.invert(x0), x2.invert(x1)];
+                browseChartRange = newDomain;
+
+                if (filterToBrushRangeEnabled) {
+                    if (browseBrushFilterTimeoutId) {
+                        clearTimeout(browseBrushFilterTimeoutId);
+                    }
+                    browseBrushFilterTimeoutId = setTimeout(() => {
+                        updateBrowseResultsOnly();
+                        browseBrushFilterTimeoutId = null;
+                    }, 1000);
+                }
 
                 x.domain(newDomain);
+
+                // update y domain based on visible bars in new x domain
+                const visibleData = dailyCounts.filter(d => d.date >= newDomain[0] && d.date <= newDomain[1]);
+                const visibleMax = d3.max(visibleData, d => d.count);
+                y.domain([0, visibleMax]);
+
+                // update y axis
+                focus.select('.y-axis').call(yAxis);
+
 
                 const visibleCount = Math.max(
                     1,
@@ -549,6 +700,13 @@
                 .attr('height', height + margin.top + margin.bottom)
                 .append('g')
                 .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            // add a clippath to svg to prevent drawing outside of axis range when zooming
+                svg.append('defs').append('clipPath')
+                    .attr('id', 'chartClip')
+                    .append('rect')
+                    .attr('width', width-margin.left-margin.right)
+                    .attr('height', height);
 
             const parseDate = d3.timeParse('%Y-%m-%d');
             const parseDateUS = d3.timeParse('%m/%d/%Y');
