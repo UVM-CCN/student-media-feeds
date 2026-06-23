@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Runtime artifacts
+*.log
+*.tmp
+
+# Backup archives (use git history instead)
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local-only context / scratch
+# (uncomment if .context/ holds personal notes you don't want to share)
+# .context/
+
+# Uncomment ONLY if you decide NOT to commit the raw corpus.
+# Trade-off: smaller repo, but contributors must run
+#   python fetch_full_text.py
+#   python build_publication_corpora.py
+# to regenerate locally, and you lose link-rot preservation.
+# full_text/
+# publication_corpora/
