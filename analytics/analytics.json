@@ -1,82 +1,82 @@
 {
-  "generated_at": "2026-04-20T19:42:15.072832+00:00",
-  "total_stories": 3003,
-  "total_feeds": 109,
+  "generated_at": "2026-06-22T13:39:37.896743+00:00",
+  "total_stories": 4622,
+  "total_feeds": 108,
   "themes": {
+    "Wvu | Mountaineers | Syracuse | Usc | College": 198,
+    "Iowas | Indictment | Assaulting | Turnout | Federal": 73,
+    "State | Note | Marketplace | Staff | Internships": 66,
     "Wbb | Baseball | Colonels | Ncaa | Folgueiras": 63,
     "Compete | Teams | Competitive | College | Sports": 61,
     "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 58,
     "Legislative | Legislation | Initiative | Gov | Campaign": 49,
     "Mall | Where | Plantation | Westport | 42Nd": 48,
+    "Concerns | Novel | Thrill | Summer | Pioneer": 47,
     "Summer | Tomorrow | Downtown | Lake | City": 45,
     "Seminoles | Dame | Uva | Unc | Notre": 43,
     "School | Student | Education | Academic | Activities": 43,
+    "41St | Pitch | Deserves | Stylist | Barrio": 43,
     "Protest | Protesting | Protests | Protesters | Deportation": 42,
     "Regal | Review | Hollywood | Cottages | Movies": 39,
     "Pasadena | Broadway | Nightclub | Taps | Symphony": 39,
+    "Opportunities | Freedom | Novels | Patriotism | Thinking": 39,
     "Lawmakers | Capitol | Enrollments | Mn | Funding": 38,
     "The | Hall | Four | Texas | Jackson": 38,
-    "States | Curb | State | Legislators | Lawmakers": 37,
-    "Artwalk | Community | Locally | Marching | Runway": 34,
-    "Shows | Ravine | Irvines | Parks | Claytons": 32,
-    "Museum | Exhibition | Carvers | Boston8217S | Exhibit": 32,
-    "Nationals | Surrounding | Reno | Mlb | Paradise": 31,
-    "Shelters | Aid | Residents | Dc | Utah": 29,
-    "Newsletters | Newsletter | Fundraiser | Centers | Cal": 28
+    "Franchise | Lovers | Middle | Lgbtq | Campuses": 38
   },
   "sentiment": {
-    "neutral": 2827,
-    "positive": 100,
-    "negative": 76
+    "neutral": 4411,
+    "positive": 122,
+    "negative": 89
   },
   "keywords": {
-    "state": 103,
-    "students": 95,
-    "syracuse": 93,
-    "iowa": 73,
-    "community": 72,
-    "bill": 69,
-    "women": 66,
-    "basketball": 63,
-    "first": 57,
-    "city": 57,
-    "trump": 53,
-    "county": 49,
-    "season": 44,
-    "school": 43,
-    "local": 42,
-    "house": 41,
-    "center": 39,
-    "orange": 37,
-    "march": 37,
-    "illinois": 37,
-    "sports": 36,
-    "residents": 36,
-    "wisconsin": 36,
-    "college": 35,
-    "lawmakers": 34,
-    "could": 33,
-    "university": 33,
-    "health": 32,
-    "brings": 31,
-    "student": 31
+    "students": 175,
+    "state": 138,
+    "community": 112,
+    "syracuse": 99,
+    "women": 92,
+    "city": 92,
+    "first": 88,
+    "iowa": 82,
+    "school": 81,
+    "county": 78,
+    "college": 77,
+    "bill": 77,
+    "basketball": 76,
+    "season": 76,
+    "student": 69,
+    "center": 68,
+    "trump": 68,
+    "university": 60,
+    "local": 58,
+    "house": 55,
+    "have": 54,
+    "health": 51,
+    "sports": 49,
+    "black": 49,
+    "post": 49,
+    "world": 48,
+    "police": 48,
+    "baseball": 47,
+    "residents": 45,
+    "year": 45
   },
   "sources": {
-    "The NewsHouse": 348,
-    "The Daily Iowan": 127,
-    "The Seattle Medium": 110,
-    "Caplin News": 94,
+    "The NewsHouse": 381,
+    "The Daily Iowan": 137,
+    "The Seattle Medium": 120,
+    "Voice of OC": 105,
+    "Caplin News": 104,
+    "Amplify Utah - The Story Room": 102,
+    "Daily Trojan": 100,
     "Cronkite News": 92,
-    "Voice of OC": 85,
-    "Purple Media Network": 76,
-    "Capitol News Illinois": 58,
-    "Wisconsin Watch": 57,
-    "Carolina News and Reporter": 48,
-    "The Eudora Times": 48,
-    "LSU Manship School Statehouse Bureau": 48,
-    "Grady Newsource": 47,
-    "Howard University News Service": 44,
-    "Politics & Policy Archives - Cronkite News": 44
+    "Purple Media Network": 86,
+    "Wisconsin Watch": 69,
+    "Capitol News Illinois": 68,
+    "Milwaukee Neighborhood News Service": 60,
+    "Grady Newsource": 59,
+    "Carolina News and Reporter": 58,
+    "The Eudora Times": 58
   },
   "timeseries": {
     "2019-03-16": {
@@ -155,6 +155,159 @@
       },
       "sources": {
         "www.columbiamissourian.com - RSS Results of type article with keyword(s) of #topstory": 1
+      }
+    },
+    "2020-08-11": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "memory": 1,
+        "saline": 1,
+        "cafe": 1,
+        "event": 1,
+        "saline's": 1
+      },
+      "sources": {
+        "Patch Labs": 1
+      }
+    },
+    "2020-08-12": {
+      "total": 2,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "saline": 2,
+        "baseball": 1,
+        "travel": 1,
+        "tryouts": 1,
+        "thursday": 1,
+        "torwood": 1,
+        "community-wide": 1,
+        "garage": 1,
+        "sale": 1
+      },
+      "sources": {
+        "Patch Labs": 2
+      }
+    },
+    "2020-08-15": {
+      "total": 1,
+      "themes": {
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "dawn": 1,
+        "krause": 1,
+        "precinct": 1,
+        "saline": 1,
+        "canvassing": 1
+      },
+      "sources": {
+        "Patch Labs": 1
+      }
+    },
+    "2020-08-17": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "virtual": 1,
+        "girls": 1,
+        "girl": 1,
+        "southeastern": 1,
+        "michigan": 1
+      },
+      "sources": {
+        "Patch Labs": 1
+      }
+    },
+    "2020-08-18": {
+      "total": 2,
+      "themes": {},
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "saline": 2,
+        "golf": 1,
+        "care": 1,
+        "village": 1,
+        "outreach": 1,
+        "fair": 1,
+        "post": 1,
+        "michigan": 1,
+        "event": 1
+      },
+      "sources": {
+        "Patch Labs": 2
+      }
+    },
+    "2020-08-19": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "mayor": 1,
+        "marl": 1,
+        "chief": 1,
+        "cream": 1,
+        "event": 1
+      },
+      "sources": {
+        "Patch Labs": 1
+      }
+    },
+    "2020-08-20": {
+      "total": 1,
+      "themes": {
+        "Healthcare | Md | Newsroom | Volunteer": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "blood": 1,
+        "saline": 1,
+        "august": 1,
+        "area": 1,
+        "senior": 1
+      },
+      "sources": {
+        "Patch Labs": 1
+      }
+    },
+    "2020-08-21": {
+      "total": 1,
+      "themes": {
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "saline": 1,
+        "harmount": 1,
+        "coffee": 1,
+        "chat": 1,
+        "city": 1
+      },
+      "sources": {
+        "Patch Labs": 1
       }
     },
     "2021-02-07": {
@@ -265,6 +418,25 @@
         "www.komu.com - RSS Results of type article with keyword(s) of #topstory": 1
       }
     },
+    "2021-04-23": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "women": 1,
+        "womxn": 1,
+        "spelling": 1,
+        "coordinator": 1,
+        "fairley": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2021-04-28": {
       "total": 1,
       "themes": {
@@ -354,6 +526,30 @@
       },
       "sources": {
         "www.columbiamissourian.com - RSS Results of type article with keyword(s) of #topstory": 1
+      }
+    },
+    "2021-07-06": {
+      "total": 5,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 5
+      },
+      "keywords": {
+        "students": 2,
+        "bautista": 1,
+        "slcc": 1,
+        "latinx": 1,
+        "mural": 1,
+        "culture": 1,
+        "mexican": 1,
+        "american": 1,
+        "cultures": 1,
+        "like": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 5
       }
     },
     "2021-07-30": {
@@ -465,6 +661,603 @@
         "www.columbiamissourian.com - RSS Results of type article with keyword(s) of #topstory": 1
       }
     },
+    "2021-10-17": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "health": 1,
+        "college": 1,
+        "students": 1,
+        "mental": 1,
+        "therapy": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-10-21": {
+      "total": 1,
+      "themes": {
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "community": 1,
+        "center": 1,
+        "salt": 1,
+        "lake": 1,
+        "council": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-10-22": {
+      "total": 2,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 2
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "utah": 2,
+        "native": 1,
+        "have": 1,
+        "indigenous": 1,
+        "mascots": 1,
+        "kinikini": 1,
+        "college": 1,
+        "students": 1,
+        "prison": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 2
+      }
+    },
+    "2021-10-24": {
+      "total": 1,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "girls": 1,
+        "women": 1,
+        "stem": 1,
+        "engineering": 1,
+        "young": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-10-25": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "lopez": 1,
+        "student": 1,
+        "pastrana": 1,
+        "international": 1,
+        "utah": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-10-26": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "salt": 1,
+        "lake": 1,
+        "dean": 1,
+        "journalism": 1,
+        "amplify": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-10-29": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "name": 1,
+        "deadname": 1,
+        "people": 1,
+        "salt": 1,
+        "lake": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-11-07": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "challenge": 1,
+        "students": 1,
+        "have": 1,
+        "slcc": 1,
+        "social": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-11-08": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "mental": 1,
+        "health": 1,
+        "media": 1,
+        "people": 1,
+        "there": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-11-12": {
+      "total": 1,
+      "themes": {
+        "Colleges | Professors | Graduate | University | Arizonas": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "mejia": 1,
+        "utah": 1,
+        "college": 1,
+        "students": 1,
+        "center": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-11-23": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "atsitty": 1,
+        "student": 1,
+        "native": 1,
+        "american": 1,
+        "clan": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-12-03": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "college": 1,
+        "custodial": 1,
+        "askerlund": 1,
+        "staff": 1,
+        "salt": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-12-08": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "there": 1,
+        "college": 1,
+        "students": 1,
+        "people": 1,
+        "help": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-12-12": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "education": 1,
+        "utah": 1,
+        "health": 1,
+        "college": 1,
+        "salt": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-12-22": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "people": 1,
+        "work": 1,
+        "have": 1,
+        "disabilities": 1,
+        "employers": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2021-12-23": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "polyamory": 1,
+        "people": 1,
+        "have": 1,
+        "relationship": 1,
+        "like": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-01-13": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "actors": 1,
+        "salt": 1,
+        "lake": 1,
+        "theater": 1,
+        "autism": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-01-17": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "students": 1,
+        "school": 1,
+        "education": 1,
+        "health": 1,
+        "queer": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-03-01": {
+      "total": 1,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "adams": 1,
+        "basketball": 1,
+        "slcc": 1,
+        "chase": 1,
+        "college": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-03-04": {
+      "total": 1,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "games": 1,
+        "keefe": 1,
+        "haraghey": 1,
+        "paralympic": 1,
+        "national": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-03-12": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "santizo": 1,
+        "have": 1,
+        "student": 1,
+        "addiction": 1,
+        "community": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-03-15": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "library": 1,
+        "have": 1,
+        "slcc": 1,
+        "employees": 1,
+        "beatie": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-03-17": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "kadera": 1,
+        "disorder": 1,
+        "salt": 1,
+        "lake": 1,
+        "seasonal": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-04-15": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "powwow": 1,
+        "native": 1,
+        "indigenous": 1,
+        "utah": 1,
+        "merrick": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-04-19": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "piddubnyi": 1,
+        "ukraine": 1,
+        "valentyna": 1,
+        "utah": 1,
+        "invasion": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-04-25": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "symbol": 1,
+        "flag": 1,
+        "enforcement": 1,
+        "slcc": 1,
+        "blue": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-04-27": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "students": 1,
+        "slcc": 1,
+        "latinx": 1,
+        "college": 1,
+        "diaz": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-05-21": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "gamarra": 1,
+        "students": 1,
+        "work": 1,
+        "slcc": 1,
+        "utah": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-05-28": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "utah": 1,
+        "iosepa": 1,
+        "salt": 1,
+        "lake": 1,
+        "pacific": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-07-15": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "students": 1,
+        "film": 1,
+        "video": 1,
+        "media": 1,
+        "game": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-09-22": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "mural": 1,
+        "novoa": 1,
+        "salt": 1,
+        "lake": 1,
+        "garden": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-10-05": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "community": 1,
+        "agar": 1,
+        "utah": 1,
+        "kilpack": 1,
+        "salt": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-10-06": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "walkout": 1,
+        "student": 1,
+        "students": 1,
+        "college": 1,
+        "salt": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2022-10-07": {
       "total": 1,
       "themes": {
@@ -484,6 +1277,76 @@
         "Texas Center For Community Journalism": 1
       }
     },
+    "2022-10-19": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "flag": 1,
+        "pride": 1,
+        "sinfield": 1,
+        "logan": 1,
+        "school": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-10-20": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "student": 1,
+        "slccsa": 1,
+        "restroom": 1,
+        "signage": 1,
+        "signs": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-10-21": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "pantry": 1,
+        "shah": 1,
+        "people": 1,
+        "students": 1,
+        "salt": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-10-28": {
+      "total": 1,
+      "themes": {
+        "Northwestern | Next | Ollie | Olivia | At": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "ashley": 1,
+        "testo": 1,
+        "here": 1,
+        "clean": 1,
+        "name": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
+      }
+    },
     "2022-11-02": {
       "total": 1,
       "themes": {},
@@ -501,23 +1364,86 @@
         "LSU Cold Case Project": 1
       }
     },
-    "2022-11-06": {
+    "2022-11-04": {
       "total": 1,
+      "themes": {
+        "Northwestern | Next | Ollie | Olivia | At": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "love": 1,
+        "like": 1,
+        "really": 1,
+        "christina": 1,
+        "soot": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
+      }
+    },
+    "2022-11-06": {
+      "total": 3,
       "themes": {
         "Men | Shooting | Myths | Shot | Controversy": 1
       },
       "sentiment": {
-        "neutral": 1
+        "neutral": 3
       },
       "keywords": {
         "without": 1,
         "eyewitness": 1,
         "turned": 1,
         "polygraphs": 1,
-        "angle": 1
+        "angle": 1,
+        "daca": 1,
+        "slcc": 1,
+        "center": 1,
+        "college": 1,
+        "program": 1
       },
       "sources": {
+        "Amplify Utah - The Story Room": 2,
         "LSU Cold Case Project": 1
+      }
+    },
+    "2022-11-07": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "college": 1,
+        "zupan": 1,
+        "mayorga": 1,
+        "school": 1,
+        "education": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-11-11": {
+      "total": 1,
+      "themes": {
+        "Northwestern | Next | Ollie | Olivia | At": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "grad": 1,
+        "school": 1,
+        "molly": 1,
+        "arnold": 1,
+        "half": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
       }
     },
     "2022-11-15": {
@@ -552,6 +1478,200 @@
       },
       "sources": {
         "LSU Cold Case Project": 1
+      }
+    },
+    "2022-11-18": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "project": 1,
+        "arboretum": 1,
+        "public": 1,
+        "blanchard": 1,
+        "masters": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
+      }
+    },
+    "2022-11-28": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "water": 1,
+        "university": 1,
+        "lake": 1,
+        "state": 1,
+        "hodge": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2022-12-02": {
+      "total": 1,
+      "themes": {
+        "Northwestern | Next | Ollie | Olivia | At": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "life": 1,
+        "paige": 1,
+        "major": 1,
+        "turning": 1,
+        "point": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
+      }
+    },
+    "2022-12-10": {
+      "total": 1,
+      "themes": {
+        "Northwestern | Next | Ollie | Olivia | At": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "chalk": 1,
+        "guido": 1,
+        "version": 1,
+        "first": 1,
+        "paint": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
+      }
+    },
+    "2023-01-16": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "food": 1,
+        "students": 1,
+        "college": 1,
+        "insecurity": 1,
+        "pantries": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-01-21": {
+      "total": 2,
+      "themes": {},
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "social": 2,
+        "media": 2,
+        "bryon": 2,
+        "neal": 2,
+        "daniels": 2
+      },
+      "sources": {
+        "Orange Media Network": 2
+      }
+    },
+    "2023-01-27": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "best": 1,
+        "beaver": 1,
+        "nation": 1,
+        "coupon": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
+      }
+    },
+    "2023-02-02": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "hard": 1,
+        "figure": 1,
+        "someone": 1,
+        "need": 1,
+        "nolani": 1
+      },
+      "sources": {
+        "Orange Media Network": 1
+      }
+    },
+    "2023-03-17": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "racing": 1,
+        "street": 1,
+        "lake": 1,
+        "salt": 1,
+        "police": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-03-24": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "church": 1,
+        "latter-day": 1,
+        "people": 1,
+        "video": 1,
+        "like": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-04-02": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "tattoos": 1,
+        "utah": 1,
+        "salt": 1,
+        "lake": 1,
+        "journalism": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-04-06": {
@@ -591,6 +1711,42 @@
         "LSU Cold Case Project": 1
       }
     },
+    "2023-04-28": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "arab": 1,
+        "campus": 1,
+        "utah": 1,
+        "association": 1,
+        "safeudien": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-05-01": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "policy": 1,
+        "school": 1,
+        "district": 1,
+        "board": 1,
+        "have": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2023-05-19": {
       "total": 2,
       "themes": {
@@ -615,6 +1771,42 @@
         "Arnolt Center for Investigative Journalism": 2
       }
     },
+    "2023-06-04": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "books": 1,
+        "have": 1,
+        "school": 1,
+        "utah": 1,
+        "banned": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-06-06": {
+      "total": 1,
+      "themes": {
+        "41St | Pitch | Deserves | Stylist | Barrio": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "burger": 1,
+        "cano": 1,
+        "loco": 1,
+        "salt": 1,
+        "lake": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2023-06-07": {
       "total": 1,
       "themes": {
@@ -632,6 +1824,44 @@
       },
       "sources": {
         "LSU Cold Case Project": 1
+      }
+    },
+    "2023-06-23": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "turok": 1,
+        "birth": 1,
+        "control": 1,
+        "gates": 1,
+        "utah": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-06-27": {
+      "total": 1,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "students": 1,
+        "slcc": 1,
+        "technology": 1,
+        "ellington": 1,
+        "gammara": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-07-16": {
@@ -665,6 +1895,57 @@
       },
       "sources": {
         "LSU Cold Case Project": 1
+      }
+    },
+    "2023-08-15": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "shane-navanick": 1,
+        "slcc": 1,
+        "joseph": 1,
+        "college": 1,
+        "brothers": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-08-16": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "sports": 1,
+        "trans": 1,
+        "college": 1,
+        "community": 1,
+        "event": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-08-17": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "peratrovich": 1,
+        "native": 1,
+        "indigenous": 1,
+        "salt": 1,
+        "lake": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-08-18": {
@@ -702,20 +1983,62 @@
         "Woodall Weekend Workshop Archives — Grady Newsource": 1
       }
     },
-    "2023-08-30": {
+    "2023-08-26": {
       "total": 1,
       "themes": {},
       "sentiment": {
         "neutral": 1
       },
       "keywords": {
+        "flower": 1,
+        "utah": 1,
+        "bombing": 1,
+        "native": 1,
+        "homer": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-08-28": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "education": 1,
+        "program": 1,
+        "utah": 1,
+        "prison": 1,
+        "college": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2023-08-30": {
+      "total": 2,
+      "themes": {},
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
         "building": 1,
         "memories": 1,
         "light": 1,
-        "memorials": 1
+        "memorials": 1,
+        "flyers": 1,
+        "student": 1,
+        "slcc": 1,
+        "college": 1,
+        "moosman": 1
       },
       "sources": {
-        "Woodall Weekend Workshop Archives — Grady Newsource": 1
+        "Woodall Weekend Workshop Archives — Grady Newsource": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-09-05": {
@@ -770,20 +2093,28 @@
       }
     },
     "2023-10-05": {
-      "total": 1,
-      "themes": {},
+      "total": 2,
+      "themes": {
+        "Colleges | Professors | Graduate | University | Arizonas": 1
+      },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "sides": 1,
         "same": 1,
         "track": 1,
         "racing": 1,
-        "family": 1
+        "family": 1,
+        "utah": 1,
+        "rzano": 1,
+        "exhibit": 1,
+        "march": 1,
+        "photos": 1
       },
       "sources": {
-        "Woodall Weekend Workshop Archives — Grady Newsource": 1
+        "Woodall Weekend Workshop Archives — Grady Newsource": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-10-10": {
@@ -918,6 +2249,23 @@
         "Democracy Watch": 1
       }
     },
+    "2023-11-19": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "lindsey": 1,
+        "utah": 1,
+        "water": 1,
+        "lawn": 1,
+        "grass": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2023-11-21": {
       "total": 1,
       "themes": {},
@@ -933,6 +2281,25 @@
       },
       "sources": {
         "Flourishing Fresno": 1
+      }
+    },
+    "2023-11-28": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "utah": 1,
+        "work": 1,
+        "school": 1,
+        "pool": 1,
+        "kinghorn": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-11-30": {
@@ -960,19 +2327,27 @@
       }
     },
     "2023-12-01": {
-      "total": 1,
-      "themes": {},
+      "total": 2,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "bitter": 1,
         "jaguar": 1,
         "listening": 1,
-        "event": 1
+        "event": 1,
+        "women": 1,
+        "climb": 1,
+        "climbing": 1,
+        "john": 1,
+        "wall": 1
       },
       "sources": {
-        "LSU Cold Case Project": 1
+        "LSU Cold Case Project": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-12-06": {
@@ -993,22 +2368,29 @@
       }
     },
     "2023-12-07": {
-      "total": 1,
+      "total": 2,
       "themes": {
-        "Con | Advocate | Reno | Obstacles | Enrichment": 1
+        "Con | Advocate | Reno | Obstacles | Enrichment": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
       },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "florida": 1,
         "families": 1,
         "take": 1,
         "fight": 1,
-        "disability": 1
+        "disability": 1,
+        "lake": 1,
+        "salt": 1,
+        "indigenous": 1,
+        "people": 1,
+        "documentary": 1
       },
       "sources": {
-        "Democracy Watch": 1
+        "Democracy Watch": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2023-12-08": {
@@ -1218,6 +2600,118 @@
         "Texas Center For Community Journalism": 1
       }
     },
+    "2024-02-06": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "whittaker": 1,
+        "intimacy": 1,
+        "actors": 1,
+        "story": 1,
+        "utah": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2024-02-11": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "lacks": 1,
+        "story": 1,
+        "hela": 1,
+        "cells": 1,
+        "utah": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2024-03-19": {
+      "total": 1,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "cleveland": 1,
+        "team": 1,
+        "falconz": 1,
+        "school": 1,
+        "utah": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2024-03-25": {
+      "total": 2,
+      "themes": {},
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "utah": 2,
+        "climate": 1,
+        "exhibit": 1,
+        "change": 1,
+        "museum": 1,
+        "languages": 1,
+        "indigenous": 1,
+        "mother": 1,
+        "spanish": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 2
+      }
+    },
+    "2024-03-31": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "sexual": 1,
+        "virtual": 1,
+        "games": 1,
+        "guajardo": 1,
+        "assault": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2024-04-06": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "utah": 1,
+        "kirby": 1,
+        "university": 1,
+        "election": 1,
+        "technology": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2024-04-25": {
       "total": 2,
       "themes": {
@@ -1389,6 +2883,23 @@
         "The Food Fix": 1
       }
     },
+    "2024-10-14": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "utah": 1,
+        "victims": 1,
+        "homicide": 1,
+        "merrill": 1,
+        "just": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2024-10-17": {
       "total": 1,
       "themes": {
@@ -1520,12 +3031,12 @@
       }
     },
     "2024-11-24": {
-      "total": 2,
+      "total": 3,
       "themes": {
         "Eviction | Tenants | Zoning | Council | Residents": 1
       },
       "sentiment": {
-        "neutral": 2
+        "neutral": 3
       },
       "keywords": {
         "apartments": 1,
@@ -1536,10 +3047,12 @@
         "need": 1,
         "know": 1,
         "dollars": 1,
-        "sense": 1
+        "sense": 1,
+        "peace": 1
       },
       "sources": {
-        "Buffalo Review West": 2
+        "Buffalo Review West": 2,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2024-12-01": {
@@ -1658,6 +3171,59 @@
         "Borderzine": 1
       }
     },
+    "2025-01-02": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "restrooms": 1,
+        "all-gender": 1,
+        "restroom": 1,
+        "university": 1,
+        "according": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2025-01-04": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "music": 1,
+        "young": 1,
+        "venues": 1,
+        "artists": 1,
+        "alternative": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2025-01-05": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "utah": 1,
+        "like": 1,
+        "have": 1,
+        "procedures": 1,
+        "people": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2025-01-10": {
       "total": 1,
       "themes": {},
@@ -1670,6 +3236,46 @@
       },
       "sources": {
         "UO Catalyst Journalism Project": 1
+      }
+    },
+    "2025-01-13": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "music": 1,
+        "people": 1,
+        "community": 1,
+        "salt": 1,
+        "lake": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2025-02-03": {
+      "total": 2,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "utah": 2,
+        "hockey": 1,
+        "youth": 1,
+        "club": 1,
+        "sports": 1,
+        "without": 1,
+        "have": 1,
+        "immigrants": 1,
+        "protest": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 2
       }
     },
     "2025-02-10": {
@@ -2114,13 +3720,13 @@
       }
     },
     "2025-04-22": {
-      "total": 3,
+      "total": 4,
       "themes": {
         "Advocacy | Concerns | Tennessee | Educators | Ella": 1,
         "Mall | Where | Plantation | Westport | 42Nd": 1
       },
       "sentiment": {
-        "neutral": 3
+        "neutral": 4
       },
       "keywords": {
         "educators": 1,
@@ -2136,7 +3742,8 @@
       },
       "sources": {
         "270 Stories": 2,
-        "The Food Fix": 1
+        "The Food Fix": 1,
+        "Cooper Squared": 1
       }
     },
     "2025-04-23": {
@@ -2166,13 +3773,14 @@
       }
     },
     "2025-04-24": {
-      "total": 4,
+      "total": 5,
       "themes": {
         "Mall | Where | Plantation | Westport | 42Nd": 1,
-        "Journalism | Reporter | Newspaper | Professor | Yorker": 1
+        "Journalism | Reporter | Newspaper | Professor | Yorker": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
       },
       "sentiment": {
-        "neutral": 4
+        "neutral": 5
       },
       "keywords": {
         "costa": 1,
@@ -2190,7 +3798,8 @@
         "Collegiate News Service": 1,
         "Buffalo Review West": 1,
         "Texas Center For Community Journalism": 1,
-        "Massachusetts News Service": 1
+        "Massachusetts News Service": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-04-25": {
@@ -2252,6 +3861,30 @@
       },
       "sources": {
         "Collegiate News Service": 1
+      }
+    },
+    "2025-04-30": {
+      "total": 2,
+      "themes": {
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "seedtob": 1,
+        "founder": 1,
+        "envisioned": 1,
+        "artificial": 1,
+        "intelligence": 1,
+        "health": 1,
+        "wellness": 1,
+        "sustainable": 1,
+        "vegan": 1,
+        "approach": 1
+      },
+      "sources": {
+        "Cooper Squared": 2
       }
     },
     "2025-05-01": {
@@ -2359,13 +3992,14 @@
       }
     },
     "2025-05-06": {
-      "total": 5,
+      "total": 6,
       "themes": {
         "Alaska | Lax | Survivor | Anchor | Seattle": 3,
-        "Immigration | Vote | Appoints | Government | Resigns": 1
+        "Immigration | Vote | Appoints | Government | Resigns": 1,
+        "Named | Celebrate | Top | Info | Give": 1
       },
       "sentiment": {
-        "neutral": 5
+        "neutral": 6
       },
       "keywords": {
         "podcast": 3,
@@ -2381,7 +4015,8 @@
       },
       "sources": {
         "270 Stories": 4,
-        "Collegiate News Service": 1
+        "Collegiate News Service": 1,
+        "Cooper Squared": 1
       }
     },
     "2025-05-07": {
@@ -2412,17 +4047,18 @@
       }
     },
     "2025-05-08": {
-      "total": 10,
+      "total": 11,
       "themes": {
         "Museum | Exhibition | Carvers | Boston8217S | Exhibit": 1,
         "Eviction | Tenants | Zoning | Council | Residents": 1,
         "Freedom | Bat | Troop | Winter | Police": 1,
         "Legislative | Legislation | Initiative | Gov | Campaign": 1,
         "Summer | Tomorrow | Downtown | Lake | City": 1,
-        "Pasadena | Broadway | Nightclub | Taps | Symphony": 1
+        "Pasadena | Broadway | Nightclub | Taps | Symphony": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1
       },
       "sentiment": {
-        "neutral": 10
+        "neutral": 11
       },
       "keywords": {
         "oxford": 3,
@@ -2437,7 +4073,8 @@
         "parking": 1
       },
       "sources": {
-        "Oxford Observer": 10
+        "Oxford Observer": 10,
+        "City Newsroom": 1
       }
     },
     "2025-05-09": {
@@ -2466,21 +4103,58 @@
       }
     },
     "2025-05-10": {
-      "total": 1,
+      "total": 3,
       "themes": {
-        "Regal | Review | Hollywood | Cottages | Movies": 1
+        "Regal | Review | Hollywood | Cottages | Movies": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1
       },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2,
+        "negative": 1
       },
       "keywords": {
         "student": 1,
         "discusses": 1,
         "filmmaking": 1,
-        "journey": 1
+        "journey": 1,
+        "union": 1,
+        "endorsements": 1,
+        "june": 1,
+        "primary": 1,
+        "stage": 1,
+        "violence": 1
       },
       "sources": {
-        "Community News - University Times": 1
+        "Community News - University Times": 1,
+        "City Newsroom": 1,
+        "Cooper Squared": 1
+      }
+    },
+    "2025-05-11": {
+      "total": 3,
+      "themes": {
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 3
+      },
+      "keywords": {
+        "topaz": 2,
+        "japanese": 2,
+        "flood": 1,
+        "sensor": 1,
+        "aunty": 1,
+        "basement": 1,
+        "brings": 1,
+        "utah": 1,
+        "documentary": 1,
+        "students": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 2,
+        "City Newsroom": 1
       }
     },
     "2025-05-12": {
@@ -2510,12 +4184,13 @@
       }
     },
     "2025-05-13": {
-      "total": 2,
+      "total": 4,
       "themes": {
-        "Tears | Efforts | Tear | Rescue | Physical": 1
+        "Tears | Efforts | Tear | Rescue | Physical": 1,
+        "Colleges | Professors | Graduate | University | Arizonas": 1
       },
       "sentiment": {
-        "neutral": 2
+        "neutral": 4
       },
       "keywords": {
         "brea": 1,
@@ -2526,20 +4201,22 @@
         "troops": 1,
         "fight": 1,
         "trump": 1,
-        "matter": 1
+        "matter": 1,
+        "homeless": 1
       },
       "sources": {
+        "City Newsroom": 2,
         "Collegiate News Service": 1,
         "UH Beat Archives - Honolulu Civil Beat": 1
       }
     },
     "2025-05-14": {
-      "total": 2,
+      "total": 5,
       "themes": {
         "Summer | Tomorrow | Downtown | Lake | City": 1
       },
       "sentiment": {
-        "neutral": 2
+        "neutral": 5
       },
       "keywords": {
         "years": 1,
@@ -2550,9 +4227,11 @@
         "cafe": 1,
         "closes": 1,
         "slam": 1,
-        "poetry": 1
+        "poetry": 1,
+        "city": 1
       },
       "sources": {
+        "City Newsroom": 3,
         "CT Community News": 1,
         "DU Media": 1
       }
@@ -2795,6 +4474,30 @@
         "Collegiate News Service": 1
       }
     },
+    "2025-05-31": {
+      "total": 2,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 1
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "school": 1,
+        "first": 1,
+        "high": 1,
+        "opening": 1,
+        "queens": 1,
+        "traffic": 1,
+        "south": 1,
+        "bronx": 1,
+        "manhattan": 1,
+        "clears": 1
+      },
+      "sources": {
+        "City Newsroom": 2
+      }
+    },
     "2025-06-02": {
       "total": 1,
       "themes": {
@@ -2812,6 +4515,23 @@
       },
       "sources": {
         "Collegiate News Service": 1
+      }
+    },
+    "2025-06-04": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "broadway": 1,
+        "wraps": 1,
+        "record-breaking": 1,
+        "season": 1,
+        "amid": 1
+      },
+      "sources": {
+        "Cooper Squared": 1
       }
     },
     "2025-06-06": {
@@ -2907,13 +4627,14 @@
       }
     },
     "2025-06-23": {
-      "total": 2,
+      "total": 3,
       "themes": {
         "Summer | Tomorrow | Downtown | Lake | City": 1,
-        "Shows | Ravine | Irvines | Parks | Claytons": 1
+        "Shows | Ravine | Irvines | Parks | Claytons": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
       },
       "sentiment": {
-        "neutral": 2
+        "neutral": 3
       },
       "keywords": {
         "georgia": 1,
@@ -2929,7 +4650,8 @@
       },
       "sources": {
         "Fresh Take Georgia": 1,
-        "The Food Fix": 1
+        "The Food Fix": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-06-24": {
@@ -3018,22 +4740,28 @@
       }
     },
     "2025-07-07": {
-      "total": 1,
+      "total": 2,
       "themes": {
         "Lawmakers | Capitol | Enrollments | Mn | Funding": 1
       },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "federal": 1,
         "medicaid": 1,
         "cuts": 1,
         "could": 1,
-        "cost": 1
+        "cost": 1,
+        "club": 1,
+        "women": 1,
+        "lamareaux": 1,
+        "speak": 1,
+        "period": 1
       },
       "sources": {
-        "LSU Manship School Statehouse Bureau": 1
+        "LSU Manship School Statehouse Bureau": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-07-16": {
@@ -3070,6 +4798,25 @@
       },
       "sources": {
         "CT Community News": 1
+      }
+    },
+    "2025-07-31": {
+      "total": 1,
+      "themes": {
+        "Settlement | Irvine | Submission | Vote | Signs": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "valuations": 1,
+        "upsides": 1,
+        "challenges": 1,
+        "impending": 1,
+        "consolidation": 1
+      },
+      "sources": {
+        "NewsLab": 1
       }
     },
     "2025-08-04": {
@@ -3180,6 +4927,25 @@
         "Woodall Weekend Workshop Archives — Grady Newsource": 1
       }
     },
+    "2025-08-24": {
+      "total": 1,
+      "themes": {
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "digital": 1,
+        "media": 1,
+        "provenance": 1,
+        "fighting": 1,
+        "deepfakes": 1
+      },
+      "sources": {
+        "NewsLab": 1
+      }
+    },
     "2025-08-25": {
       "total": 1,
       "themes": {},
@@ -3251,21 +5017,27 @@
       }
     },
     "2025-09-12": {
-      "total": 1,
+      "total": 2,
       "themes": {
         "Conference | Collegiate | Transition | Initiatives | Center": 1
       },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "setting": 1,
         "solar": 1,
         "power": 1,
-        "angeles": 1
+        "angeles": 1,
+        "york": 1,
+        "reporting": 1,
+        "ground": 1,
+        "zero": 1,
+        "university": 1
       },
       "sources": {
-        "Crosstown": 1
+        "Crosstown": 1,
+        "Cooper Squared": 1
       }
     },
     "2025-09-19": {
@@ -3285,6 +5057,23 @@
       },
       "sources": {
         "Woodall Weekend Workshop Archives — Grady Newsource": 1
+      }
+    },
+    "2025-09-23": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "utah": 1,
+        "campus": 1,
+        "kirk": 1,
+        "university": 1,
+        "pastor": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-09-24": {
@@ -3415,6 +5204,40 @@
       },
       "sources": {
         "Noticiero Movil": 1
+      }
+    },
+    "2025-10-04": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "conference": 1,
+        "email": 1,
+        "state": 1,
+        "university": 1,
+        "weber": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2025-10-05": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "conference": 1,
+        "weber": 1,
+        "state": 1,
+        "university": 1,
+        "teach": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-10-10": {
@@ -3688,32 +5511,39 @@
       }
     },
     "2025-10-21": {
-      "total": 1,
+      "total": 2,
       "themes": {},
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "remembrance": 1,
         "scholars": 1,
         "honor": 1,
         "legacy": 1,
-        "make": 1
+        "make": 1,
+        "valdez": 1,
+        "community": 1,
+        "just": 1,
+        "jesse": 1,
+        "slcc": 1
       },
       "sources": {
-        "The NewsHouse": 1
+        "The NewsHouse": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-10-22": {
-      "total": 6,
+      "total": 7,
       "themes": {
         "Topic 73": 1,
         "Competency | Sportsincollege | Elevating | Studentathlete | Professors": 1,
         "Alaska | Lax | Survivor | Anchor | Seattle": 1,
-        "Pasadena | Broadway | Nightclub | Taps | Symphony": 1
+        "Pasadena | Broadway | Nightclub | Taps | Symphony": 1,
+        "Roommates | Businesses | Night | Friendships | Met": 1
       },
       "sentiment": {
-        "neutral": 6
+        "neutral": 7
       },
       "keywords": {
         "title": 1,
@@ -3730,7 +5560,8 @@
       "sources": {
         "The NewsHouse": 4,
         "Buffalo Review West": 1,
-        "Noticiero Movil": 1
+        "Noticiero Movil": 1,
+        "Pavement Pieces": 1
       }
     },
     "2025-10-23": {
@@ -4028,61 +5859,68 @@
       }
     },
     "2025-11-04": {
-      "total": 4,
+      "total": 9,
       "themes": {
+        "Community | Curriculum | Fellowship | Transcript | Congress": 2,
         "Eviction | Tenants | Zoning | Council | Residents": 1,
         "Legislative | Legislation | Initiative | Gov | Campaign": 1,
         "Seminoles | Dame | Uva | Unc | Notre": 1
       },
       "sentiment": {
-        "neutral": 3,
+        "neutral": 8,
         "positive": 1
       },
       "keywords": {
+        "students": 3,
+        "black": 2,
+        "school": 2,
         "clinton": 1,
         "street": 1,
         "project": 1,
         "divides": 1,
         "brockport": 1,
         "drivers": 1,
-        "convicted": 1,
-        "reckless": 1,
-        "driving": 1,
-        "maryland": 1
+        "convicted": 1
       },
       "sources": {
+        "Pavement Pieces": 5,
         "The NewsHouse": 2,
         "Canalside Chronicles": 1,
         "Data Stories – CNS Maryland": 1
       }
     },
     "2025-11-05": {
-      "total": 8,
+      "total": 11,
       "themes": {
         "Legislative | Legislation | Initiative | Gov | Campaign": 2,
         "Regal | Review | Hollywood | Cottages | Movies": 1,
         "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 1,
-        "Hunger | Pantry | Meals | Ny | Schoolers": 1
+        "Hunger | Pantry | Meals | Ny | Schoolers": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
       },
       "sentiment": {
-        "neutral": 8
+        "neutral": 11
       },
       "keywords": {
         "scenes": 2,
+        "election": 2,
+        "voters": 2,
         "syracuse": 2,
         "mayor": 1,
         "corey": 1,
         "connor": 1,
         "victory": 1,
         "faces": 1,
-        "vote": 1,
-        "election": 1,
-        "sterrett": 1
+        "vote": 1
       },
       "sources": {
         "Point Park News Service": 4,
         "The NewsHouse": 3,
-        "nan": 1
+        "Pavement Pieces": 2,
+        "nan": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-11-06": {
@@ -4116,13 +5954,14 @@
       }
     },
     "2025-11-07": {
-      "total": 6,
+      "total": 7,
       "themes": {
-        "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 2
+        "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 2,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1
       },
       "sentiment": {
         "positive": 2,
-        "neutral": 4
+        "neutral": 5
       },
       "keywords": {
         "syracuse": 3,
@@ -4139,7 +5978,8 @@
       "sources": {
         "The NewsHouse": 4,
         "Canalside Chronicles": 1,
-        "Annapolis – CNS Maryland": 1
+        "Annapolis – CNS Maryland": 1,
+        "Pleasantville Press": 1
       }
     },
     "2025-11-08": {
@@ -4303,13 +6143,13 @@
       }
     },
     "2025-11-14": {
-      "total": 7,
+      "total": 8,
       "themes": {
         "Carolina | Polk | Alabama | Gunfire | Tennessee": 1,
         "Seminoles | Dame | Uva | Unc | Notre": 1
       },
       "sentiment": {
-        "neutral": 6,
+        "neutral": 7,
         "negative": 1
       },
       "keywords": {
@@ -4329,7 +6169,8 @@
         "Point Park News Service": 1,
         "The Scope": 1,
         "Gaylord News": 1,
-        "REAL NEWS BY REAL STUDENTS": 1
+        "REAL NEWS BY REAL STUDENTS": 1,
+        "Cooper Squared": 1
       }
     },
     "2025-11-15": {
@@ -4404,7 +6245,7 @@
       }
     },
     "2025-11-18": {
-      "total": 14,
+      "total": 15,
       "themes": {
         "Eviction | Tenants | Zoning | Council | Residents": 1,
         "Shows | Ravine | Irvines | Parks | Claytons": 1,
@@ -4415,7 +6256,7 @@
         "Ocpas | Recounts | Apus | Allegiance | By": 1
       },
       "sentiment": {
-        "neutral": 14
+        "neutral": 15
       },
       "keywords": {
         "housing": 1,
@@ -4438,7 +6279,8 @@
         "Data Stories – CNS Maryland": 1,
         "New Mexico News Port": 1,
         "Washington – CNS Maryland": 1,
-        "Annapolis – CNS Maryland": 1
+        "Annapolis – CNS Maryland": 1,
+        "Pavement Pieces": 1
       }
     },
     "2025-11-19": {
@@ -4480,7 +6322,7 @@
       }
     },
     "2025-11-20": {
-      "total": 10,
+      "total": 11,
       "themes": {
         "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 2,
         "Advocacy | Concerns | Tennessee | Educators | Ella": 1,
@@ -4489,7 +6331,7 @@
         "Legislative | Legislation | Initiative | Gov | Campaign": 1
       },
       "sentiment": {
-        "neutral": 9,
+        "neutral": 10,
         "positive": 1
       },
       "keywords": {
@@ -4510,21 +6352,23 @@
         "The Long Island Advocate": 1,
         "Logan Center for Urban Investigative Reporting": 1,
         "Data Stories – CNS Maryland": 1,
-        "Washington – CNS Maryland": 1
+        "Washington – CNS Maryland": 1,
+        "Pavement Pieces": 1
       }
     },
     "2025-11-21": {
-      "total": 9,
+      "total": 10,
       "themes": {
         "Shelters | Aid | Residents | Dc | Utah": 2,
         "Nassau | Schools | Fundraising | Districts | District": 1,
         "Semester | Classroom | Campus | Alumni | Freshman": 1,
         "Mall | Where | Plantation | Westport | 42Nd": 1,
         "Carolina | Polk | Alabama | Gunfire | Tennessee": 1,
-        "Lawmakers | Capitol | Enrollments | Mn | Funding": 1
+        "Lawmakers | Capitol | Enrollments | Mn | Funding": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1
       },
       "sentiment": {
-        "neutral": 6,
+        "neutral": 7,
         "positive": 1,
         "negative": 2
       },
@@ -4548,7 +6392,8 @@
         "Washington – CNS Maryland": 1,
         "Fresh Take Florida": 1,
         "Delta Digital News Service": 1,
-        "Politics & Policy Archives - Cronkite News": 1
+        "Politics & Policy Archives - Cronkite News": 1,
+        "Pleasantville Press": 1
       }
     },
     "2025-11-22": {
@@ -4792,15 +6637,16 @@
       }
     },
     "2025-12-01": {
-      "total": 6,
+      "total": 7,
       "themes": {
         "Shelters | Aid | Residents | Dc | Utah": 1,
         "Nassau | Schools | Fundraising | Districts | District": 1,
-        "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 1
+        "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 1,
+        "Participate | Concerts | Venues | Celebration | Festival": 1
       },
       "sentiment": {
         "negative": 1,
-        "neutral": 5
+        "neutral": 6
       },
       "keywords": {
         "winter": 2,
@@ -4820,7 +6666,8 @@
         "REAL NEWS BY REAL STUDENTS": 1,
         "The NewsHouse": 1,
         "Fresh Take Florida": 1,
-        "Delta Digital News Service": 1
+        "Delta Digital News Service": 1,
+        "Pleasantville Press": 1
       }
     },
     "2025-12-02": {
@@ -4926,7 +6773,7 @@
       }
     },
     "2025-12-05": {
-      "total": 11,
+      "total": 12,
       "themes": {
         "Protest | Protesting | Protests | Protesters | Deportation": 1,
         "Alaska | Lax | Survivor | Anchor | Seattle": 1,
@@ -4936,7 +6783,7 @@
       },
       "sentiment": {
         "negative": 1,
-        "neutral": 9,
+        "neutral": 10,
         "positive": 1
       },
       "keywords": {
@@ -4961,7 +6808,8 @@
         "Data Stories – CNS Maryland": 1,
         "New Mexico News Port": 1,
         "Noticiero Movil": 1,
-        "nan": 1
+        "nan": 1,
+        "Cooper Squared": 1
       }
     },
     "2025-12-06": {
@@ -5250,16 +7098,36 @@
         "The Bronx Journal": 1
       }
     },
+    "2025-12-14": {
+      "total": 1,
+      "themes": {
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "home": 1,
+        "recovery": 1,
+        "project": 1,
+        "community": 1,
+        "addiction": 1
+      },
+      "sources": {
+        "Amplify Utah - The Story Room": 1
+      }
+    },
     "2025-12-15": {
-      "total": 9,
+      "total": 10,
       "themes": {
         "Mall | Where | Plantation | Westport | 42Nd": 1,
         "Advocacy | Concerns | Tennessee | Educators | Ella": 1,
         "Plain | Life | Interior | Words | Parking": 1,
-        "Protest | Protesting | Protests | Protesters | Deportation": 1
+        "Protest | Protesting | Protests | Protesters | Deportation": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
       },
       "sentiment": {
-        "neutral": 8,
+        "neutral": 9,
         "positive": 1
       },
       "keywords": {
@@ -5281,7 +7149,8 @@
         "LakeVoice - Medium": 1,
         "Institute for Public Service Reporting – Memphis": 1,
         "Howard University News Service": 1,
-        "Annapolis – CNS Maryland": 1
+        "Annapolis – CNS Maryland": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2025-12-16": {
@@ -5885,14 +7754,15 @@
       }
     },
     "2026-01-09": {
-      "total": 5,
+      "total": 6,
       "themes": {
         "Freedom | Bat | Troop | Winter | Police": 1,
         "Shows | Ravine | Irvines | Parks | Claytons": 1,
-        "Seminoles | Dame | Uva | Unc | Notre": 1
+        "Seminoles | Dame | Uva | Unc | Notre": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
       },
       "sentiment": {
-        "neutral": 5
+        "neutral": 6
       },
       "keywords": {
         "easton": 1,
@@ -5911,7 +7781,8 @@
         "The Hitchcock Project for Visualizing Science": 1,
         "The NewsHouse": 1,
         "Fresh Take Florida": 1,
-        "Columbia News Service": 1
+        "Columbia News Service": 1,
+        "Pleasantville Press": 1
       }
     },
     "2026-01-10": {
@@ -6400,7 +8271,7 @@
       }
     },
     "2026-01-26": {
-      "total": 12,
+      "total": 13,
       "themes": {
         "Legislative | Legislation | Initiative | Gov | Campaign": 1,
         "Plans | Funds | Planners | Candidate | Lots": 1,
@@ -6412,7 +8283,7 @@
         "Topic 73": 1
       },
       "sentiment": {
-        "neutral": 12
+        "neutral": 13
       },
       "keywords": {
         "around": 1,
@@ -6438,7 +8309,8 @@
         "urcapitalnews": 1,
         "The Western Carolina Journalist": 1,
         "Noticiero Movil": 1,
-        "The NewsHouse": 1
+        "The NewsHouse": 1,
+        "Cooper Squared": 1
       }
     },
     "2026-01-27": {
@@ -6990,12 +8862,13 @@
       }
     },
     "2026-02-08": {
-      "total": 2,
+      "total": 3,
       "themes": {
-        "Seminoles | Dame | Uva | Unc | Notre": 1
+        "Seminoles | Dame | Uva | Unc | Notre": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
       },
       "sentiment": {
-        "neutral": 2
+        "neutral": 3
       },
       "keywords": {
         "cedar": 1,
@@ -7011,7 +8884,8 @@
       },
       "sources": {
         "The Cedar Falls News Hub": 1,
-        "The NewsHouse": 1
+        "The NewsHouse": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-02-09": {
@@ -7427,7 +9301,7 @@
       }
     },
     "2026-02-24": {
-      "total": 9,
+      "total": 10,
       "themes": {
         "Lawmakers | Capitol | Enrollments | Mn | Funding": 3,
         "Counselors | Events | Racism | Postsecondary | Bostons": 1,
@@ -7436,7 +9310,7 @@
         "Seminoles | Dame | Uva | Unc | Notre": 1
       },
       "sentiment": {
-        "neutral": 8,
+        "neutral": 9,
         "positive": 1
       },
       "keywords": {
@@ -7457,7 +9331,8 @@
         "urcapitalnews": 1,
         "The Scope": 1,
         "Politics & Policy Archives - Cronkite News": 1,
-        "Crosstown": 1
+        "Crosstown": 1,
+        "Pleasantville Press": 1
       }
     },
     "2026-02-25": {
@@ -8551,7 +10426,7 @@
       }
     },
     "2026-03-23": {
-      "total": 56,
+      "total": 57,
       "themes": {
         "Experiences | Advocate | Hiring | Priorities | Coaching": 4,
         "Legislative | Legislation | Initiative | Gov | Campaign": 4,
@@ -8565,7 +10440,7 @@
         "Immigration | Vote | Appoints | Government | Resigns": 1
       },
       "sentiment": {
-        "neutral": 55,
+        "neutral": 56,
         "positive": 1
       },
       "keywords": {
@@ -8599,11 +10474,12 @@
         "Capitol News Illinois": 1,
         "The Houstonian": 1,
         "The Macon Newsroom": 1,
-        "NewsLINC - Latest News": 1
+        "NewsLINC - Latest News": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-03-24": {
-      "total": 53,
+      "total": 54,
       "themes": {
         "Grow | Funding | Grows | Issues | Impasse": 5,
         "F35 | Troops | Wars | War | Yorkers": 3,
@@ -8617,18 +10493,18 @@
         "Semester | Classroom | Campus | Alumni | Freshman": 1
       },
       "sentiment": {
-        "neutral": 53
+        "neutral": 54
       },
       "keywords": {
         "agents": 3,
         "security": 3,
+        "students": 3,
         "future": 3,
         "march": 3,
         "still": 2,
         "phoenix": 2,
         "airports": 2,
         "college": 2,
-        "students": 2,
         "trump": 2
       },
       "sources": {
@@ -8652,11 +10528,12 @@
         "The Macon Newsroom": 1,
         "Carolina News and Reporter": 1,
         "The NewsHouse": 1,
-        "Wisconsin Watch": 1
+        "Wisconsin Watch": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-03-25": {
-      "total": 84,
+      "total": 85,
       "themes": {
         "Wbb | Baseball | Colonels | Ncaa | Folgueiras": 8,
         "Newsletters | Newsletter | Fundraiser | Centers | Cal": 3,
@@ -8670,7 +10547,7 @@
         "Advocacy | Concerns | Tennessee | Educators | Ella": 1
       },
       "sentiment": {
-        "neutral": 84
+        "neutral": 85
       },
       "keywords": {
         "iowa": 9,
@@ -8679,10 +10556,10 @@
         "local": 3,
         "lawmakers": 3,
         "could": 3,
+        "village": 3,
         "students": 3,
         "miami": 3,
-        "program": 3,
-        "louisiana": 3
+        "program": 3
       },
       "sources": {
         "The Daily Iowan": 15,
@@ -8710,7 +10587,8 @@
         "Grady Newsource": 1,
         "The Southern Accent": 1,
         "Easton Courier": 1,
-        "Great Lakes Echo": 1
+        "Great Lakes Echo": 1,
+        "Pleasantville Press": 1
       }
     },
     "2026-03-26": {
@@ -8772,7 +10650,7 @@
       }
     },
     "2026-03-27": {
-      "total": 81,
+      "total": 82,
       "themes": {
         "Wbb | Baseball | Colonels | Ncaa | Folgueiras": 6,
         "Mall | Where | Plantation | Westport | 42Nd": 4,
@@ -8786,7 +10664,7 @@
         "Debate | Purge | President | State | Some": 1
       },
       "sentiment": {
-        "neutral": 79,
+        "neutral": 80,
         "positive": 2
       },
       "keywords": {
@@ -8823,11 +10701,12 @@
         "University Times": 1,
         "CNS TV – CNS Maryland": 1,
         "The Southern Accent": 1,
-        "The NewsHouse": 1
+        "The NewsHouse": 1,
+        "Philadelphia Neighborhoods": 1
       }
     },
     "2026-03-28": {
-      "total": 22,
+      "total": 23,
       "themes": {
         "Arena | Ending | Timeline | Rally | Held": 4,
         "Wbb | Baseball | Colonels | Ncaa | Folgueiras": 3,
@@ -8837,10 +10716,11 @@
         "Legacy | Streets | Club | Honoring | Frontier": 1,
         "Legislative | Legislation | Initiative | Gov | Campaign": 1,
         "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 1,
-        "Compete | Teams | Competitive | College | Sports": 1
+        "Compete | Teams | Competitive | College | Sports": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
       },
       "sentiment": {
-        "neutral": 21,
+        "neutral": 22,
         "negative": 1
       },
       "keywords": {
@@ -8864,11 +10744,12 @@
         "The Southern Accent": 1,
         "Capitol News Illinois": 1,
         "Wisconsin Watch": 1,
-        "Grady Newsource": 1
+        "Grady Newsource": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-03-29": {
-      "total": 14,
+      "total": 15,
       "themes": {
         "Arena | Ending | Timeline | Rally | Held": 3,
         "Wbb | Baseball | Colonels | Ncaa | Folgueiras": 2,
@@ -8879,7 +10760,7 @@
         "School | Student | Education | Academic | Activities": 1
       },
       "sentiment": {
-        "neutral": 13,
+        "neutral": 14,
         "negative": 1
       },
       "keywords": {
@@ -8904,7 +10785,8 @@
         "urcapitalnews": 1,
         "Grady Newsource": 1,
         "The Southern Accent": 1,
-        "NewsLINC - Latest News": 1
+        "NewsLINC - Latest News": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-03-30": {
@@ -9074,7 +10956,7 @@
       }
     },
     "2026-04-03": {
-      "total": 23,
+      "total": 24,
       "themes": {
         "Compete | Teams | Competitive | College | Sports": 3,
         "Senate | Benefits | Promotes | Workforce | Success": 2,
@@ -9085,7 +10967,7 @@
         "Regulations | Efforts | Curbs | Curbing | Settle": 1
       },
       "sentiment": {
-        "neutral": 23
+        "neutral": 24
       },
       "keywords": {
         "spring": 3,
@@ -9110,7 +10992,8 @@
         "Easton Courier": 1,
         "Legislative Reporting Project": 1,
         "CNS TV – CNS Maryland": 1,
-        "Great Lakes Echo": 1
+        "Great Lakes Echo": 1,
+        "Philadelphia Neighborhoods": 1
       }
     },
     "2026-04-05": {
@@ -9262,16 +11145,17 @@
       }
     },
     "2026-04-09": {
-      "total": 13,
+      "total": 14,
       "themes": {
         "The | Hall | Four | Texas | Jackson": 1,
         "States | Curb | State | Legislators | Lawmakers": 1,
         "Compete | Teams | Competitive | College | Sports": 1,
         "School | Student | Education | Academic | Activities": 1,
-        "Southeast | Figaro | 25Th | Legally | Theft": 1
+        "Southeast | Figaro | 25Th | Legally | Theft": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1
       },
       "sentiment": {
-        "neutral": 13
+        "neutral": 14
       },
       "keywords": {
         "podcast": 2,
@@ -9294,11 +11178,12 @@
         "Purple Media Network": 1,
         "The Northerner": 1,
         "The Hitchcock Project for Visualizing Science": 1,
-        "9th Street Journal": 1
+        "9th Street Journal": 1,
+        "NewsLab": 1
       }
     },
     "2026-04-10": {
-      "total": 36,
+      "total": 37,
       "themes": {
         "States | Curb | State | Legislators | Lawmakers": 5,
         "Ny | Nys | Advocacy | Louisianas | Prisons": 2,
@@ -9312,7 +11197,7 @@
         "Attorney | State | Clerks | Embattled | Presidentelect": 1
       },
       "sentiment": {
-        "neutral": 35,
+        "neutral": 36,
         "negative": 1
       },
       "keywords": {
@@ -9343,7 +11228,8 @@
         "The Scope": 1,
         "Easton Courier": 1,
         "New Mexico News Port": 1,
-        "Great Lakes Echo": 1
+        "Great Lakes Echo": 1,
+        "Philadelphia Neighborhoods": 1
       }
     },
     "2026-04-11": {
@@ -9409,7 +11295,7 @@
       }
     },
     "2026-04-13": {
-      "total": 22,
+      "total": 23,
       "themes": {
         "Artwalk | Community | Locally | Marching | Runway": 3,
         "Irvines | Develop | Renovated | Residents | Impact": 2,
@@ -9423,7 +11309,7 @@
         "The | Hall | Four | Texas | Jackson": 1
       },
       "sentiment": {
-        "neutral": 22
+        "neutral": 23
       },
       "keywords": {
         "park": 2,
@@ -9452,11 +11338,12 @@
         "Grady Newsource": 1,
         "The Southern Accent": 1,
         "9th Street Journal": 1,
-        "Great Lakes Echo": 1
+        "Great Lakes Echo": 1,
+        "NewsLab": 1
       }
     },
     "2026-04-14": {
-      "total": 50,
+      "total": 51,
       "themes": {
         "The | Hall | Four | Texas | Jackson": 4,
         "Compete | Teams | Competitive | College | Sports": 4,
@@ -9470,7 +11357,7 @@
         "Rebecca | Purpose | Impact | Aftermath | Her": 1
       },
       "sentiment": {
-        "neutral": 50
+        "neutral": 51
       },
       "keywords": {
         "year": 3,
@@ -9504,11 +11391,12 @@
         "Purple Media Network": 1,
         "The Scope": 1,
         "Grady Newsource": 1,
-        "Great Lakes Echo": 1
+        "Great Lakes Echo": 1,
+        "NewsLab": 1
       }
     },
     "2026-04-15": {
-      "total": 72,
+      "total": 74,
       "themes": {
         "Compete | Teams | Competitive | College | Sports": 9,
         "School | Student | Education | Academic | Activities": 5,
@@ -9519,10 +11407,10 @@
         "Attorney | State | Clerks | Embattled | Presidentelect": 2,
         "Southeast | Figaro | 25Th | Legally | Theft": 2,
         "Senate | Benefits | Promotes | Workforce | Success": 2,
-        "Flagstaff | Residents | Alamitos | Rally | Honduras": 1
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2
       },
       "sentiment": {
-        "neutral": 71,
+        "neutral": 73,
         "positive": 1
       },
       "keywords": {
@@ -9564,11 +11452,13 @@
         "DU Media": 1,
         "Reporting Texas": 1,
         "CNS TV – CNS Maryland": 1,
-        "The Southern Accent": 1
+        "The Southern Accent": 1,
+        "The All State": 1,
+        "The Brown Daily Herald: Top Stories": 1
       }
     },
     "2026-04-16": {
-      "total": 65,
+      "total": 67,
       "themes": {
         "States | Curb | State | Legislators | Lawmakers": 6,
         "Compete | Teams | Competitive | College | Sports": 6,
@@ -9582,7 +11472,7 @@
         "Southeast | Figaro | 25Th | Legally | Theft": 2
       },
       "sentiment": {
-        "neutral": 62,
+        "neutral": 64,
         "negative": 1,
         "positive": 2
       },
@@ -9626,11 +11516,13 @@
         "Community News Service": 1,
         "The Southern Accent": 1,
         "9th Street Journal": 1,
-        "Great Lakes Echo": 1
+        "Great Lakes Echo": 1,
+        "The Brown Daily Herald: Top Stories": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-04-17": {
-      "total": 62,
+      "total": 63,
       "themes": {
         "States | Curb | State | Legislators | Lawmakers": 7,
         "Southeast | Figaro | 25Th | Legally | Theft": 4,
@@ -9644,7 +11536,7 @@
         "The | Hall | Four | Texas | Jackson": 1
       },
       "sentiment": {
-        "neutral": 61,
+        "neutral": 62,
         "positive": 1
       },
       "keywords": {
@@ -9687,7 +11579,8 @@
         "Noticiero Movil": 1,
         "The Long Island Advocate": 1,
         "The Seattle Medium": 1,
-        "The Southern Accent": 1
+        "The Southern Accent": 1,
+        "NewsLab": 1
       }
     },
     "2026-04-18": {
@@ -9740,7 +11633,7 @@
       }
     },
     "2026-04-19": {
-      "total": 31,
+      "total": 32,
       "themes": {
         "Compete | Teams | Competitive | College | Sports": 5,
         "School | Student | Education | Academic | Activities": 5,
@@ -9752,7 +11645,7 @@
       },
       "sentiment": {
         "positive": 1,
-        "neutral": 29,
+        "neutral": 30,
         "negative": 1
       },
       "keywords": {
@@ -9781,11 +11674,12 @@
         "The Western Carolina Journalist": 1,
         "The Eudora Times": 1,
         "Grady Newsource": 1,
-        "The Southern Accent": 1
+        "The Southern Accent": 1,
+        "The All State": 1
       }
     },
     "2026-04-20": {
-      "total": 79,
+      "total": 88,
       "themes": {
         "The | Hall | Four | Texas | Jackson": 8,
         "Compete | Teams | Competitive | College | Sports": 6,
@@ -9799,23 +11693,23 @@
         "Attorney | State | Clerks | Embattled | Presidentelect": 1
       },
       "sentiment": {
-        "neutral": 79
+        "neutral": 88
       },
       "keywords": {
         "city": 4,
         "illinois": 4,
+        "county": 4,
         "florida": 4,
         "first": 4,
         "wisconsin": 3,
-        "county": 3,
         "april": 3,
         "children": 3,
         "softball": 3,
         "post": 3
       },
       "sources": {
+        "Pepperdine Graphic": 14,
         "News Feed": 10,
-        "Pepperdine Graphic": 10,
         "The Seattle Medium": 9,
         "The Daily Iowan": 8,
         "The Macon Newsroom": 8,
@@ -9828,6 +11722,8 @@
         "Arizona Sonoran News": 2,
         "IPM Newsroom": 2,
         "Howard University News Service": 2,
+        "The NewsHouse": 2,
+        "Philadelphia Neighborhoods": 2,
         "The Reporting Project – Covering Licking County, Ohio": 1,
         "Boston University News Service": 1,
         "The Clarion": 1,
@@ -9837,7 +11733,2465 @@
         "The Eudora Times": 1,
         "The Arrow Latest News": 1,
         "Community News Service": 1,
+        "Great Lakes Echo": 1,
+        "Oakland North": 1
+      }
+    },
+    "2026-04-21": {
+      "total": 9,
+      "themes": {
+        "Living | Lightson | Written | From | Learned": 2,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Richmond | New | Made | Jragencia | Casal": 1
+      },
+      "sentiment": {
+        "neutral": 9
+      },
+      "keywords": {
+        "editor": 2,
+        "letter": 2,
+        "charlestown": 1,
+        "neighborhood": 1,
+        "amid": 1,
+        "development": 1,
+        "boom": 1,
+        "second": 1,
+        "justin": 1,
+        "bieber": 1
+      },
+      "sources": {
+        "The Southern Accent": 3,
+        "The NewsHouse": 2,
+        "The Scope": 1,
+        "The All State": 1,
+        "The Brown Daily Herald: Top Stories": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-04-22": {
+      "total": 24,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 2,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 2,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Named | Celebrate | Top | Info | Give": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Colleges | Professors | Graduate | University | Arizonas": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Funding | Childcare | Umos | Services | Supervisors": 1,
+        "Richmond | New | Made | Jragencia | Casal": 1,
+        "Students | Releases | Majors | Summer | Noah": 1
+      },
+      "sentiment": {
+        "neutral": 24
+      },
+      "keywords": {
+        "students": 4,
+        "programs": 2,
+        "first": 2,
+        "dance": 2,
+        "director": 2,
+        "april": 2,
+        "documentary": 2,
+        "abroad": 1,
+        "annenberg": 1,
+        "spring": 1
+      },
+      "sources": {
+        "The Collegian": 8,
+        "The NewsHouse": 6,
+        "The All State": 2,
+        "The Brown Daily Herald: Top Stories": 2,
+        "USC Annenberg": 1,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "The Southern Accent": 1,
+        "Pleasantville Press": 1,
+        "Philadelphia Neighborhoods": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-04-23": {
+      "total": 15,
+      "themes": {
+        "Richmond | New | Made | Jragencia | Casal": 2,
+        "State | Note | Marketplace | Staff | Internships": 2,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Students | Releases | Majors | Summer | Noah": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 15
+      },
+      "keywords": {
+        "local": 2,
+        "state": 2,
+        "austin": 2,
+        "peay": 2,
+        "university": 2,
+        "event": 1,
+        "resurgence": 1,
+        "civic": 1,
+        "engagement": 1,
+        "communities": 1
+      },
+      "sources": {
+        "Carolina News and Reporter": 3,
+        "The NewsHouse": 2,
+        "The Southern Accent": 2,
+        "The All State": 2,
+        "The Brown Daily Herald: Top Stories": 2,
+        "USC Annenberg": 1,
+        "urcapitalnews": 1,
+        "University Times": 1,
+        "9th Street Journal": 1
+      }
+    },
+    "2026-04-24": {
+      "total": 25,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 2,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Roommates | Businesses | Night | Friendships | Met": 1,
+        "Participate | Concerts | Venues | Celebration | Festival": 1,
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1,
+        "Living | Lightson | Written | From | Learned": 1
+      },
+      "sentiment": {
+        "neutral": 25
+      },
+      "keywords": {
+        "brown": 3,
+        "class": 2,
+        "students": 2,
+        "there": 2,
+        "high": 2,
+        "school": 2,
+        "protest": 2,
+        "have": 2,
+        "write": 2,
+        "beep": 1
+      },
+      "sources": {
+        "The Brown Daily Herald: Top Stories": 11,
+        "Carolina News and Reporter": 7,
+        "Pepperdine Graphic": 2,
+        "The NewsHouse": 1,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "9th Street Journal": 1,
+        "Logan Center for Urban Investigative Reporting": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-04-25": {
+      "total": 8,
+      "themes": {
+        "County | Ward | Next | Police | Looking": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1
+      },
+      "sentiment": {
+        "neutral": 8
+      },
+      "keywords": {
+        "richmond": 1,
+        "animal": 1,
+        "control": 1,
+        "care": 1,
+        "court": 1,
+        "virginia": 1,
+        "system": 1,
+        "accreditation": 1,
+        "defines": 1,
+        "successful": 1
+      },
+      "sources": {
+        "urcapitalnews": 2,
+        "The NewsHouse": 2,
+        "University Times": 1,
+        "The Southern Accent": 1,
+        "Crosstown": 1,
+        "Howard University News Service": 1
+      }
+    },
+    "2026-04-26": {
+      "total": 2,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 1
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "single-use": 1,
+        "plastic": 1,
+        "problem": 1,
+        "killing": 1,
+        "plastics": 1,
+        "consent": 1,
+        "enthusiastic": 1,
+        "anaya": 1,
+        "parker": 1,
+        "reflects": 1
+      },
+      "sources": {
+        "The Southern Accent": 2
+      }
+    },
+    "2026-04-27": {
+      "total": 14,
+      "themes": {
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 2,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1,
+        "Reporting | Year | Newsbreak": 1,
+        "Settlement | Irvine | Submission | Vote | Signs": 1
+      },
+      "sentiment": {
+        "neutral": 14
+      },
+      "keywords": {
+        "university": 2,
+        "black": 2,
+        "michael": 1,
+        "delivers": 1,
+        "visually": 1,
+        "captivating": 1,
+        "surface": 1,
+        "gym-masters": 1,
+        "half-century": 1,
+        "southern": 1
+      },
+      "sources": {
+        "The Utah Statesman": 3,
+        "The Chimes": 2,
+        "Howard University News Service": 2,
+        "The NewsHouse": 1,
+        "The Southern Accent": 1,
+        "Pleasantville Press": 1,
+        "Logan Center for Urban Investigative Reporting": 1,
+        "The All State": 1,
+        "Oakland North": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-04-28": {
+      "total": 7,
+      "themes": {
+        "County | Ward | Next | Police | Looking": 1
+      },
+      "sentiment": {
+        "neutral": 7
+      },
+      "keywords": {
+        "industry": 2,
+        "festival": 1,
+        "wwcu": 1,
+        "spring": 1,
+        "semester": 1,
+        "greening": 1,
+        "price": 1,
+        "average": 1,
+        "since": 1,
+        "toll": 1
+      },
+      "sources": {
+        "Daily Trojan": 5,
+        "The Western Carolina Journalist": 1,
+        "Canalside Chronicles": 1
+      }
+    },
+    "2026-04-29": {
+      "total": 44,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 6,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 4,
+        "State | Note | Marketplace | Staff | Internships": 2,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 2,
+        "41St | Pitch | Deserves | Stylist | Barrio": 2,
+        "Funding | Enrollment | Hopkins | Move | Issues": 2,
+        "Participate | Concerts | Venues | Celebration | Festival": 1,
+        "San | Governor | Columbia | Jose | Jordan": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Reporting | Year | Newsbreak": 1
+      },
+      "sentiment": {
+        "neutral": 44
+      },
+      "keywords": {
+        "next": 5,
+        "april": 3,
+        "student": 3,
+        "club": 3,
+        "cleveland": 2,
+        "begins": 2,
+        "students": 2,
+        "still": 2,
+        "makes": 2,
+        "zeta": 2
+      },
+      "sources": {
+        "Daily Trojan": 12,
+        "The Exponent": 9,
+        "ZU Media": 5,
+        "The NewsHouse": 3,
+        "The Houstonian": 3,
+        "The Commonwealth Times": 2,
+        "The All State": 2,
+        "The Western Carolina Journalist": 1,
+        "NewsLINC - Latest News": 1,
+        "Canalside Chronicles": 1,
+        "CU-CitizenAccess.org": 1,
+        "9th Street Journal": 1,
+        "Logan Center for Urban Investigative Reporting": 1,
+        "Columbia News Service": 1,
+        "Howard University News Service": 1
+      }
+    },
+    "2026-04-30": {
+      "total": 34,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 7,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 2,
+        "Living | Lightson | Written | From | Learned": 2,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Students | Unanimously | Approve | Intelligence | Be": 1,
+        "Students | Releases | Majors | Summer | Noah": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1,
+        "State | Note | Marketplace | Staff | Internships": 1
+      },
+      "sentiment": {
+        "neutral": 33,
+        "negative": 1
+      },
+      "keywords": {
+        "tulane": 3,
+        "history": 2,
+        "education": 2,
+        "bringing": 2,
+        "school": 2,
+        "queer": 2,
+        "women": 2,
+        "philadelphia": 2,
+        "biola": 2,
+        "have": 2
+      },
+      "sources": {
+        "Daily Trojan": 9,
+        "The Tulane Hullabaloo": 9,
+        "The FAMUAN": 4,
+        "The Houstonian": 2,
+        "Logan Center for Urban Investigative Reporting": 2,
+        "The Chimes": 2,
+        "Reporting Texas": 1,
+        "The NewsHouse": 1,
+        "The Western Carolina Journalist": 1,
+        "CU-CitizenAccess.org": 1,
+        "Philadelphia Neighborhoods": 1,
+        "The Brown Daily Herald: Top Stories": 1
+      }
+    },
+    "2026-05-01": {
+      "total": 69,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 7,
+        "Named | Celebrate | Top | Info | Give": 6,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 4,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 4,
+        "41St | Pitch | Deserves | Stylist | Barrio": 3,
+        "Reporting | Year | Newsbreak": 2,
+        "Students | Releases | Majors | Summer | Noah": 2,
+        "Roommates | Businesses | Night | Friendships | Met": 2,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1
+      },
+      "sentiment": {
+        "neutral": 67,
+        "negative": 2
+      },
+      "keywords": {
+        "students": 6,
+        "daily": 4,
+        "first": 4,
+        "loyola": 3,
+        "have": 3,
+        "commencement": 3,
+        "trojan": 3,
+        "post": 3,
+        "florida": 3,
+        "lottery": 3
+      },
+      "sources": {
+        "Daily Trojan": 27,
+        "The Maroon": 10,
+        "Fresh Take Florida": 6,
+        "The Catalyst": 5,
+        "The Brown Daily Herald: Top Stories": 4,
+        "The FAMUAN": 3,
+        "The Western Carolina Journalist": 3,
+        "Reporting Texas": 2,
+        "The Utah Statesman": 2,
+        "The Chimes": 2,
+        "The Scope": 1,
+        "The NewsHouse": 1,
+        "NewsLINC - Latest News": 1,
+        "9th Street Journal": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-05-02": {
+      "total": 3,
+      "themes": {
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1
+      },
+      "sentiment": {
+        "neutral": 3
+      },
+      "keywords": {
+        "press": 1,
+        "should": 1,
+        "journalists": 1,
+        "becomes": 1,
+        "target": 1,
+        "broadnax": 1,
+        "james": 1,
+        "executed": 1,
+        "texas": 1,
+        "state": 1
+      },
+      "sources": {
+        "NewsLab": 1,
+        "The Houstonian": 1,
+        "The Long Island Advocate": 1
+      }
+    },
+    "2026-05-03": {
+      "total": 2,
+      "themes": {
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "south": 1,
+        "congress": 1,
+        "businesses": 1,
+        "austinites": 1,
+        "mourn": 1,
+        "mushroom": 1,
+        "domnauer": 1,
+        "utah": 1,
+        "dentinger": 1,
+        "research": 1
+      },
+      "sources": {
+        "Reporting Texas": 1,
+        "Amplify Utah - The Story Room": 1
+      }
+    },
+    "2026-05-04": {
+      "total": 14,
+      "themes": {
+        "Colleges | Professors | Graduate | University | Arizonas": 2,
+        "Reporting | Year | Newsbreak": 1,
+        "Named | Celebrate | Top | Info | Give": 1,
+        "Northwestern | Next | Ollie | Olivia | At": 1,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 14
+      },
+      "keywords": {
+        "students": 2,
+        "field": 2,
+        "rally": 1,
+        "scores": 1,
+        "demonstrators": 1,
+        "gather": 1,
+        "memphis": 1,
+        "queer": 1,
+        "mutual": 1,
+        "parties": 1
+      },
+      "sources": {
+        "The Chimes": 4,
+        "The Arrow Latest News": 2,
+        "Fresh Take Florida": 2,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "Philadelphia Neighborhoods": 1,
+        "Daily Trojan": 1,
+        "The Legislative Gazette": 1,
+        "Delta Digital News Service": 1,
+        "The Brown Daily Herald: Top Stories": 1
+      }
+    },
+    "2026-05-05": {
+      "total": 14,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 2,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 2,
+        "Settlement | Irvine | Submission | Vote | Signs": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Reporting | Year | Newsbreak": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1
+      },
+      "sentiment": {
+        "neutral": 14
+      },
+      "keywords": {
+        "welcome": 2,
+        "philadelphia": 2,
+        "elisa": 2,
+        "roots": 2,
+        "brazilians": 2,
+        "boston": 1,
+        "april": 1,
+        "showers": 1,
+        "bring": 1,
+        "flowers": 1
+      },
+      "sources": {
+        "The Arrow Latest News": 4,
+        "Logan Center for Urban Investigative Reporting": 3,
+        "Reporting Texas": 2,
+        "The Scope": 1,
+        "NewsLab": 1,
+        "Canalside Chronicles": 1,
+        "The Houstonian": 1,
+        "9th Street Journal": 1
+      }
+    },
+    "2026-05-06": {
+      "total": 21,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 3,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Reporting | Year | Newsbreak": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Funding | Childcare | Umos | Services | Supervisors": 1,
+        "Colleges | Professors | Graduate | University | Arizonas": 1
+      },
+      "sentiment": {
+        "neutral": 17,
+        "positive": 4
+      },
+      "keywords": {
+        "students": 3,
+        "have": 2,
+        "state": 2,
+        "center": 2,
+        "artemis": 1,
+        "another": 1,
+        "baseless": 1,
+        "conspiracy": 1,
+        "theory": 1,
+        "martin": 1
+      },
+      "sources": {
+        "University Times": 5,
+        "Delta Digital News Service": 4,
+        "The Arrow Latest News": 2,
+        "Arnolt Center for Investigative Journalism": 2,
+        "The Brown Daily Herald: Top Stories": 2,
+        "Reporting Texas": 1,
+        "The Houstonian": 1,
+        "Pleasantville Press": 1,
+        "The Utah Statesman": 1,
+        "Oakland North": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-07": {
+      "total": 40,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 9,
+        "State | Note | Marketplace | Staff | Internships": 3,
+        "41St | Pitch | Deserves | Stylist | Barrio": 2,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Reporting | Year | Newsbreak": 1
+      },
+      "sentiment": {
+        "neutral": 39,
+        "negative": 1
+      },
+      "keywords": {
+        "houston": 4,
+        "students": 3,
+        "market": 3,
+        "tucson": 3,
+        "community": 3,
+        "neark": 3,
+        "just": 2,
+        "state": 2,
+        "canvas": 2,
+        "cougars": 2
+      },
+      "sources": {
+        "The Cougar": 10,
+        "Arizona Sonoran News": 6,
+        "The Argonaut": 6,
+        "Delta Digital News Service": 5,
+        "University Times": 2,
+        "NewsLab": 2,
+        "The Brown Daily Herald: Top Stories": 2,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "NewsLINC - Latest News": 1,
+        "Canalside Chronicles": 1,
+        "The Collegian": 1,
+        "The Arrow Latest News": 1,
+        "The Tulane Hullabaloo": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-08": {
+      "total": 52,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "State | Note | Marketplace | Staff | Internships": 3,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 2,
+        "Funding | Enrollment | Hopkins | Move | Issues": 2,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Roommates | Businesses | Night | Friendships | Met": 1,
+        "San | Governor | Columbia | Jose | Jordan": 1,
+        "Reporting | Year | Newsbreak": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1
+      },
+      "sentiment": {
+        "neutral": 50,
+        "positive": 2
+      },
+      "keywords": {
+        "year": 4,
+        "state": 4,
+        "students": 3,
+        "women": 3,
+        "stories": 2,
+        "like": 2,
+        "world": 2,
+        "report": 2,
+        "been": 2,
+        "academic": 2
+      },
+      "sources": {
+        "The Catalyst": 20,
+        "The Argonaut": 11,
+        "The Western Carolina Journalist": 4,
+        "The Legislative Gazette": 3,
+        "The Arrow Latest News": 2,
+        "Columbia News Service": 2,
+        "The Scope": 1,
+        "University Times": 1,
+        "NewsLINC - Latest News": 1,
+        "The Houstonian": 1,
+        "The Utah Statesman": 1,
+        "The Collegian": 1,
+        "Arizona Sonoran News": 1,
+        "Fresh Take Florida": 1,
+        "The Brown Daily Herald: Top Stories": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-09": {
+      "total": 8,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Healthcare | Md | Newsroom | Volunteer": 1,
+        "Colleges | Professors | Graduate | University | Arizonas": 1
+      },
+      "sentiment": {
+        "neutral": 8
+      },
+      "keywords": {
+        "opinion": 1,
+        "trade": 1,
+        "bottom": 1,
+        "dollar": 1,
+        "well": 1,
+        "students": 1,
+        "staff": 1,
+        "anderson": 1,
+        "library": 1,
+        "celebrate": 1
+      },
+      "sources": {
+        "The Cougar": 3,
+        "Columbia News Service": 2,
+        "The Argonaut": 2,
+        "The FAMUAN": 1
+      }
+    },
+    "2026-05-10": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "mental": 1,
+        "health": 1,
+        "stigma": 1,
+        "superintendent": 1,
+        "grosdidier": 1
+      },
+      "sources": {
+        "The Eudora Times": 1
+      }
+    },
+    "2026-05-11": {
+      "total": 16,
+      "themes": {
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 3,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "Students | Unanimously | Approve | Intelligence | Be": 1,
+        "County | Ward | Next | Police | Looking": 1
+      },
+      "sentiment": {
+        "neutral": 16
+      },
+      "keywords": {
+        "media": 2,
+        "students": 2,
+        "have": 2,
+        "florida": 2,
+        "survives": 1,
+        "yale": 1,
+        "advance": 1,
+        "ncaa": 1,
+        "tourney": 1,
+        "campus": 1
+      },
+      "sources": {
+        "LakeVoice - Medium": 5,
+        "NewsLab": 4,
+        "The Cougar": 3,
+        "The NewsHouse": 1,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "9th Street Journal": 1,
+        "Fresh Take Florida": 1
+      }
+    },
+    "2026-05-12": {
+      "total": 17,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "Settlement | Irvine | Submission | Vote | Signs": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Students | Releases | Majors | Summer | Noah": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Roommates | Businesses | Night | Friendships | Met": 1
+      },
+      "sentiment": {
+        "neutral": 17
+      },
+      "keywords": {
+        "eudora": 2,
+        "black": 2,
+        "first": 1,
+        "series": 1,
+        "against": 1,
+        "arizona": 1,
+        "cougars": 1,
+        "suny": 1,
+        "brockport": 1,
+        "nursing": 1
+      },
+      "sources": {
+        "Howard University News Service": 5,
+        "The Eudora Times": 3,
+        "The Argonaut": 2,
+        "The Cougar": 1,
+        "Canalside Chronicles": 1,
+        "Crosstown": 1,
+        "The Arrow Latest News": 1,
+        "Arizona Sonoran News": 1,
+        "The Legislative Gazette": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-13": {
+      "total": 12,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Healthcare | Md | Newsroom | Volunteer": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Participate | Concerts | Venues | Celebration | Festival": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
+      },
+      "sentiment": {
+        "neutral": 12
+      },
+      "keywords": {
+        "gallery": 4,
+        "brings": 2,
+        "cougars": 1,
+        "against": 1,
+        "rice": 1,
+        "claiming": 1,
+        "chrome": 1,
+        "memphis": 1,
+        "books": 1,
+        "theological": 1
+      },
+      "sources": {
+        "The Argonaut": 4,
+        "NewsLab": 2,
+        "The Cougar": 1,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "The Eudora Times": 1,
+        "The Arrow Latest News": 1,
+        "9th Street Journal": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-05-14": {
+      "total": 24,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "County | Ward | Next | Police | Looking": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Living | Lightson | Written | From | Learned": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
+      },
+      "sentiment": {
+        "neutral": 24
+      },
+      "keywords": {
+        "board": 3,
+        "government": 2,
+        "years": 2,
+        "support": 2,
+        "donate": 2,
+        "bethel": 2,
+        "history": 1,
+        "graduating": 1,
+        "class": 1,
+        "make": 1
+      },
+      "sources": {
+        "The Clarion": 10,
+        "The Eudora Times": 5,
+        "NewsLab": 2,
+        "The Long Island Advocate": 2,
+        "The Cougar": 1,
+        "The Commonwealth Times": 1,
+        "Arizona Sonoran News": 1,
+        "Howard University News Service": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-15": {
+      "total": 3,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 1
+      },
+      "sentiment": {
+        "neutral": 3
+      },
+      "keywords": {
+        "three": 1,
+        "years": 1,
+        "hopes": 1,
+        "remain": 1,
+        "high": 1,
+        "students": 1,
+        "year": 1,
+        "feeding": 1,
+        "squirrels": 1,
+        "making": 1
+      },
+      "sources": {
+        "The Cougar": 2,
+        "The Scope": 1
+      }
+    },
+    "2026-05-16": {
+      "total": 5,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1,
+        "Settlement | Irvine | Submission | Vote | Signs": 1
+      },
+      "sentiment": {
+        "neutral": 5
+      },
+      "keywords": {
+        "four": 1,
+        "years": 1,
+        "memories": 1,
+        "some": 1,
+        "snapshot": 1,
+        "boston": 1,
+        "college": 1,
+        "series": 1,
+        "georgia": 1,
+        "tech": 1
+      },
+      "sources": {
+        "Columbia News Service": 2,
+        "The Daily Campus": 1,
+        "The Heights": 1,
+        "Oakland North": 1
+      }
+    },
+    "2026-05-17": {
+      "total": 4,
+      "themes": {
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 4
+      },
+      "keywords": {
+        "deadline": 1,
+        "democracy": 1,
+        "listen": 1,
+        "podcast": 1,
+        "series": 1,
+        "takes": 1,
+        "down": 1,
+        "advances": 1,
+        "mlax": 1,
+        "final": 1
+      },
+      "sources": {
+        "The NewsHouse": 2,
+        "Purple Media Network": 1,
+        "The Arrow Latest News": 1
+      }
+    },
+    "2026-05-18": {
+      "total": 4,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 4
+      },
+      "keywords": {
+        "hall": 1,
+        "alost": 1,
+        "robert": 1,
+        "newest": 1,
+        "addition": 1,
+        "campus": 1,
+        "home": 1,
+        "pony": 1,
+        "arrived": 1,
+        "august": 1
+      },
+      "sources": {
+        "Purple Media Network": 1,
+        "The Daily Campus": 1,
+        "The Heights": 1,
+        "Columbia News Service": 1
+      }
+    },
+    "2026-05-19": {
+      "total": 7,
+      "themes": {
+        "Colleges | Professors | Graduate | University | Arizonas": 1,
+        "Named | Celebrate | Top | Info | Give": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1
+      },
+      "sentiment": {
+        "neutral": 7
+      },
+      "keywords": {
+        "winter": 1,
+        "wonderland": 1,
+        "hosted": 1,
+        "gives": 1,
+        "students": 1,
+        "davis": 1,
+        "death": 1,
+        "football": 1,
+        "player": 1,
+        "william": 1
+      },
+      "sources": {
+        "Purple Media Network": 1,
+        "The Houstonian": 1,
+        "Daily Trojan": 1,
+        "Arizona Sonoran News": 1,
+        "The Northerner": 1,
+        "The Heights": 1,
+        "Pepperdine Graphic": 1
+      }
+    },
+    "2026-05-20": {
+      "total": 19,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "Northwestern | Next | Ollie | Olivia | At": 1,
+        "Reporting | Year | Newsbreak": 1,
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "Named | Celebrate | Top | Info | Give": 1
+      },
+      "sentiment": {
+        "neutral": 18,
+        "negative": 1
+      },
+      "keywords": {
+        "senior": 3,
+        "farewells": 3,
+        "sections": 2,
+        "aigboboh": 1,
+        "sean": 1,
+        "full": 1,
+        "speed": 1,
+        "ahead": 1,
+        "football": 1,
+        "season": 1
+      },
+      "sources": {
+        "Daily Trojan": 9,
+        "The Daily Aztec": 5,
+        "The Cougar": 3,
+        "Purple Media Network": 1,
+        "Noticiero Movil": 1
+      }
+    },
+    "2026-05-21": {
+      "total": 11,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Healthcare | Md | Newsroom | Volunteer": 1
+      },
+      "sentiment": {
+        "neutral": 11
+      },
+      "keywords": {
+        "students": 2,
+        "mark": 1,
+        "wassberg": 1,
+        "mayor": 1,
+        "richmond": 1,
+        "candidate": 1,
+        "talent": 1,
+        "hosted": 1,
+        "show": 1,
+        "kyra": 1
+      },
+      "sources": {
+        "The Battalion": 2,
+        "The Heights": 2,
+        "Richmond Confidential": 1,
+        "Purple Media Network": 1,
+        "Crosstown": 1,
+        "Noticiero Movil": 1,
+        "The Hoya": 1,
+        "LSU Manship School Statehouse Bureau": 1,
+        "Columbia News Service": 1
+      }
+    },
+    "2026-05-22": {
+      "total": 7,
+      "themes": {
+        "Students | Releases | Majors | Summer | Noah": 1,
+        "Settlement | Irvine | Submission | Vote | Signs": 1
+      },
+      "sentiment": {
+        "neutral": 7
+      },
+      "keywords": {
+        "health": 2,
+        "care": 1,
+        "boston": 1,
+        "family": 1,
+        "free": 1,
+        "year": 1,
+        "magazine": 1,
+        "argus": 1,
+        "theme": 1,
+        "rebecca": 1
+      },
+      "sources": {
+        "The Scope": 1,
+        "Purple Media Network": 1,
+        "9th Street Journal": 1,
+        "Columbia News Service": 1,
+        "Oakland North": 1,
+        "The Brown Daily Herald: Top Stories": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-23": {
+      "total": 3,
+      "themes": {
+        "Named | Celebrate | Top | Info | Give": 1
+      },
+      "sentiment": {
+        "neutral": 3
+      },
+      "keywords": {
+        "announces": 1,
+        "program": 1,
+        "cuts": 1,
+        "staff": 1,
+        "layoffs": 1,
+        "graduates": 1,
+        "stage": 1,
+        "fall": 1,
+        "ceremony": 1,
+        "graduation": 1
+      },
+      "sources": {
+        "The Exponent": 1,
+        "Purple Media Network": 1,
+        "The Heights": 1
+      }
+    },
+    "2026-05-24": {
+      "total": 5,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1
+      },
+      "sentiment": {
+        "neutral": 5
+      },
+      "keywords": {
+        "ncaa": 2,
+        "luck": 1,
+        "cuse": 1,
+        "irish": 1,
+        "loss": 1,
+        "pcos": 1,
+        "renaming": 1,
+        "matters": 1,
+        "decades": 1,
+        "polycystic": 1
+      },
+      "sources": {
+        "The Cougar": 2,
+        "The NewsHouse": 1,
+        "Purple Media Network": 1,
+        "The Battalion": 1
+      }
+    },
+    "2026-05-25": {
+      "total": 7,
+      "themes": {
+        "Reporting | Year | Newsbreak": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Students | Unanimously | Approve | Intelligence | Be": 1,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 7
+      },
+      "keywords": {
+        "macqueen": 1,
+        "professor": 1,
+        "veterinary": 1,
+        "kaleigh": 1,
+        "potpourri": 1,
+        "cedar": 1,
+        "falls": 1,
+        "flags": 1,
+        "post": 1,
+        "memorial": 1
+      },
+      "sources": {
+        "The Utah Statesman": 3,
+        "Purple Media Network": 1,
+        "The Cedar Falls News Hub": 1,
+        "The Battalion": 1,
+        "The Northerner": 1
+      }
+    },
+    "2026-05-26": {
+      "total": 5,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "County | Ward | Next | Police | Looking": 1
+      },
+      "sentiment": {
+        "neutral": 5
+      },
+      "keywords": {
+        "district": 1,
+        "richmond": 1,
+        "city": 1,
+        "council": 1,
+        "candidate": 1,
+        "davis": 1,
+        "houston": 1,
+        "baseball": 1,
+        "head": 1,
+        "coach": 1
+      },
+      "sources": {
+        "Richmond Confidential": 1,
+        "The Cougar": 1,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "The Brown Daily Herald: Top Stories": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-05-27": {
+      "total": 16,
+      "themes": {
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 4,
+        "41St | Pitch | Deserves | Stylist | Barrio": 2,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Students | Releases | Majors | Summer | Noah": 1,
+        "Participate | Concerts | Venues | Celebration | Festival": 1
+      },
+      "sentiment": {
+        "neutral": 16
+      },
+      "keywords": {
+        "council": 2,
+        "voting": 2,
+        "falls": 2,
+        "district": 1,
+        "richmond": 1,
+        "city": 1,
+        "candidate": 1,
+        "legal": 1,
+        "high": 1,
+        "sale": 1
+      },
+      "sources": {
+        "Daily Trojan": 7,
+        "The NewsHouse": 2,
+        "Richmond Confidential": 1,
+        "The Cougar": 1,
+        "Purple Media Network": 1,
+        "The Cedar Falls News Hub": 1,
+        "CU-CitizenAccess.org": 1,
+        "The Legislative Gazette": 1,
+        "The Brown Daily Herald: Top Stories": 1
+      }
+    },
+    "2026-05-28": {
+      "total": 16,
+      "themes": {
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Roommates | Businesses | Night | Friendships | Met": 1,
+        "San | Governor | Columbia | Jose | Jordan": 1,
+        "Settlement | Irvine | Submission | Vote | Signs": 1,
+        "Students | Unanimously | Approve | Intelligence | Be": 1
+      },
+      "sentiment": {
+        "neutral": 16
+      },
+      "keywords": {
+        "city": 2,
+        "video": 2,
+        "harris": 1,
+        "same": 1,
+        "film": 1,
+        "black": 1,
+        "halves": 1,
+        "district": 1,
+        "richmond": 1,
+        "council": 1
+      },
+      "sources": {
+        "The Bronx Journal": 4,
+        "ChicagoTalks": 2,
+        "The FAMUAN": 1,
+        "Richmond Confidential": 1,
+        "The Daily Aztec": 1,
+        "CU-CitizenAccess.org": 1,
+        "Philadelphia Neighborhoods": 1,
+        "The Arrow Latest News": 1,
+        "9th Street Journal": 1,
+        "The Long Island Advocate": 1,
+        "Oakland North": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-29": {
+      "total": 21,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 3,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Colleges | Professors | Graduate | University | Arizonas": 2,
+        "County | Ward | Next | Police | Looking": 1,
+        "Students | Unanimously | Approve | Intelligence | Be": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Funding | Childcare | Umos | Services | Supervisors": 1
+      },
+      "sentiment": {
+        "neutral": 21
+      },
+      "keywords": {
+        "boston": 2,
+        "protect": 2,
+        "worcester": 2,
+        "massachusetts": 2,
+        "social": 2,
+        "media": 2,
+        "program": 1,
+        "fare-free": 1,
+        "deadline": 1,
+        "looms": 1
+      },
+      "sources": {
+        "Boston University News Service": 10,
+        "The Scope": 1,
+        "Richmond Confidential": 1,
+        "NewsLab": 1,
+        "The Daily Aztec": 1,
+        "The Cedar Falls News Hub": 1,
+        "The Arrow Latest News": 1,
+        "9th Street Journal": 1,
+        "The Bronx Journal": 1,
+        "The Heights": 1,
+        "Pepperdine Graphic": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-05-30": {
+      "total": 4,
+      "themes": {
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Colleges | Professors | Graduate | University | Arizonas": 1,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1
+      },
+      "sentiment": {
+        "neutral": 4
+      },
+      "keywords": {
+        "district": 1,
+        "richmond": 1,
+        "hilltop": 1,
+        "city": 1,
+        "council": 1,
+        "years": 1,
+        "veteran": 1,
+        "georgia": 1,
+        "wade": 1,
+        "fought": 1
+      },
+      "sources": {
+        "Richmond Confidential": 1,
+        "Grady Newsource": 1,
+        "The Battalion": 1,
+        "The Northerner": 1
+      }
+    },
+    "2026-05-31": {
+      "total": 8,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 4,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1
+      },
+      "sentiment": {
+        "neutral": 6,
+        "positive": 1,
+        "negative": 1
+      },
+      "keywords": {
+        "students": 2,
+        "measure": 1,
+        "cerrito": 1,
+        "voters": 1,
+        "ballot": 1,
+        "asks": 1,
+        "runoff": 1,
+        "elections": 1,
+        "leave": 1,
+        "hopeful": 1
+      },
+      "sources": {
+        "The Cougar": 3,
+        "The Heights": 2,
+        "Richmond Confidential": 1,
+        "The Battalion": 1,
+        "Columbia News Service": 1
+      }
+    },
+    "2026-06-01": {
+      "total": 30,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 13,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Living | Lightson | Written | From | Learned": 2,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "County | Ward | Next | Police | Looking": 1,
+        "Reporting | Year | Newsbreak": 1
+      },
+      "sentiment": {
+        "neutral": 29,
+        "negative": 1
+      },
+      "keywords": {
+        "regional": 8,
+        "throws": 3,
+        "lincoln": 3,
+        "against": 2,
+        "journey": 2,
+        "community": 2,
+        "strike": 2,
+        "ncaa": 2,
+        "hits": 2,
+        "homer": 2
+      },
+      "sources": {
+        "www.nebraskanewsservice.net - RSS Results": 10,
+        "The DePaulia": 9,
+        "The Legislative Gazette": 3,
+        "The NewsHouse": 2,
+        "New Mexico News Port": 1,
+        "The Cougar": 1,
+        "Grady Newsource": 1,
+        "CU-CitizenAccess.org": 1,
+        "The Battalion": 1,
+        "Oakland North": 1
+      }
+    },
+    "2026-06-02": {
+      "total": 9,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1
+      },
+      "sentiment": {
+        "neutral": 9
+      },
+      "keywords": {
+        "zendaya": 1,
+        "year": 1,
+        "perspectives": 1,
+        "many": 1,
+        "fans": 1,
+        "annenberg": 1,
+        "content": 1,
+        "academy": 1,
+        "event": 1,
+        "july": 1
+      },
+      "sources": {
+        "The Cougar": 2,
+        "The FAMUAN": 1,
+        "USC Annenberg": 1,
+        "Crosstown": 1,
+        "The Battalion": 1,
+        "The Hoya": 1,
+        "The Long Island Advocate": 1,
+        "The Hitchcock Project for Visualizing Science": 1
+      }
+    },
+    "2026-06-03": {
+      "total": 24,
+      "themes": {
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 6,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1,
+        "Participate | Concerts | Venues | Celebration | Festival": 1,
+        "Reporting | Year | Newsbreak": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Healthcare | Md | Newsroom | Volunteer": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1
+      },
+      "sentiment": {
+        "neutral": 22,
+        "positive": 2
+      },
+      "keywords": {
+        "iowa": 3,
+        "republican": 2,
+        "governor": 2,
+        "nomination": 2,
+        "democratic": 2,
+        "golf": 2,
+        "county": 2,
+        "year": 2,
+        "lahn": 1,
+        "zach": 1
+      },
+      "sources": {
+        "Daily Trojan": 9,
+        "The Daily Iowan": 3,
+        "New Mexico News Port": 2,
+        "CU-CitizenAccess.org": 2,
+        "Richmond Confidential": 1,
+        "The NewsHouse": 1,
+        "The Cougar": 1,
+        "Grady Newsource": 1,
+        "The Northerner": 1,
+        "The Bronx Journal": 1,
+        "Easton Courier": 1,
+        "The Brown Daily Herald: Top Stories": 1
+      }
+    },
+    "2026-06-04": {
+      "total": 34,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "Funding | Enrollment | Hopkins | Move | Issues": 4,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 4,
+        "State | Note | Marketplace | Staff | Internships": 3,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 2,
+        "Colleges | Professors | Graduate | University | Arizonas": 1,
+        "Students | Unanimously | Approve | Intelligence | Be": 1
+      },
+      "sentiment": {
+        "neutral": 32,
+        "positive": 1,
+        "negative": 1
+      },
+      "keywords": {
+        "state": 3,
+        "congressional": 3,
+        "house": 3,
+        "voice": 2,
+        "university": 2,
+        "ohio": 2,
+        "student": 2,
+        "pitcher": 2,
+        "landry": 2,
+        "teacher": 2
+      },
+      "sources": {
+        "The Lantern": 9,
+        "LSU Manship School Statehouse Bureau": 8,
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "The Stanford Daily": 3,
+        "The Sunflower": 2,
+        "Reporting Texas": 1,
+        "South Jersey Climate News": 1,
+        "The Northerner": 1,
+        "The Hoya": 1,
+        "The Bronx Journal": 1,
+        "The Long Island Advocate": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-06-05": {
+      "total": 47,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 7,
+        "Robbery | Sentenced | Hostage | Robberies | Man": 3,
+        "State | Note | Marketplace | Staff | Internships": 3,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Participate | Concerts | Venues | Celebration | Festival": 2,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 2,
+        "Chase | Railroad | Man | Colonie": 2,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 2,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "Living | Lightson | Written | From | Learned": 1
+      },
+      "sentiment": {
+        "neutral": 45,
+        "positive": 2
+      },
+      "keywords": {
+        "stanford": 9,
+        "students": 4,
+        "community": 4,
+        "morgantown": 3,
+        "super": 3,
+        "troy": 3,
+        "series": 3,
+        "robberies": 3,
+        "woman": 3,
+        "game": 2
+      },
+      "sources": {
+        "The Stanford Daily": 18,
+        "West Texas Tribune": 6,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 6,
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "The Cedar Falls News Hub": 2,
+        "The Daily Iowan": 1,
+        "The Sunflower": 1,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "Grady Newsource": 1,
+        "Community News Service": 1,
+        "The Bronx Journal": 1,
+        "The Heights": 1,
+        "LSU Manship School Statehouse Bureau": 1,
+        "ChicagoTalks": 1,
         "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-06": {
+      "total": 14,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Richmond | New | Made | Jragencia | Casal": 1,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 1
+      },
+      "sentiment": {
+        "neutral": 14
+      },
+      "keywords": {
+        "community": 2,
+        "morgantown": 2,
+        "super": 2,
+        "regional": 2,
+        "school": 1,
+        "district": 1,
+        "superintendent": 1,
+        "council": 1,
+        "weekend": 1,
+        "factory": 1
+      },
+      "sources": {
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "The Daily Iowan": 1,
+        "The Miami Hurricane": 1,
+        "The Daily Aztec": 1,
+        "Grady Newsource": 1,
+        "The Cedar Falls News Hub": 1,
+        "The Battalion": 1,
+        "The Hoya": 1,
+        "The Long Island Advocate": 1,
+        "West Texas Tribune": 1
+      }
+    },
+    "2026-06-07": {
+      "total": 8,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1,
+        "Students | Releases | Majors | Summer | Noah": 1,
+        "San | Governor | Columbia | Jose | Jordan": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
+      },
+      "sentiment": {
+        "neutral": 8
+      },
+      "keywords": {
+        "fans": 1,
+        "unite": 1,
+        "beak": 1,
+        "skiff": 1,
+        "mulligan": 1,
+        "building": 1,
+        "before": 1,
+        "online": 1,
+        "travel": 1,
+        "mainstream": 1
+      },
+      "sources": {
+        "www.thedaonline.com - RSS Results of type article": 2,
+        "The NewsHouse": 1,
+        "The Miami Hurricane": 1,
+        "South Jersey Climate News": 1,
+        "The Lantern": 1,
+        "The Northerner": 1,
+        "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-08": {
+      "total": 25,
+      "themes": {
+        "State | Note | Marketplace | Staff | Internships": 4,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 3,
+        "Reporting | Year | Newsbreak": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
+        "Funding | Childcare | Umos | Services | Supervisors": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1
+      },
+      "sentiment": {
+        "neutral": 25
+      },
+      "keywords": {
+        "students": 2,
+        "rising": 2,
+        "post": 2,
+        "stanford": 2,
+        "texas": 1,
+        "reporting": 1,
+        "april": 1,
+        "journalism": 1,
+        "fishing": 1,
+        "alumni": 1
+      },
+      "sources": {
+        "The Stanford Daily": 8,
+        "The Miami Hurricane": 2,
+        "www.thedaonline.com - RSS Results of type article": 2,
+        "QCity Metro Latest News": 2,
+        "Reporting Texas": 1,
+        "The Cougar": 1,
+        "Institute for Public Service Reporting – Memphis": 1,
+        "WKUHerald.com": 1,
+        "Grady Newsource": 1,
+        "CNS Maryland": 1,
+        "Philadelphia Neighborhoods": 1,
+        "Noticiero Movil": 1,
+        "The Hoya": 1,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1,
+        "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-09": {
+      "total": 41,
+      "themes": {
+        "Chase | Railroad | Man | Colonie": 4,
+        "Healthcare | Md | Newsroom | Volunteer": 3,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 2,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 2,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 2,
+        "State | Note | Marketplace | Staff | Internships": 2,
+        "Funding | Childcare | Umos | Services | Supervisors": 1,
+        "Students | Unanimously | Approve | Intelligence | Be": 1,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "San | Governor | Columbia | Jose | Jordan": 1
+      },
+      "sentiment": {
+        "neutral": 41
+      },
+      "keywords": {
+        "colonie": 6,
+        "june": 4,
+        "bethlehem": 3,
+        "weekly": 3,
+        "opinion": 2,
+        "season": 2,
+        "love": 2,
+        "nuremberg": 2,
+        "hate": 2,
+        "social": 2
+      },
+      "sources": {
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 9,
+        "The Daily Campus": 8,
+        "The Stanford Daily": 5,
+        "www.thedaonline.com - RSS Results of type article": 3,
+        "CNS Maryland": 2,
+        "South Jersey Climate News": 2,
+        "The Daily Evergreen": 2,
+        "QCity Metro Latest News": 2,
+        "The Scope": 1,
+        "The Sunflower": 1,
+        "The Cougar": 1,
+        "Kentucky Kernel": 1,
+        "Community News Service": 1,
+        "The Long Island Advocate": 1,
+        "Great Lakes Echo": 1,
+        "https://kentstatenewslab.org/feed/": 1
+      }
+    },
+    "2026-06-10": {
+      "total": 38,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "41St | Pitch | Deserves | Stylist | Barrio": 2,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 2,
+        "Funding | Enrollment | Hopkins | Move | Issues": 2,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "State | Note | Marketplace | Staff | Internships": 2,
+        "Participate | Concerts | Venues | Celebration | Festival": 2,
+        "Richmond | New | Made | Jragencia | Casal": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Students | Releases | Majors | Summer | Noah": 1
+      },
+      "sentiment": {
+        "neutral": 36,
+        "positive": 2
+      },
+      "keywords": {
+        "college": 3,
+        "county": 2,
+        "station": 2,
+        "district": 2,
+        "first": 2,
+        "daily": 2,
+        "party": 2,
+        "magazine": 2,
+        "consumption": 2,
+        "issue": 2
+      },
+      "sources": {
+        "Daily Trojan": 9,
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "The Oglethorpe Echo": 3,
+        "CNS Maryland": 2,
+        "QCity Metro Latest News": 2,
+        "ChicagoTalks": 2,
+        "The Diamondback": 2,
+        "The Stanford Daily": 2,
+        "The Miami Hurricane": 1,
+        "The Cougar": 1,
+        "The Daily Mississippian": 1,
+        "Kentucky Kernel": 1,
+        "WKUHerald.com": 1,
+        "The Macon Newsroom": 1,
+        "The Cedar Falls News Hub": 1,
+        "The Battalion": 1,
+        "The Northerner": 1,
+        "Easton Courier": 1,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1
+      }
+    },
+    "2026-06-11": {
+      "total": 39,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 8,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Robbery | Sentenced | Hostage | Robberies | Man": 2,
+        "Funding | Childcare | Umos | Services | Supervisors": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "State | Note | Marketplace | Staff | Internships": 1,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Students | Releases | Majors | Summer | Noah": 1
+      },
+      "sentiment": {
+        "neutral": 39
+      },
+      "keywords": {
+        "town": 4,
+        "basketball": 3,
+        "state": 2,
+        "market": 2,
+        "back": 2,
+        "college": 2,
+        "ohio": 2,
+        "women": 2,
+        "free": 2,
+        "against": 2
+      },
+      "sources": {
+        "QCity Metro Latest News": 6,
+        "The Lantern": 3,
+        "The Daily Evergreen": 3,
+        "www.thedaonline.com - RSS Results of type article": 3,
+        "New Mexico News Port": 2,
+        "The Oglethorpe Echo": 2,
+        "Kentucky Kernel": 2,
+        "CNS Maryland": 2,
+        "The Arrow Latest News": 2,
+        "Home": 2,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 2,
+        "Richmond Confidential": 1,
+        "The Daily Mississippian": 1,
+        "Grady Newsource": 1,
+        "Community News Service": 1,
+        "CU-CitizenAccess.org": 1,
+        "The Northerner": 1,
+        "Gaylord News": 1,
+        "The DePaulia": 1,
+        "The Brown Daily Herald: Top Stories": 1,
+        "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-12": {
+      "total": 29,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 3,
+        "Robbery | Sentenced | Hostage | Robberies | Man": 3,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 2,
+        "San | Governor | Columbia | Jose | Jordan": 2,
+        "Healthcare | Md | Newsroom | Volunteer": 2,
+        "Students | Unanimously | Approve | Intelligence | Be": 1,
+        "Participatory | Fining | Challenges | Donates | Business": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1
+      },
+      "sentiment": {
+        "neutral": 28,
+        "positive": 1
+      },
+      "keywords": {
+        "world": 5,
+        "series": 4,
+        "college": 4,
+        "coach": 3,
+        "albany": 3,
+        "accused": 3,
+        "shooting": 3,
+        "faces": 3,
+        "police": 3,
+        "former": 2
+      },
+      "sources": {
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "Noticiero Movil": 3,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 3,
+        "The Sunflower": 2,
+        "WKUHerald.com": 2,
+        "CNS Maryland": 2,
+        "Community News Service": 2,
+        "Easton Courier": 2,
+        "Gaylord News": 2,
+        "The Scope": 1,
+        "The Daily Mississippian": 1,
+        "Kentucky Kernel": 1,
+        "The Daily Orange": 1,
+        "The Macon Newsroom": 1,
+        "The Daily Evergreen": 1
+      }
+    },
+    "2026-06-13": {
+      "total": 20,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "Robbery | Sentenced | Hostage | Robberies | Man": 2,
+        "Healthcare | Md | Newsroom | Volunteer": 1,
+        "San | Governor | Columbia | Jose | Jordan": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 1,
+        "41St | Pitch | Deserves | Stylist | Barrio": 1,
+        "Franchise | Lovers | Middle | Lgbtq | Campuses": 1,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "Settlement | Irvine | Submission | Vote | Signs": 1
+      },
+      "sentiment": {
+        "neutral": 20
+      },
+      "keywords": {
+        "student": 2,
+        "miss": 2,
+        "foal": 2,
+        "behind": 2,
+        "stable": 2,
+        "doors": 2,
+        "ncaa": 2,
+        "outdoor": 2,
+        "albany": 2,
+        "woman": 2
+      },
+      "sources": {
+        "The Daily Orange": 3,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 3,
+        "The Daily Mississippian": 2,
+        "Kentucky Kernel": 2,
+        "The Miami Hurricane": 1,
+        "The Daily Aztec": 1,
+        "Grady Newsource": 1,
+        "The Macon Newsroom": 1,
+        "The Lantern": 1,
+        "Home": 1,
+        "Easton Courier": 1,
+        "The Diamondback": 1,
+        "Oakland North": 1,
+        "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-14": {
+      "total": 11,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 2,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1
+      },
+      "sentiment": {
+        "neutral": 11
+      },
+      "keywords": {
+        "baseball": 3,
+        "troy": 2,
+        "miss": 2,
+        "season": 2,
+        "henry": 1,
+        "joshua": 1,
+        "tony": 1,
+        "frost": 1,
+        "school": 1,
+        "earthquake": 1
+      },
+      "sources": {
+        "The Daily Mississippian": 3,
+        "The Miami Hurricane": 2,
+        "The Daily Orange": 1,
+        "Grady Newsource": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "The Daily Utah Chronicle": 1,
+        "Columbia News Service": 1,
+        "The Reporting Project – Covering Licking County, Ohio": 1
+      }
+    },
+    "2026-06-15": {
+      "total": 48,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 4,
+        "Chase | Railroad | Man | Colonie": 4,
+        "41St | Pitch | Deserves | Stylist | Barrio": 3,
+        "Healthcare | Md | Newsroom | Volunteer": 2,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Reporting | Year | Newsbreak": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1
+      },
+      "sentiment": {
+        "neutral": 47,
+        "negative": 1
+      },
+      "keywords": {
+        "june": 5,
+        "colonie": 4,
+        "week": 3,
+        "county": 3,
+        "student": 3,
+        "center": 2,
+        "event": 2,
+        "jersey": 2,
+        "national": 2,
+        "board": 2
+      },
+      "sources": {
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 11,
+        "South Jersey Climate News": 3,
+        "The Daily Evergreen": 3,
+        "www.thedaonline.com - RSS Results of type article": 3,
+        "The Macon Newsroom": 2,
+        "QCity Metro Latest News": 2,
+        "ChicagoTalks": 2,
+        "Gaylord News": 2,
+        "The Daily Iowan": 1,
+        "Reporting Texas": 1,
+        "The Miami Hurricane": 1,
+        "Kentucky Kernel": 1,
+        "The Columbia Chronicle": 1,
+        "WKUHerald.com": 1,
+        "NewsLab": 1,
+        "The Cedar Falls News Hub": 1,
+        "CNS Maryland": 1,
+        "Community News Service": 1,
+        "Pleasantville Press": 1,
+        "Voice of OC": 1,
+        "The Lantern": 1,
+        "The Northerner": 1,
+        "The Hoya": 1,
+        "Easton Courier": 1,
+        "The Long Island Advocate": 1,
+        "Oakland North": 1,
+        "Pepperdine Graphic": 1,
+        "The Brown Daily Herald: Top Stories": 1
+      }
+    },
+    "2026-06-16": {
+      "total": 52,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 9,
+        "Participate | Concerts | Venues | Celebration | Festival": 3,
+        "Healthcare | Md | Newsroom | Volunteer": 3,
+        "Settlement | Irvine | Submission | Vote | Signs": 3,
+        "Participatory | Fining | Challenges | Donates | Business": 2,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 2,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 2,
+        "Robbery | Sentenced | Hostage | Robberies | Man": 2,
+        "Reporting | Year | Newsbreak": 1
+      },
+      "sentiment": {
+        "neutral": 50,
+        "negative": 1,
+        "positive": 1
+      },
+      "keywords": {
+        "bethlehem": 4,
+        "student": 3,
+        "troy": 3,
+        "baseball": 3,
+        "june": 3,
+        "county": 3,
+        "week": 3,
+        "budget": 2,
+        "court": 2,
+        "against": 2
+      },
+      "sources": {
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 7,
+        "Voice of OC": 5,
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "Capitol News Illinois": 3,
+        "The Macon Newsroom": 3,
+        "The Diamondback": 3,
+        "NewsLab": 2,
+        "The Daily Orange": 2,
+        "Community News Service": 2,
+        "The Hoya": 2,
+        "News Feed": 2,
+        "The Reporting Project – Covering Licking County, Ohio": 2,
+        "The Sunflower": 1,
+        "The NewsHouse": 1,
+        "The Cougar": 1,
+        "The Daily Mississippian": 1,
+        "The Columbia Chronicle": 1,
+        "WKUHerald.com": 1,
+        "CU-CitizenAccess.org": 1,
+        "The Lantern": 1,
+        "Noticiero Movil": 1,
+        "QCity Metro Latest News": 1,
+        "The Daily Utah Chronicle": 1,
+        "Easton Courier": 1,
+        "ChicagoTalks": 1,
+        "The Stanford Daily": 1
+      }
+    },
+    "2026-06-17": {
+      "total": 65,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 8,
+        "Funding | Childcare | Umos | Services | Supervisors": 4,
+        "Participatory | Fining | Challenges | Donates | Business": 3,
+        "Students | Unanimously | Approve | Intelligence | Be": 3,
+        "Reporting | Year | Newsbreak": 3,
+        "Funding | Enrollment | Hopkins | Move | Issues": 3,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 3,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 2,
+        "Participate | Concerts | Venues | Celebration | Festival": 2,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 2
+      },
+      "sentiment": {
+        "neutral": 65
+      },
+      "keywords": {
+        "baseball": 5,
+        "wisconsin": 4,
+        "budget": 3,
+        "data": 3,
+        "funding": 3,
+        "city": 3,
+        "county": 3,
+        "events": 3,
+        "season": 3,
+        "summer": 2
+      },
+      "sources": {
+        "Daily Trojan": 11,
+        "Voice of OC": 5,
+        "Milwaukee Neighborhood News Service": 5,
+        "Reveille": 3,
+        "www.thedaonline.com - RSS Results of type article": 3,
+        "Wisconsin Watch": 3,
+        "News Feed": 3,
+        "Capitol News Illinois": 2,
+        "WKUHerald.com": 2,
+        "The Macon Newsroom": 2,
+        "QCity Metro Latest News": 2,
+        "The Bronx Journal": 2,
+        "ChicagoTalks": 2,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 2,
+        "The Reporting Project – Covering Licking County, Ohio": 2,
+        "The Stanford Daily": 2,
+        "The Sunflower": 1,
+        "The Miami Hurricane": 1,
+        "The Columbia Chronicle": 1,
+        "NewsLab": 1,
+        "Grady Newsource": 1,
+        "Crosstown": 1,
+        "South Jersey Climate News": 1,
+        "The Daily Evergreen": 1,
+        "The Northerner": 1,
+        "Home": 1,
+        "Easton Courier": 1,
+        "The Long Island Advocate": 1,
+        "The Legislative Gazette": 1,
+        "The Diamondback": 1
+      }
+    },
+    "2026-06-18": {
+      "total": 93,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 8,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 6,
+        "Participate | Concerts | Venues | Celebration | Festival": 6,
+        "San | Governor | Columbia | Jose | Jordan": 5,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 5,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 4,
+        "Funding | Enrollment | Hopkins | Move | Issues": 3,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 3,
+        "Funding | Childcare | Umos | Services | Supervisors": 3,
+        "Reporting | Year | Newsbreak": 3
+      },
+      "sentiment": {
+        "neutral": 89,
+        "negative": 2,
+        "positive": 2
+      },
+      "keywords": {
+        "june": 5,
+        "home": 4,
+        "obama": 4,
+        "juneteenth": 4,
+        "center": 4,
+        "life": 4,
+        "milwaukee": 4,
+        "comes": 4,
+        "football": 3,
+        "board": 3
+      },
+      "sources": {
+        "The Crimson White": 10,
+        "The Seattle Medium": 10,
+        "New Mexico News Port": 5,
+        "The Oglethorpe Echo": 5,
+        "Milwaukee Neighborhood News Service": 5,
+        "Capitol News Illinois": 4,
+        "Voice of OC": 4,
+        "News Feed": 4,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 4,
+        "The Reporting Project – Covering Licking County, Ohio": 4,
+        "The Lantern": 3,
+        "Wisconsin Watch": 3,
+        "Gaylord News": 3,
+        "West Texas Tribune": 3,
+        "The Sunflower": 2,
+        "The Columbia Chronicle": 2,
+        "Community News Service": 2,
+        "The Daily Utah Chronicle": 2,
+        "The Daily Iowan": 1,
+        "The NewsHouse": 1,
+        "The Cougar": 1,
+        "The Daily Mississippian": 1,
+        "Kentucky Kernel": 1,
+        "Caplin News": 1,
+        "WKUHerald.com": 1,
+        "NewsLab": 1,
+        "The Daily Aztec": 1,
+        "The Arrow Latest News": 1,
+        "Reveille": 1,
+        "Noticiero Movil": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "QCity Metro Latest News": 1,
+        "The Hoya": 1,
+        "Easton Courier": 1,
+        "The Diamondback": 1,
+        "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-19": {
+      "total": 63,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "State | Note | Marketplace | Staff | Internships": 4,
+        "San | Governor | Columbia | Jose | Jordan": 4,
+        "Funding | Enrollment | Hopkins | Move | Issues": 3,
+        "Reporting | Year | Newsbreak": 3,
+        "County | Ward | Next | Police | Looking": 3,
+        "Funding | Childcare | Umos | Services | Supervisors": 2,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 2,
+        "Richmond | New | Made | Jragencia | Casal": 2,
+        "41St | Pitch | Deserves | Stylist | Barrio": 2
+      },
+      "sentiment": {
+        "neutral": 61,
+        "positive": 2
+      },
+      "keywords": {
+        "food": 3,
+        "summer": 3,
+        "students": 3,
+        "group": 3,
+        "june": 3,
+        "community": 3,
+        "post": 3,
+        "milwaukee": 3,
+        "history": 2,
+        "federal": 2
+      },
+      "sources": {
+        "www.dailycal.org - RSS Results": 10,
+        "Caplin News": 7,
+        "Voice of OC": 5,
+        "Milwaukee Neighborhood News Service": 5,
+        "The Dominion Post": 4,
+        "The Daily Northwestern": 3,
+        "The Michigan Daily": 3,
+        "Wisconsin Watch": 3,
+        "The Daily Texan": 2,
+        "The Columbia Chronicle": 2,
+        "The Daily Orange": 2,
+        "Noticiero Movil": 2,
+        "Capitol News Illinois": 1,
+        "The Daily Iowan": 1,
+        "Richmond Confidential": 1,
+        "WKUHerald.com": 1,
+        "Grady Newsource": 1,
+        "The Cedar Falls News Hub": 1,
+        "The Arrow Latest News": 1,
+        "Reveille": 1,
+        "The Lantern": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "Easton Courier": 1,
+        "The Diamondback": 1,
+        "Great Lakes Echo": 1,
+        "The Reporting Project – Covering Licking County, Ohio": 1,
+        "The Stanford Daily": 1
+      }
+    },
+    "2026-06-20": {
+      "total": 29,
+      "themes": {
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "41St | Pitch | Deserves | Stylist | Barrio": 3,
+        "Northwestern | Next | Ollie | Olivia | At": 1,
+        "Participate | Concerts | Venues | Celebration | Festival": 1,
+        "Reporting | Year | Newsbreak": 1,
+        "Funding | Enrollment | Hopkins | Move | Issues": 1,
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 1
+      },
+      "sentiment": {
+        "neutral": 29
+      },
+      "keywords": {
+        "morgantown": 3,
+        "post": 3,
+        "season": 3,
+        "fatherhood": 2,
+        "juneteenth": 2,
+        "michigan": 2,
+        "while": 2,
+        "utah": 2,
+        "utes": 2,
+        "basketball": 2
+      },
+      "sources": {
+        "The Michigan Daily": 6,
+        "The Dominion Post": 5,
+        "The Daily Utah Chronicle": 4,
+        "The Daily Northwestern": 2,
+        "The Columbia Chronicle": 2,
+        "Reveille": 2,
+        "The Daily Texan": 1,
+        "The Daily Orange": 1,
+        "The Cedar Falls News Hub": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "QCity Metro Latest News": 1,
+        "Wisconsin Watch": 1,
+        "Gaylord News": 1,
+        "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-21": {
+      "total": 46,
+      "themes": {
+        "Participate | Concerts | Venues | Celebration | Festival": 3,
+        "Retrial | Appeals | September | Wisconsin | Investigative": 3,
+        "County | Ward | Next | Police | Looking": 3,
+        "Funding | Childcare | Umos | Services | Supervisors": 2,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Robbery | Sentenced | Hostage | Robberies | Man": 1,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 1,
+        "State | Note | Marketplace | Staff | Internships": 1
+      },
+      "sentiment": {
+        "neutral": 45,
+        "positive": 1
+      },
+      "keywords": {
+        "south": 4,
+        "trump": 4,
+        "iran": 3,
+        "carolina": 3,
+        "florida": 3,
+        "supreme": 2,
+        "court": 2,
+        "world": 2,
+        "arrested": 2,
+        "iranian": 2
+      },
+      "sources": {
+        "Tampa Free Press": 26,
+        "Milwaukee Neighborhood News Service": 5,
+        "The Daily Utah Chronicle": 2,
+        "The Daily Iowan": 1,
+        "The Daily Texan": 1,
+        "Kentucky Kernel": 1,
+        "The Columbia Chronicle": 1,
+        "Grady Newsource": 1,
+        "The Michigan Daily": 1,
+        "QCity Metro Latest News": 1,
+        "Wisconsin Watch": 1,
+        "The Hoya": 1,
+        "News Feed": 1,
+        "Gaylord News": 1,
+        "The Diamondback": 1,
+        "Great Lakes Echo": 1
+      }
+    },
+    "2026-06-22": {
+      "total": 55,
+      "themes": {
+        "Iowas | Indictment | Assaulting | Turnout | Federal": 7,
+        "Wvu | Mountaineers | Syracuse | Usc | College": 5,
+        "Disclosure | Narrative | Scary | Remakes | Thrilling": 3,
+        "Reporting | Year | Newsbreak": 3,
+        "41St | Pitch | Deserves | Stylist | Barrio": 3,
+        "Participate | Concerts | Venues | Celebration | Festival": 2,
+        "Concerns | Novel | Thrill | Summer | Pioneer": 2,
+        "Students | Unanimously | Approve | Intelligence | Be": 2,
+        "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
+        "Community | Curriculum | Fellowship | Transcript | Congress": 1
+      },
+      "sentiment": {
+        "neutral": 54,
+        "positive": 1
+      },
+      "keywords": {
+        "festival": 8,
+        "chicks": 6,
+        "perform": 6,
+        "zootown": 6,
+        "saturday": 6,
+        "district": 5,
+        "hawai": 5,
+        "candidate": 4,
+        "council": 4,
+        "iowa": 3
+      },
+      "sources": {
+        "Iowa State Daily": 11,
+        "Honolulu Civil Beat": 10,
+        "www.easternprogress.com - RSS Results": 10,
+        "The Daily Texan": 6,
+        "The Daily Northwestern": 5,
+        "Tampa Free Press": 4,
+        "Reveille": 3,
+        "Caplin News": 2,
+        "The Dominion Post": 1,
+        "The Daily Iowan": 1,
+        "Wisconsin Watch": 1,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1
       }
     }
   }

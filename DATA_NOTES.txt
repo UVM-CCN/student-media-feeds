@@ -1,0 +1,8 @@
+Update as of June 22, 2026: total stories increased from 3,003 to 4,622 (+54%)
+
+Data files include:
+
+1. a folder containing one clean concatenated file per publication (article bodies only, no metadata noise that would corrupt vectorization) `publication_corpora/<slug>.txt — `
+2. `publication_corpora_manifest.csv` — publication-level summary (story count, word count, date range)
+3. `publication_story_index.csv` — per-story lookup (which stories went into each publication's corpus, with URLs and titles) so you can easily locate every story under a given publication name
+4. `full_text` - this is a zip file. When you unzip it, you will see a bunch of subfolders with two digit codes. These codes don't mean anything in themselves, they are just hash IDs to split up the data. Inside of each subfolder are stories with their own IDs. In order to pull out the full text for a given story or publication, you can use `publication_story_index.csv`

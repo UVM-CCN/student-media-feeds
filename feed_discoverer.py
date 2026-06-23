@@ -24,6 +24,10 @@ _COMMON_FEED_PATHS = [
     "/news/feed/",
     "/articles.rss",
     "/index.xml",
+    # SNworks / TownNews / BLOX CMS — used by many flagship student dailies
+    # (Tar Heel, Daily Cardinal, Duke Chronicle, Daily Gamecock, etc.)
+    "/search/?f=rss&t=article&l=50&s=start_time&sd=desc",
+    "/search/?f=rss",
 ]
 
 

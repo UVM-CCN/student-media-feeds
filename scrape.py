@@ -59,6 +59,7 @@ class NewsPipeline:
             "sentiment_label",
             "sentiment_score",
             "extraction_status",
+            "full_text_path",
         ]
         self._setup_csv()
 
@@ -293,11 +294,14 @@ class NewsPipeline:
             return []
 
     def parse_url_list(self, txt_path: str) -> List[str]:
-        """Reads a simple text file where each line is a URL."""
+        """Reads a simple text file where each line is a URL. Skips blank lines and # comments."""
         logging.info(f"Reading URL list: {txt_path}")
         try:
             with open(txt_path, 'r') as f:
-                return [line.strip() for line in f if line.strip()]
+                return [
+                    line.strip() for line in f
+                    if line.strip() and not line.lstrip().startswith("#")
+                ]
         except Exception as e:
             logging.error(f"Error reading URL list: {e}")
             return []
@@ -555,6 +559,7 @@ class NewsPipeline:
                         "sentiment_label": enrichment["sentiment_label"],
                         "sentiment_score": enrichment["sentiment_score"],
                         "extraction_status": "",
+                        "full_text_path": "",
                     })
                     existing_links.add(link)
                     feed_story_count += 1
@@ -602,8 +607,11 @@ def run_daily_update():
     if os.path.exists("feeds.opml"):
         all_feeds.extend(pipeline.parse_opml("feeds.opml"))
 
-    # Check text list (extra_urls.txt is the documented name; discovered_feeds.txt kept for compat)
-    for txt_name in ("extra_urls.txt", "discovered_feeds.txt"):
+    # Check text list (extra_urls.txt is the documented name; discovered_feeds.txt kept for compat;
+    # feeds_*.txt are per-source discovery outputs from scripts/discover_feeds_from_csv.py)
+    txt_feed_lists = ["extra_urls.txt", "discovered_feeds.txt"]
+    txt_feed_lists.extend(sorted(f for f in os.listdir(".") if f.startswith("feeds_") and f.endswith(".txt")))
+    for txt_name in txt_feed_lists:
         if os.path.exists(txt_name):
             all_feeds.extend(pipeline.parse_url_list(txt_name))
 
@@ -613,6 +621,15 @@ def run_daily_update():
         pipeline.fetch_stories(unique_feeds)
         pipeline.remove_comment_articles()
         pipeline.enrich_missing_metadata()
+
+        # Cascade fetcher for outlets that block standard RSS access.
+        # Tries WordPress REST API then sitemap+curl_cffi per outlet.
+        # Runs before BERTopic so new cascade stories get themed in this run.
+        try:
+            from fetch_hard_outlets import process_outlets, DAILY_MAX_STORIES_PER_OUTLET
+            process_outlets(max_stories=DAILY_MAX_STORIES_PER_OUTLET)
+        except Exception as e:
+            logging.error("Hard-outlets cascade failed: %s", e)
 
         # Using BERTopic for local, rate-limit-free thematic analysis
         pipeline.tag_stories_with_bertopic()
@@ -640,6 +657,21 @@ def run_daily_update():
         logging.info("Analytics report generated successfully.")
     except Exception as e:
         logging.error("Failed to generate analytics report: %s", e)
+
+    # Rebuild per-publication corpora for vector-space analysis.
+    # Depends on full_text/ being populated by fetch_full_text above.
+    try:
+        from build_publication_corpora import build_corpora
+        build_corpora()
+    except Exception as e:
+        logging.error("Failed to rebuild publication corpora: %s", e)
+
+    # Rebuild the corpus-wide bag-of-words frequency file.
+    try:
+        from build_bag_of_words import build_bag_of_words
+        build_bag_of_words()
+    except Exception as e:
+        logging.error("Failed to rebuild bag-of-words: %s", e)
 
 if __name__ == "__main__":
     run_daily_update()

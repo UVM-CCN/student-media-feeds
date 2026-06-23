@@ -20,13 +20,20 @@ It can be called two ways:
    of `run_daily_update()`. New stories added by the nightly scrape have an
    empty `extraction_status` and will be picked up automatically.
 
-State tracking lives in a new `extraction_status` column on news_database.csv:
-    ""        — not yet attempted (will be processed)
-    "ok"      — extracted successfully (skipped on future runs)
-    "empty"   — fetched but extractor returned nothing
-                (paywall, JS-rendered, very short page) — skipped on future runs
-    "http_404", "http_403", "http_410" — terminal client errors, skipped
-    "http_429", "http_5xx", "timeout", "error" — transient, retried next run
+State tracking lives in two new columns on news_database.csv:
+
+    extraction_status:
+        ""        — not yet attempted (will be processed)
+        "ok"      — extracted successfully (skipped on future runs)
+        "empty"   — fetched but extractor returned nothing
+                    (paywall, JS-rendered, very short page) — skipped on future runs
+        "http_404", "http_403", "http_410" — terminal client errors, skipped
+        "http_429", "http_5xx", "timeout", "error" — transient, retried next run
+
+    full_text_path:
+        Relative path to the .txt file (e.g. "full_text/ab/abcdef...txt") when
+        extraction_status == "ok", else empty. Lets you join stories to their
+        text directly in pandas without knowing the hashing scheme.
 
 Politeness defaults are conservative because we run against ~100 small student
 news sites that may not tolerate aggressive crawling:
@@ -207,33 +214,36 @@ def _write_article_file(url: str, story: dict, text: str) -> str:
     return path
 
 
-def _process_story(story: dict) -> str:
+def _process_story(story: dict) -> tuple[str, str]:
     """
-    Fetch + extract a single story. Returns the new extraction_status.
+    Fetch + extract a single story.
+    Returns (extraction_status, full_text_path). Path is "" when status != "ok".
     Does not mutate the row; caller is responsible for writing it back.
     """
     url = (story.get("link") or "").strip()
     if not url:
-        return "no_url"
+        return "no_url", ""
+
+    path = url_to_path(url)
 
     # If the .txt file already exists, treat as already done — avoids re-fetching
     # if the CSV column was reset or lost.
-    if os.path.exists(url_to_path(url)):
-        return "ok"
+    if os.path.exists(path):
+        return "ok", path
 
     html, fetch_status = _fetch_html(url)
     if fetch_status != "ok":
         logging.warning("Fetch failed for %s: %s", url, fetch_status)
-        return fetch_status
+        return fetch_status, ""
 
     text = _extract_article(html, url)
     if not text:
         logging.info("Extractor returned empty for %s", url)
-        return "empty"
+        return "empty", ""
 
     _write_article_file(url, story, text)
     logging.info("Extracted %d words from %s", len(text.split()), url)
-    return "ok"
+    return "ok", path
 
 
 def _read_csv(csv_path: str) -> tuple[list[str], list[dict]]:
@@ -268,11 +278,12 @@ def process_pending_stories(csv_path: str = "news_database.csv") -> dict:
 
     fieldnames, rows = _read_csv(csv_path)
 
-    # Ensure the status column exists in the on-disk schema
-    if "extraction_status" not in fieldnames:
-        fieldnames.append("extraction_status")
-        for row in rows:
-            row.setdefault("extraction_status", "")
+    # Ensure the tracking columns exist in the on-disk schema
+    for col in ("extraction_status", "full_text_path"):
+        if col not in fieldnames:
+            fieldnames.append(col)
+            for row in rows:
+                row.setdefault(col, "")
 
     total = len(rows)
     counts = {"processed": 0, "ok": 0, "failed": 0, "skipped": 0, "total": total}
@@ -294,8 +305,9 @@ def process_pending_stories(csv_path: str = "news_database.csv") -> dict:
     for n, i in enumerate(pending_indexes, 1):
         row = rows[i]
         logging.info("[%d/%d] %s", n, len(pending_indexes), row.get("link", ""))
-        status = _process_story(row)
+        status, path = _process_story(row)
         row["extraction_status"] = status
+        row["full_text_path"] = path
         counts["processed"] += 1
         if status == "ok":
             counts["ok"] += 1
