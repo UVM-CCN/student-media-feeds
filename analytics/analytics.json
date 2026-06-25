@@ -1,12 +1,13 @@
 {
-  "generated_at": "2026-06-24T04:30:43.911180+00:00",
-  "total_stories": 5701,
+  "generated_at": "2026-06-25T04:23:36.459721+00:00",
+  "total_stories": 5917,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
     "Trustees | Cornells | Cornell | Cornellians | Ctb": 110,
     "Penn | Pennsylvanian | Pennsylvania | Penns | Philadelphia": 106,
     "Trustees | Kentucky | News | State | Bills": 99,
+    "Reunion | Ncaa | Season | Impact | Ep": 94,
     "Patients | Faculty | Hosts | College | Health": 85,
     "Johns | Newsletter | Hopkins | Letter | Ellen": 79,
     "Indiana | Student | Hiring | Diy | Eagle": 77,
@@ -17,66 +18,65 @@
     "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 58,
     "Christopher | National | Dayne | Usc | Daily": 56,
     "Pavcnik | Dartmouths | Dartmouth | Benjamin | Dpu": 53,
+    "Sooner | Interim | Seasonal | Massachusetts | State": 53,
     "Legislative | Legislation | Initiative | Gov | Campaign": 49,
     "Daily | Federal | Redistricting | Public | New": 49,
     "Mall | Where | Plantation | Westport | 42Nd": 48,
-    "Concerns | Novel | Thrill | Summer | Pioneer": 47,
-    "Summer | Tomorrow | Downtown | Lake | City": 45,
-    "Seminoles | Dame | Uva | Unc | Notre": 43
+    "Concerns | Novel | Thrill | Summer | Pioneer": 47
   },
   "sentiment": {
-    "neutral": 5423,
-    "positive": 167,
-    "negative": 111
+    "neutral": 5635,
+    "positive": 169,
+    "negative": 113
   },
   "keywords": {
-    "students": 218,
-    "state": 175,
-    "community": 124,
+    "students": 221,
+    "state": 190,
+    "community": 131,
     "student": 117,
-    "city": 103,
+    "city": 110,
+    "first": 100,
+    "county": 100,
     "syracuse": 99,
-    "first": 98,
-    "college": 96,
+    "college": 97,
     "women": 95,
-    "county": 91,
-    "school": 91,
-    "bill": 84,
-    "basketball": 83,
-    "iowa": 83,
+    "school": 93,
+    "penn": 89,
+    "season": 86,
+    "iowa": 86,
+    "bill": 86,
+    "basketball": 84,
     "daily": 83,
-    "center": 81,
-    "season": 81,
-    "penn": 78,
-    "university": 77,
-    "trump": 75,
-    "house": 63,
-    "florida": 63,
-    "health": 62,
-    "local": 61,
-    "have": 60,
-    "world": 60,
-    "baseball": 57,
-    "wisconsin": 57,
-    "board": 56,
-    "black": 56
+    "center": 82,
+    "university": 80,
+    "trump": 80,
+    "florida": 72,
+    "world": 68,
+    "house": 64,
+    "health": 64,
+    "have": 63,
+    "local": 62,
+    "wisconsin": 60,
+    "baseball": 59,
+    "board": 59,
+    "post": 59
   },
   "sources": {
     "The NewsHouse": 382,
-    "The Daily Iowan": 137,
-    "The Seattle Medium": 130,
-    "Voice of OC": 113,
-    "Caplin News": 112,
-    "Indiana Daily Student": 107,
-    "Amplify Utah - The Story Room": 103,
+    "The Daily Iowan": 140,
+    "The Seattle Medium": 139,
+    "Voice of OC": 117,
+    "Caplin News": 117,
+    "Indiana Daily Student": 111,
+    "Daily Trojan": 109,
+    "Amplify Utah - The Story Room": 104,
+    "The Daily Pennsylvanian": 103,
+    "The State News": 103,
     "The Cornell Daily Sun": 102,
-    "The State News": 102,
-    "The Daily Pennsylvanian": 101,
     "The Dartmouth": 101,
-    "Daily Trojan": 100,
     "Cronkite News": 92,
-    "Purple Media Network": 86,
-    "The Daily Gamecock": 82
+    "Tampa Free Press": 89,
+    "Purple Media Network": 86
   },
   "timeseries": {
     "2014-04-07": {
@@ -13128,7 +13128,7 @@
       }
     },
     "2026-04-18": {
-      "total": 31,
+      "total": 32,
       "themes": {
         "Compete | Teams | Competitive | College | Sports": 4,
         "States | Curb | State | Legislators | Lawmakers": 3,
@@ -13142,14 +13142,14 @@
         "Activity | Branding | Qualify | Crowds | Dems": 1
       },
       "sentiment": {
-        "neutral": 31
+        "neutral": 32
       },
       "keywords": {
         "state": 3,
+        "community": 3,
         "post": 3,
         "louisiana": 2,
         "bill": 2,
-        "community": 2,
         "budget": 2,
         "semo": 2,
         "student": 2,
@@ -13174,7 +13174,8 @@
         "Cronkite News": 1,
         "The Southern Accent": 1,
         "Great Lakes Echo": 1,
-        "The Independent Florida Alligator": 1
+        "The Independent Florida Alligator": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-04-19": {
@@ -13580,29 +13581,32 @@
       }
     },
     "2026-04-28": {
-      "total": 15,
+      "total": 25,
       "themes": {
+        "Reunion | Ncaa | Season | Impact | Ep": 7,
         "Trustees | Cornells | Cornell | Cornellians | Ctb": 2,
         "Johns | Newsletter | Hopkins | Letter | Ellen": 2,
         "Pavcnik | Dartmouths | Dartmouth | Benjamin | Dpu": 2,
+        "Sooner | Interim | Seasonal | Massachusetts | State": 2,
         "County | Ward | Next | Police | Looking": 1
       },
       "sentiment": {
-        "neutral": 15
+        "neutral": 25
       },
       "keywords": {
-        "spring": 2,
+        "spring": 3,
+        "season": 3,
         "industry": 2,
+        "break": 2,
+        "conflict": 2,
+        "haven": 2,
+        "trump": 2,
         "festival": 1,
         "wwcu": 1,
-        "semester": 1,
-        "greening": 1,
-        "price": 1,
-        "average": 1,
-        "since": 1,
-        "toll": 1
+        "semester": 1
       },
       "sources": {
+        "The Charger Bulletin": 10,
         "Daily Trojan": 5,
         "The Dartmouth": 4,
         "The Cornell Daily Sun": 2,
@@ -15354,7 +15358,7 @@
       }
     },
     "2026-06-10": {
-      "total": 50,
+      "total": 52,
       "themes": {
         "Daily | Federal | Redistricting | Public | New": 6,
         "Wvu | Mountaineers | Syracuse | Usc | College": 5,
@@ -15368,25 +15372,25 @@
         "Trustees | Cornells | Cornell | Cornellians | Ctb": 2
       },
       "sentiment": {
-        "neutral": 48,
+        "neutral": 50,
         "positive": 2
       },
       "keywords": {
         "daily": 5,
         "college": 3,
+        "students": 3,
         "penn": 3,
         "wisconsin": 3,
         "county": 2,
         "station": 2,
         "district": 2,
         "first": 2,
-        "students": 2,
-        "pride": 2
+        "weekend": 2
       },
       "sources": {
         "Daily Trojan": 9,
         "The Daily Cardinal": 7,
-        "www.thedaonline.com - RSS Results of type article": 5,
+        "www.thedaonline.com - RSS Results of type article": 6,
         "The Oglethorpe Echo": 3,
         "The Daily Pennsylvanian": 3,
         "CNS Maryland": 2,
@@ -15405,7 +15409,8 @@
         "The Battalion": 1,
         "The Northerner": 1,
         "Easton Courier": 1,
-        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1,
+        "NewsLab": 1
       }
     },
     "2026-06-11": {
@@ -15569,16 +15574,17 @@
       }
     },
     "2026-06-14": {
-      "total": 16,
+      "total": 17,
       "themes": {
         "Wvu | Mountaineers | Syracuse | Usc | College": 5,
         "Concerns | Novel | Thrill | Summer | Pioneer": 2,
         "Opportunities | Freedom | Novels | Patriotism | Thinking": 1,
         "Penn | Pennsylvanian | Pennsylvania | Penns | Philadelphia": 1,
-        "Ncaa | Indianapolis | Indiana | Kentucky | Knicks": 1
+        "Ncaa | Indianapolis | Indiana | Kentucky | Knicks": 1,
+        "Reunion | Ncaa | Season | Impact | Ep": 1
       },
       "sentiment": {
-        "neutral": 16
+        "neutral": 17
       },
       "keywords": {
         "baseball": 3,
@@ -15603,7 +15609,8 @@
         "The Daily Utah Chronicle": 1,
         "Columbia News Service": 1,
         "The Reporting Project – Covering Licking County, Ohio": 1,
-        "The Daily Pennsylvanian": 1
+        "The Daily Pennsylvanian": 1,
+        "The Cougar": 1
       }
     },
     "2026-06-15": {
@@ -15672,7 +15679,7 @@
       }
     },
     "2026-06-16": {
-      "total": 64,
+      "total": 65,
       "themes": {
         "Wvu | Mountaineers | Syracuse | Usc | College": 9,
         "Participate | Concerts | Venues | Celebration | Festival": 3,
@@ -15687,7 +15694,7 @@
       },
       "sentiment": {
         "neutral": 61,
-        "negative": 2,
+        "negative": 3,
         "positive": 1
       },
       "keywords": {
@@ -15733,11 +15740,12 @@
         "Easton Courier": 1,
         "ChicagoTalks": 1,
         "The Stanford Daily": 1,
-        "The Daily Pennsylvanian": 1
+        "The Daily Pennsylvanian": 1,
+        "The Hitchcock Project for Visualizing Science": 1
       }
     },
     "2026-06-17": {
-      "total": 86,
+      "total": 89,
       "themes": {
         "Wvu | Mountaineers | Syracuse | Usc | College": 8,
         "Penn | Pennsylvanian | Pennsylvania | Penns | Philadelphia": 7,
@@ -15751,7 +15759,7 @@
         "Iowas | Indictment | Assaulting | Turnout | Federal": 2
       },
       "sentiment": {
-        "neutral": 83,
+        "neutral": 86,
         "positive": 1,
         "negative": 2
       },
@@ -15759,13 +15767,13 @@
         "baseball": 5,
         "penn": 5,
         "budget": 4,
+        "data": 4,
         "city": 4,
         "wisconsin": 4,
-        "data": 3,
         "june": 3,
+        "centers": 3,
         "funding": 3,
-        "county": 3,
-        "events": 3
+        "county": 3
       },
       "sources": {
         "Daily Trojan": 11,
@@ -15781,6 +15789,7 @@
         "Capitol News Illinois": 2,
         "WKUHerald.com": 2,
         "The Macon Newsroom": 2,
+        "South Jersey Climate News": 2,
         "QCity Metro Latest News": 2,
         "The Bronx Journal": 2,
         "ChicagoTalks": 2,
@@ -15788,13 +15797,13 @@
         "The Reporting Project – Covering Licking County, Ohio": 2,
         "The Stanford Daily": 2,
         "The Dartmouth": 2,
+        "The Hitchcock Project for Visualizing Science": 2,
         "The Sunflower": 1,
         "The Miami Hurricane": 1,
         "The Columbia Chronicle": 1,
         "NewsLab": 1,
         "Grady Newsource": 1,
         "Crosstown": 1,
-        "South Jersey Climate News": 1,
         "The Daily Evergreen": 1,
         "The Northerner": 1,
         "Home": 1,
@@ -15950,7 +15959,7 @@
       }
     },
     "2026-06-20": {
-      "total": 37,
+      "total": 38,
       "themes": {
         "Wvu | Mountaineers | Syracuse | Usc | College": 5,
         "Statewide | State | Protests | District | Dan": 4,
@@ -15960,10 +15969,11 @@
         "Reporting | Year | Newsbreak": 1,
         "Funding | Enrollment | Hopkins | Move | Issues": 1,
         "Iowas | Indictment | Assaulting | Turnout | Federal": 1,
-        "Ncaa | Indianapolis | Indiana | Kentucky | Knicks": 1
+        "Ncaa | Indianapolis | Indiana | Kentucky | Knicks": 1,
+        "Reunion | Ncaa | Season | Impact | Ep": 1
       },
       "sentiment": {
-        "neutral": 37
+        "neutral": 38
       },
       "keywords": {
         "republican": 4,
@@ -15984,11 +15994,11 @@
         "www.thestatehousefile.com - RSS Results": 4,
         "The Daily Northwestern": 2,
         "The Columbia Chronicle": 2,
+        "The Cedar Falls News Hub": 2,
         "Reveille": 2,
         "The Minnesota Daily": 2,
         "The Daily Texan": 1,
         "The Daily Orange": 1,
-        "The Cedar Falls News Hub": 1,
         "www.thedaonline.com - RSS Results of type article": 1,
         "QCity Metro Latest News": 1,
         "Wisconsin Watch": 1,
@@ -16126,7 +16136,7 @@
       }
     },
     "2026-06-23": {
-      "total": 143,
+      "total": 145,
       "themes": {
         "Nevada | Pasco | Central | Da | Deputies": 14,
         "Statewide | State | Protests | District | Dan": 12,
@@ -16140,7 +16150,7 @@
         "Bloomington | Purdueexponentorg | Residents | Seminary | Indiana": 4
       },
       "sentiment": {
-        "neutral": 139,
+        "neutral": 141,
         "positive": 3,
         "negative": 1
       },
@@ -16182,6 +16192,7 @@
         "The Columbia Chronicle": 2,
         "The Daily Orange": 2,
         "The Reporting Project – Covering Licking County, Ohio": 2,
+        "The Daily Northwestern": 2,
         "www.thedaonline.com - RSS Results of type article": 1,
         "The Long Island Advocate": 1,
         "The Hoya": 1,
@@ -16198,8 +16209,11 @@
       }
     },
     "2026-06-24": {
-      "total": 29,
+      "total": 166,
       "themes": {
+        "Reunion | Ncaa | Season | Impact | Ep": 51,
+        "Sooner | Interim | Seasonal | Massachusetts | State": 36,
+        "Bell | Florida | Gainesville | Injured | Homecoming": 15,
         "Statewide | State | Protests | District | Dan": 9,
         "Tuesday | Wvu | Leading | New | Projected": 6,
         "Johns | Newsletter | Hopkins | Letter | Ellen": 1,
@@ -16209,33 +16223,96 @@
         "Patients | Faculty | Hosts | College | Health": 1
       },
       "sentiment": {
-        "neutral": 29
+        "neutral": 164,
+        "positive": 2
       },
       "keywords": {
-        "state": 7,
-        "district": 7,
+        "state": 10,
+        "district": 9,
+        "florida": 9,
+        "senate": 7,
+        "community": 6,
+        "city": 6,
         "candidate": 6,
-        "senate": 6,
-        "care": 3,
-        "students": 2,
-        "drafted": 2,
-        "medical": 2,
-        "anya": 2,
-        "motorcyclist": 2
+        "court": 6,
+        "world": 5,
+        "june": 4
       },
       "sources": {
+        "Tampa Free Press": 26,
+        "The Dominion Post": 11,
+        "Honolulu Civil Beat": 10,
+        "www.ntdaily.com - RSS Results": 10,
+        "Daily Trojan": 9,
+        "The Seattle Medium": 9,
+        "The Daily Northwestern": 8,
         "The Minnesota Daily": 6,
-        "Honolulu Civil Beat": 6,
-        "The Michigan Daily": 5,
+        "The Michigan Daily": 6,
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "Capitol News Illinois": 5,
+        "Caplin News": 5,
+        "Reveille": 4,
+        "Voice of OC": 4,
+        "Indiana Daily Student": 4,
         "The Diamondback": 3,
+        "The Daily Iowan": 3,
+        "Wisconsin Watch": 3,
+        "Milwaukee Neighborhood News Service": 3,
+        "Noticiero Movil": 3,
+        "South Jersey Climate News": 3,
         "www.dailycal.org - RSS Results": 2,
+        "The Reporting Project – Covering Licking County, Ohio": 2,
+        "The Macon Newsroom": 2,
+        "The Columbia Chronicle": 2,
+        "The Sunflower": 2,
+        "The Daily Pennsylvanian": 2,
         "IPM Newsroom": 1,
         "Columbia News Service": 1,
         "WKUHerald.com": 1,
         "Kentucky Kernel": 1,
-        "www.thedaonline.com - RSS Results of type article": 1,
-        "The Dominion Post": 1,
-        "Reveille": 1
+        "The Heights": 1,
+        "Great Lakes Echo": 1,
+        "The Northerner": 1,
+        "The Daily Orange": 1,
+        "QCity Metro Latest News": 1,
+        "News Feed": 1,
+        "CU-CitizenAccess.org": 1,
+        "The Daily Texan": 1,
+        "Community News Service": 1,
+        "The State News": 1
+      }
+    },
+    "2026-06-25": {
+      "total": 34,
+      "themes": {
+        "Sooner | Interim | Seasonal | Massachusetts | State": 10,
+        "Reunion | Ncaa | Season | Impact | Ep": 9,
+        "Bell | Florida | Gainesville | Injured | Homecoming": 3
+      },
+      "sentiment": {
+        "neutral": 34
+      },
+      "keywords": {
+        "candidate": 6,
+        "maui": 6,
+        "county": 6,
+        "council": 6,
+        "search": 6,
+        "missing": 5,
+        "area": 5,
+        "family": 5,
+        "state": 3,
+        "university": 3
+      },
+      "sources": {
+        "The Crimson White": 10,
+        "www.easternprogress.com - RSS Results": 10,
+        "Honolulu Civil Beat": 6,
+        "Tampa Free Press": 3,
+        "Iowa State Daily": 2,
+        "The Lantern": 1,
+        "The Michigan Daily": 1,
+        "Kentucky Kernel": 1
       }
     }
   }
