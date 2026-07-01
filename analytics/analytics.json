@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-30T04:19:15.901261+00:00",
-  "total_stories": 6576,
+  "generated_at": "2026-07-01T04:33:51.196766+00:00",
+  "total_stories": 6785,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -25,58 +25,58 @@
     "Mall | Where | Plantation | Westport | 42Nd": 48
   },
   "sentiment": {
-    "neutral": 6277,
-    "positive": 184,
-    "negative": 115
+    "neutral": 6484,
+    "positive": 185,
+    "negative": 116
   },
   "keywords": {
-    "state": 234,
+    "state": 249,
     "students": 228,
-    "community": 140,
-    "county": 126,
-    "student": 124,
-    "city": 121,
-    "first": 111,
-    "penn": 109,
-    "florida": 104,
-    "syracuse": 103,
-    "women": 102,
-    "college": 100,
-    "school": 97,
+    "community": 141,
+    "county": 134,
+    "student": 125,
+    "city": 124,
+    "penn": 115,
+    "first": 112,
+    "florida": 111,
+    "syracuse": 106,
+    "women": 103,
+    "college": 103,
+    "school": 101,
+    "basketball": 98,
     "bill": 97,
-    "basketball": 96,
-    "season": 92,
-    "center": 91,
+    "center": 96,
+    "season": 96,
+    "trump": 95,
     "iowa": 91,
-    "trump": 89,
-    "university": 87,
-    "daily": 86,
-    "house": 81,
-    "world": 77,
-    "indiana": 69,
-    "june": 68,
-    "local": 67,
-    "health": 67,
-    "post": 66,
-    "have": 65,
-    "baseball": 65
+    "university": 89,
+    "house": 88,
+    "daily": 87,
+    "world": 79,
+    "court": 79,
+    "june": 72,
+    "board": 71,
+    "health": 70,
+    "post": 70,
+    "local": 69,
+    "indiana": 69
   },
   "sources": {
     "The NewsHouse": 384,
-    "Tampa Free Press": 209,
-    "The Seattle Medium": 163,
-    "The Daily Iowan": 143,
-    "Caplin News": 135,
-    "Voice of OC": 127,
-    "Indiana Daily Student": 122,
+    "Tampa Free Press": 239,
+    "The Seattle Medium": 172,
+    "The Daily Iowan": 145,
+    "Caplin News": 140,
+    "Voice of OC": 131,
+    "Indiana Daily Student": 125,
+    "The Daily Pennsylvanian": 112,
     "The State News": 111,
     "Daily Trojan": 109,
-    "The Daily Pennsylvanian": 109,
-    "The Cornell Daily Sun": 106,
+    "The Cornell Daily Sun": 107,
     "Amplify Utah - The Story Room": 104,
     "The Dartmouth": 103,
     "Cronkite News": 92,
-    "Capitol News Illinois": 88
+    "Capitol News Illinois": 91
   },
   "timeseries": {
     "2014-04-07": {
@@ -16479,30 +16479,32 @@
       }
     },
     "2026-06-28": {
-      "total": 33,
+      "total": 37,
       "themes": {
         "Schroyer | Wiles | Who | Lawyer | Lawandorder": 2,
+        "Arrests | Enforcement | Arrest | Warrants | Court": 2,
         "Clydesdales | Street | Dirtbag | Los | Angeles": 1
       },
       "sentiment": {
-        "neutral": 31,
+        "neutral": 35,
         "positive": 1,
         "negative": 1
       },
       "keywords": {
+        "town": 3,
+        "bethlehem": 3,
+        "board": 3,
+        "opposition": 3,
+        "zoning": 3,
         "berry": 2,
         "syracuse": 2,
         "former": 2,
         "moyne": 2,
-        "attack": 2,
-        "things": 2,
-        "week": 2,
-        "june": 2,
-        "hawai": 2,
-        "ethics": 2
+        "attack": 2
       },
       "sources": {
         "Honolulu Civil Beat": 6,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 5,
         "Milwaukee Neighborhood News Service": 3,
         "Tampa Free Press": 2,
         "The Daily Orange": 2,
@@ -16512,7 +16514,6 @@
         "News Feed": 1,
         "The Columbia Chronicle": 1,
         "IPM Newsroom": 1,
-        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1,
         "Grady Newsource": 1,
         "The Heights": 1,
         "Reveille": 1,
@@ -16526,15 +16527,17 @@
       }
     },
     "2026-06-29": {
-      "total": 186,
+      "total": 198,
       "themes": {
         "Read | Album | Insight | Experiences | Watch": 22,
         "Lake | Bus | Escape | Streak | Orders": 16,
         "Charity | Exhibition | Roads | Humanitys | Rideshare": 13,
-        "Retires | Paraguay | Nationals | Legend": 8
+        "Retires | Paraguay | Nationals | Legend": 8,
+        "Arrests | Enforcement | Arrest | Warrants | Court": 4,
+        "July | Week | June | Events | Event": 1
       },
       "sentiment": {
-        "neutral": 179,
+        "neutral": 191,
         "positive": 7
       },
       "keywords": {
@@ -16542,16 +16545,17 @@
         "state": 12,
         "pride": 8,
         "county": 8,
-        "summer": 7,
+        "summer": 8,
         "june": 6,
         "house": 5,
         "bill": 5,
-        "community": 5,
-        "candidate": 4
+        "board": 5,
+        "community": 5
       },
       "sources": {
         "Tampa Free Press": 28,
         "Honolulu Civil Beat": 12,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 11,
         "Iowa State Daily": 11,
         "www.easternprogress.com - RSS Results": 10,
         "www.dailycal.org - RSS Results": 10,
@@ -16574,11 +16578,11 @@
         "The Dominion Post": 3,
         "IPM Newsroom": 3,
         "The Minnesota Daily": 2,
+        "QCity Metro Latest News": 2,
         "Wisconsin Watch": 2,
         "The Utah Statesman": 2,
         "Voice of OC": 2,
         "South Jersey Climate News": 2,
-        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1,
         "The Cougar": 1,
         "The NewsHouse": 1,
         "The Cedar Falls News Hub": 1,
@@ -16588,50 +16592,120 @@
         "The Macon Newsroom": 1,
         "The Daily Aztec": 1,
         "The Miami Hurricane": 1,
-        "QCity Metro Latest News": 1,
-        "Easton Courier": 1
+        "Easton Courier": 1,
+        "www.thedaonline.com - RSS Results of type article": 1
       }
     },
     "2026-06-30": {
-      "total": 24,
+      "total": 182,
       "themes": {
+        "July | Week | June | Events | Event": 39,
+        "Arrests | Enforcement | Arrest | Warrants | Court": 22,
+        "Candidacy | State | Mayoral | District | Lawler": 20,
+        "Athletes | Sports | Wva | Studentathlete | Passes": 14,
+        "Stadium | Baltimore | Maryland | Bezek | Utep": 12,
         "Retires | Paraguay | Nationals | Legend": 6,
         "Lake | Bus | Escape | Streak | Orders": 4,
         "Read | Album | Insight | Experiences | Watch": 2,
         "Charity | Exhibition | Roads | Humanitys | Rideshare": 1
       },
       "sentiment": {
-        "neutral": 24
+        "neutral": 181,
+        "negative": 1
       },
       "keywords": {
-        "supreme": 2,
-        "court": 2,
-        "guilty": 2,
-        "open": 2,
-        "canoe": 1,
-        "team": 1,
-        "concrete": 1,
-        "first": 1,
-        "rows": 1,
-        "scotland": 1
+        "court": 16,
+        "supreme": 14,
+        "county": 8,
+        "florida": 7,
+        "state": 6,
+        "trump": 6,
+        "july": 5,
+        "public": 5,
+        "summer": 5,
+        "center": 5
       },
       "sources": {
-        "The Daily Texan": 3,
-        "Caplin News": 2,
+        "Tampa Free Press": 29,
+        "The Daily Texan": 13,
+        "The Dominion Post": 9,
+        "The Seattle Medium": 9,
+        "www.dailycal.org - RSS Results": 8,
+        "Caplin News": 7,
+        "The Michigan Daily": 7,
+        "The Minnesota Daily": 6,
+        "Honolulu Civil Beat": 6,
+        "The Daily Northwestern": 5,
+        "The Daily Orange": 5,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 5,
+        "The Scope": 5,
+        "Milwaukee Neighborhood News Service": 5,
+        "News Feed": 4,
+        "The Reporting Project – Covering Licking County, Ohio": 4,
+        "Gaylord News": 3,
+        "Wisconsin Watch": 3,
+        "Reveille": 3,
+        "Voice of OC": 3,
+        "USC Annenberg": 3,
+        "The Daily Utah Chronicle": 3,
+        "Capitol News Illinois": 3,
+        "The Daily Pennsylvanian": 3,
+        "Indiana Daily Student": 3,
         "The Diamondback": 2,
-        "Gaylord News": 2,
-        "Tampa Free Press": 2,
-        "The Daily Northwestern": 2,
-        "The Michigan Daily": 2,
+        "The Daily Aztec": 2,
+        "IPM Newsroom": 2,
+        "The Sunflower": 2,
+        "CU-CitizenAccess.org": 2,
+        "Noticiero Movil": 2,
+        "www.ntdaily.com - RSS Results": 2,
+        "www.thedaonline.com - RSS Results of type article": 2,
+        "The Independent Florida Alligator": 2,
         "WKUHerald.com": 1,
         "The Northerner": 1,
-        "The Daily Aztec": 1,
         "The Hoya": 1,
-        "The Minnesota Daily": 1,
-        "News Feed": 1,
-        "The Daily Orange": 1,
-        "IPM Newsroom": 1,
-        "Honolulu Civil Beat": 1
+        "The Utah Statesman": 1,
+        "The Stanford Daily": 1,
+        "The Hitchcock Project for Visualizing Science": 1,
+        "Community News Service": 1,
+        "The Columbia Chronicle": 1,
+        "QCity Metro Latest News": 1,
+        "The Cornell Daily Sun": 1
+      }
+    },
+    "2026-07-01": {
+      "total": 17,
+      "themes": {
+        "Candidacy | State | Mayoral | District | Lawler": 7,
+        "Arrests | Enforcement | Arrest | Warrants | Court": 3,
+        "Stadium | Baltimore | Maryland | Bezek | Utep": 2,
+        "Athletes | Sports | Wva | Studentathlete | Passes": 2,
+        "July | Week | June | Events | Event": 1
+      },
+      "sentiment": {
+        "neutral": 17
+      },
+      "keywords": {
+        "house": 6,
+        "candidate": 5,
+        "state": 5,
+        "district": 5,
+        "obama": 1,
+        "presidential": 1,
+        "meteorology": 1,
+        "ceremony": 1,
+        "makes": 1,
+        "ravens": 1
+      },
+      "sources": {
+        "Honolulu Civil Beat": 5,
+        "Tampa Free Press": 3,
+        "www.dailycal.org - RSS Results": 2,
+        "The Daily Iowan": 2,
+        "WKUHerald.com": 1,
+        "The Diamondback": 1,
+        "Voice of OC": 1,
+        "Gaylord News": 1,
+        "IPM Newsroom": 1
       }
     }
   }
