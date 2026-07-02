@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-01T04:33:51.196766+00:00",
-  "total_stories": 6785,
+  "generated_at": "2026-07-02T04:18:27.716754+00:00",
+  "total_stories": 6958,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -25,58 +25,58 @@
     "Mall | Where | Plantation | Westport | 42Nd": 48
   },
   "sentiment": {
-    "neutral": 6484,
-    "positive": 185,
-    "negative": 116
+    "neutral": 6647,
+    "positive": 191,
+    "negative": 120
   },
   "keywords": {
-    "state": 249,
-    "students": 228,
-    "community": 141,
-    "county": 134,
-    "student": 125,
-    "city": 124,
-    "penn": 115,
-    "first": 112,
-    "florida": 111,
+    "state": 251,
+    "students": 229,
+    "county": 149,
+    "community": 147,
+    "city": 127,
+    "student": 127,
+    "florida": 124,
+    "penn": 116,
+    "first": 114,
     "syracuse": 106,
-    "women": 103,
-    "college": 103,
+    "women": 104,
+    "college": 104,
     "school": 101,
+    "bill": 99,
+    "center": 98,
     "basketball": 98,
-    "bill": 97,
-    "center": 96,
-    "season": 96,
-    "trump": 95,
-    "iowa": 91,
-    "university": 89,
-    "house": 88,
+    "season": 98,
+    "trump": 97,
+    "university": 95,
+    "iowa": 93,
+    "house": 89,
     "daily": 87,
-    "world": 79,
-    "court": 79,
+    "court": 83,
+    "world": 80,
+    "board": 74,
+    "post": 73,
     "june": 72,
-    "board": 71,
     "health": 70,
-    "post": 70,
-    "local": 69,
-    "indiana": 69
+    "indiana": 70,
+    "local": 69
   },
   "sources": {
     "The NewsHouse": 384,
-    "Tampa Free Press": 239,
-    "The Seattle Medium": 172,
+    "Tampa Free Press": 268,
+    "The Seattle Medium": 182,
+    "Caplin News": 146,
     "The Daily Iowan": 145,
-    "Caplin News": 140,
-    "Voice of OC": 131,
-    "Indiana Daily Student": 125,
-    "The Daily Pennsylvanian": 112,
-    "The State News": 111,
+    "Voice of OC": 133,
+    "Indiana Daily Student": 130,
+    "The Daily Pennsylvanian": 114,
+    "The State News": 112,
     "Daily Trojan": 109,
-    "The Cornell Daily Sun": 107,
+    "The Cornell Daily Sun": 108,
     "Amplify Utah - The Story Room": 104,
     "The Dartmouth": 103,
-    "Cronkite News": 92,
-    "Capitol News Illinois": 91
+    "Capitol News Illinois": 96,
+    "Cronkite News": 92
   },
   "timeseries": {
     "2014-04-07": {
@@ -14012,7 +14012,7 @@
       }
     },
     "2026-05-08": {
-      "total": 55,
+      "total": 56,
       "themes": {
         "Wvu | Mountaineers | Syracuse | Usc | College": 3,
         "State | Note | Marketplace | Staff | Internships": 3,
@@ -14026,7 +14026,7 @@
         "Disclosure | Narrative | Scary | Remakes | Thrilling": 1
       },
       "sentiment": {
-        "neutral": 53,
+        "neutral": 54,
         "positive": 2
       },
       "keywords": {
@@ -14059,7 +14059,8 @@
         "Fresh Take Florida": 1,
         "The Brown Daily Herald: Top Stories": 1,
         "https://kentstatenewslab.org/feed/": 1,
-        "The Daily Pennsylvanian": 1
+        "The Daily Pennsylvanian": 1,
+        "The Hitchcock Project for Visualizing Science": 1
       }
     },
     "2026-05-09": {
@@ -16213,7 +16214,7 @@
       }
     },
     "2026-06-24": {
-      "total": 177,
+      "total": 178,
       "themes": {
         "Reunion | Ncaa | Season | Impact | Ep": 51,
         "Sooner | Interim | Seasonal | Massachusetts | State": 36,
@@ -16227,7 +16228,7 @@
         "Trustees | Cornells | Cornell | Cornellians | Ctb": 1
       },
       "sentiment": {
-        "neutral": 174,
+        "neutral": 175,
         "positive": 3
       },
       "keywords": {
@@ -16259,13 +16260,13 @@
         "Indiana Daily Student": 5,
         "Reveille": 4,
         "Voice of OC": 4,
+        "South Jersey Climate News": 4,
         "WKUHerald.com": 3,
         "The Diamondback": 3,
         "The Daily Iowan": 3,
         "Wisconsin Watch": 3,
         "Milwaukee Neighborhood News Service": 3,
         "Noticiero Movil": 3,
-        "South Jersey Climate News": 3,
         "The Daily Pennsylvanian": 3,
         "www.dailycal.org - RSS Results": 2,
         "The Reporting Project – Covering Licking County, Ohio": 2,
@@ -16673,39 +16674,120 @@
       }
     },
     "2026-07-01": {
-      "total": 17,
+      "total": 148,
       "themes": {
+        "Attendance | Camp | Ua | University | Senior": 34,
+        "Tide | Crew | Coordinator | Pealver": 32,
+        "Plans | Summer | Happening | Future | Trop": 11,
+        "Fourstar | Alabama | Jefferson | Going | Village": 11,
         "Candidacy | State | Mayoral | District | Lawler": 7,
         "Arrests | Enforcement | Arrest | Warrants | Court": 3,
         "Stadium | Baltimore | Maryland | Bezek | Utep": 2,
         "Athletes | Sports | Wva | Studentathlete | Passes": 2,
+        "Trustees | Votes | Overhaul | To | Of": 2,
         "July | Week | June | Events | Event": 1
       },
       "sentiment": {
-        "neutral": 17
+        "neutral": 140,
+        "negative": 3,
+        "positive": 5
       },
       "keywords": {
+        "florida": 10,
+        "july": 8,
+        "america": 8,
         "house": 6,
+        "birthday": 6,
         "candidate": 5,
         "state": 5,
         "district": 5,
-        "obama": 1,
-        "presidential": 1,
-        "meteorology": 1,
-        "ceremony": 1,
-        "makes": 1,
-        "ravens": 1
+        "court": 5,
+        "community": 5
       },
       "sources": {
+        "Tampa Free Press": 27,
+        "The Seattle Medium": 10,
+        "The Dominion Post": 10,
+        "www.thestatehousefile.com - RSS Results": 9,
+        "QCity Metro Latest News": 7,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 7,
+        "Caplin News": 6,
         "Honolulu Civil Beat": 5,
-        "Tampa Free Press": 3,
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "Indiana Daily Student": 5,
+        "WKUHerald.com": 4,
+        "Capitol News Illinois": 4,
+        "Milwaukee Neighborhood News Service": 4,
+        "Voice of OC": 3,
+        "News Feed": 3,
+        "Wisconsin Watch": 3,
+        "Community News Service": 3,
         "www.dailycal.org - RSS Results": 2,
         "The Daily Iowan": 2,
-        "WKUHerald.com": 1,
+        "IPM Newsroom": 2,
+        "The Miami Hurricane": 2,
+        "Reveille": 2,
+        "The Daily Pennsylvanian": 2,
         "The Diamondback": 1,
-        "Voice of OC": 1,
         "Gaylord News": 1,
-        "IPM Newsroom": 1
+        "The Commonwealth Times": 1,
+        "The Michigan Daily": 1,
+        "The DePaulia": 1,
+        "The Columbia Chronicle": 1,
+        "The Daily Orange": 1,
+        "CNS Maryland": 1,
+        "South Jersey Climate News": 1,
+        "Oakland North": 1,
+        "The Macon Newsroom": 1,
+        "The Cougar": 1,
+        "The Hitchcock Project for Visualizing Science": 1,
+        "Richmond Confidential": 1,
+        "The Scope": 1,
+        "The Hoya": 1,
+        "The Daily Evergreen": 1,
+        "Kentucky Kernel": 1,
+        "Grady Newsource": 1,
+        "The Cornell Daily Sun": 1,
+        "The State News": 1
+      }
+    },
+    "2026-07-02": {
+      "total": 36,
+      "themes": {
+        "Trustees | Votes | Overhaul | To | Of": 10,
+        "Tide | Crew | Coordinator | Pealver": 6,
+        "Attendance | Camp | Ua | University | Senior": 6,
+        "Plans | Summer | Happening | Future | Trop": 6,
+        "Fourstar | Alabama | Jefferson | Going | Village": 4
+      },
+      "sentiment": {
+        "neutral": 35,
+        "positive": 1
+      },
+      "keywords": {
+        "county": 11,
+        "candidate": 10,
+        "kaua": 10,
+        "council": 10,
+        "alabama": 4,
+        "florida": 3,
+        "years": 2,
+        "season": 2,
+        "players": 2,
+        "opinion": 2
+      },
+      "sources": {
+        "The Crimson White": 10,
+        "Honolulu Civil Beat": 10,
+        "Tampa Free Press": 5,
+        "Iowa State Daily": 3,
+        "www.ntdaily.com - RSS Results": 2,
+        "Capitol News Illinois": 1,
+        "The Diamondback": 1,
+        "The Michigan Daily": 1,
+        "The Columbia Chronicle": 1,
+        "The Daily Texan": 1,
+        "www.thestatehousefile.com - RSS Results": 1
       }
     }
   }
