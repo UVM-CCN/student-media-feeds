@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-05T04:02:19.050517+00:00",
-  "total_stories": 7327,
+  "generated_at": "2026-07-06T04:13:15.799458+00:00",
+  "total_stories": 7408,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -25,58 +25,58 @@
     "Legislative | Legislation | Initiative | Gov | Campaign": 49
   },
   "sentiment": {
-    "neutral": 7007,
+    "neutral": 7087,
     "positive": 198,
-    "negative": 122
+    "negative": 123
   },
   "keywords": {
-    "state": 279,
+    "state": 285,
     "students": 236,
-    "county": 165,
-    "community": 149,
-    "florida": 140,
+    "county": 166,
+    "community": 150,
+    "florida": 145,
     "student": 133,
-    "city": 130,
+    "city": 132,
     "penn": 127,
     "first": 119,
-    "trump": 110,
-    "college": 108,
+    "trump": 113,
+    "college": 109,
     "syracuse": 108,
     "women": 107,
     "school": 106,
     "basketball": 103,
+    "bill": 103,
     "center": 102,
-    "bill": 102,
     "season": 100,
+    "house": 99,
     "university": 98,
     "iowa": 94,
-    "house": 94,
     "court": 91,
     "daily": 87,
-    "world": 84,
+    "world": 85,
     "post": 82,
     "board": 77,
     "baseball": 74,
+    "district": 74,
     "health": 74,
-    "indiana": 74,
-    "june": 73
+    "indiana": 74
   },
   "sources": {
     "The NewsHouse": 384,
-    "Tampa Free Press": 349,
+    "Tampa Free Press": 376,
     "The Seattle Medium": 194,
-    "The Daily Iowan": 147,
+    "The Daily Iowan": 148,
     "Caplin News": 147,
+    "Indiana Daily Student": 140,
     "Voice of OC": 139,
-    "Indiana Daily Student": 138,
-    "The Daily Pennsylvanian": 117,
+    "The Daily Pennsylvanian": 119,
     "The State News": 114,
+    "Honolulu Civil Beat": 111,
     "Daily Trojan": 109,
     "The Cornell Daily Sun": 109,
     "The Dartmouth": 106,
     "Amplify Utah - The Story Room": 104,
-    "Capitol News Illinois": 103,
-    "Honolulu Civil Beat": 101
+    "Capitol News Illinois": 103
   },
   "timeseries": {
     "2014-04-07": {
@@ -16895,7 +16895,7 @@
       }
     },
     "2026-07-04": {
-      "total": 53,
+      "total": 63,
       "themes": {
         "Celebrates | Parade | July | Granvilles | Holiday": 34,
         "Confederated | Franklin | Indiana | Ou | Colville": 5,
@@ -16904,24 +16904,25 @@
         "Memorial | Glory3Jpg | Glory12Jpg | At | In": 1
       },
       "sentiment": {
-        "neutral": 52,
+        "neutral": 62,
         "positive": 1
       },
       "keywords": {
+        "july": 5,
         "american": 3,
         "heat": 3,
         "trump": 3,
-        "july": 3,
+        "summer": 3,
         "county": 3,
         "america": 3,
-        "weather": 2,
-        "president": 2,
-        "sparks": 2,
-        "photos": 2
+        "gold": 3,
+        "group": 3,
+        "weather": 2
       },
       "sources": {
         "Tampa Free Press": 16,
         "www.easternprogress.com - RSS Results": 10,
+        "www.ntdaily.com - RSS Results": 10,
         "The Reporting Project – Covering Licking County, Ohio": 4,
         "The Columbia Chronicle": 4,
         "www.thestatehousefile.com - RSS Results": 3,
@@ -16940,29 +16941,71 @@
       }
     },
     "2026-07-05": {
-      "total": 18,
+      "total": 71,
       "themes": {
         "Celebrates | Parade | July | Granvilles | Holiday": 9,
         "Memorial | Glory3Jpg | Glory12Jpg | At | In": 9
       },
       "sentiment": {
-        "neutral": 18
+        "neutral": 70,
+        "negative": 1
       },
       "keywords": {
         "helena": 10,
-        "park": 9,
+        "park": 10,
         "ir-nws-old": 9,
         "glory-": 9,
         "celebrated": 9,
-        "trump": 2,
-        "three": 1,
-        "week": 1,
-        "cluster": 1,
-        "central": 1
+        "florida": 6,
+        "trump": 5,
+        "july": 5,
+        "federal": 4,
+        "michigan": 4
       },
       "sources": {
+        "Tampa Free Press": 34,
         "www.easternprogress.com - RSS Results": 10,
-        "Tampa Free Press": 8
+        "Honolulu Civil Beat": 5,
+        "Milwaukee Neighborhood News Service": 3,
+        "The Stanford Daily": 2,
+        "The Michigan Daily": 2,
+        "The Cedar Falls News Hub": 2,
+        "The Daily Pennsylvanian": 2,
+        "Indiana Daily Student": 2,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1,
+        "WKUHerald.com": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "Grady Newsource": 1,
+        "QCity Metro Latest News": 1,
+        "News Feed": 1,
+        "The Daily Evergreen": 1,
+        "The Daily Iowan": 1,
+        "Easton Courier": 1
+      }
+    },
+    "2026-07-06": {
+      "total": 15,
+      "themes": {},
+      "sentiment": {
+        "neutral": 15
+      },
+      "keywords": {
+        "district": 5,
+        "candidate": 5,
+        "state": 5,
+        "house": 5,
+        "austin": 3,
+        "staff": 3,
+        "balogun": 1,
+        "fifa": 1,
+        "card": 1,
+        "world": 1
+      },
+      "sources": {
+        "The Daily Texan": 5,
+        "Honolulu Civil Beat": 5,
+        "www.dailycal.org - RSS Results": 4,
+        "Tampa Free Press": 1
       }
     }
   }
