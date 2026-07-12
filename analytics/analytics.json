@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-11T03:13:04.514328+00:00",
-  "total_stories": 8217,
+  "generated_at": "2026-07-12T04:06:42.491153+00:00",
+  "total_stories": 8299,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -21,62 +21,62 @@
     "Celebrates | Parade | July | Granvilles | Holiday": 61,
     "Acc | Lindenwood | Opener | Mcnamara | Homeandhome": 58,
     "Christopher | National | Dayne | Usc | Daily": 56,
-    "Pavcnik | Dartmouths | Dartmouth | Benjamin | Dpu": 53,
-    "Sooner | Interim | Seasonal | Massachusetts | State": 53
+    "Albany | Years | Us": 55,
+    "Pavcnik | Dartmouths | Dartmouth | Benjamin | Dpu": 53
   },
   "sentiment": {
-    "neutral": 7866,
-    "positive": 213,
-    "negative": 138
+    "neutral": 7944,
+    "positive": 215,
+    "negative": 140
   },
   "keywords": {
-    "state": 320,
-    "students": 246,
-    "florida": 194,
-    "county": 191,
+    "state": 322,
+    "students": 247,
+    "florida": 198,
+    "county": 193,
     "community": 166,
     "city": 150,
     "student": 139,
-    "trump": 132,
-    "penn": 132,
+    "trump": 133,
+    "penn": 133,
     "first": 129,
+    "center": 118,
     "women": 118,
+    "school": 118,
+    "basketball": 117,
     "college": 117,
-    "school": 117,
     "court": 115,
     "house": 114,
     "syracuse": 114,
-    "basketball": 112,
-    "center": 110,
     "university": 110,
-    "bill": 109,
+    "bill": 110,
     "season": 104,
     "iowa": 101,
+    "post": 100,
     "world": 98,
-    "post": 97,
     "candidate": 94,
     "daily": 92,
     "district": 88,
+    "years": 87,
     "board": 86,
-    "years": 85,
     "summer": 82
   },
   "sources": {
-    "Tampa Free Press": 526,
+    "Tampa Free Press": 553,
     "The NewsHouse": 384,
     "The Seattle Medium": 228,
     "Caplin News": 167,
-    "Honolulu Civil Beat": 160,
-    "Indiana Daily Student": 159,
+    "Honolulu Civil Beat": 161,
+    "Indiana Daily Student": 161,
     "Voice of OC": 156,
     "The Daily Iowan": 156,
-    "The Dominion Post": 129,
+    "The Dominion Post": 136,
     "The State News": 125,
     "The Daily Pennsylvanian": 124,
     "Capitol News Illinois": 117,
     "Milwaukee Neighborhood News Service": 117,
-    "The Cornell Daily Sun": 115,
-    "Daily Trojan": 110
+    "www.dailygazette.com - RSS Results in spotlightnews of type article": 116,
+    "The Cornell Daily Sun": 116
   },
   "timeseries": {
     "2014-04-07": {
@@ -16291,7 +16291,7 @@
       }
     },
     "2026-06-25": {
-      "total": 197,
+      "total": 198,
       "themes": {
         "Water | Bottles | Ideas | Summer | Aesthetics": 40,
         "Cbs | Garrett | News | Conley | Ben": 35,
@@ -16301,10 +16301,11 @@
         "Reunion | Ncaa | Season | Impact | Ep": 9,
         "State | College | Grant | Penn | Student": 6,
         "Bell | Florida | Gainesville | Injured | Homecoming": 3,
-        "Pride | Mcws | Wvu | Mhs | Wvswa": 3
+        "Pride | Mcws | Wvu | Mhs | Wvswa": 3,
+        "Albany | Years | Us": 1
       },
       "sentiment": {
-        "neutral": 193,
+        "neutral": 194,
         "positive": 3,
         "negative": 1
       },
@@ -16346,6 +16347,7 @@
         "Milwaukee Neighborhood News Service": 3,
         "The Daily Pennsylvanian": 3,
         "IPM Newsroom": 2,
+        "The Hitchcock Project for Visualizing Science": 2,
         "The Daily Northwestern": 2,
         "The Hoya": 2,
         "The Cornell Daily Sun": 2,
@@ -16358,7 +16360,6 @@
         "https://kentstatenewslab.org/feed/": 1,
         "The Daily Orange": 1,
         "The Macon Newsroom": 1,
-        "The Hitchcock Project for Visualizing Science": 1,
         "CU-CitizenAccess.org": 1,
         "The Columbia Chronicle": 1,
         "The Miami Hurricane": 1,
@@ -17284,35 +17285,38 @@
       }
     },
     "2026-07-10": {
-      "total": 150,
+      "total": 164,
       "themes": {
         "Appeal | Campus | Spring | Indiana | State": 93,
         "Buckeyes | Headlines | Florida | Mountaineers": 20,
         "Park | Community | Sports | News | Weekend": 18,
-        "City | District | Council | Nm | State": 8
+        "City | District | Council | Nm | State": 8,
+        "Business | Purdueexponentorg | Other | Oncampus": 8,
+        "Albany | Years | Us": 2
       },
       "sentiment": {
-        "neutral": 146,
+        "neutral": 160,
         "positive": 2,
         "negative": 2
       },
       "keywords": {
         "state": 12,
+        "data": 10,
         "house": 9,
         "district": 9,
         "florida": 9,
+        "center": 9,
         "candidate": 8,
-        "community": 6,
-        "july": 5,
-        "michigan": 5,
-        "world": 5,
-        "georgetown": 5
+        "attention": 8,
+        "other": 7,
+        "community": 6
       },
       "sources": {
         "Tampa Free Press": 33,
         "Honolulu Civil Beat": 16,
         "The Hoya": 10,
         "The Dominion Post": 10,
+        "www.thestatehousefile.com - RSS Results": 10,
         "The Daily Texan": 9,
         "Caplin News": 8,
         "The Minnesota Daily": 5,
@@ -17320,6 +17324,7 @@
         "Voice of OC": 4,
         "The Daily Northwestern": 4,
         "The Daily Orange": 4,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 4,
         "Capitol News Illinois": 3,
         "The Seattle Medium": 3,
         "WKUHerald.com": 2,
@@ -17351,31 +17356,74 @@
       }
     },
     "2026-07-11": {
-      "total": 4,
+      "total": 56,
       "themes": {
+        "Albany | Years | Us": 44,
+        "Business | Purdueexponentorg | Other | Oncampus": 4,
         "Appeal | Campus | Spring | Indiana | State": 3,
         "Buckeyes | Headlines | Florida | Mountaineers": 1
       },
       "sentiment": {
-        "neutral": 4
+        "neutral": 54,
+        "negative": 2
       },
       "keywords": {
-        "chicago": 1,
-        "festival": 1,
-        "annual": 1,
-        "taste": 1,
-        "vendors": 1,
-        "workshop": 1,
-        "hawai": 1,
-        "teachers": 1,
-        "take": 1,
-        "learning": 1
+        "florida": 4,
+        "post": 3,
+        "judge": 3,
+        "inside": 3,
+        "former": 2,
+        "guilty": 2,
+        "manslaughter": 2,
+        "albany": 2,
+        "shooting": 2,
+        "plead": 2
       },
       "sources": {
+        "Tampa Free Press": 28,
+        "The Dominion Post": 7,
+        "Honolulu Civil Beat": 2,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 2,
+        "Reveille": 2,
+        "Wisconsin Watch": 2,
+        "Indiana Daily Student": 2,
         "The Columbia Chronicle": 1,
-        "Honolulu Civil Beat": 1,
         "The Daily Iowan": 1,
-        "Tampa Free Press": 1
+        "The Miami Hurricane": 1,
+        "The Long Island Advocate": 1,
+        "The Lantern": 1,
+        "Kentucky Kernel": 1,
+        "Great Lakes Echo": 1,
+        "The Diamondback": 1,
+        "The Cedar Falls News Hub": 1,
+        "Purple Media Network": 1,
+        "The Cornell Daily Sun": 1
+      }
+    },
+    "2026-07-12": {
+      "total": 10,
+      "themes": {
+        "Albany | Years | Us": 8,
+        "Business | Purdueexponentorg | Other | Oncampus": 1
+      },
+      "sentiment": {
+        "neutral": 9,
+        "positive": 1
+      },
+      "keywords": {
+        "running": 2,
+        "nan": 1,
+        "stronger": 1,
+        "mythbuster": 1,
+        "much": 1,
+        "safer": 1,
+        "many": 1,
+        "diana": 1,
+        "tupiza": 1,
+        "andres": 1
+      },
+      "sources": {
+        "www.easternprogress.com - RSS Results": 10
       }
     }
   }
