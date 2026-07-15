@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-14T03:05:56.455478+00:00",
-  "total_stories": 8601,
+  "generated_at": "2026-07-15T03:02:29.735830+00:00",
+  "total_stories": 8751,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -25,57 +25,57 @@
     "Albany | Years | Us": 55
   },
   "sentiment": {
-    "neutral": 8240,
+    "neutral": 8388,
     "positive": 218,
-    "negative": 143
+    "negative": 145
   },
   "keywords": {
-    "state": 336,
-    "students": 253,
-    "florida": 211,
-    "county": 209,
-    "community": 172,
-    "city": 157,
-    "student": 141,
-    "trump": 140,
+    "state": 345,
+    "students": 256,
+    "florida": 218,
+    "county": 213,
+    "community": 175,
+    "city": 161,
+    "trump": 145,
+    "student": 142,
     "penn": 140,
-    "first": 133,
+    "first": 137,
+    "house": 125,
     "center": 121,
-    "women": 120,
-    "school": 119,
-    "college": 118,
+    "women": 121,
+    "college": 120,
+    "school": 120,
     "court": 118,
+    "candidate": 118,
     "basketball": 117,
-    "house": 117,
-    "syracuse": 114,
-    "bill": 112,
+    "bill": 115,
+    "syracuse": 115,
     "university": 111,
-    "candidate": 110,
+    "post": 110,
     "season": 106,
-    "post": 105,
     "iowa": 104,
-    "world": 101,
-    "summer": 96,
-    "daily": 94,
-    "years": 93,
-    "district": 90,
-    "july": 90
+    "world": 103,
+    "summer": 100,
+    "district": 98,
+    "daily": 96,
+    "july": 94,
+    "years": 93
   },
   "sources": {
-    "Tampa Free Press": 606,
+    "Tampa Free Press": 636,
     "The NewsHouse": 384,
-    "The Seattle Medium": 238,
-    "Honolulu Civil Beat": 181,
-    "Caplin News": 171,
-    "Indiana Daily Student": 167,
+    "The Seattle Medium": 242,
+    "Honolulu Civil Beat": 191,
+    "Caplin News": 175,
+    "Indiana Daily Student": 169,
+    "Voice of OC": 163,
     "The Daily Iowan": 160,
-    "Voice of OC": 159,
-    "The Dominion Post": 142,
+    "The Dominion Post": 149,
+    "Milwaukee Neighborhood News Service": 133,
     "www.dailygazette.com - RSS Results in spotlightnews of type article": 130,
     "The Daily Pennsylvanian": 129,
-    "Milwaukee Neighborhood News Service": 126,
-    "The State News": 126,
-    "Capitol News Illinois": 118,
+    "The State News": 127,
+    "Capitol News Illinois": 119,
     "The Cornell Daily Sun": 117
   },
   "timeseries": {
@@ -17461,7 +17461,7 @@
       }
     },
     "2026-07-13": {
-      "total": 187,
+      "total": 189,
       "themes": {
         "Lindsey | Candidate | Event | Grahams | Senate": 137,
         "Residents | Pennsylvanian | Downtown | City | Council": 14,
@@ -17469,16 +17469,17 @@
         "Graduate | Fulbright | Award | Student | Warde": 11,
         "Going | Iowa | Drafts | Draft | Diamondbacks": 5,
         "Deputies | Senator | County | Lindsey | Arthurdale": 3,
-        "Zhengssjpg | Zhang | 5Aijoe | 6Aijoe | 7Aijoe": 1
+        "Zhengssjpg | Zhang | 5Aijoe | 6Aijoe | 7Aijoe": 1,
+        "Bart | More | Offer | Night | Poor": 1
       },
       "sentiment": {
-        "neutral": 184,
+        "neutral": 186,
         "positive": 2,
         "negative": 1
       },
       "keywords": {
         "county": 13,
-        "summer": 12,
+        "summer": 13,
         "florida": 11,
         "candidate": 10,
         "maui": 10,
@@ -17529,42 +17530,110 @@
         "Great Lakes Echo": 1,
         "WKUHerald.com": 1,
         "The State News": 1,
-        "The Dartmouth": 1
+        "The Dartmouth": 1,
+        "Home": 1,
+        "www.thestatehousefile.com - RSS Results": 1
       }
     },
     "2026-07-14": {
-      "total": 28,
+      "total": 158,
       "themes": {
-        "Lindsey | Candidate | Event | Grahams | Senate": 28
+        "Bart | More | Offer | Night | Poor": 46,
+        "Florida | Central | Crime | Crib | Tragedy": 29,
+        "Lindsey | Candidate | Event | Grahams | Senate": 28,
+        "Facility | Cell | Centers | Campus | Umn": 10,
+        "Mayoral | Advocate | Election | Safety | Union": 9
       },
       "sentiment": {
-        "neutral": 27,
-        "negative": 1
+        "neutral": 155,
+        "negative": 3
       },
       "keywords": {
+        "florida": 8,
+        "city": 7,
+        "council": 7,
+        "trump": 6,
         "candidate": 6,
-        "honolulu": 4,
-        "state": 3,
-        "city": 3,
-        "council": 3,
-        "member": 3,
-        "president": 2,
-        "senate": 2,
-        "district": 2,
-        "trial": 1
+        "federal": 6,
+        "post": 5,
+        "july": 5,
+        "state": 5,
+        "honolulu": 5
       },
       "sources": {
+        "Tampa Free Press": 30,
+        "www.dailycal.org - RSS Results": 11,
+        "The Daily Texan": 11,
         "www.easternprogress.com - RSS Results": 10,
-        "Honolulu Civil Beat": 6,
-        "The Michigan Daily": 2,
-        "The Columbia Chronicle": 2,
-        "The Daily Texan": 2,
-        "Grady Newsource": 1,
-        "www.dailycal.org - RSS Results": 1,
-        "News Feed": 1,
+        "Honolulu Civil Beat": 8,
+        "The Michigan Daily": 7,
+        "The Dominion Post": 7,
+        "Milwaukee Neighborhood News Service": 6,
+        "The Daily Northwestern": 5,
+        "www.ntdaily.com - RSS Results": 5,
+        "Voice of OC": 4,
+        "The Minnesota Daily": 4,
+        "Caplin News": 4,
+        "The Seattle Medium": 4,
+        "www.thestatehousefile.com - RSS Results": 4,
+        "The Columbia Chronicle": 3,
+        "Wisconsin Watch": 3,
+        "The Diamondback": 3,
+        "Grady Newsource": 2,
+        "News Feed": 2,
+        "South Jersey Climate News": 2,
+        "IPM Newsroom": 2,
+        "Indiana Daily Student": 2,
         "Reveille": 1,
         "The Stanford Daily": 1,
-        "Tampa Free Press": 1
+        "The Cedar Falls News Hub": 1,
+        "Gaylord News": 1,
+        "Home": 1,
+        "The Daily Mississippian": 1,
+        "Easton Courier": 1,
+        "The Miami Hurricane": 1,
+        "New Mexico News Port": 1,
+        "Community News Service": 1,
+        "The Macon Newsroom": 1,
+        "Capitol News Illinois": 1,
+        "Noticiero Movil": 1,
+        "Kentucky Kernel": 1,
+        "The Daily Orange": 1,
+        "The Reporting Project – Covering Licking County, Ohio": 1,
+        "Great Lakes Echo": 1,
+        "NewsLab": 1,
+        "The State News": 1
+      }
+    },
+    "2026-07-15": {
+      "total": 13,
+      "themes": {
+        "Mayoral | Advocate | Election | Safety | Union": 8,
+        "Bart | More | Offer | Night | Poor": 3,
+        "Florida | Central | Crime | Crib | Tragedy": 1
+      },
+      "sentiment": {
+        "neutral": 13
+      },
+      "keywords": {
+        "candidate": 8,
+        "district": 8,
+        "state": 7,
+        "house": 6,
+        "senate": 2,
+        "proposed": 1,
+        "federal": 1,
+        "opposes": 1,
+        "grant": 1,
+        "rule": 1
+      },
+      "sources": {
+        "Honolulu Civil Beat": 8,
+        "The Hoya": 1,
+        "Milwaukee Neighborhood News Service": 1,
+        "The Michigan Daily": 1,
+        "Tampa Free Press": 1,
+        "The Daily Texan": 1
       }
     }
   }
