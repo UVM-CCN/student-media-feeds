@@ -26,6 +26,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          # Install CPU-only torch first. The default PyPI wheel is the CUDA
+          # build (~5GB of nvidia-* packages) and fills the runner's disk.
+          # Runners have no GPU, so the CPU wheel loses us nothing.
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
       
       - name: Run scraper
