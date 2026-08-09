@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-08T02:16:29.317115+00:00",
-  "total_stories": 11112,
+  "generated_at": "2026-08-09T02:22:51.629826+00:00",
+  "total_stories": 11210,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -25,56 +25,56 @@
     "Compete | Teams | Competitive | College | Sports": 61
   },
   "sentiment": {
-    "neutral": 10688,
-    "positive": 254,
+    "neutral": 10782,
+    "positive": 258,
     "negative": 170
   },
   "keywords": {
-    "state": 429,
-    "county": 310,
-    "students": 303,
-    "florida": 299,
+    "state": 436,
+    "county": 312,
+    "florida": 305,
+    "students": 304,
     "community": 225,
     "city": 224,
-    "trump": 181,
-    "penn": 175,
+    "trump": 182,
+    "penn": 181,
     "student": 173,
-    "first": 161,
+    "first": 162,
     "college": 156,
+    "court": 156,
     "post": 155,
     "house": 154,
-    "court": 154,
-    "center": 149,
-    "school": 148,
+    "center": 152,
+    "school": 151,
     "july": 148,
+    "basketball": 144,
     "wisconsin": 144,
-    "basketball": 142,
-    "university": 141,
-    "women": 139,
+    "university": 143,
+    "women": 140,
+    "summer": 138,
     "candidate": 138,
-    "summer": 137,
-    "season": 130,
+    "season": 132,
+    "former": 129,
+    "indiana": 129,
     "syracuse": 128,
-    "indiana": 128,
-    "former": 126,
-    "bill": 122,
-    "federal": 122,
-    "world": 121
+    "federal": 125,
+    "years": 123,
+    "bill": 123
   },
   "sources": {
-    "Tampa Free Press": 932,
-    "The NewsHouse": 387,
+    "Tampa Free Press": 962,
+    "The NewsHouse": 388,
     "The Seattle Medium": 310,
-    "Honolulu Civil Beat": 282,
-    "Indiana Daily Student": 257,
-    "The Dominion Post": 232,
+    "Honolulu Civil Beat": 283,
+    "Indiana Daily Student": 258,
+    "The Dominion Post": 240,
     "Voice of OC": 228,
     "Caplin News": 215,
     "Milwaukee Neighborhood News Service": 212,
     "The Daily Iowan": 184,
-    "The State News": 174,
+    "The State News": 175,
     "Wisconsin Watch": 170,
-    "Capitol News Illinois": 163,
+    "Capitol News Illinois": 164,
     "The Daily Pennsylvanian": 163,
     "www.dailygazette.com - RSS Results in spotlightnews of type article": 161
   },
@@ -19064,7 +19064,7 @@
       }
     },
     "2026-08-07": {
-      "total": 138,
+      "total": 142,
       "themes": {
         "Decomposing | Lawsuit | Coal | Bribery | Sues": 28,
         "Summer | Friday | Night | Charlottes | Crowds": 15,
@@ -19075,8 +19075,8 @@
         "Future | Ai | Opinion | Will | This": 2
       },
       "sentiment": {
-        "neutral": 135,
-        "positive": 2,
+        "neutral": 138,
+        "positive": 3,
         "negative": 1
       },
       "keywords": {
@@ -19093,8 +19093,8 @@
       },
       "sources": {
         "Tampa Free Press": 32,
+        "www.ntdaily.com - RSS Results": 14,
         "The Dominion Post": 10,
-        "www.ntdaily.com - RSS Results": 10,
         "The Seattle Medium": 9,
         "New Mexico News Port": 7,
         "Honolulu Civil Beat": 5,
@@ -19127,6 +19127,82 @@
         "www.dailygazette.com - RSS Results in spotlightnews of type article": 1,
         "The Northerner": 1,
         "The Macon Newsroom": 1
+      }
+    },
+    "2026-08-08": {
+      "total": 71,
+      "themes": {
+        "20Year | Tech | Brooksville | 71Yearold | Prison": 21,
+        "Title | Fuzz | Devils": 11,
+        "Darderi | Luciano | Hell | Borges | Frank": 10,
+        "Big | Kabourek | New | Tropical | Holds": 9
+      },
+      "sentiment": {
+        "neutral": 70,
+        "positive": 1
+      },
+      "keywords": {
+        "richmond": 9,
+        "finals-": 9,
+        "high": 9,
+        "florida": 6,
+        "members": 6,
+        "school's": 6,
+        "years": 4,
+        "driver": 4,
+        "woman": 4,
+        "morgantown": 4
+      },
+      "sources": {
+        "Tampa Free Press": 26,
+        "www.thestatehousefile.com - RSS Results": 9,
+        "The Dominion Post": 8,
+        "www.ntdaily.com - RSS Results": 6,
+        "The Minnesota Daily": 4,
+        "The Miami Hurricane": 2,
+        "Reveille": 2,
+        "www.thedaonline.com - RSS Results of type article": 2,
+        "The Daily Utah Chronicle": 2,
+        "The NewsHouse": 1,
+        "Capitol News Illinois": 1,
+        "Honolulu Civil Beat": 1,
+        "News Feed": 1,
+        "Richmond Confidential": 1,
+        "The Daily Mississippian": 1,
+        "Oakland North": 1,
+        "The Cornell Daily Sun": 1,
+        "Indiana Daily Student": 1,
+        "The State News": 1
+      }
+    },
+    "2026-08-09": {
+      "total": 15,
+      "themes": {
+        "Big | Kabourek | New | Tropical | Holds": 4,
+        "Darderi | Luciano | Hell | Borges | Frank": 2,
+        "20Year | Tech | Brooksville | 71Yearold | Prison": 2,
+        "Title | Fuzz | Devils": 1
+      },
+      "sentiment": {
+        "neutral": 14,
+        "positive": 1
+      },
+      "keywords": {
+        "president": 3,
+        "center": 2,
+        "species": 2,
+        "frog": 2,
+        "disaster": 1,
+        "assistance": 1,
+        "extend": 1,
+        "days": 1,
+        "luciano": 1,
+        "darderi": 1
+      },
+      "sources": {
+        "www.easternprogress.com - RSS Results": 10,
+        "Tampa Free Press": 4,
+        "www.thestatehousefile.com - RSS Results": 1
       }
     }
   }
