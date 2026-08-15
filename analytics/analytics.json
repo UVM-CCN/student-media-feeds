@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-14T02:33:43.590016+00:00",
-  "total_stories": 12012,
+  "generated_at": "2026-08-15T01:52:15.004709+00:00",
+  "total_stories": 12152,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -25,58 +25,58 @@
     "Wbb | Baseball | Colonels | Ncaa | Folgueiras": 63
   },
   "sentiment": {
-    "neutral": 11556,
-    "positive": 278,
-    "negative": 178
+    "neutral": 11694,
+    "positive": 279,
+    "negative": 179
   },
   "keywords": {
-    "state": 481,
-    "county": 349,
-    "florida": 347,
-    "students": 323,
-    "community": 242,
-    "city": 239,
-    "penn": 203,
-    "trump": 197,
-    "student": 184,
-    "first": 173,
-    "post": 165,
-    "school": 164,
-    "court": 163,
+    "state": 485,
+    "florida": 359,
+    "county": 352,
+    "students": 330,
+    "community": 244,
+    "city": 241,
+    "penn": 204,
+    "trump": 201,
+    "student": 186,
+    "first": 175,
+    "school": 167,
+    "post": 166,
+    "court": 165,
     "center": 162,
     "college": 161,
-    "house": 160,
-    "wisconsin": 157,
-    "university": 153,
+    "house": 161,
+    "wisconsin": 159,
+    "university": 154,
     "basketball": 152,
+    "women": 152,
     "july": 151,
-    "women": 150,
-    "indiana": 150,
-    "summer": 148,
-    "former": 144,
-    "season": 141,
-    "federal": 141,
+    "indiana": 151,
+    "summer": 149,
+    "former": 146,
+    "season": 144,
+    "federal": 143,
     "candidate": 141,
-    "iowa": 131,
-    "syracuse": 131,
-    "police": 127
+    "syracuse": 133,
+    "police": 132,
+    "iowa": 132
   },
   "sources": {
-    "Tampa Free Press": 1101,
+    "Tampa Free Press": 1131,
     "The NewsHouse": 389,
-    "The Seattle Medium": 343,
-    "Honolulu Civil Beat": 317,
-    "The Dominion Post": 282,
-    "Indiana Daily Student": 275,
-    "Voice of OC": 241,
+    "The Seattle Medium": 349,
+    "Honolulu Civil Beat": 324,
+    "The Dominion Post": 292,
+    "Indiana Daily Student": 276,
+    "Voice of OC": 244,
     "Milwaukee Neighborhood News Service": 241,
     "Caplin News": 215,
-    "The State News": 187,
-    "The Daily Iowan": 186,
+    "The State News": 188,
+    "The Daily Iowan": 187,
     "www.dailycal.org - RSS Results": 184,
-    "Wisconsin Watch": 181,
+    "Wisconsin Watch": 182,
     "The Daily Texan": 180,
-    "Capitol News Illinois": 174
+    "Capitol News Illinois": 175
   },
   "timeseries": {
     "2014-04-07": {
@@ -19462,15 +19462,16 @@
       }
     },
     "2026-08-13": {
-      "total": 158,
+      "total": 159,
       "themes": {
         "Campus | Bloomington | Residents | Central | Berkeley": 116,
         "Wvu | Lsu | Ohio | Indiana | Conference": 33,
         "Florida | Arrested | Hillsborough | Court | Protections": 3,
-        "News | Targets | Night | Threats | Recounts": 1
+        "News | Targets | Night | Threats | Recounts": 1,
+        "Landmarks | Subnautica | Hawaii | Ongoing | Shelter": 1
       },
       "sentiment": {
-        "neutral": 154,
+        "neutral": 155,
         "positive": 4
       },
       "keywords": {
@@ -19481,9 +19482,9 @@
         "school": 5,
         "federal": 5,
         "arrested": 5,
+        "community": 4,
         "iowa": 4,
-        "volleyball": 4,
-        "first": 4
+        "volleyball": 4
       },
       "sources": {
         "Tampa Free Press": 31,
@@ -19520,37 +19521,102 @@
         "The Daily Iowan": 1,
         "Reveille": 1,
         "The Daily Texan": 1,
-        "www.thedaonline.com - RSS Results of type article": 1
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "The Dartmouth": 1
       }
     },
     "2026-08-14": {
-      "total": 6,
+      "total": 138,
       "themes": {
+        "Landmarks | Subnautica | Hawaii | Ongoing | Shelter": 45,
+        "Editorial | Headlines | Couchnap | Hurricanes | New": 26,
+        "Cotton | Synthetic | Coach | Preseason | Syracuse": 16,
+        "Campus | Students | Tuition | Student | Dartmouth": 16,
         "Campus | Bloomington | Residents | Central | Berkeley": 4,
         "Wvu | Lsu | Ohio | Indiana | Conference": 1
       },
       "sentiment": {
-        "positive": 1,
-        "neutral": 5
+        "positive": 2,
+        "neutral": 135,
+        "negative": 1
       },
       "keywords": {
-        "women": 1,
-        "soccer": 1,
-        "year": 1,
-        "dayton": 1,
-        "kicks": 1,
-        "memorial": 1,
-        "stadium": 1,
-        "concert": 1,
-        "campus": 1,
-        "looks": 1
+        "florida": 12,
+        "soccer": 7,
+        "students": 7,
+        "police": 5,
+        "year": 4,
+        "state": 4,
+        "hawai": 4,
+        "women": 3,
+        "campus": 3,
+        "student": 3
       },
       "sources": {
+        "Tampa Free Press": 29,
+        "The Dominion Post": 11,
+        "The Michigan Daily": 10,
+        "www.ntdaily.com - RSS Results": 10,
+        "The Daily Northwestern": 7,
+        "Honolulu Civil Beat": 7,
+        "The Seattle Medium": 6,
+        "The Dartmouth": 6,
+        "Community News Service": 5,
+        "IPM Newsroom": 4,
+        "WKUHerald.com": 3,
+        "Voice of OC": 3,
+        "The Daily Orange": 3,
+        "News Feed": 3,
+        "The Sunflower": 3,
         "www.dailycal.org - RSS Results": 2,
-        "The Dominion Post": 1,
-        "WKUHerald.com": 1,
+        "QCity Metro Latest News": 2,
+        "New Mexico News Port": 2,
+        "Reveille": 2,
+        "The Daily Cardinal": 2,
         "Kentucky Kernel": 1,
-        "The Daily Northwestern": 1
+        "The Tulane Hullabaloo": 1,
+        "The Daily Mississippian": 1,
+        "The Macon Newsroom": 1,
+        "The Arrow Latest News": 1,
+        "Wisconsin Watch": 1,
+        "Richmond Confidential": 1,
+        "The Daily Evergreen": 1,
+        "The Daily Iowan": 1,
+        "Grady Newsource": 1,
+        "The Columbia Chronicle": 1,
+        "Capitol News Illinois": 1,
+        "The Miami Hurricane": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "Arizona Sonoran News": 1,
+        "The Daily Pennsylvanian": 1,
+        "Indiana Daily Student": 1,
+        "The State News": 1
+      }
+    },
+    "2026-08-15": {
+      "total": 2,
+      "themes": {
+        "Editorial | Headlines | Couchnap | Hurricanes | New": 1,
+        "Landmarks | Subnautica | Hawaii | Ongoing | Shelter": 1
+      },
+      "sentiment": {
+        "neutral": 2
+      },
+      "keywords": {
+        "riverview": 1,
+        "woman": 1,
+        "murder": 1,
+        "charged": 1,
+        "first-degree": 1,
+        "housing": 1,
+        "residence": 1,
+        "life": 1,
+        "welcomes": 1,
+        "students": 1
+      },
+      "sources": {
+        "Tampa Free Press": 1,
+        "The Sunflower": 1
       }
     }
   }
