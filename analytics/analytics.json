@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-15T01:52:15.004709+00:00",
-  "total_stories": 12152,
+  "generated_at": "2026-08-16T01:49:16.012276+00:00",
+  "total_stories": 12234,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
@@ -25,57 +25,57 @@
     "Wbb | Baseball | Colonels | Ncaa | Folgueiras": 63
   },
   "sentiment": {
-    "neutral": 11694,
-    "positive": 279,
-    "negative": 179
+    "neutral": 11774,
+    "positive": 280,
+    "negative": 180
   },
   "keywords": {
-    "state": 485,
-    "florida": 359,
-    "county": 352,
+    "state": 492,
+    "florida": 367,
+    "county": 353,
     "students": 330,
     "community": 244,
     "city": 241,
+    "trump": 204,
     "penn": 204,
-    "trump": 201,
-    "student": 186,
-    "first": 175,
+    "student": 189,
+    "first": 177,
     "school": 167,
+    "court": 167,
     "post": 166,
-    "court": 165,
-    "center": 162,
+    "center": 163,
     "college": 161,
     "house": 161,
     "wisconsin": 159,
     "university": 154,
-    "basketball": 152,
+    "basketball": 153,
     "women": 152,
     "july": 151,
     "indiana": 151,
-    "summer": 149,
+    "summer": 150,
+    "season": 147,
     "former": 146,
-    "season": 144,
     "federal": 143,
     "candidate": 141,
-    "syracuse": 133,
-    "police": 132,
-    "iowa": 132
+    "iowa": 135,
+    "syracuse": 134,
+    "police": 133
   },
   "sources": {
-    "Tampa Free Press": 1131,
+    "Tampa Free Press": 1156,
     "The NewsHouse": 389,
     "The Seattle Medium": 349,
-    "Honolulu Civil Beat": 324,
-    "The Dominion Post": 292,
+    "Honolulu Civil Beat": 326,
+    "The Dominion Post": 302,
     "Indiana Daily Student": 276,
-    "Voice of OC": 244,
+    "Voice of OC": 245,
     "Milwaukee Neighborhood News Service": 241,
     "Caplin News": 215,
-    "The State News": 188,
-    "The Daily Iowan": 187,
+    "The Daily Iowan": 190,
+    "The State News": 189,
     "www.dailycal.org - RSS Results": 184,
-    "Wisconsin Watch": 182,
-    "The Daily Texan": 180,
+    "Wisconsin Watch": 183,
+    "The Daily Texan": 182,
     "Capitol News Illinois": 175
   },
   "timeseries": {
@@ -19462,29 +19462,30 @@
       }
     },
     "2026-08-13": {
-      "total": 159,
+      "total": 165,
       "themes": {
         "Campus | Bloomington | Residents | Central | Berkeley": 116,
         "Wvu | Lsu | Ohio | Indiana | Conference": 33,
         "Florida | Arrested | Hillsborough | Court | Protections": 3,
         "News | Targets | Night | Threats | Recounts": 1,
-        "Landmarks | Subnautica | Hawaii | Ongoing | Shelter": 1
+        "Landmarks | Subnautica | Hawaii | Ongoing | Shelter": 1,
+        "Bradley | Casey | Alabama | Football | Stadium": 1
       },
       "sentiment": {
-        "neutral": 155,
+        "neutral": 161,
         "positive": 4
       },
       "keywords": {
+        "state": 14,
         "county": 10,
-        "state": 9,
+        "building": 7,
         "florida": 6,
         "trump": 5,
         "school": 5,
         "federal": 5,
         "arrested": 5,
-        "community": 4,
-        "iowa": 4,
-        "volleyball": 4
+        "fair's": 5,
+        "quietest": 5
       },
       "sources": {
         "Tampa Free Press": 31,
@@ -19497,6 +19498,7 @@
         "The Daily Northwestern": 7,
         "QCity Metro Latest News": 6,
         "The Lantern": 5,
+        "www.thestatehousefile.com - RSS Results": 5,
         "The Oglethorpe Echo": 4,
         "The Sunflower": 4,
         "Indiana Daily Student": 4,
@@ -19522,11 +19524,12 @@
         "Reveille": 1,
         "The Daily Texan": 1,
         "www.thedaonline.com - RSS Results of type article": 1,
-        "The Dartmouth": 1
+        "The Dartmouth": 1,
+        "The Arrow Latest News": 1
       }
     },
     "2026-08-14": {
-      "total": 138,
+      "total": 140,
       "themes": {
         "Landmarks | Subnautica | Hawaii | Ongoing | Shelter": 45,
         "Editorial | Headlines | Couchnap | Hurricanes | New": 26,
@@ -19537,7 +19540,7 @@
       },
       "sentiment": {
         "positive": 2,
-        "neutral": 135,
+        "neutral": 137,
         "negative": 1
       },
       "keywords": {
@@ -19590,33 +19593,85 @@
         "Arizona Sonoran News": 1,
         "The Daily Pennsylvanian": 1,
         "Indiana Daily Student": 1,
-        "The State News": 1
+        "The State News": 1,
+        "Point Park News Service": 1,
+        "www.thestatehousefile.com - RSS Results": 1
       }
     },
     "2026-08-15": {
-      "total": 2,
+      "total": 62,
       "themes": {
+        "Marco | Pablo | Phoebe | Trump | Leaders": 33,
+        "Bradley | Casey | Alabama | Football | Stadium": 17,
         "Editorial | Headlines | Couchnap | Hurricanes | New": 1,
         "Landmarks | Subnautica | Hawaii | Ongoing | Shelter": 1
       },
       "sentiment": {
-        "neutral": 2
+        "neutral": 62
       },
       "keywords": {
-        "riverview": 1,
-        "woman": 1,
-        "murder": 1,
-        "charged": 1,
-        "first-degree": 1,
-        "housing": 1,
-        "residence": 1,
-        "life": 1,
-        "welcomes": 1,
-        "students": 1
+        "florida": 8,
+        "passed": 5,
+        "morgantown": 5,
+        "murder": 4,
+        "home": 3,
+        "season": 3,
+        "hurricane": 3,
+        "storm": 3,
+        "iowa": 3,
+        "kids": 3
       },
       "sources": {
-        "Tampa Free Press": 1,
-        "The Sunflower": 1
+        "Tampa Free Press": 26,
+        "The Dominion Post": 9,
+        "www.thestatehousefile.com - RSS Results": 4,
+        "The Sunflower": 3,
+        "The Daily Iowan": 3,
+        "Honolulu Civil Beat": 2,
+        "The Daily Texan": 2,
+        "News Feed": 2,
+        "Reveille": 1,
+        "The Crimson White": 1,
+        "Wisconsin Watch": 1,
+        "Voice of OC": 1,
+        "The Daily Orange": 1,
+        "The Miami Hurricane": 1,
+        "WKUHerald.com": 1,
+        "The Lantern": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "The State News": 1,
+        "The Daily Cardinal": 1
+      }
+    },
+    "2026-08-16": {
+      "total": 14,
+      "themes": {
+        "Marco | Pablo | Phoebe | Trump | Leaders": 5,
+        "Bradley | Casey | Alabama | Football | Stadium": 5
+      },
+      "sentiment": {
+        "neutral": 12,
+        "negative": 1,
+        "positive": 1
+      },
+      "keywords": {
+        "fair": 2,
+        "people": 2,
+        "novak": 2,
+        "county": 1,
+        "first": 1,
+        "home": 1,
+        "construction": 1,
+        "fire": 1,
+        "student": 1,
+        "building": 1
+      },
+      "sources": {
+        "www.easternprogress.com - RSS Results": 10,
+        "The Dominion Post": 1,
+        "The Battalion": 1,
+        "The Reporting Project – Covering Licking County, Ohio": 1,
+        "Kentucky Kernel": 1
       }
     }
   }
