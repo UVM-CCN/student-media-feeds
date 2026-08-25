@@ -1,11 +1,12 @@
 {
-  "generated_at": "2026-08-24T01:47:51.761435+00:00",
-  "total_stories": 13564,
+  "generated_at": "2026-08-25T02:48:53.855338+00:00",
+  "total_stories": 13799,
   "total_feeds": 108,
   "themes": {
     "Wvu | Mountaineers | Syracuse | Usc | College": 198,
     "Her | Victory | Wvu | Win | Back": 176,
     "Lindsey | Candidate | Event | Grahams | Senate": 174,
+    "Campus | Students | Festival | Seniors | Semester": 153,
     "Campus | Bloomington | Residents | Central | Berkeley": 139,
     "Park | Community | Sports | News | Weekend": 135,
     "County | Town | City | Barton | State": 130,
@@ -21,62 +22,61 @@
     "Johns | Newsletter | Hopkins | Letter | Ellen": 79,
     "Indiana | Student | Hiring | Diy | Eagle": 77,
     "Iowas | Indictment | Assaulting | Turnout | Federal": 73,
-    "State | City | Indiana | Community | Milwaukee": 73,
-    "Dame | Lsu | College | Roster | Junior": 70
+    "State | City | Indiana | Community | Milwaukee": 73
   },
   "sentiment": {
-    "neutral": 13073,
-    "positive": 301,
-    "negative": 190
+    "neutral": 13303,
+    "positive": 303,
+    "negative": 193
   },
   "keywords": {
-    "state": 549,
-    "florida": 435,
-    "county": 390,
-    "students": 367,
-    "city": 264,
-    "community": 262,
-    "trump": 230,
+    "state": 559,
+    "florida": 442,
+    "county": 391,
+    "students": 378,
+    "community": 268,
+    "city": 268,
+    "trump": 233,
     "penn": 227,
-    "student": 214,
-    "first": 211,
-    "school": 186,
-    "court": 185,
-    "center": 178,
-    "post": 178,
-    "college": 177,
-    "wisconsin": 174,
-    "season": 173,
-    "university": 172,
-    "house": 171,
-    "indiana": 170,
-    "women": 169,
-    "summer": 165,
-    "basketball": 164,
-    "federal": 164,
-    "former": 162,
-    "football": 159,
+    "student": 221,
+    "first": 220,
+    "school": 191,
+    "court": 186,
+    "center": 184,
+    "post": 184,
+    "college": 182,
+    "season": 179,
+    "university": 179,
+    "wisconsin": 176,
+    "indiana": 176,
+    "women": 174,
+    "house": 173,
+    "basketball": 170,
+    "summer": 169,
+    "federal": 165,
+    "football": 164,
+    "former": 164,
+    "iowa": 151,
     "july": 151,
-    "police": 147,
-    "years": 144,
-    "iowa": 144
+    "police": 149,
+    "years": 148
   },
   "sources": {
-    "Tampa Free Press": 1382,
-    "The NewsHouse": 391,
-    "The Seattle Medium": 389,
-    "The Dominion Post": 372,
-    "Honolulu Civil Beat": 370,
-    "Indiana Daily Student": 308,
-    "Milwaukee Neighborhood News Service": 271,
-    "Voice of OC": 260,
-    "www.easternprogress.com - RSS Results": 216,
-    "Caplin News": 215,
+    "Tampa Free Press": 1412,
+    "The Seattle Medium": 399,
+    "The NewsHouse": 392,
+    "The Dominion Post": 382,
+    "Honolulu Civil Beat": 376,
+    "Indiana Daily Student": 316,
+    "Milwaukee Neighborhood News Service": 280,
+    "Voice of OC": 264,
+    "www.easternprogress.com - RSS Results": 226,
+    "Caplin News": 217,
     "www.dailycal.org - RSS Results": 213,
-    "The Daily Northwestern": 204,
-    "Wisconsin Watch": 201,
-    "The State News": 199,
-    "The Daily Texan": 196
+    "The Daily Northwestern": 210,
+    "The Daily Texan": 206,
+    "Wisconsin Watch": 203,
+    "The Daily Iowan": 202
   },
   "timeseries": {
     "2014-04-07": {
@@ -19869,7 +19869,7 @@
       }
     },
     "2026-08-19": {
-      "total": 216,
+      "total": 217,
       "themes": {
         "Meetings | Health | Use | Teen | Exploitation": 43,
         "Lowes | Lifestyle | Barning | Nebraska | Daily": 26,
@@ -19883,7 +19883,7 @@
         "News | What | Adopt | Steve | Shocker": 1
       },
       "sentiment": {
-        "neutral": 212,
+        "neutral": 213,
         "positive": 3,
         "negative": 1
       },
@@ -19910,9 +19910,9 @@
         "New Mexico News Port": 9,
         "The Seattle Medium": 9,
         "Honolulu Civil Beat": 6,
+        "The Oglethorpe Echo": 6,
         "Milwaukee Neighborhood News Service": 5,
         "The Daily Northwestern": 5,
-        "The Oglethorpe Echo": 5,
         "Voice of OC": 4,
         "The Michigan Daily": 4,
         "IPM Newsroom": 4,
@@ -20038,15 +20038,16 @@
       }
     },
     "2026-08-21": {
-      "total": 158,
+      "total": 160,
       "themes": {
         "Her | Victory | Wvu | Win | Back": 150,
         "News | What | Adopt | Steve | Shocker": 2,
         "News | State | Domestically | Jackson | Celebration": 2,
+        "Campus | Students | Festival | Seniors | Semester": 2,
         "Loyola | Loyolas | Applicants | Campus | Alumni": 1
       },
       "sentiment": {
-        "neutral": 151,
+        "neutral": 153,
         "positive": 3,
         "negative": 4
       },
@@ -20083,6 +20084,7 @@
         "The Daily Orange": 3,
         "www.thestatehousefile.com - RSS Results": 3,
         "Pepperdine Graphic": 3,
+        "The Cougar": 3,
         "Capitol News Illinois": 2,
         "The Daily Utah Chronicle": 2,
         "The Eudora Times": 2,
@@ -20101,7 +20103,6 @@
         "QCity Metro Latest News": 1,
         "The Western Carolina Journalist": 1,
         "The NewsHouse": 1,
-        "The Cougar": 1,
         "The Macon Newsroom": 1,
         "WKUHerald.com": 1,
         "Community News Service": 1,
@@ -20111,7 +20112,7 @@
       }
     },
     "2026-08-22": {
-      "total": 112,
+      "total": 113,
       "themes": {
         "Bill | Dean | Trump | Deputy | Advisor": 29,
         "Her | Victory | Wvu | Win | Back": 16,
@@ -20119,10 +20120,11 @@
         "Winning | Title | Prize | Wins": 11,
         "Riely | Mishrastaffjpg | Hanes": 10,
         "Belong | Making | Friends | Mug | Join": 3,
-        "Campus | Indiana | Photos | Pridefest | Celebrate": 2
+        "Campus | Indiana | Photos | Pridefest | Celebrate": 2,
+        "Campus | Students | Festival | Seniors | Semester": 1
       },
       "sentiment": {
-        "neutral": 107,
+        "neutral": 108,
         "positive": 5
       },
       "keywords": {
@@ -20162,41 +20164,45 @@
         "The Eudora Times": 1,
         "WKUHerald.com": 1,
         "The Columbia Chronicle": 1,
-        "The Daily Texan": 1
+        "The Daily Texan": 1,
+        "Amplify Utah - The Story Room": 1
       }
     },
     "2026-08-23": {
-      "total": 96,
+      "total": 104,
       "themes": {
         "Lack | Coach | Defense | Ole | Fgcu": 23,
         "Major | Exposing | Police | Measures | Suspect": 19,
         "Centers | Center | Knocked | Calls | Departments": 11,
         "Campus | Indiana | Photos | Pridefest | Celebrate": 11,
+        "Campus | Students | Festival | Seniors | Semester": 7,
         "Bill | Dean | Trump | Deputy | Advisor": 3,
         "Winning | Title | Prize | Wins": 1,
-        "Season | Toure | Championship | Lee | Mitchell": 1
+        "Season | Toure | Championship | Lee | Mitchell": 1,
+        "Student | Warns | Why | Life | Opinion": 1
       },
       "sentiment": {
-        "neutral": 95,
+        "neutral": 103,
         "positive": 1
       },
       "keywords": {
         "florida": 9,
+        "week": 6,
         "soccer": 5,
-        "week": 5,
         "state": 4,
+        "students": 4,
         "county": 4,
         "young": 3,
         "city": 3,
         "hawai": 3,
-        "event": 3,
-        "iowa": 3
+        "event": 3
       },
       "sources": {
         "Tampa Free Press": 26,
         "www.easternprogress.com - RSS Results": 8,
         "Honolulu Civil Beat": 7,
         "The Sunflower": 4,
+        "The Daily Evergreen": 4,
         "The Daily Northwestern": 4,
         "The Michigan Daily": 3,
         "The Daily Iowan": 3,
@@ -20204,14 +20210,15 @@
         "The Dominion Post": 3,
         "Milwaukee Neighborhood News Service": 3,
         "The Northerner": 3,
-        "The Daily Evergreen": 3,
+        "Indiana Daily Student": 3,
         "The Daily Gamecock": 3,
+        "The Cornell Daily Sun": 3,
         "Kentucky Kernel": 2,
         "The Daily Orange": 2,
         "The Battalion": 2,
         "Reveille": 2,
         "The Tulane Hullabaloo": 2,
-        "Indiana Daily Student": 2,
+        "The Cougar": 2,
         "The Cedar Falls News Hub": 1,
         "The Daily Aztec": 1,
         "The Reporting Project – Covering Licking County, Ohio": 1,
@@ -20222,50 +20229,118 @@
         "The Daily Texan": 1,
         "Wisconsin Watch": 1,
         "QCity Metro Latest News": 1,
-        "Great Lakes Echo": 1
+        "Great Lakes Echo": 1,
+        "The Arrow Latest News": 1
       }
     },
     "2026-08-24": {
-      "total": 47,
+      "total": 240,
       "themes": {
+        "Campus | Students | Festival | Seniors | Semester": 123,
+        "Student | Warns | Why | Life | Opinion": 46,
         "Lack | Coach | Defense | Ole | Fgcu": 11,
         "Campus | Indiana | Photos | Pridefest | Celebrate": 6,
         "Centers | Center | Knocked | Calls | Departments": 6,
         "Major | Exposing | Police | Measures | Suspect": 3
       },
       "sentiment": {
-        "neutral": 44,
-        "positive": 2,
+        "neutral": 234,
+        "positive": 3,
+        "negative": 3
+      },
+      "keywords": {
+        "students": 12,
+        "opinion": 11,
+        "state": 10,
+        "first": 10,
+        "florida": 9,
+        "student": 8,
+        "university": 8,
+        "miss": 7,
+        "soccer": 7,
+        "center": 7
+      },
+      "sources": {
+        "Tampa Free Press": 32,
+        "The Daily Mississippian": 17,
+        "The Crimson White": 14,
+        "The Tulane Hullabaloo": 13,
+        "www.easternprogress.com - RSS Results": 10,
+        "The Daily Texan": 10,
+        "The Seattle Medium": 10,
+        "Iowa State Daily": 10,
+        "The Sunflower": 9,
+        "Reveille": 9,
+        "The Dominion Post": 9,
+        "Milwaukee Neighborhood News Service": 9,
+        "The Daily Orange": 8,
+        "Indiana Daily Student": 7,
+        "Honolulu Civil Beat": 6,
+        "The Daily Northwestern": 6,
+        "The Daily Iowan": 5,
+        "Voice of OC": 4,
+        "Kentucky Kernel": 4,
+        "The Daily Evergreen": 4,
+        "The Stanford Daily": 4,
+        "QCity Metro Latest News": 3,
+        "The Battalion": 3,
+        "IPM Newsroom": 3,
+        "Capitol News Illinois": 2,
+        "The Heights": 2,
+        "The Daily Utah Chronicle": 2,
+        "South Jersey Climate News": 2,
+        "The Cougar": 2,
+        "Caplin News": 2,
+        "Wisconsin Watch": 2,
+        "The Commonwealth Times": 2,
+        "The Cornell Daily Sun": 2,
+        "www.dailycal.org - RSS Results": 1,
+        "The Diamondback": 1,
+        "The Northerner": 1,
+        "The Macon Newsroom": 1,
+        "USC Annenberg": 1,
+        "Richmond Confidential": 1,
+        "The NewsHouse": 1,
+        "The Daily Aztec": 1,
+        "University Times": 1,
+        "The Columbia Chronicle": 1,
+        "The Miami Hurricane": 1,
+        "News Feed": 1,
+        "The Dartmouth": 1
+      }
+    },
+    "2026-08-25": {
+      "total": 24,
+      "themes": {
+        "Campus | Students | Festival | Seniors | Semester": 15,
+        "Student | Warns | Why | Life | Opinion": 7
+      },
+      "sentiment": {
+        "neutral": 22,
+        "positive": 1,
         "negative": 1
       },
       "keywords": {
-        "opinion": 4,
-        "miss": 4,
-        "students": 3,
-        "trump": 3,
-        "president": 3,
-        "donald": 3,
-        "first": 3,
-        "safety": 2,
-        "campus": 2,
-        "former": 2
+        "college": 2,
+        "eligibility": 2,
+        "season": 2,
+        "basketball": 2,
+        "press": 2,
+        "conference": 2,
+        "falk": 1,
+        "nutrition": 1,
+        "applied": 1,
+        "track": 1
       },
       "sources": {
         "www.easternprogress.com - RSS Results": 10,
-        "The Daily Mississippian": 10,
-        "The Tulane Hullabaloo": 5,
-        "The Daily Orange": 4,
-        "The Crimson White": 4,
         "The Daily Texan": 3,
-        "Reveille": 2,
-        "Tampa Free Press": 2,
-        "www.dailycal.org - RSS Results": 1,
-        "Capitol News Illinois": 1,
-        "The Heights": 1,
-        "The Sunflower": 1,
-        "The Diamondback": 1,
-        "The Dominion Post": 1,
-        "The Northerner": 1
+        "Reveille": 3,
+        "The Daily Orange": 2,
+        "The Dominion Post": 2,
+        "The Daily Iowan": 2,
+        "Iowa State Daily": 1,
+        "News Feed": 1
       }
     }
   }
