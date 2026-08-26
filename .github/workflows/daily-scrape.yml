@@ -6,23 +6,32 @@ on:
     - cron: '59 23 * * *'
   workflow_dispatch:  # Allows manual triggering from GitHub UI
 
+# Two overlapping runs would race on both the git push and the Hub upload.
+concurrency:
+  group: daily-scrape
+  cancel-in-progress: false
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    
+
+    # GitHub hard-kills a job at 360 minutes with no chance to clean up.
+    # Stopping at 330 fails the run while the log is still readable.
+    timeout-minutes: 330
+
     permissions:
       contents: write  # Allow the workflow to commit changes
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
-      
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -31,7 +40,20 @@ jobs:
           # Runners have no GPU, so the CPU wheel loses us nothing.
           pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
-      
+
+      # full_text/ is not stored in git — the Hub is its canonical home. It has
+      # to be on disk before anything rebuilds the corpus, or
+      # build_publication_corpora would regenerate the corpora from only
+      # tonight's new stories and the sync step would publish that truncated
+      # corpus over the good one. restore_full_text.py is fail-closed for
+      # exactly this reason: if it cannot restore what news_database.csv
+      # expects, it exits non-zero and the run stops here.
+      - name: Restore full-text corpus from Hugging Face
+        env:
+          HF_REPO_ID: ${{ vars.HF_REPO_ID }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python huggingface/restore_full_text.py
+
       - name: Run scraper
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -39,9 +61,47 @@ jobs:
 
       - name: Validate CSV output
         run: python scripts/validate_news_csv.py news_database.csv
+
+      # Assigns each new story to the nearest frozen topic centroid. Fits
+      # nothing -- the centroids come from scripts/train_topic_model.py, which
+      # is run by hand and deliberately not on this schedule. Refitting nightly
+      # is what made the old `theme` column useless: every run produced a
+      # different model, so labels were not comparable across runs and any
+      # coverage-over-time chart measured model drift.
+      - name: Assign topics
+        run: python scripts/apply_topics.py
+
+      # Reads publication_story_index.csv, which scrape.py regenerates above,
+      # so this has to follow the scrape rather than run alongside it.
+      - name: Rebuild coverage map data
+        run: |
+          python scripts/geocode_publications.py
+          python scripts/build_map_data.py
+
+      # ── Hugging Face BEFORE git, deliberately ────────────────────────────
+      # news_database.csv records extraction_status="ok" for stories whose text
+      # lives only in the Hub dataset. If git were committed first and the Hub
+      # push then failed, the committed CSV would reference bodies that exist
+      # nowhere — the dangling-reference bug this pipeline was just repaired
+      # for. Publishing the text first means a committed "ok" is always backed
+      # by something already on the Hub.
+      - name: Build Hugging Face dataset bundle
+        run: python huggingface/build_hf_dataset.py
+
+      - name: Push to Hugging Face Hub
+        env:
+          HF_REPO_ID: ${{ vars.HF_REPO_ID }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python huggingface/sync_to_hf.py
+
+      # Only the light, dashboard-facing artifacts land in git. The corpus
+      # (full_text/, publication_corpora/, bag_of_words.csv) is gitignored and
+      # lives on the Hub.
       - name: Commit and push if changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add news_database.csv analytics/
+          git add news_database.csv analytics/ \
+                  map/map_data.js map/map_data.json \
+                  data/publication_locations.csv
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database and analytics - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)

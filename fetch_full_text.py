@@ -51,8 +51,11 @@ import logging
 import os
 import random
 import sys
+import threading
 import time
 import urllib.parse
+from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional
 
 import requests
@@ -71,6 +74,21 @@ DOMAIN_JITTER_RANGE = (0.5, 1.5)
 REQUEST_TIMEOUT_SECONDS = 30
 MAX_RETRIES = 3
 CHECKPOINT_INTERVAL = 25  # save CSV progress every N stories during backfill
+
+# Domains are fetched in parallel, but each domain is handled by exactly one
+# worker so MIN_DOMAIN_DELAY_SECONDS still serializes requests to any single
+# host. Politeness per host is unchanged; only cross-host idle time is reclaimed.
+MAX_WORKERS = 8
+
+# A host that fails this many times in a row is almost always broken for every
+# URL on it (expired cert, blanket rate-limit, dead domain) rather than
+# story-by-story. Once the breaker opens, the rest of that host's queue is left
+# untouched — status stays blank, so the next run retries it from scratch.
+DOMAIN_FAILURE_THRESHOLD = 8
+
+# Retry-After is advisory and some hosts return absurd values. Honor it, but
+# never let one story park a worker for minutes.
+MAX_RETRY_AFTER_SECONDS = 60
 
 # Statuses we consider "done" — never retry these
 TERMINAL_STATUSES = {"ok", "empty", "http_404", "http_403", "http_410"}
@@ -152,6 +170,7 @@ def _fetch_html(url: str) -> tuple[Optional[str], str]:
                 wait = int(r.headers.get("Retry-After", 2 ** attempt * 5))
             except (TypeError, ValueError):
                 wait = 2 ** attempt * 5
+            wait = min(wait, MAX_RETRY_AFTER_SECONDS)
             logging.warning("429 for %s; sleeping %ds then retrying", url, wait)
             time.sleep(wait)
             if attempt == MAX_RETRIES - 1:
@@ -264,17 +283,32 @@ def _write_csv_atomic(csv_path: str, fieldnames: list[str], rows: list[dict]) ->
     os.replace(tmp, csv_path)
 
 
-def process_pending_stories(csv_path: str = "news_database.csv") -> dict:
+def process_pending_stories(csv_path: str = "news_database.csv",
+                            max_workers: int = MAX_WORKERS) -> dict:
     """
-    Iterate the CSV and fetch full text for any story not yet successfully
-    processed. Idempotent and safe to interrupt: progress is checkpointed to
-    disk every CHECKPOINT_INTERVAL stories.
+    Fetch full text for any story not yet successfully processed.
 
-    Returns a dict of counts: processed, ok, failed, skipped, total.
+    Idempotent and safe to interrupt: progress is checkpointed to disk every
+    CHECKPOINT_INTERVAL stories, and terminal statuses are never retried.
+
+    Work is grouped by domain and the groups run concurrently. Each domain is
+    owned by a single worker for the whole run, so MIN_DOMAIN_DELAY_SECONDS
+    still serializes requests to any one host — the concurrency only reclaims
+    the idle time previously spent waiting on one host while every other host
+    sat untouched.
+
+    A host that fails DOMAIN_FAILURE_THRESHOLD times in a row trips a circuit
+    breaker and the rest of its queue is skipped for this run. Those rows keep
+    a blank status, so the next run picks them up again from scratch. This is
+    what keeps one broken host (expired cert, blanket 429) from consuming the
+    entire run.
+
+    Returns a dict of counts: processed, ok, failed, deferred, skipped, total.
     """
     if not os.path.exists(csv_path):
         logging.error("CSV not found: %s", csv_path)
-        return {"processed": 0, "ok": 0, "failed": 0, "skipped": 0, "total": 0}
+        return {"processed": 0, "ok": 0, "failed": 0, "deferred": 0,
+                "skipped": 0, "total": 0}
 
     fieldnames, rows = _read_csv(csv_path)
 
@@ -286,7 +320,8 @@ def process_pending_stories(csv_path: str = "news_database.csv") -> dict:
                 row.setdefault(col, "")
 
     total = len(rows)
-    counts = {"processed": 0, "ok": 0, "failed": 0, "skipped": 0, "total": total}
+    counts = {"processed": 0, "ok": 0, "failed": 0, "deferred": 0,
+              "skipped": 0, "total": total}
     pending_indexes = [
         i for i, row in enumerate(rows)
         if (row.get("extraction_status") or "").strip() not in TERMINAL_STATUSES
@@ -297,34 +332,75 @@ def process_pending_stories(csv_path: str = "news_database.csv") -> dict:
         logging.info("No pending stories. Total in DB: %d", total)
         return counts
 
+    by_domain: dict[str, list[int]] = defaultdict(list)
+    for i in pending_indexes:
+        by_domain[_get_domain((rows[i].get("link") or "").strip())].append(i)
+
     logging.info(
-        "Starting full-text extraction. pending=%d already_done=%d total=%d",
-        len(pending_indexes), counts["skipped"], total,
+        "Starting full-text extraction. pending=%d domains=%d workers=%d "
+        "already_done=%d total=%d",
+        len(pending_indexes), len(by_domain), max_workers,
+        counts["skipped"], total,
     )
 
-    for n, i in enumerate(pending_indexes, 1):
-        row = rows[i]
-        logging.info("[%d/%d] %s", n, len(pending_indexes), row.get("link", ""))
-        status, path = _process_story(row)
-        row["extraction_status"] = status
-        row["full_text_path"] = path
-        counts["processed"] += 1
-        if status == "ok":
-            counts["ok"] += 1
-        else:
-            counts["failed"] += 1
+    lock = threading.Lock()
+    progress = {"done": 0}
 
-        if n % CHECKPOINT_INTERVAL == 0:
+    def run_domain(domain: str, indexes: list[int]) -> None:
+        consecutive_failures = 0
+        for position, i in enumerate(indexes):
+            if consecutive_failures >= DOMAIN_FAILURE_THRESHOLD:
+                remaining = len(indexes) - position
+                logging.warning(
+                    "Circuit breaker open for %s after %d consecutive failures; "
+                    "deferring %d remaining stories to the next run",
+                    domain, consecutive_failures, remaining,
+                )
+                with lock:
+                    counts["deferred"] += remaining
+                return
+
+            status, path = _process_story(rows[i])
+
+            with lock:
+                rows[i]["extraction_status"] = status
+                rows[i]["full_text_path"] = path
+                counts["processed"] += 1
+                if status == "ok":
+                    counts["ok"] += 1
+                else:
+                    counts["failed"] += 1
+                progress["done"] += 1
+                done = progress["done"]
+                if done % CHECKPOINT_INTERVAL == 0:
+                    _write_csv_atomic(csv_path, fieldnames, rows)
+                    logging.info(
+                        "[%d/%d] checkpoint: ok=%d failed=%d deferred=%d",
+                        done, len(pending_indexes), counts["ok"],
+                        counts["failed"], counts["deferred"],
+                    )
+
+            consecutive_failures = 0 if status == "ok" else consecutive_failures + 1
+
+    # Largest domains first so one long queue cannot become the tail that every
+    # other worker waits on.
+    ordered = sorted(by_domain.items(), key=lambda kv: len(kv[1]), reverse=True)
+    try:
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            futures = [pool.submit(run_domain, d, idx) for d, idx in ordered]
+            for fut in as_completed(futures):
+                exc = fut.exception()
+                if exc:
+                    logging.error("Domain worker failed: %s", exc)
+    finally:
+        # Always persist whatever finished, including on KeyboardInterrupt.
+        with lock:
             _write_csv_atomic(csv_path, fieldnames, rows)
-            logging.info(
-                "Checkpoint: processed=%d ok=%d failed=%d",
-                counts["processed"], counts["ok"], counts["failed"],
-            )
 
-    _write_csv_atomic(csv_path, fieldnames, rows)
     logging.info(
-        "Done. processed=%d ok=%d failed=%d skipped=%d total=%d",
-        counts["processed"], counts["ok"], counts["failed"], counts["skipped"], total,
+        "Done. processed=%d ok=%d failed=%d deferred=%d skipped=%d total=%d",
+        counts["processed"], counts["ok"], counts["failed"],
+        counts["deferred"], counts["skipped"], total,
     )
     return counts
 
