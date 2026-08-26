@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Media Coverage Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --panel: #171B23;
+    --panel-2: #212734;
+    --ink: #EEF1F6;
+    --ink-2: #AEB7C6;
+    --muted: #7B8598;
+    --rule: #2E3646;
+    --accent: #6FA8F5;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: var(--sans); }
+  #map { position: absolute; inset: 0; background: #0C0F14; }
+
+  .panel {
+    position: absolute; top: 1rem; left: 1rem; z-index: 1000;
+    width: 19rem; max-height: calc(100vh - 2rem);
+    display: flex; flex-direction: column;
+    background: var(--panel); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 6px;
+    box-shadow: 0 8px 28px rgba(0,0,0,.45);
+    overflow: hidden;
+  }
+  .panel header { padding: .9rem 1rem .75rem; border-bottom: 1px solid var(--rule); }
+  .panel h1 { margin: 0 0 .15rem; font-size: 1rem; font-weight: 600; letter-spacing: -.01em; }
+  .panel .sub { margin: 0; font-size: .74rem; color: var(--muted); line-height: 1.45; }
+  .panel .body { padding: .85rem 1rem 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+
+  .lab { font-family: var(--mono); font-size: .62rem; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: .45rem; }
+
+  .topics { display: flex; flex-direction: column; gap: 2px; }
+  .topic {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .5rem;
+    background: var(--panel-2); border: 1px solid transparent; color: var(--ink-2);
+    font: inherit; font-size: .82rem; text-align: left;
+    padding: .38rem .55rem; border-radius: 3px; cursor: pointer;
+  }
+  .topic:hover { border-color: var(--rule); color: var(--ink); }
+  .topic[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #0B1220; font-weight: 600; }
+  .topic .c { font-family: var(--mono); font-size: .72rem; font-variant-numeric: tabular-nums; opacity: .8; }
+  .topic:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .modes { display: flex; gap: 2px; background: var(--panel-2); padding: 2px; border-radius: 4px; }
+  .modes button {
+    flex: 1; background: transparent; border: 0; color: var(--ink-2);
+    font: inherit; font-size: .76rem; padding: .35rem .3rem; border-radius: 3px; cursor: pointer;
+  }
+  .modes button[aria-pressed="true"] { background: var(--panel); color: var(--ink); font-weight: 600; }
+  .modes button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .modes button:disabled { opacity: .4; cursor: not-allowed; }
+
+  .hint { font-size: .72rem; color: var(--muted); line-height: 1.5; margin: 0; }
+
+  .row { display: flex; align-items: center; gap: .5rem; font-size: .78rem; color: var(--ink-2); }
+  .row input { accent-color: var(--accent); }
+
+  .scale { display: flex; flex-direction: column; gap: .3rem; }
+  .ramp { height: 8px; border-radius: 2px; background: linear-gradient(90deg, #2C5AA0 0%, #43A9C7 35%, #7DD87F 60%, #F2D65C 80%, #E8574A 100%); }
+  .scale .ends { display: flex; justify-content: space-between; align-items: baseline; gap: .4rem; font-family: var(--mono); font-size: .64rem; color: var(--muted); }
+  .scale .ends span:first-child, .scale .ends span:last-child { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  #scaleUnit { flex: 1; text-align: center; font-size: .6rem; letter-spacing: .04em; }
+
+  .stat { display: flex; justify-content: space-between; font-size: .78rem; color: var(--ink-2); padding-top: .1rem; }
+  .stat b { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; }
+
+  .leaflet-popup-content-wrapper { background: var(--panel); color: var(--ink); border-radius: 5px; }
+  .leaflet-popup-tip { background: var(--panel); }
+  .leaflet-popup-content { margin: .75rem .9rem; font-size: .82rem; line-height: 1.5; width: 17rem !important; }
+  .pop-name { font-weight: 600; display: block; margin-bottom: .1rem; }
+  .pop-inst { color: var(--muted); font-size: .74rem; display: block; margin-bottom: .35rem; }
+  .pop-total { display: block; font-size: .76rem; color: var(--ink-2); padding-bottom: .5rem; border-bottom: 1px solid var(--rule); }
+  .pop-total em { color: var(--muted); font-style: normal; }
+  .pop-bars { display: flex; flex-direction: column; gap: 3px; margin-top: .55rem; }
+  .pop-bar { display: grid; grid-template-columns: 6.9rem 1fr 1.6rem; align-items: center; gap: .45rem; font-size: .71rem; }
+  .pop-bar .bl { color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pop-bar .tr { height: 7px; background: var(--panel-2); border-radius: 2px; overflow: hidden; }
+  .pop-bar .fl { height: 100%; background: var(--accent); border-radius: 0 3px 3px 0; min-width: 1px; }
+  .pop-bar .vv { font-family: var(--mono); text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .pop-bar.zero .bl, .pop-bar.zero .vv { color: var(--muted); opacity: .55; }
+  .pop-bar.sel .bl, .pop-bar.sel .vv { color: var(--ink); font-weight: 600; opacity: 1; }
+  .pop-bar.sel .fl { background: #F2D65C; }
+
+  .attrib { position: absolute; bottom: 0; right: 0; z-index: 900; }
+
+  @media (max-width: 640px) {
+    .panel { width: auto; left: .5rem; right: .5rem; top: .5rem; max-height: 58vh; }
+  }
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div class="panel">
+  <header>
+    <h1>Where topics get covered</h1>
+    <p class="sub">Student newsrooms and campus news labs across the US. Heat shows where a topic is reported.</p>
+  </header>
+  <div class="body">
+    <div>
+      <span class="lab">Topic</span>
+      <div class="topics" id="topics"></div>
+    </div>
+
+    <div>
+      <span class="lab">Weighting</span>
+      <div class="modes" id="modes">
+        <button type="button" data-mode="count" aria-pressed="true">Story count</button>
+        <button type="button" data-mode="share" aria-pressed="false">Share of output</button>
+      </div>
+      <p class="hint" id="modeHint"></p>
+    </div>
+
+    <div class="scale">
+      <span class="lab">Intensity</span>
+      <div class="ramp"></div>
+      <div class="ends"><span id="scaleLo">—</span><span id="scaleUnit"></span><span id="scaleHi">—</span></div>
+    </div>
+
+    <label class="row"><input type="checkbox" id="showPts"> Show publication markers</label>
+
+    <div>
+      <div class="stat"><span>Publications shown</span><b id="nPubs">—</b></div>
+      <div class="stat"><span>Stories in topic</span><b id="nStories">—</b></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="map_data.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var DATA = window.MAP_DATA;
+  if (!DATA) {
+    document.getElementById("map").innerHTML =
+      '<p style="color:#fff;font:14px system-ui;padding:2rem">' +
+      'map_data.js did not load. Run <code>python scripts/build_map_data.py</code> first.</p>';
+    return;
+  }
+
+  var GRADIENT = { 0.0: "#2C5AA0", 0.35: "#43A9C7", 0.6: "#7DD87F", 0.8: "#F2D65C", 1.0: "#E8574A" };
+  var ALL = "__all__";
+  var state = { topic: ALL, mode: "count", markers: false };
+
+  var HINTS = {
+    count: "Raw volume. Large newsrooms dominate, so this partly maps where the big publications are.",
+    share: "Topic as a fraction of each newsroom's own output — shows where a subject is unusually central, not just where volume is.",
+    all: "Total collected stories per outlet. Pick a topic to weight by share of output instead."
+  };
+
+  var map = L.map("map", { zoomControl: true, minZoom: 3, maxZoom: 12 })
+             .setView([39.5, -97], 4);
+
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: "abcd", maxZoom: 12
+  }).addTo(map);
+
+  var heat = L.heatLayer([], { radius: 26, blur: 22, maxZoom: 9, minOpacity: 0.25, gradient: GRADIENT }).addTo(map);
+  var markerLayer = L.layerGroup();
+
+  var TOPICS = DATA.topics;
+  var TOTALS = DATA.topic_totals;
+  var labelOf = {};
+  TOPICS.forEach(function (t) { labelOf[t.key] = t.label; });
+
+  // One canonical order, corpus-wide totals descending, shared by the topic
+  // buttons and every popup chart so positions never shift between outlets.
+  var ORDERED = TOPICS.slice().sort(function (a, b) {
+    return (TOTALS[b.key] || 0) - (TOTALS[a.key] || 0);
+  });
+
+  /* ---------- value for a point under the current topic + mode ---------- */
+  function rawCount(p) {
+    return state.topic === ALL ? p.t : (p[state.topic] || 0);
+  }
+  // "Share of output" is meaningless against All coverage — every outlet is 100%
+  // of itself — so the toggle only applies once a single topic is selected.
+  function shareActive() {
+    return state.mode === "share" && state.topic !== ALL;
+  }
+
+  function weight(p) {
+    var c = rawCount(p);
+    if (c === 0) return 0;
+    if (!shareActive()) return c;
+    // Share mode: what fraction of this newsroom's output is this topic.
+    // Damped by output size so a 1-of-2-stories outlet doesn't outrank a real signal.
+    var share = c / p.t;
+    return share * Math.min(1, Math.log10(p.t + 1) / 2);
+  }
+
+  // What the legend reports. In share mode this is the undamped share, so the
+  // ends read as a plain percentage rather than an opaque weighting number.
+  function displayValue(p) {
+    var c = rawCount(p);
+    return shareActive() ? (c / p.t) * 100 : c;
+  }
+
+  function formatValue(v) {
+    return shareActive()
+      ? v.toFixed(v < 10 ? 1 : 0) + "%"
+      : Math.round(v).toLocaleString();
+  }
+
+  function updateScale(lo, hi) {
+    document.getElementById("scaleLo").textContent = formatValue(lo);
+    document.getElementById("scaleHi").textContent = formatValue(hi);
+    document.getElementById("scaleUnit").textContent =
+      shareActive() ? "share of outlet's output" : "stories per outlet";
+  }
+
+  function syncModeAvailability() {
+    var off = state.topic === ALL;
+    var shareBtn = document.querySelector('#modes button[data-mode="share"]');
+    if (shareBtn) {
+      shareBtn.disabled = off;
+      shareBtn.title = off ? "Pick a topic to weight by share of output" : "";
+    }
+    document.getElementById("modeHint").textContent =
+      off ? HINTS.all : HINTS[state.mode];
+  }
+
+  // The weakest visible outlet still needs to render, so the ramp starts here
+  // rather than at 0 — otherwise min-max scaling makes it invisible.
+  var FLOOR = 0.12;
+
+  function render() {
+    var pts = [], nPubs = 0, nStories = 0;
+    var maxW = -Infinity, minW = Infinity;
+    var maxD = -Infinity, minD = Infinity;   // display values for the legend
+
+    DATA.points.forEach(function (p) {
+      var w = weight(p);
+      if (w <= 0) return;
+      if (w > maxW) maxW = w;
+      if (w < minW) minW = w;
+      var d = displayValue(p);
+      if (d > maxD) maxD = d;
+      if (d < minD) minD = d;
+      nPubs++;
+      nStories += rawCount(p);
+      pts.push([p.lat, p.lon, w]);
+    });
+
+    // Rescale to the selected topic's own range, so the ramp always spans the
+    // data actually on screen instead of being anchored to all-coverage volume.
+    var span = maxW - minW;
+    heat.setLatLngs(pts.map(function (r) {
+      var norm = span > 0 ? (r[2] - minW) / span : 1;
+      return [r[0], r[1], FLOOR + (1 - FLOOR) * norm];
+    }));
+
+    updateScale(nPubs ? minD : 0, nPubs ? maxD : 0);
+
+    markerLayer.clearLayers();
+    if (state.markers) {
+      DATA.points.forEach(function (p) {
+        if (weight(p) <= 0) return;
+        var radius = 3 + Math.sqrt(rawCount(p)) * 0.9;
+        L.circleMarker([p.lat, p.lon], {
+          radius: Math.min(radius, 14),
+          color: "#EEF1F6", weight: 1, opacity: 0.55,
+          fillColor: "#6FA8F5", fillOpacity: 0.45
+        }).bindPopup(popupHtml(p)).addTo(markerLayer);
+      });
+    }
+
+    document.getElementById("nPubs").textContent = nPubs.toLocaleString();
+    document.getElementById("nStories").textContent = nStories.toLocaleString();
+  }
+
+  function popupHtml(p) {
+    // Every category, always, in the same order for every outlet — a fixed axis
+    // is what makes two popups comparable at a glance.
+    var rows = ORDERED.map(function (t) {
+      return { key: t.key, label: t.label, v: p[t.key] || 0 };
+    });
+    var top = rows.reduce(function (a, r) { return Math.max(a, r.v); }, 0) || 1;
+    var assigned = rows.reduce(function (a, r) { return a + r.v; }, 0);
+
+    var bars = rows.map(function (r) {
+      var sel = (r.key === state.topic) ? " sel" : "";
+      var zero = r.v === 0 ? " zero" : "";
+      return '<div class="pop-bar' + sel + zero + '"><span class="bl">' + esc(r.label) + "</span>" +
+             '<span class="tr"><span class="fl" style="width:' + (100 * r.v / top) + '%"></span></span>' +
+             '<span class="vv">' + r.v + "</span></div>";
+    }).join("");
+
+    var unassigned = p.t - assigned;
+
+    // Titles repeat across campuses, so the domain is what identifies the outlet.
+    var ident = [p.i ? esc(p.i) + (p.s ? ", " + esc(p.s) : "") : null, esc(p.d)]
+                .filter(Boolean).join(" &middot; ");
+
+    return '<span class="pop-name">' + esc(p.n) + "</span>" +
+           '<span class="pop-inst">' + ident + "</span>" +
+           '<span class="pop-total">' + p.t + " stories" +
+           (unassigned > 0 ? ' <em>&middot; ' + unassigned + " unclassified</em>" : "") +
+           "</span>" +
+           '<div class="pop-bars">' + bars + "</div>";
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  /* ---------- controls ---------- */
+  var topicsEl = document.getElementById("topics");
+
+  function addTopicButton(key, label, count) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "topic";
+    b.setAttribute("aria-pressed", String(state.topic === key));
+    b.dataset.key = key;
+    b.innerHTML = '<span>' + esc(label) + '</span><span class="c">' + count.toLocaleString() + "</span>";
+    b.addEventListener("click", function () {
+      state.topic = key;
+      Array.prototype.forEach.call(topicsEl.children, function (el) {
+        el.setAttribute("aria-pressed", String(el.dataset.key === key));
+      });
+      syncModeAvailability();
+      render();
+    });
+    topicsEl.appendChild(b);
+  }
+
+  var grandTotal = DATA.points.reduce(function (a, p) { return a + p.t; }, 0);
+  addTopicButton(ALL, "All coverage", grandTotal);
+  ORDERED.forEach(function (t) { addTopicButton(t.key, t.label, TOTALS[t.key] || 0); });
+
+  document.getElementById("modes").addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-mode]");
+    if (!btn || btn.disabled) return;
+    state.mode = btn.dataset.mode;
+    Array.prototype.forEach.call(this.children, function (el) {
+      el.setAttribute("aria-pressed", String(el.dataset.mode === state.mode));
+    });
+    syncModeAvailability();
+    render();
+  });
+
+  document.getElementById("showPts").addEventListener("change", function () {
+    state.markers = this.checked;
+    if (state.markers) markerLayer.addTo(map); else map.removeLayer(markerLayer);
+    render();
+  });
+
+  syncModeAvailability();
+  render();
+})();
+</script>
+</body>
+</html>

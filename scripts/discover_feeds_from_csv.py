@@ -25,6 +25,7 @@ Behavior:
 """
 import csv
 import os
+import re
 import sys
 import time
 import urllib.parse
@@ -112,6 +113,19 @@ def load_existing_feed_urls(project_root: str) -> set[str]:
     return urls
 
 
+def split_multi_url(raw: str) -> list[str]:
+    """A URL field may contain multiple URLs separated by ' or ', ';', or ','."""
+    if not raw:
+        return []
+    parts = re.split(r"\s+or\s+|;\s*", raw, flags=re.IGNORECASE)
+    cleaned = []
+    for p in parts:
+        p = p.strip().strip(",").strip()
+        if p and p.lower().startswith(("http://", "https://")):
+            cleaned.append(p)
+    return cleaned
+
+
 def should_skip(url: str) -> bool:
     parsed = urllib.parse.urlparse(url)
     domain = parsed.netloc.lower()
@@ -196,36 +210,39 @@ def run(csv_path: str, url_column: str, output_path: str) -> None:
     seen_urls: set[str] = set()
 
     for row in rows:
-        url = (row.get(url_column) or "").strip()
-        if not url or not url.startswith("http"):
+        raw_url = (row.get(url_column) or "").strip()
+        urls = split_multi_url(raw_url)
+        if not urls:
             skipped_no_url += 1
             continue
 
-        if url in seen_urls:
-            continue
-        seen_urls.add(url)
-
-        domain = urllib.parse.urlparse(url).netloc.lower()
-        domain = domain[4:] if domain.startswith("www.") else domain
-
-        if domain in existing_domains:
-            skipped_tracked += 1
-            continue
-
-        if should_skip(url):
-            print(f"  [SKIP unsuitable] {url}")
-            skipped_unsuitable += 1
-            continue
-
-        # Use a representative name for logging if a Name column exists
         name = (
             row.get("Newspaper Name")
             or row.get("Name of News Lab")
+            or row.get("Name of Outlet")
             or row.get("NAME OF PROGRAM")
             or row.get("name")
-            or domain
-        )
-        candidates.append((name.strip(), url))
+            or ""
+        ).strip()
+
+        for url in urls:
+            if url in seen_urls:
+                continue
+            seen_urls.add(url)
+
+            domain = urllib.parse.urlparse(url).netloc.lower()
+            domain = domain[4:] if domain.startswith("www.") else domain
+
+            if domain in existing_domains:
+                skipped_tracked += 1
+                continue
+
+            if should_skip(url):
+                print(f"  [SKIP unsuitable] {url}")
+                skipped_unsuitable += 1
+                continue
+
+            candidates.append((name or domain, url))
 
     print(f"Candidates to probe: {len(candidates)}")
     print(f"Skipped (no URL):           {skipped_no_url}")

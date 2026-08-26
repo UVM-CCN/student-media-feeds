@@ -6,6 +6,10 @@ pandas
 trafilatura
 curl_cffi
 
+# Hugging Face dataset publishing (see huggingface/SETUP.md)
+huggingface_hub
+pyarrow
+
 # BERTopic and its required transitive dependencies
 bertopic
 sentence-transformers

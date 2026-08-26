@@ -21,17 +21,51 @@ This repository contains an automated news scraping system that:
 
 ```
 .
-├── scrape.py                           # Main pipeline script
-├── news_database.csv                   # CSV database of all scraped 
-├── feed_discoverer.py                   # will check if RSS feed available for given column in CSV file
-├── ccn_nap_master.csv                   # CSV used to detect if RSS feed available
-├── feeds/
-│   └── feedly-export-20260130.opml    # OPML file with RSS feed subscriptions
-├── .github/
-│   └── workflows/
-│       └── daily-scrape.yml           # GitHub Actions workflow for daily runs
+├── scrape.py                          # Main pipeline entry point; calls the steps below
+├── fetch_full_text.py                 # Full-text article extractor -> full_text/
+├── fetch_hard_outlets.py              # Cascade fetcher for outlets that block RSS
+├── analytics.py                       # Aggregate report -> analytics/analytics.json
+├── build_publication_corpora.py       # Per-publication text corpora
+├── build_bag_of_words.py              # Corpus-wide word frequencies
+├── feed_discoverer.py                 # Probes a CSV URL column for RSS feeds
+│
+├── news_database.csv                  # Story database (one row per article)
+├── publication_story_index.csv        # Story -> publication -> full-text path
+├── publication_corpora_manifest.csv   # Per-publication corpus stats
+├── bag_of_words.csv                   # Word frequencies across the corpus
+├── ccn_nap_master.csv                 # CCN program master list (has LAT/LON)
+│
+├── data/
+│   ├── student-media-outlets.csv      # Outlet directory with LAT/LONG
+│   ├── missing_outlets.csv            # Outlets not yet in the feed lists
+│   ├── publication_locations.csv      # Generated: outlet -> coordinates
+│   └── publication_institution_overrides.csv  # Manual geocoding fixes
+│
+├── scripts/
+│   ├── geocode_publications.py        # Attach coordinates to every outlet
+│   ├── build_map_data.py              # Topic-classify stories -> map data
+│   ├── validate_news_csv.py           # CI schema check
+│   └── discover_*.py, find_missing_outlets.py   # Feed discovery helpers
+│
+├── map/                               # Interactive Leaflet coverage heatmap
+├── benchmark/                         # Site-URL lists for scraper comparison
+├── docs/PIPELINE.md                   # What each script does and how to re-run
+│
+├── feeds/, feeds_*.txt, extra_urls.txt   # Feed inputs
+├── full_text/                         # Extracted article bodies (hashed paths)
+├── publication_corpora/               # Per-publication concatenated text
+├── .github/workflows/daily-scrape.yml # Nightly GitHub Actions run
 └── README.md                          # This file
 ```
+
+## Documentation
+
+- **[docs/PIPELINE.md](docs/PIPELINE.md)** — what every script does, what it
+  reads and writes, and how to re-run each chain. Start here.
+- **[map/README.md](map/README.md)** — the coverage map: geocoding sources,
+  source-data corrections, and how to read the two weighting modes.
+- **[benchmark/README.md](benchmark/README.md)** — URL lists for comparing this
+  pipeline against another scraper, and a fair-comparison protocol.
 
 ## Setup
 
@@ -56,7 +90,10 @@ This repository contains an automated news scraping system that:
 
 3. **Install dependencies:**
    ```bash
-   pip install feedparser listparser
+   # CPU-only torch first — the default PyPI wheel is the CUDA build and pulls
+   # several GB of nvidia-* packages. Nothing here uses a GPU.
+   pip install torch --index-url https://download.pytorch.org/whl/cpu
+   pip install -r requirements.txt
    ```
 
 ### Adding Feed Sources
