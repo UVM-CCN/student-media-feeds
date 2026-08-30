@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-29T06:31:14.212816+00:00",
-  "total_stories": 14861,
+  "generated_at": "2026-08-30T04:37:04.512747+00:00",
+  "total_stories": 14961,
   "total_feeds": 108,
   "themes": {
     "Florida | College | Campus | Lsu | University": 247,
@@ -25,58 +25,58 @@
     "Permits | Staff | Grant | Concerns | New": 78
   },
   "sentiment": {
-    "neutral": 14329,
-    "positive": 321,
-    "negative": 211
+    "neutral": 14420,
+    "positive": 325,
+    "negative": 216
   },
   "keywords": {
-    "state": 621,
-    "florida": 478,
-    "students": 419,
-    "county": 411,
+    "state": 630,
+    "florida": 485,
+    "students": 421,
+    "county": 414,
     "city": 293,
-    "community": 286,
+    "community": 287,
     "penn": 261,
-    "trump": 250,
-    "first": 243,
-    "student": 241,
-    "season": 212,
-    "court": 210,
-    "school": 207,
-    "university": 199,
+    "trump": 251,
+    "first": 249,
+    "student": 242,
+    "season": 218,
+    "court": 212,
+    "school": 208,
+    "university": 202,
     "women": 198,
+    "indiana": 197,
     "center": 195,
+    "football": 193,
     "post": 193,
-    "indiana": 193,
     "college": 189,
-    "football": 189,
     "wisconsin": 185,
+    "federal": 181,
+    "former": 181,
     "basketball": 180,
-    "former": 180,
-    "federal": 179,
     "house": 177,
     "summer": 177,
-    "iowa": 169,
-    "year": 162,
-    "syracuse": 160,
+    "iowa": 176,
+    "year": 164,
+    "syracuse": 161,
     "police": 158
   },
   "sources": {
-    "Tampa Free Press": 1532,
+    "Tampa Free Press": 1555,
     "The Seattle Medium": 431,
-    "The Dominion Post": 422,
+    "The Dominion Post": 425,
     "Honolulu Civil Beat": 400,
-    "The NewsHouse": 393,
-    "Indiana Daily Student": 348,
+    "The NewsHouse": 394,
+    "Indiana Daily Student": 352,
     "Milwaukee Neighborhood News Service": 297,
     "Voice of OC": 281,
-    "www.easternprogress.com - RSS Results": 254,
+    "www.easternprogress.com - RSS Results": 264,
     "The Daily Texan": 237,
     "Caplin News": 228,
     "The Daily Northwestern": 228,
-    "The Daily Iowan": 224,
+    "The Daily Iowan": 226,
     "www.dailycal.org - RSS Results": 223,
-    "Wisconsin Watch": 215
+    "Wisconsin Watch": 216
   },
   "timeseries": {
     "2014-04-07": {
@@ -20584,7 +20584,7 @@
       }
     },
     "2026-08-28": {
-      "total": 204,
+      "total": 206,
       "themes": {
         "Wisconsin | Illinois | Shooting | Tuesday | Lake": 39,
         "Syracuse | Loyola | Loyolachicago | Wvu | Lsu": 34,
@@ -20592,18 +20592,19 @@
         "Wku | Tournament | Basketball | Invitational | Olympic": 24,
         "Milwaukee | Downtown | Weekend | Campus | Officials": 22,
         "Permits | Staff | Grant | Concerns | New": 12,
-        "Nuclear | Chaos | Cosmos | Another": 2
+        "Nuclear | Chaos | Cosmos | Another": 2,
+        "Volleyball | Hockey | Louisville | Usc | Iowa": 1
       },
       "sentiment": {
         "negative": 4,
-        "neutral": 197,
+        "neutral": 199,
         "positive": 3
       },
       "keywords": {
         "florida": 13,
         "state": 12,
+        "soccer": 11,
         "season": 11,
-        "soccer": 10,
         "opens": 8,
         "women": 7,
         "changes": 7,
@@ -20629,12 +20630,12 @@
         "The Lantern": 4,
         "The Daily Orange": 4,
         "The Daily Iowan": 4,
+        "The Battalion": 4,
         "Voice of OC": 4,
         "The Diamondback": 3,
         "WKUHerald.com": 3,
         "Reveille": 3,
         "The Michigan Daily": 3,
-        "The Battalion": 3,
         "The Miami Hurricane": 3,
         "Kentucky Kernel": 3,
         "The State News": 3,
@@ -20664,46 +20665,107 @@
         "The Crimson White": 1,
         "www.thestatehousefile.com - RSS Results": 1,
         "IPM Newsroom": 1,
-        "South Jersey Climate News": 1
+        "South Jersey Climate News": 1,
+        "The Minnesota Daily": 1
       }
     },
     "2026-08-29": {
-      "total": 30,
+      "total": 90,
       "themes": {
+        "Volleyball | Hockey | Louisville | Usc | Iowa": 31,
+        "Michigan | Bringing | Inmates | Hillsborough | Deportation": 21,
         "Syracuse | Loyola | Loyolachicago | Wvu | Lsu": 15,
         "Campus | Shelters | Students | Sca | Schools": 8,
         "Wisconsin | Illinois | Shooting | Tuesday | Lake": 1
       },
       "sentiment": {
-        "neutral": 28,
-        "positive": 2
+        "neutral": 85,
+        "positive": 4,
+        "negative": 1
       },
       "keywords": {
+        "volleyball": 8,
+        "state": 7,
+        "florida": 7,
+        "home": 6,
+        "first": 6,
         "passed": 6,
-        "home": 4,
-        "first": 4,
-        "morgantown": 4,
-        "loyola": 3,
-        "season": 3,
-        "state": 3,
-        "syracuse": 2,
-        "game": 2,
-        "volleyball": 2
+        "season": 5,
+        "michigan": 5,
+        "iowa": 4,
+        "morgantown": 4
       },
       "sources": {
-        "The Dominion Post": 10,
-        "Kentucky Kernel": 4,
+        "Tampa Free Press": 19,
+        "The Dominion Post": 13,
+        "Reveille": 8,
+        "Kentucky Kernel": 5,
+        "Indiana Daily Student": 4,
+        "The Daily Orange": 3,
         "Iowa State Daily": 3,
-        "The Daily Orange": 2,
+        "The Michigan Daily": 3,
+        "The Daily Evergreen": 3,
+        "The Miami Hurricane": 2,
         "www.thedaonline.com - RSS Results of type article": 2,
         "The Battalion": 2,
+        "The Daily Iowan": 2,
+        "The Lantern": 2,
+        "Daily Trojan": 2,
+        "The Sunflower": 2,
         "The Columbia Chronicle": 1,
         "The Western Carolina Journalist": 1,
-        "Reveille": 1,
         "Honolulu Civil Beat": 1,
         "www.dailygazette.com - RSS Results in spotlightnews of type article": 1,
-        "The Miami Hurricane": 1,
-        "The Argonaut": 1
+        "The Argonaut": 1,
+        "WKUHerald.com": 1,
+        "The Houstonian": 1,
+        "News Feed": 1,
+        "Wisconsin Watch": 1,
+        "Great Lakes Echo": 1,
+        "Grady Newsource": 1,
+        "The NewsHouse": 1,
+        "Noticiero Movil": 1,
+        "The Daily Mississippian": 1,
+        "The State News": 1
+      }
+    },
+    "2026-08-30": {
+      "total": 33,
+      "themes": {
+        "Volleyball | Hockey | Louisville | Usc | Iowa": 19,
+        "Michigan | Bringing | Inmates | Hillsborough | Deportation": 7
+      },
+      "sentiment": {
+        "positive": 2,
+        "neutral": 29,
+        "negative": 2
+      },
+      "keywords": {
+        "iowa": 5,
+        "state": 5,
+        "first": 4,
+        "volleyball": 4,
+        "season": 3,
+        "increased": 2,
+        "campus": 2,
+        "road": 2,
+        "georgia": 2,
+        "miami": 2
+      },
+      "sources": {
+        "www.easternprogress.com - RSS Results": 10,
+        "Iowa State Daily": 5,
+        "Tampa Free Press": 4,
+        "The Argonaut": 3,
+        "The Miami Hurricane": 2,
+        "Reveille": 2,
+        "The Diamondback": 1,
+        "News Feed": 1,
+        "The Daily Orange": 1,
+        "The Michigan Daily": 1,
+        "Kentucky Kernel": 1,
+        "The Stanford Daily": 1,
+        "The Daily Mississippian": 1
       }
     }
   }
