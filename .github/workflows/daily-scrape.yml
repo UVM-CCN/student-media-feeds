@@ -1,10 +1,19 @@
 name: Daily News Scrape
 
 on:
-  schedule:
-    # Runs at 11:59 PM UTC daily (cron format: minute hour day month day-of-week)
-    - cron: '59 23 * * *'
-  workflow_dispatch:  # Allows manual triggering from GitHub UI
+  # SCHEDULE INTENTIONALLY DISABLED — re-enable after the first run proves out.
+  #
+  # The first run under this workflow does far more than a steady-state night:
+  # it restores the full-text corpus from the Hub for the first time, scrapes
+  # 871 sources instead of the 176 the old feed list reached, and extracts the
+  # backlog that widening produces. It may exceed timeout-minutes below. That is
+  # recoverable — terminal statuses persist, so the next run resumes rather than
+  # restarting — but it should be watched rather than fired unattended at 23:59.
+  #
+  # To re-enable, uncomment the two lines below and push.
+  #   schedule:
+  #     - cron: '59 23 * * *'   # 11:59 PM UTC daily
+  workflow_dispatch:  # Actions tab -> Daily News Scrape -> Run workflow
 
 # Two overlapping runs would race on both the git push and the Hub upload.
 concurrency:
