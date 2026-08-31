@@ -6,21 +6,20 @@ uploads to a dataset repository on the Hub. Designed to be idempotent and
 safe to call after every nightly scrape — only changed files transfer.
 
 Configuration:
-    HF_REPO_ID — required. e.g. "uvm-ccn/student-journalism-news-deserts"
-    HF_TOKEN   — required. Write-access token from
-                 https://huggingface.co/settings/tokens
+    HF_REPO_ID — required. e.g. "center-for-community-news/student-media-feeds"
+    HF_TOKEN   — write-access token. Optional if you have run `hf auth login`,
+                 whose stored credential is used as a fallback.
 
-Both are read from environment variables. In GitHub Actions, store HF_TOKEN
-as a repository secret and pass HF_REPO_ID as an env var in the workflow.
+In GitHub Actions, store HF_TOKEN as a repository *secret* and HF_REPO_ID as a
+repository *variable* (the workflow reads it as `vars.HF_REPO_ID`).
 
 Internally uses `upload_large_folder`, which splits the upload into many
 small commits (instead of one giant commit) so the HTTP request doesn't
 time out on first push. Trade-off: the HF dataset history will have many
 auto-named commits instead of one named per push.
 
-Usage (local):
-    export HF_REPO_ID="your-handle/student-journalism-news-deserts"
-    export HF_TOKEN="hf_xxxxxxxx"
+Usage (local, already logged in with `hf auth login`):
+    export HF_REPO_ID="center-for-community-news/student-media-feeds"
     python huggingface/sync_to_hf.py
 
 Usage (CI): see huggingface/SETUP.md for the workflow snippet.
@@ -33,7 +32,7 @@ import sys
 from pathlib import Path
 
 try:
-    from huggingface_hub import HfApi, create_repo
+    from huggingface_hub import HfApi, create_repo, get_token
     from huggingface_hub.utils import RepositoryNotFoundError
 except ImportError:
     print(
@@ -48,15 +47,20 @@ BUILD_DIR = Path(__file__).resolve().parent / "dataset_build"
 
 def main():
     repo_id = os.environ.get("HF_REPO_ID")
-    token = os.environ.get("HF_TOKEN")
+    # CI passes HF_TOKEN as a secret; a human who has run `hf auth login` has it
+    # on disk instead. Requiring the env var made the script fail locally for
+    # someone already authenticated, which is the confusing failure mode.
+    token = os.environ.get("HF_TOKEN") or get_token()
 
     if not repo_id:
         print("ERROR: HF_REPO_ID environment variable is not set.", file=sys.stderr)
         print("Example: export HF_REPO_ID='your-handle/student-journalism-news-deserts'", file=sys.stderr)
         sys.exit(1)
     if not token:
-        print("ERROR: HF_TOKEN environment variable is not set.", file=sys.stderr)
-        print("Generate one at https://huggingface.co/settings/tokens (Write access)", file=sys.stderr)
+        print("ERROR: no Hugging Face credential found.", file=sys.stderr)
+        print("Either set HF_TOKEN, or run `hf auth login` to store one.", file=sys.stderr)
+        print("Generate a token at https://huggingface.co/settings/tokens (Write access)",
+              file=sys.stderr)
         sys.exit(1)
 
     if not BUILD_DIR.is_dir():

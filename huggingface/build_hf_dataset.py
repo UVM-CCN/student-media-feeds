@@ -109,7 +109,24 @@ def copy_publication_corpora():
     return count
 
 
+def published_date_range() -> str:
+    """Actual min/max of the `published` column, for the dataset card."""
+    import csv as _csv
+    import re as _re
+    lo = hi = None
+    with open(SOURCE_CSV, newline="", encoding="utf-8") as f:
+        for row in _csv.DictReader(f):
+            m = _re.match(r"(\d{4}-\d{2}-\d{2})", (row.get("published") or "").strip())
+            if not m:
+                continue
+            d = m.group(1)
+            lo = d if lo is None or d < lo else lo
+            hi = d if hi is None or d > hi else hi
+    return f"{lo} to {hi}" if lo else "unknown"
+
+
 def write_readme(story_count: int, with_text_count: int, pub_count: int):
+    date_range = published_date_range()
     """Generate a Dataset Card README.md from a template."""
     readme = f"""---
 license: cc-by-4.0
@@ -131,17 +148,42 @@ task_categories:
 
 # Student Journalism News Deserts Dataset
 
-A growing corpus of stories from U.S. student journalism outlets, collected daily
-to support research on whether student journalists help fill local news gaps in
-counties classified as "news deserts" (counties with zero local news outlets).
+A growing corpus of stories from U.S. student journalism outlets, supporting
+research on whether student journalists help fill local news gaps in counties
+classified as "news deserts" (counties with zero local news outlets).
 
 ## Dataset summary
 
 - **Stories**: {story_count:,} ({with_text_count:,} with full article text)
 - **Publications**: {pub_count} per-publication corpora available for vector analysis
-- **Time range**: Stories collected daily since early 2026
+- **Publication dates**: {date_range}
 - **Languages**: English
-- **Update frequency**: Daily (via GitHub Action)
+- **Updates**: Refreshed by the `daily-scrape` GitHub Action in the source
+  repository, which pushes here after each run. The schedule is currently
+  paused pending verification of the rewritten pipeline, so treat the build
+  date above as the real currency of the data rather than assuming it is a day
+  old.
+
+## Topic labels
+
+Each story carries `topic_id` (0-9), `topic_confidence`, and
+`topic_model_version`. Topics come from a **frozen** model: embeddings are
+clustered once, the centroids are persisted, and new stories are assigned to
+the nearest centroid rather than by refitting. Assignments are therefore
+comparable across time, which matters for any longitudinal use.
+
+`topic_confidence` is the cosine similarity to the assigned centroid. Low
+values mean the story sits between topics; filter on it rather than treating
+every assignment as equally firm. `topic_model_version` records which model
+produced the assignment, so a future retrain leaves a visible seam instead of
+silently splicing two schemes into one series.
+
+Human-readable labels for each `topic_id` live in `data/topic_labels.json` in
+the source repository, deliberately not baked into the rows.
+
+The older `theme` column is **deprecated** and no longer written. It was
+produced by refitting BERTopic on each night's headlines, so its labels are not
+comparable between runs.
 
 ## How to use
 
