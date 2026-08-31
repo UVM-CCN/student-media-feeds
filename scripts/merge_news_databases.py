@@ -46,11 +46,24 @@ FULL_TEXT_DIR = "full_text"
 # trustworthy when the file backing it actually exists, which we verify.
 TERMINAL_FAILURES = {"empty", "http_404", "http_403", "http_410"}
 
-FIELDS = [
-    "source", "title", "link", "published", "captured_at", "theme",
-    "keywords", "sentiment_label", "sentiment_score", "extraction_status",
-    "full_text_path",
-]
+# The schema is not hardcoded: columns are the union of whatever the two
+# inputs carry, primary's order first. The pipeline gains columns over time
+# (topic_id, topic_confidence, topic_model_version were added after the first
+# merge), and a fixed list would silently drop any column the merge did not
+# know about — losing work rather than reconciling it.
+FIELDS: list[str] = []
+
+
+def union_fields(primary_path: str, secondary_path: str) -> list[str]:
+    def header(path):
+        with open(path, newline="", encoding="utf-8") as f:
+            return csv.DictReader(f).fieldnames or []
+    a, b = header(primary_path), header(secondary_path)
+    fields = list(a)
+    for col in b:
+        if col not in fields:
+            fields.append(col)
+    return fields
 
 
 def text_path_for(url: str) -> str:
@@ -119,7 +132,7 @@ def merge_row(primary, secondary, on_disk) -> tuple[dict, str]:
 
 
 def main():
-    global FULL_TEXT_DIR
+    global FULL_TEXT_DIR, FIELDS
 
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -136,6 +149,9 @@ def main():
         ap.error("--out is required unless --dry-run is given")
 
     FULL_TEXT_DIR = args.full_text_dir
+
+    FIELDS = union_fields(args.primary, args.secondary)
+    print(f"schema: {len(FIELDS)} columns -> {', '.join(FIELDS)}")
 
     on_disk = set()
     for d, _, files in os.walk(FULL_TEXT_DIR):

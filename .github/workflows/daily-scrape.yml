@@ -78,6 +78,11 @@ jobs:
           python scripts/geocode_publications.py
           python scripts/build_map_data.py
 
+      # The dashboard reads this pre-aggregated file rather than parsing
+      # news_database.csv in the browser. The CSV is ~10MB; this is ~11KB.
+      - name: Rebuild dashboard data
+        run: python scripts/build_dashboard_data.py
+
       # ── Hugging Face BEFORE git, deliberately ────────────────────────────
       # news_database.csv records extraction_status="ok" for stories whose text
       # lives only in the Hub dataset. If git were committed first and the Hub
@@ -103,5 +108,6 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add news_database.csv analytics/ \
                   map/map_data.js map/map_data.json \
+                  dashboard/dashboard_data.js dashboard/dashboard_data.json \
                   data/publication_locations.csv
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database and analytics - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)

@@ -2,13 +2,22 @@
 
 Run scripts/geocode_publications.py first — this reads data/publication_locations.csv.
 
-Topics are assigned by keyword lexicon over article body text. This is a transparent
-heuristic, not a trained classifier; each story is counted once, under its strongest
-beat, and stories with no clear signal are left unassigned.
+Topics come from the frozen centroid model (scripts/train_topic_model.py, applied
+by scripts/apply_topics.py), read straight off the topic_id column. This replaced
+a hand-written keyword lexicon of ten "beats".
+
+The lexicon was a reasonable heuristic, but it meant the map and the dashboard
+answered the same question with two different classifiers, so their topic mixes
+could not be read against each other. Since the point of the dashboard is
+comparing coverage across both time and geography, the two views have to share
+one scheme. They now do.
+
+Keys are t0..t9 rather than label slugs, so that renaming a topic in
+data/topic_labels.json changes only what the legend reads — never the data
+shape, and never what a saved link to a filtered view resolves to.
 """
 import json
 import os
-import re
 from collections import Counter, defaultdict
 from urllib.parse import urlparse
 
@@ -16,65 +25,13 @@ import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "map")
-HEADER_END = "# ---"
-MIN_WORDS = 50          # below this a document is too thin to classify
-MIN_SIGNAL = 1.0        # beat hits per 1000 tokens required to assign a topic
+SOURCE_CSV = os.path.join(ROOT, "news_database.csv")
+LABELS_JSON = os.path.join(ROOT, "data", "topic_labels.json")
 
-BEATS = {
-    "sports": ("Sports & athletics", """team teams game games season seasons coach coaches
-        player players athlete athletes tournament championship league conference score
-        scored win wins won loss losses basketball football baseball softball soccer
-        volleyball hockey lacrosse track swimming wrestling ncaa playoff roster inning
-        quarter halftime"""),
-    "campus": ("Campus administration", """administration administrator president provost
-        chancellor dean trustee trustees regents board faculty senate policy policies tuition
-        enrollment accreditation budget funding department academic curriculum degree
-        graduation commencement dormitory housing residence hall union bookstore"""),
-    "politics": ("Politics & government", """election elections vote votes voter voters ballot
-        campaign candidate candidates democrat democrats republican republicans senate house
-        congress legislature legislative bill legislation governor mayor council federal
-        government policy political administration trump biden law lawmakers"""),
-    "crime": ("Crime, courts & safety", """police officer officers arrest arrested charged
-        charges court judge trial lawsuit sued attorney prosecutor investigation crime
-        criminal victim assault shooting theft burglary sentence sentenced guilty verdict
-        jail prison safety emergency"""),
-    "arts": ("Arts & culture", """music album band concert performance perform festival art
-        artist artists gallery exhibit theater theatre play film movie director actor dance
-        singer song museum literature poetry book novel review culture"""),
-    "health": ("Health & wellness", """health mental medical hospital clinic doctor patient
-        patients nurse disease illness virus covid vaccine treatment therapy counseling
-        wellness stress anxiety depression care healthcare medicine drug drugs"""),
-    "business": ("Business & labor", """business businesses company companies market economy
-        economic employer employee employees worker workers union labor strike wage wages job
-        jobs hiring industry startup entrepreneur revenue profit inflation cost costs price
-        prices"""),
-    "environment": ("Environment & climate", """climate environment environmental energy solar
-        wind carbon emissions pollution water river lake forest wildlife conservation
-        sustainability renewable recycling farm farming agriculture drought flood weather"""),
-    "immigration": ("Immigration & identity", """immigrant immigrants immigration ice
-        deportation visa asylum refugee border citizenship latino hispanic black african asian
-        indigenous native lgbtq queer transgender diversity equity inclusion race racial
-        identity community"""),
-    "housing": ("Housing & development", """housing rent rental tenant tenants landlord
-        apartment affordable homeless homelessness development developer construction zoning
-        neighborhood property real estate building project"""),
-}
-
-WORD = re.compile(r"[a-z]+")
-
-
-def strip_header(text: str) -> str:
-    i = text.find(HEADER_END)
-    return text[i + len(HEADER_END):] if i != -1 else text
-
-
-def classify(text: str, vocab: dict[str, set[str]]) -> str | None:
-    toks = Counter(WORD.findall(text.lower()))
-    total = max(1, sum(toks.values()))
-    scores = {k: sum(toks[w] for w in v if w in toks) / total * 1000
-              for k, v in vocab.items()}
-    best = max(scores, key=scores.get)
-    return best if scores[best] >= MIN_SIGNAL else None
+# Assignments below this cosine similarity sit between topics. They are still
+# counted in a newsroom's total, but not attributed to a topic — the same
+# treatment the old lexicon gave stories with no clear beat signal.
+MIN_CONFIDENCE = 0.0
 
 
 def host(url) -> str | None:
@@ -84,6 +41,19 @@ def host(url) -> str | None:
     if h.startswith("www."):
         h = h[4:]
     return h or None
+
+
+def load_labels() -> dict[str, str]:
+    """topic_id -> human label. Falls back to a placeholder if unlabeled."""
+    if not os.path.exists(LABELS_JSON):
+        return {}
+    with open(LABELS_JSON, encoding="utf-8") as f:
+        data = json.load(f)
+    out = {}
+    for tid, spec in data.get("topics", {}).items():
+        label = (spec.get("label") or "").strip()
+        out[str(tid)] = label or f"Topic {tid}"
+    return out
 
 
 def main():
@@ -96,28 +66,36 @@ def main():
         if pd.notna(r["lat"]) and pd.notna(r["lon"])
     }
 
-    idx = pd.read_csv(os.path.join(ROOT, "publication_story_index.csv"))
-    vocab = {k: set(v[1].split()) for k, v in BEATS.items()}
+    labels = load_labels()
+    if not labels:
+        raise SystemExit("No data/topic_labels.json — run scripts/train_topic_model.py")
+
+    df = pd.read_csv(SOURCE_CSV, dtype=str).fillna("")
+    df = df[df["extraction_status"] == "ok"]
 
     counts: dict[str, Counter] = defaultdict(Counter)
-    classified = skipped = 0
-    for url, path in zip(idx["url"], idx["full_text_path"]):
-        dom = host(url)
+    classified = skipped = unassigned = low_conf = 0
+    for link, tid, conf in zip(df["link"], df.get("topic_id", ""),
+                               df.get("topic_confidence", "")):
+        dom = host(link)
         if dom is None or dom not in loc_by_domain:
             skipped += 1
             continue
-        try:
-            with open(os.path.join(ROOT, path), encoding="utf-8") as f:
-                body = strip_header(f.read())
-        except OSError:
-            continue
-        if len(body.split()) < MIN_WORDS:
-            continue
         counts[dom]["total"] += 1
-        beat = classify(body, vocab)
-        if beat:
-            counts[dom][beat] += 1
-            classified += 1
+        tid = (tid or "").strip()
+        if not tid:
+            unassigned += 1
+            continue
+        try:
+            if float(conf or 0) < MIN_CONFIDENCE:
+                low_conf += 1
+                continue
+        except ValueError:
+            pass
+        counts[dom][f"t{tid}"] += 1
+        classified += 1
+
+    keys = [f"t{t}" for t in sorted(labels, key=int)]
 
     points = []
     for dom, c in counts.items():
@@ -129,7 +107,7 @@ def main():
             rec["i"] = r["institution"]
         if isinstance(r["state"], str):
             rec["s"] = r["state"]
-        for k in BEATS:
+        for k in keys:
             if c[k]:
                 rec[k] = c[k]
         points.append(rec)
@@ -137,12 +115,15 @@ def main():
 
     totals = Counter()
     for p in points:
-        for k in BEATS:
+        for k in keys:
             totals[k] += p.get(k, 0)
 
     data = {
-        "topics": [{"key": k, "label": v[0]} for k, v in BEATS.items()],
+        "topics": [{"key": f"t{t}", "label": labels[t]}
+                   for t in sorted(labels, key=int)],
         "topic_totals": dict(totals),
+        "model_version": json.load(open(LABELS_JSON, encoding="utf-8"))
+                             .get("model_version", ""),
         "points": points,
     }
     path = os.path.join(OUT, "map_data.json")
@@ -156,14 +137,18 @@ def main():
         json.dump(data, f, separators=(",", ":"))
         f.write(";\n")
 
-    print(f"points (located outlets):     {len(points)}")
+    print(f"points (located outlets):      {len(points)}")
     print(f"stories placed:                {sum(p['t'] for p in points)}")
     print(f"  assigned to a topic:         {classified}")
+    print(f"  no topic assigned:           {unassigned}")
+    if low_conf:
+        print(f"  below confidence floor:      {low_conf}")
     print(f"stories at unlocated outlets:  {skipped}")
     print(f"map_data.json:                 {os.path.getsize(path)/1024:.0f} KB")
     print()
     for k, v in totals.most_common():
-        print(f"  {v:>5}  {BEATS[k][0]}")
+        label = next(t["label"] for t in data["topics"] if t["key"] == k)
+        print(f"  {v:>6}  {label}")
 
 
 if __name__ == "__main__":

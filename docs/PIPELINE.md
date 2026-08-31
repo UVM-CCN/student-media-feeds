@@ -66,6 +66,7 @@ python scrape.py
 | 8. Per-outlet corpora | `build_publication_corpora.py` | `full_text/**` | `publication_corpora/*.txt`, `publication_corpora_manifest.csv`, `publication_story_index.csv` |
 | 9. Bag of words | `build_bag_of_words.py` | `full_text/**` | `bag_of_words.csv` |
 | 10. Map data | `scripts/geocode_publications.py`, `scripts/build_map_data.py` | `publication_story_index.csv`, `data/*.csv` | `data/publication_locations.csv`, `map/map_data.*` |
+| 7b. Assign topics | `scripts/apply_topics.py` | `full_text/**`, `models/topic_model.joblib` | `topic_id`, `topic_confidence`, `topic_model_version` |
 | 11. Publish corpus | `huggingface/build_hf_dataset.py`, `huggingface/sync_to_hf.py` | `news_database.csv`, `full_text/**`, corpora | Hub dataset |
 
 Validation runs after, in CI:
@@ -79,9 +80,12 @@ python scripts/validate_news_csv.py news_database.csv
 Both ship in `news_database.csv` and both are known-bad. See
 [the dataset summary](#dataset-summary) for the evidence.
 
-- **`theme`** — 42.9% "Unclassified", and the rest cluster on institution names
-  rather than subject, because BERTopic runs on headlines alone. Use the lexicon
-  topics from `scripts/build_map_data.py` instead.
+- **`theme`** — deprecated, no longer written. 38% "Unclassified", and the rest
+  clustered on institution names rather than subject ("Wvu | Mountaineers |
+  Syracuse | Usc"), because BERTopic ran on headlines alone and was refit on
+  each night's new batch, so labels were never comparable between runs. Use
+  `topic_id` with `data/topic_labels.json` instead. The column is retained so
+  history stays intact.
 - **`sentiment_label`** — 97.1% neutral. Scored by lexicon hits over
   title+summary with a ±0.05 token-share threshold that headline-length text
   almost never clears. The distribution reflects the threshold, not the coverage.
@@ -89,6 +93,56 @@ Both ship in `news_database.csv` and both are known-bad. See
 `analytics.json`'s `total_feeds` is also wrong: `analytics.py:159` counts only
 the OPML export and `extra_urls.txt`, skipping the ~1,660 URLs in the
 `feeds_*.txt` lists. Cite outlets observed in the data, not that number.
+
+---
+
+## Topics
+
+Topics are **discovered once and frozen**, then applied without refitting.
+
+```bash
+python scripts/train_topic_model.py     # by hand, rarely -> models/topic_model.joblib
+python scripts/apply_topics.py          # nightly, in CI -> topic_id on each row
+```
+
+`train_topic_model.py` embeds the corpus (all-MiniLM-L6-v2, first 200 words of
+each body), clusters with spherical k-means, and persists the L2-normalized
+centroids. `apply_topics.py` embeds new stories and assigns each to the nearest
+centroid by cosine similarity. It fits nothing.
+
+Why frozen centroids rather than a topic model's own inference:
+
+- **Refitting nightly is what broke `theme`.** Every run produced a different
+  model, so a label from one night meant nothing on another.
+- **A frozen BERTopic is not much better.** Its `transform()` runs UMAP then
+  HDBSCAN `approximate_predict`, which is non-deterministic near cluster
+  boundaries and routes uncertain documents to an outlier class.
+- **LDA was tried and rejected.** On this corpus it grouped by *register*
+  rather than subject — it put film reviews and primary-election coverage in one
+  topic because both are written in an evaluative first-person voice.
+
+A centroid is a fixed vector, so cosine similarity to it is deterministic
+forever, and the similarity doubles as a confidence score.
+
+### What is stored where
+
+`topic_id`, `topic_confidence` and `topic_model_version` go in
+`news_database.csv`. Human labels do **not** — they live in
+`data/topic_labels.json` and resolve when the map and dashboard data are built.
+Renaming a topic therefore never requires reprocessing the corpus.
+
+### Retraining
+
+The model is frozen, so it cannot discover topics that emerge later. When you
+retrain, `topic_model_version` changes and `apply_topics.py --reassign-all`
+re-labels the corpus. The version stamp is what makes that seam visible instead
+of letting a mixed-model time series look continuous.
+
+`scripts/text_quality.py` filters items that are not stories (image pages, CMS
+stubs) and strips template leakage before any of this. 41 files carried SNO
+theme markup that trafilatura missed — one is 38.6% CSS by character count, and
+its repeated tokens were enough to fill a topic's description with stylesheet
+fragments.
 
 ---
 

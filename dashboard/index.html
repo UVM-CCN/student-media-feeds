@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Media Coverage Dashboard</title>
+<style>
+  /* Light is the base definition; dark redefines only the tokens, under both
+     the OS setting and an explicit theme stamp so a toggle wins either way. */
+  :root {
+    color-scheme: light;
+    --surface-1: #fcfcfb;
+    --plane: #f9f9f7;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --series: #2a78d6;
+    --series-wash: rgba(42,120,214,0.10);
+    --deemph: #c3c2b7;
+    --shadow: 0 1px 2px rgba(11,11,11,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --plane: #0d0d0d;
+      --ink: #ffffff;
+      --ink-2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --axis: #383835;
+      --border: rgba(255,255,255,0.10);
+      --series: #3987e5;
+      --series-wash: rgba(57,135,229,0.14);
+      --deemph: #383835;
+      --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --plane: #0d0d0d;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255,255,255,0.10);
+    --series: #3987e5;
+    --series-wash: rgba(57,135,229,0.14);
+    --deemph: #383835;
+    --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--plane);
+    color: var(--ink);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 72px; }
+
+  header h1 { font-size: 1.5rem; font-weight: 650; margin: 0 0 4px; letter-spacing: -.01em; }
+  header p  { margin: 0; color: var(--ink-2); font-size: .92rem; max-width: 68ch; }
+  .meta { margin-top: 10px; color: var(--muted); font-size: .78rem; }
+
+  /* ---- KPI row ---- */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin: 26px 0 8px; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .tile .label { color: var(--ink-2); font-size: .78rem; }
+  .tile .value { font-size: 1.5rem; font-weight: 650; margin-top: 3px; }
+  .tile.hero .value { font-size: 2.6rem; line-height: 1.05; font-weight: 680; letter-spacing: -.02em; }
+
+  /* ---- filter row: one row, above everything it scopes ---- */
+  .filters { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: flex-end; margin: 24px 0 18px; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: .74rem; color: var(--ink-2); }
+  select, button.seg {
+    font: inherit; font-size: .85rem; color: var(--ink);
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 7px; padding: 6px 10px;
+  }
+  .seggroup { display: flex; gap: 0; }
+  .seggroup button { border-radius: 0; cursor: pointer; }
+  .seggroup button:first-child { border-radius: 7px 0 0 7px; }
+  .seggroup button:last-child  { border-radius: 0 7px 7px 0; border-left: none; }
+  .seggroup button[aria-pressed="true"] { background: var(--series); border-color: var(--series); color: #fff; font-weight: 600; }
+  button.link {
+    font: inherit; font-size: .82rem; background: none; border: none;
+    color: var(--ink-2); cursor: pointer; text-decoration: underline; padding: 0;
+  }
+
+  h2 { font-size: 1rem; font-weight: 640; margin: 30px 0 4px; }
+  .hint { color: var(--muted); font-size: .8rem; margin: 0 0 14px; }
+
+  /* ---- small multiples ---- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(215px,1fr)); gap: 12px; }
+  .panel {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 12px 8px; cursor: pointer; text-align: left; font: inherit; color: inherit;
+    box-shadow: var(--shadow); transition: border-color .12s;
+  }
+  .panel:hover { border-color: var(--axis); }
+  .panel[aria-pressed="true"] { border-color: var(--series); box-shadow: 0 0 0 1px var(--series); }
+  .panel:focus-visible { outline: 2px solid var(--series); outline-offset: 2px; }
+  .panel .pname { font-size: .82rem; font-weight: 600; line-height: 1.25; }
+  .panel .pval  { font-size: .74rem; color: var(--ink-2); margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .panel svg { display: block; width: 100%; height: auto; margin-top: 6px; }
+
+  /* ---- detail + states ---- */
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow); }
+  .card svg { display: block; width: 100%; height: auto; }
+  .cols { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
+  @media (min-width: 900px) { .cols.two { grid-template-columns: 1.35fr 1fr; } }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 2px 0 10px; font-size: .8rem; color: var(--ink-2); }
+  .legend .k { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 14px; height: 2px; border-radius: 1px; background: var(--series); }
+  .legend .swatch.gray { background: var(--deemph); }
+
+  table { border-collapse: collapse; width: 100%; font-size: .82rem; }
+  th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; font-variant-numeric: normal; }
+  thead th { color: var(--ink-2); font-weight: 600; white-space: nowrap; }
+  .tablewrap { overflow-x: auto; }
+  .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+  /* ---- tooltip ---- */
+  #tip {
+    position: fixed; pointer-events: none; opacity: 0; transition: opacity .08s;
+    background: var(--surface-1); color: var(--ink); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: .8rem; z-index: 50;
+    box-shadow: 0 4px 14px rgba(0,0,0,.14); max-width: 260px;
+  }
+  #tip .tv { font-weight: 650; font-size: .95rem; }
+  #tip .tl { color: var(--ink-2); }
+  #tip .row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+  #tip .key { width: 12px; height: 2px; border-radius: 1px; background: var(--series); flex: none; }
+  .note { color: var(--muted); font-size: .78rem; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Student media coverage</h1>
+    <p>How topic coverage across U.S. student newsrooms changes over time and across
+       the country. Each story is assigned to one of ten topics by a frozen model, so
+       shares are comparable from month to month.</p>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="filters">
+    <div class="field">
+      <label for="from">From</label>
+      <select id="from"></select>
+    </div>
+    <div class="field">
+      <label for="to">To</label>
+      <select id="to"></select>
+    </div>
+    <div class="field">
+      <label id="measlabel">Measure</label>
+      <div class="seggroup" role="group" aria-labelledby="measlabel">
+        <button class="seg" id="mShare" aria-pressed="true">Share</button>
+        <button class="seg" id="mCount" aria-pressed="false">Count</button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="reset">&nbsp;</label>
+      <button class="link" id="reset">Reset</button>
+    </div>
+  </div>
+
+  <h2>Coverage by topic over time</h2>
+  <p class="hint" id="smHint"></p>
+  <div class="grid" id="grid"></div>
+
+  <h2 id="detailTitle">All topics</h2>
+  <p class="hint" id="detailHint"></p>
+  <div class="cols two">
+    <div class="card">
+      <div class="legend" id="detailLegend"></div>
+      <div id="detail"></div>
+    </div>
+    <div class="card">
+      <div class="legend"><span class="k"><span class="swatch"></span> Stories</span></div>
+      <div id="states"></div>
+    </div>
+  </div>
+
+  <h2>Table view</h2>
+  <p class="hint">Every plotted value, reachable without hovering.</p>
+  <div class="card tablewrap"><table id="table"></table></div>
+
+  <p class="note" id="footnote"></p>
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+<script src="dashboard_data.js"></script>
+<script>
+(function () {
+  "use strict";
+  var D = window.DASHBOARD_DATA;
+  var $ = function (id) { return document.getElementById(id); };
+  if (!D) { $("meta").textContent = "dashboard_data.js failed to load."; return; }
+
+  var THIN = new Set(D.thin_months || []);
+  var DEF = D.default_range || [0, D.months.length - 1];
+  // Largest topic by default. The detail chart is an emphasis chart, and with
+  // nothing emphasized it degrades into ten converging gray lines that no one
+  // can read -- so there is always exactly one topic in focus.
+  var BIGGEST = D.topics.slice().sort(function (a, b) { return b.total - a.total; })[0];
+  var state = { topic: BIGGEST ? BIGGEST.key : null, measure: "share", i0: DEF[0], i1: DEF[1] };
+
+  var nf = new Intl.NumberFormat("en-US");
+  function pct(x) { return (x * 100).toFixed(1) + "%"; }
+  function monthLabel(m) {
+    var p = m.split("-");
+    var d = new Date(Date.UTC(+p[0], +p[1] - 1, 1));
+    return d.toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+  }
+  function el(tag, attrs, kids) {
+    var n = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (var k in attrs) if (attrs[k] != null) n.setAttribute(k, attrs[k]);
+    (kids || []).forEach(function (c) { n.appendChild(c); });
+    return n;
+  }
+
+  /* ---------- slice helpers ---------- */
+  function months() { return D.months.slice(state.i0, state.i1 + 1); }
+  function totals() { return D.month_totals.slice(state.i0, state.i1 + 1); }
+  function series(key) { return D.series[key].slice(state.i0, state.i1 + 1); }
+  function valueAt(key, i) {
+    var c = series(key)[i], t = totals()[i];
+    return state.measure === "share" ? (t ? c / t : 0) : c;
+  }
+  function fmt(v) { return state.measure === "share" ? pct(v) : nf.format(v); }
+  function topicTotal(key) {
+    return series(key).reduce(function (a, b) { return a + b; }, 0);
+  }
+  function sortedTopics() {
+    return D.topics.slice().sort(function (a, b) { return topicTotal(b.key) - topicTotal(a.key); });
+  }
+
+  /* ---------- tooltip ---------- */
+  var tip = $("tip");
+  function showTip(e, title, rows) {
+    tip.textContent = "";
+    var h = document.createElement("div");
+    h.className = "tl"; h.textContent = title;
+    tip.appendChild(h);
+    rows.forEach(function (r) {
+      var row = document.createElement("div"); row.className = "row";
+      var k = document.createElement("span"); k.className = "key";
+      if (r.gray) k.style.background = "var(--deemph)";
+      var v = document.createElement("span"); v.className = "tv"; v.textContent = r.value;
+      var l = document.createElement("span"); l.className = "tl"; l.textContent = r.label;
+      row.appendChild(k); row.appendChild(v); row.appendChild(l);
+      tip.appendChild(row);
+    });
+    tip.style.opacity = "1";
+    var pad = 14, w = tip.offsetWidth, h2 = tip.offsetHeight;
+    var x = e.clientX + pad, y = e.clientY + pad;
+    if (x + w > innerWidth - 8) x = e.clientX - w - pad;
+    if (y + h2 > innerHeight - 8) y = e.clientY - h2 - pad;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { tip.style.opacity = "0"; }
+  document.addEventListener("scroll", hideTip, true);
+
+  /* ---------- area path for a small multiple ---------- */
+  function areaPath(vals, max, w, h, pad) {
+    if (vals.length === 0) return { line: "", area: "" };
+    var n = vals.length;
+    var x = function (i) { return n === 1 ? w / 2 : pad + i * (w - pad * 2) / (n - 1); };
+    var y = function (v) { return h - pad - (max ? (v / max) * (h - pad * 2) : 0); };
+    var line = "", area = "";
+    for (var i = 0; i < n; i++) {
+      line += (i ? "L" : "M") + x(i).toFixed(1) + " " + y(vals[i]).toFixed(1);
+    }
+    area = line + "L" + x(n - 1).toFixed(1) + " " + (h - pad) + "L" + x(0).toFixed(1) + " " + (h - pad) + "Z";
+    return { line: line, area: area, x: x, y: y };
+  }
+
+  /* ---------- small multiples ---------- */
+  function renderGrid() {
+    var host = $("grid"); host.textContent = "";
+    var ms = months();
+    var list = sortedTopics();
+    // One shared y-max across panels: panels are only comparable if they share
+    // a scale. Per-panel autoscaling would make a 2% topic look like a 30% one.
+    var max = 0;
+    list.forEach(function (t) {
+      for (var i = 0; i < ms.length; i++) max = Math.max(max, valueAt(t.key, i));
+    });
+    if (!max) max = 1;
+
+    list.forEach(function (t) {
+      var vals = ms.map(function (_, i) { return valueAt(t.key, i); });
+      var btn = document.createElement("button");
+      btn.className = "panel";
+      btn.setAttribute("aria-pressed", state.topic === t.key ? "true" : "false");
+      var name = document.createElement("div"); name.className = "pname";
+      name.textContent = t.label;
+      var val = document.createElement("div"); val.className = "pval";
+      var tt = topicTotal(t.key);
+      var grand = totals().reduce(function (a, b) { return a + b; }, 0);
+      val.textContent = state.measure === "share"
+        ? pct(grand ? tt / grand : 0) + " of stories"
+        : nf.format(tt) + " stories";
+      btn.appendChild(name); btn.appendChild(val);
+
+      var W = 220, H = 62, P = 4;
+      var p = areaPath(vals, max, W, H, P);
+      var svg = el("svg", { viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "none",
+                            role: "img", "aria-label": t.label + " coverage trend" });
+      svg.appendChild(el("path", { d: p.area, fill: "var(--series-wash)" }));
+      svg.appendChild(el("path", { d: p.line, fill: "none", stroke: "var(--series)",
+                                   "stroke-width": 2, "stroke-linejoin": "round",
+                                   "stroke-linecap": "round", "vector-effect": "non-scaling-stroke" }));
+      // End marker with a surface ring, so it stays legible where it meets the edge.
+      if (vals.length) {
+        svg.appendChild(el("circle", { cx: p.x(vals.length - 1), cy: p.y(vals[vals.length - 1]),
+                                       r: 3.5, fill: "var(--series)",
+                                       stroke: "var(--surface-1)", "stroke-width": 2 }));
+      }
+      btn.appendChild(svg);
+
+      btn.addEventListener("click", function () {
+        state.topic = t.key;
+        render();
+      });
+      btn.addEventListener("pointermove", function (e) {
+        showTip(e, t.label, [{ value: val.textContent, label: "" }]);
+      });
+      btn.addEventListener("pointerleave", hideTip);
+      btn.addEventListener("focus", function (e) {
+        var r = btn.getBoundingClientRect();
+        showTip({ clientX: r.left, clientY: r.bottom }, t.label, [{ value: val.textContent, label: "" }]);
+      });
+      btn.addEventListener("blur", hideTip);
+      host.appendChild(btn);
+    });
+  }
+
+  /* ---------- detail: emphasis line chart ---------- */
+  function renderDetail() {
+    var host = $("detail"); host.textContent = "";
+    var ms = months();
+    var W = 720, H = 300, L = 46, R = 16, T = 14, B = 42;
+    var iw = W - L - R, ih = H - T - B;
+
+    var list = sortedTopics();
+    var max = 0;
+    list.forEach(function (t) {
+      for (var i = 0; i < ms.length; i++) max = Math.max(max, valueAt(t.key, i));
+    });
+    if (!max) max = 1;
+
+    var x = function (i) { return ms.length === 1 ? L + iw / 2 : L + i * iw / (ms.length - 1); };
+    var y = function (v) { return T + ih - (v / max) * ih; };
+
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": (state.topic ? labelOf(state.topic) : "All topics") + " over time" });
+
+    // gridlines: solid hairlines, one step off surface
+    var ticks = 4;
+    for (var g = 0; g <= ticks; g++) {
+      var vv = max * g / ticks, yy = y(vv);
+      svg.appendChild(el("line", { x1: L, x2: W - R, y1: yy, y2: yy,
+        stroke: "var(--grid)", "stroke-width": 1 }));
+      var tl = el("text", { x: L - 8, y: yy + 4, "text-anchor": "end",
+        fill: "var(--muted)", "font-size": 11 });
+      tl.textContent = state.measure === "share" ? (vv * 100).toFixed(0) + "%" : nf.format(Math.round(vv));
+      svg.appendChild(tl);
+    }
+    // baseline
+    svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(0), y2: y(0),
+      stroke: "var(--axis)", "stroke-width": 1 }));
+
+    // x labels — thin every other when crowded so they never collide
+    var step = ms.length > 9 ? Math.ceil(ms.length / 8) : 1;
+    ms.forEach(function (m, i) {
+      if (i % step && i !== ms.length - 1) return;
+      // Anchor the end labels inward; centered text at the extremes overflows
+      // the viewBox and gets clipped ("Aug 202").
+      var anchor = i === 0 ? "start" : (i === ms.length - 1 ? "end" : "middle");
+      var t2 = el("text", { x: x(i), y: H - B + 18, "text-anchor": anchor,
+        fill: THIN.has(m) ? "var(--deemph)" : "var(--muted)", "font-size": 11 });
+      t2.textContent = monthLabel(m);
+      svg.appendChild(t2);
+    });
+
+    // context series in de-emphasis gray, then the focus series on top
+    list.forEach(function (t) {
+      if (state.topic && t.key === state.topic) return;
+      var vals = ms.map(function (_, i) { return valueAt(t.key, i); });
+      var d = ""; vals.forEach(function (v, i) { d += (i ? "L" : "M") + x(i) + " " + y(v); });
+      svg.appendChild(el("path", { d: d, fill: "none",
+        stroke: state.topic ? "var(--deemph)" : "var(--deemph)",
+        "stroke-width": state.topic ? 1.5 : 1.5, "stroke-linejoin": "round", opacity: state.topic ? 1 : .9 }));
+    });
+    if (state.topic) {
+      var vals = ms.map(function (_, i) { return valueAt(state.topic, i); });
+      var p = areaPath(vals, max, 0, 0, 0);
+      var d = "", a = "";
+      vals.forEach(function (v, i) { d += (i ? "L" : "M") + x(i) + " " + y(v); });
+      a = d + "L" + x(ms.length - 1) + " " + y(0) + "L" + x(0) + " " + y(0) + "Z";
+      svg.appendChild(el("path", { d: a, fill: "var(--series-wash)" }));
+      svg.appendChild(el("path", { d: d, fill: "none", stroke: "var(--series)",
+        "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+      vals.forEach(function (v, i) {
+        svg.appendChild(el("circle", { cx: x(i), cy: y(v), r: 4, fill: "var(--series)",
+          stroke: "var(--surface-1)", "stroke-width": 2 }));
+      });
+      // direct-label the endpoint only
+      var last = vals.length - 1;
+      var lab = el("text", { x: x(last) - 6, y: y(vals[last]) - 12, "text-anchor": "end",
+        fill: "var(--ink)", "font-size": 12, "font-weight": 650 });
+      lab.textContent = fmt(vals[last]);
+      svg.appendChild(lab);
+    }
+
+    // crosshair + hit layer: readers aim at a month, never at a 2px line
+    var hair = el("line", { x1: 0, x2: 0, y1: T, y2: T + ih, stroke: "var(--axis)",
+      "stroke-width": 1, opacity: 0 });
+    svg.appendChild(hair);
+    var hit = el("rect", { x: L, y: T, width: iw, height: ih, fill: "transparent" });
+    svg.appendChild(hit);
+    function onMove(e) {
+      var r = svg.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width * W;
+      var i = Math.round((px - L) / (iw || 1) * (ms.length - 1));
+      i = Math.max(0, Math.min(ms.length - 1, i));
+      hair.setAttribute("x1", x(i)); hair.setAttribute("x2", x(i)); hair.setAttribute("opacity", 1);
+      var rows = (state.topic ? [D.topics.find(function (t) { return t.key === state.topic; })]
+                              : sortedTopics().slice(0, 5))
+        .map(function (t) { return { value: fmt(valueAt(t.key, i)), label: t.label,
+                                     gray: state.topic ? false : true }; });
+      var title = monthLabel(ms[i]) + (THIN.has(ms[i]) ? " · thin sample" : "");
+      showTip(e, title, rows);
+    }
+    hit.addEventListener("pointermove", onMove);
+    hit.addEventListener("pointerleave", function () { hair.setAttribute("opacity", 0); hideTip(); });
+    host.appendChild(svg);
+  }
+
+  function labelOf(key) {
+    var t = D.topics.find(function (x) { return x.key === key; });
+    return t ? t.label : key;
+  }
+
+  /* ---------- geography: one series, one color (states are nominal) ---------- */
+  function renderStates() {
+    var host = $("states"); host.textContent = "";
+    var rows = D.states.map(function (s) {
+      return { code: s.code, n: state.topic ? (s.counts[state.topic] || 0) : s.total };
+    }).filter(function (r) { return r.n > 0; })
+      .sort(function (a, b) { return b.n - a.n; }).slice(0, 12);
+
+    if (!rows.length) { var p = document.createElement("p"); p.className = "hint";
+      p.textContent = "No located stories for this selection."; host.appendChild(p); return; }
+
+    var max = rows[0].n;
+    var BW = 320, rowH = 26, L = 34, R = 46;
+    var H = rows.length * rowH + 8;
+    var svg = el("svg", { viewBox: "0 0 " + BW + " " + H, role: "img",
+      "aria-label": "Stories by state" });
+    rows.forEach(function (r, i) {
+      var y = i * rowH + 4, bh = 14;
+      var w = Math.max(1, (r.n / max) * (BW - L - R));
+      var code = el("text", { x: 0, y: y + bh - 2, fill: "var(--ink-2)", "font-size": 11 });
+      code.textContent = r.code;
+      svg.appendChild(code);
+      // 4px rounded data-end, square at the baseline
+      svg.appendChild(el("rect", { x: L, y: y, width: w, height: bh, rx: 4,
+        fill: "var(--series)" }));
+      svg.appendChild(el("rect", { x: L, y: y, width: Math.min(4, w), height: bh,
+        fill: "var(--series)" }));
+      var v = el("text", { x: L + w + 7, y: y + bh - 2, fill: "var(--ink-2)", "font-size": 11 });
+      v.textContent = nf.format(r.n);
+      svg.appendChild(v);
+      // hit target spans the whole row, not just the painted bar
+      var hit = el("rect", { x: 0, y: y - 4, width: BW, height: rowH, fill: "transparent" });
+      hit.addEventListener("pointermove", function (e) {
+        showTip(e, r.code, [{ value: nf.format(r.n), label: "stories" }]);
+      });
+      hit.addEventListener("pointerleave", hideTip);
+      svg.appendChild(hit);
+    });
+    host.appendChild(svg);
+  }
+
+  /* ---------- table view ---------- */
+  function renderTable() {
+    var t = $("table"); t.textContent = "";
+    var ms = months();
+    var thead = document.createElement("thead");
+    var hr = document.createElement("tr");
+    ["Topic"].concat(ms.map(monthLabel)).concat(["Total"]).forEach(function (h) {
+      var th = document.createElement("th"); th.textContent = h; hr.appendChild(th);
+    });
+    thead.appendChild(hr); t.appendChild(thead);
+    var tb = document.createElement("tbody");
+    sortedTopics().forEach(function (tp) {
+      var tr = document.createElement("tr");
+      var td0 = document.createElement("td"); td0.textContent = tp.label; tr.appendChild(td0);
+      ms.forEach(function (_, i) {
+        var td = document.createElement("td"); td.textContent = fmt(valueAt(tp.key, i)); tr.appendChild(td);
+      });
+      var tdT = document.createElement("td"); tdT.textContent = nf.format(topicTotal(tp.key));
+      tr.appendChild(tdT); tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  }
+
+  /* ---------- chrome ---------- */
+  function renderKpis() {
+    var host = $("kpis"); host.textContent = "";
+    var ms = months();
+    var grand = totals().reduce(function (a, b) { return a + b; }, 0);
+    var items = [
+      { label: "Stories in range", value: nf.format(grand), hero: true },
+      { label: "Publications", value: nf.format(D.totals.publications) },
+      { label: "Topics", value: String(D.topics.length) },
+      { label: "Months covered", value: String(ms.length) }
+    ];
+    items.forEach(function (it) {
+      var d = document.createElement("div"); d.className = "tile" + (it.hero ? " hero" : "");
+      var l = document.createElement("div"); l.className = "label"; l.textContent = it.label;
+      var v = document.createElement("div"); v.className = "value"; v.textContent = it.value;
+      d.appendChild(l); d.appendChild(v); host.appendChild(d);
+    });
+  }
+
+  function renderChrome() {
+    $("meta").textContent = "Model " + D.model_version + " · built " +
+      (D.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
+    var thin = (D.thin_months || []).length;
+    $("smHint").textContent = "One panel per topic, sharing a single vertical scale so they stay comparable. "
+      + "Click a panel to focus it below." + (thin ? " Months with fewer than 200 stories are shown in gray on the axis — early collection was sparse, so their shares are noisy." : "");
+    $("detailTitle").textContent = state.topic ? labelOf(state.topic) : "All topics";
+    $("detailHint").textContent =
+      "Selected topic in blue; the other nine in gray for context. "
+      + "Click any panel above to switch focus.";
+    var lg = $("detailLegend"); lg.textContent = "";
+    function key(label, gray) {
+      var s = document.createElement("span"); s.className = "k";
+      var sw = document.createElement("span"); sw.className = "swatch" + (gray ? " gray" : "");
+      var tx = document.createElement("span"); tx.textContent = label;
+      s.appendChild(sw); s.appendChild(tx); return s;
+    }
+    if (state.topic) {
+      lg.appendChild(key(labelOf(state.topic), false));
+      lg.appendChild(key("Other topics", true));
+    } else {
+      lg.appendChild(key("All ten topics", true));
+    }
+    $("footnote").textContent =
+      "Coverage is shown as each topic's share of that month's stories. Raw counts rise "
+      + "sharply over the period because the number of monitored outlets grew, so counts "
+      + "measure collection as much as coverage; share does not. "
+      + nf.format(D.totals.stories - D.totals.classified) + " of "
+      + nf.format(D.totals.stories) + " stories are unclassified (no extracted text, or too short).";
+  }
+
+  function fillMonthSelects() {
+    ["from", "to"].forEach(function (which) {
+      var sel = $(which); sel.textContent = "";
+      D.months.forEach(function (m, i) {
+        var o = document.createElement("option"); o.value = String(i);
+        o.textContent = monthLabel(m); sel.appendChild(o);
+      });
+    });
+    $("from").value = String(state.i0);
+    $("to").value = String(state.i1);
+  }
+
+  function render() {
+    renderChrome(); renderKpis(); renderGrid(); renderDetail(); renderStates(); renderTable();
+    $("mShare").setAttribute("aria-pressed", state.measure === "share" ? "true" : "false");
+    $("mCount").setAttribute("aria-pressed", state.measure === "count" ? "true" : "false");
+  }
+
+  $("from").addEventListener("change", function () {
+    state.i0 = +this.value; if (state.i0 > state.i1) { state.i1 = state.i0; $("to").value = String(state.i1); }
+    render();
+  });
+  $("to").addEventListener("change", function () {
+    state.i1 = +this.value; if (state.i1 < state.i0) { state.i0 = state.i1; $("from").value = String(state.i0); }
+    render();
+  });
+  $("mShare").addEventListener("click", function () { state.measure = "share"; render(); });
+  $("mCount").addEventListener("click", function () { state.measure = "count"; render(); });
+  $("reset").addEventListener("click", function () {
+    state = { topic: BIGGEST ? BIGGEST.key : null, measure: "share", i0: DEF[0], i1: DEF[1] };
+    fillMonthSelects(); render();
+  });
+
+  fillMonthSelects();
+  render();
+})();
+</script>
+</body>
+</html>
