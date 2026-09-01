@@ -14,9 +14,13 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Local-only context / scratch
-# (uncomment if .context/ holds personal notes you don't want to share)
-# .context/
+# Local-only context / scratch. Working notes, not project documentation --
+# docs/PIPELINE.md and the READMEs are the shared record. Remove this line if
+# you decide these should be shared.
+.context/
+
+# Editor configuration is per-developer.
+.vscode/
 
 # The corpus lives on Hugging Face, not here:
 #   center-for-community-news/student-media-feeds
