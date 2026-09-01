@@ -44,7 +44,34 @@ discarded with the runner.
 
 ---
 
-## Collection (automatic, nightly)
+## Collection runs on two schedules
+
+| Job | Schedule | Does | Time |
+|---|---|---|---|
+| `capture-feeds.yml` | 05:59, 11:59, 17:59 UTC | Fetches feeds, banks new story URLs, commits `news_database.csv`. Nothing else. | ~3-5 min |
+| `daily-scrape.yml` | 23:59 UTC | Everything below: extraction, topics, corpora, analytics, map, dashboard, Hub push. | ~1-2 h |
+
+The split exists because the two halves have different deadlines. An RSS feed
+exposes roughly the last 10-25 items, so a story published between runs and
+pushed past that window is never seen — capture is time-critical. The article
+page, by contrast, outlives the feed entry by months, so extraction can happen
+whenever. Capturing four times a day shrinks the window of loss to six hours
+without paying for the expensive half four times; the capture job installs no
+ML dependencies (`requirements-capture.txt`) and touches neither the Hub nor
+the corpus.
+
+Both jobs share the `student-media-pipeline` concurrency group. They both
+commit to `main`, and two runs pushing at once would leave one rejected.
+
+Run capture by hand with:
+
+```bash
+python scrape.py --capture-only
+```
+
+---
+
+## The nightly pipeline
 
 `scrape.py` is the entry point and calls the rest in order. Running it runs
 everything in this section.

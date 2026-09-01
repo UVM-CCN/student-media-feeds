@@ -10,8 +10,13 @@ curl_cffi
 huggingface_hub
 pyarrow
 
-# BERTopic and its required transitive dependencies
-bertopic
+# Sentence embeddings for the frozen topic model (scripts/apply_topics.py).
+# torch comes with this; install the CPU wheel first (see README) or pip pulls
+# the CUDA build and fills the runner's disk.
 sentence-transformers
-umap-learn
-hdbscan
+
+# bertopic, umap-learn and hdbscan were removed with the nightly BERTopic theme
+# step. Nothing in the pipeline fits a topic model any more -- training is a
+# manual step using scikit-learn's KMeans over sentence-transformer embeddings.
+scikit-learn
+joblib

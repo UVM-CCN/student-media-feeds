@@ -1,0 +1,69 @@
+name: Capture Feeds
+
+# Why this exists separately from the nightly run:
+#
+# An RSS feed exposes roughly the last 10-25 items. Anything an outlet
+# publishes between two runs and pushes past that window is unrecoverable --
+# the story is simply never seen. The nightly job runs once every 24 hours, and
+# with the school year underway publication volume rises, so windows empty
+# faster than they did over the summer.
+#
+# Capturing a URL is time-critical. Processing it is not: the article page
+# outlives the feed entry by months, so extraction, topic assignment and
+# publishing can happen later from whatever has been banked. This job does only
+# the time-critical half, four times a day, in about three minutes -- it
+# installs no ML dependencies and touches neither the Hub nor the corpus.
+
+on:
+  schedule:
+    # Every six hours, offset from the nightly full run at 23:59 UTC.
+    - cron: '59 5,11,17 * * *'
+  workflow_dispatch:
+
+# Shared with daily-scrape.yml on purpose: both jobs commit to main, and two
+# runs pushing at once would leave one of them rejected. Same group means they
+# queue instead of racing.
+concurrency:
+  group: student-media-pipeline
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # Light dependency set only. No torch, no sentence-transformers: this run
+      # never embeds or extracts anything.
+      - name: Install capture dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-capture.txt
+
+      - name: Capture new stories from feeds
+        run: python scrape.py --capture-only
+
+      - name: Validate CSV output
+        run: python scripts/validate_news_csv.py news_database.csv
+
+      # Only news_database.csv changes here. Rows land with an empty
+      # extraction_status, which is exactly what the nightly run's
+      # fetch_full_text step treats as pending.
+      - name: Commit newly captured stories
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add news_database.csv
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Capture new stories from feeds - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)

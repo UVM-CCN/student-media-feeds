@@ -1,0 +1,12 @@
+# Dependencies for the capture-only run (`python scrape.py --capture-only`).
+#
+# Deliberately excludes torch, sentence-transformers, scikit-learn, pyarrow and
+# huggingface_hub. Capture fetches feeds and banks story URLs; it does no
+# extraction, embedding or publishing, so it has no reason to pull several
+# hundred MB of ML wheels on a run that otherwise takes about three minutes.
+#
+# The nightly full run uses requirements.txt.
+feedparser
+listparser
+requests
+beautifulsoup4

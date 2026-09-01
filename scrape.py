@@ -3,12 +3,12 @@ import os
 import datetime
 import logging
 import json
-import math
 import time
 import random
 import html
 import re
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Set, Any, Optional
 
 import feedparser
@@ -16,9 +16,11 @@ import listparser
 import requests
 from bs4 import BeautifulSoup
 
-from bertopic import BERTopic
-from bertopic.representation import KeyBERTInspired
-import pandas as pd
+
+# Feeds are fetched concurrently. Each feed is a separate host, so this adds no
+# per-host pressure -- it only stops 850+ sequential network round-trips from
+# dominating the run. Deduplication stays single-threaded below.
+FEED_WORKERS = 12
 
 # Configure logging to track the pipeline progress
 logging.basicConfig(
@@ -135,15 +137,27 @@ class NewsPipeline:
 
         return "No Date"
 
-    def _fetch_feed_with_retries(self, url: str, max_retries: int = 4, timeout_seconds: int = 15) -> Optional[Any]:
-        """Fetches a feed with retry/backoff to tolerate transient failures."""
+    def _fetch_feed_with_retries(self, url: str, max_retries: int = 2,
+                                 timeout: tuple = (5, 10)) -> Optional[Any]:
+        """
+        Fetch a feed, retrying briefly to ride out transient failures.
+
+        Timeout is a (connect, read) pair rather than one number: a single
+        value is applied per socket operation, so a host that accepts a
+        connection and then stalls could burn far longer than intended. One
+        unreachable feed was observed taking ~47s per attempt, and at the
+        previous 4 attempts that is three minutes spent on a single dead feed.
+
+        Two attempts, not four. A feed that fails twice with these timeouts is
+        down, not flaky, and this job runs again in six hours.
+        """
         headers = {
             "User-Agent": "StudentMediaFeedsBot/1.0 (+https://github.com/)"
         }
 
         for attempt in range(max_retries):
             try:
-                response = requests.get(url, timeout=timeout_seconds, headers=headers)
+                response = requests.get(url, timeout=timeout, headers=headers)
                 response.raise_for_status()
                 return feedparser.parse(response.content)
             except requests.exceptions.RequestException as e:
@@ -347,79 +361,243 @@ class NewsPipeline:
         else:
             logging.info("No comment articles found to remove.")
 
-    def tag_stories_with_bertopic(self):
+    def tag_stories_with_ai(self, api_key: str):
         """
-        Uses BERTopic to cluster headlines into themes locally.
-        Only processes rows that have no theme set; existing theme labels are preserved.
+        Reads the CSV, finds untagged stories, uses Gemini to categorize them,
+        and saves the updated data back to the CSV incrementally.
+        """
+        if not os.path.exists(self.output_file) or not api_key:
+            return
+
+        rows = []
+        with open(self.output_file, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+
+        untagged = [r for r in rows if not r.get('theme')]
+        if not untagged:
+            logging.info("All stories already have themes.")
+            return
+
+        logging.info(f"Found {len(untagged)} untagged stories out of {len(rows)} total.")
+        
+        # --- Diverse Sampling Logic ---
+        sample_size = 300
+        step = max(1, len(rows) // sample_size)
+        sampled_rows = rows[::step][:sample_size]
+        sample_text = "\n".join([r['title'] for r in sampled_rows])
+        
+        # Determine Themes
+        theme_prompt = f"Identify 8-10 broad news themes for these headlines. Return ONLY JSON: {{\"themes\": [\"Tech\", \"Politics\", \"Health\", \"Finance\", ...]}}. Headlines:\n{sample_text}"
+        
+        try:
+            def call_gemini(prompt, max_retries=5):
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key={api_key}"
+                payload = {"contents": [{"parts": [{"text": prompt}]}]}
+                
+                for attempt in range(max_retries):
+                    try:
+                        res = requests.post(url, json=payload, timeout=30)
+                        res.raise_for_status()
+                        res_json = res.json()
+                        text = res_json['candidates'][0]['content']['parts'][0]['text']
+                        clean_text = text.replace('```json', '').replace('```', '').strip()
+                        return json.loads(clean_text)
+                    except requests.exceptions.HTTPError as e:
+                        status_code = e.response.status_code
+                        if status_code in [429, 500, 503]:
+                            wait_time = (2 ** attempt) + (random.randint(0, 1000) / 1000)
+                            logging.warning(f"API Error {status_code}. Retrying in {wait_time:.2f}s... (Attempt {attempt+1}/{max_retries})")
+                            time.sleep(wait_time)
+                        else:
+                            raise e
+                    except (json.JSONDecodeError, KeyError) as e:
+                        logging.error(f"Failed to parse AI response: {e}")
+                        if attempt == max_retries - 1: raise e
+                        time.sleep(2)
+                return None
+
+            themes_json = call_gemini(theme_prompt)
+            if not themes_json: return
+            
+            theme_labels = ", ".join(themes_json['themes'])
+            logging.info(f"Target Themes: {theme_labels}")
+
+            batch_size = 25
+            total_batches = (len(untagged) + batch_size - 1) // batch_size
+            
+            for i in range(0, len(untagged), batch_size):
+                batch = untagged[i:i+batch_size]
+                batch_text = "\n".join([f"{idx}: {r['title']}" for idx, r in enumerate(batch)])
+                cat_prompt = f"Categorize these headlines into one of these themes: {theme_labels}. Return ONLY JSON: {{\"mapping\": [{{ \"id\": 0, \"theme\": \"Label\" }}, ...]}}. Headlines:\n{batch_text}"
+                
+                try:
+                    mapping_json = call_gemini(cat_prompt)
+                    if mapping_json and 'mapping' in mapping_json:
+                        for item in mapping_json['mapping']:
+                            try:
+                                idx = int(item['id'])
+                                if idx < len(batch):
+                                    batch[idx]['theme'] = item['theme']
+                            except (ValueError, KeyError, TypeError):
+                                continue
+
+                    normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in rows]
+                    self._write_rows_atomic(normalized_rows)
+                    
+                    logging.info(f"Successfully processed batch {i // batch_size + 1}/{total_batches}")
+                    time.sleep(2)
+                    
+                except Exception as batch_error:
+                    logging.error(f"Error in batch {i // batch_size + 1}: {batch_error}")
+                    time.sleep(5)
+
+            logging.info("AI Tagging process finished.")
+
+        except Exception as e:
+            logging.error(f"Thematic analysis failed: {e}")
+
+    def fetch_stories(self, feed_urls: List[str], max_workers: int = FEED_WORKERS):
+        """
+        Fetch every feed and save stories not already in the database.
+
+        Retrieval runs concurrently because it is almost entirely network wait
+        and each feed is a different host; 850+ sequential round-trips was the
+        single largest block of time in a nightly run. Parsing, deduplication
+        and enrichment then run single-threaded over the collected results,
+        since `existing_links` is stateful and order-dependent.
+
+        Results are reordered to match `feed_urls` before that second pass, so
+        a link carried by two feeds is always attributed to the same one
+        regardless of which request happened to finish first.
+        """
+        existing_links = self.get_existing_links()
+        captured_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        new_stories = []
+        processed_feeds = 0
+        failed_feeds = 0
+
+        def retrieve(index_url):
+            index, url = index_url
+            start = time.time()
+            try:
+                return index, url, self._fetch_feed_with_retries(url), time.time() - start, None
+            except Exception as e:  # noqa: BLE001 - reported per feed below
+                return index, url, None, time.time() - start, e
+
+        logging.info("Fetching %d feeds with %d workers...", len(feed_urls), max_workers)
+        results = []
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            futures = [pool.submit(retrieve, iu) for iu in enumerate(feed_urls)]
+            for done, future in enumerate(as_completed(futures), 1):
+                results.append(future.result())
+                # Report as they land. Collecting silently and only logging in
+                # the pass below leaves several minutes of no output, which in
+                # CI is indistinguishable from a hang.
+                if done % 100 == 0 or done == len(futures):
+                    logging.info("  fetched %d/%d feeds", done, len(futures))
+        # Restore input order so a link carried by two feeds is always
+        # attributed to the same one, regardless of completion order.
+        results.sort(key=lambda r: r[0])
+
+        for _, url, feed, duration, error in results:
+            if error is not None:
+                failed_feeds += 1
+                logging.error("Failed to process %s: %s", url, error)
+                continue
+            if feed is None:
+                failed_feeds += 1
+                continue
+
+            processed_feeds += 1
+            feed_story_count = 0
+            for entry in feed.entries:
+                link = getattr(entry, 'link', '')
+                if not link or link in existing_links:
+                    continue
+
+                cleaned_title = self._clean_text(getattr(entry, 'title', 'No Title'), fallback='No Title')
+                cleaned_summary = self._clean_text(
+                    getattr(entry, 'summary', getattr(entry, 'description', '')),
+                    fallback='',
+                )
+                enrichment = self._enrich_story_metadata(cleaned_title, cleaned_summary)
+
+                new_stories.append({
+                    "source": self._clean_text(feed.feed.get('title', url), fallback=url),
+                    "title": cleaned_title,
+                    "link": link,
+                    "published": self._normalize_published(entry),
+                    "captured_at": captured_at,
+                    # `theme` is deprecated and no longer populated; topics come
+                    # from scripts/apply_topics.py. Kept so the schema is stable.
+                    "theme": "",
+                    "keywords": enrichment["keywords"],
+                    "sentiment_label": enrichment["sentiment_label"],
+                    "sentiment_score": enrichment["sentiment_score"],
+                    "extraction_status": "",
+                    "full_text_path": "",
+                })
+                existing_links.add(link)
+                feed_story_count += 1
+
+            logging.info(
+                "Feed complete: %s | new_entries=%s | total_entries=%s | duration=%.2fs",
+                url, feed_story_count, len(getattr(feed, 'entries', [])), duration,
+            )
+            if getattr(feed, 'bozo', 0):
+                logging.warning("Feed parser reported bozo feed for %s: %s", url,
+                                getattr(feed, 'bozo_exception', 'unknown parse issue'))
+
+        if new_stories:
+            self._append_rows_atomic(new_stories)
+            logging.info("Added %s new stories.", len(new_stories))
+
+        logging.info(
+            "Feed run summary | total_feeds=%s | successful_feeds=%s | failed_feeds=%s | new_stories=%s",
+            len(feed_urls), processed_feeds, failed_feeds, len(new_stories),
+        )
+
+    def remove_comment_articles(self) -> None:
+        """
+        Filters out comment articles from the dataset.
+        Removes rows where:
+        - Title starts with 'Comment on'
+        - Source contains 'Comments for'
         """
         if not os.path.exists(self.output_file):
             return
 
-        df = pd.read_csv(self.output_file)
+        with open(self.output_file, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
 
-        if 'theme' not in df.columns:
-            df['theme'] = ""
+        initial_count = len(rows)
+        
+        # Filter out comment articles
+        filtered_rows = []
+        for row in rows:
+            title = (row.get('title') or '').strip().lower()
+            source = (row.get('source') or '').strip().lower()
+            
+            # Check if title starts with "comment on"
+            if title.startswith('comment on'):
+                continue
+            
+            # Check if source contains "comments for"
+            if 'comments for' in source:
+                continue
+            
+            filtered_rows.append(row)
 
-        df['title'] = df['title'].fillna("").astype(str)
-
-        # Only tag rows that have no theme yet
-        untagged_mask = df['theme'].fillna("").str.strip().eq("") & df['title'].str.strip().astype(bool)
-        docs = df.loc[untagged_mask, 'title'].tolist()
-
-        if not docs:
-            logging.info("All stories already have themes. Skipping BERTopic.")
-            return
-
-        logging.info("Starting local BERTopic analysis on %d untagged headlines...", len(docs))
-
-        try:
-            topic_model = BERTopic(
-                language="english",
-                calculate_probabilities=False,
-                representation_model=KeyBERTInspired()
-            )
-
-            topics, _ = topic_model.fit_transform(docs)
-
-            def is_valid_topic_id(t):
-                if t is None:
-                    return False
-                if isinstance(t, float) and math.isnan(t):
-                    return False
-                return True
-
-            topic_labels = {}
-            topic_ids = sorted(set(t for t in topics if is_valid_topic_id(t)))
-            for topic_id in topic_ids:
-                if topic_id == -1:
-                    topic_labels[topic_id] = "Unclassified"
-                else:
-                    try:
-                        topic_words = topic_model.get_topic(topic_id)
-                        words = []
-                        if topic_words:
-                            for w in topic_words[:5]:
-                                word_str = str(w[0] if isinstance(w, (list, tuple)) and w else w).strip()
-                                if word_str and not word_str.replace('.', '', 1).isdigit():
-                                    words.append(word_str)
-                        topic_labels[topic_id] = " | ".join(words).title() if words else f"Topic {topic_id}"
-                    except Exception as label_error:
-                        logging.warning("Could not create label for topic %s: %s", topic_id, label_error)
-                        topic_labels[topic_id] = f"Topic {topic_id}"
-
-            logging.info("Possible topics: %s", sorted(set(topic_labels.values())))
-
-            df.loc[untagged_mask, 'theme'] = [topic_labels.get(t, "Unclassified") for t in topics]
-
-            # Write back using the canonical header order via atomic write
-            normalized_rows = [{h: str(row.get(h, "")) for h in self.headers} for row in df.to_dict("records")]
+        removed_count = initial_count - len(filtered_rows)
+        
+        if removed_count > 0:
+            normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in filtered_rows]
             self._write_rows_atomic(normalized_rows)
-
-            num_themes = sum(1 for t in topic_labels if t != -1)
-            logging.info("Local tagging complete. Identified %d themes across %d stories.", num_themes, len(docs))
-
-        except Exception as e:
-            logging.exception("BERTopic tagging failed: %s", e)
+            logging.info(f"Removed {removed_count} comment articles. Kept {len(filtered_rows)} articles.")
+        else:
+            logging.info("No comment articles found to remove.")
 
     def tag_stories_with_ai(self, api_key: str):
         """
@@ -517,81 +695,22 @@ class NewsPipeline:
         except Exception as e:
             logging.error(f"Thematic analysis failed: {e}")
 
-    def fetch_stories(self, feed_urls: List[str]):
-        """Fetches stories from RSS feeds and saves new ones."""
-        existing_links = self.get_existing_links()
-        captured_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        new_stories = []
-        processed_feeds = 0
-        failed_feeds = 0
+def run_daily_update(capture_only: bool = False):
+    """
+    Full nightly pipeline, or -- with capture_only -- just the part that has a
+    deadline.
 
-        for url in feed_urls:
-            start = time.time()
-            logging.info("Fetching: %s", url)
-            try:
-                feed = self._fetch_feed_with_retries(url)
-                if feed is None:
-                    failed_feeds += 1
-                    continue
+    An RSS feed exposes roughly the last 10-25 items. Anything an outlet
+    publishes between two runs and pushes past that window is gone for good,
+    and the school year raises publication volume, so the window empties
+    faster. Capturing a story's URL is therefore time-critical in a way that
+    processing it is not: the article page outlives the feed entry by months.
 
-                processed_feeds += 1
-                feed_story_count = 0
-                for entry in feed.entries:
-                    link = getattr(entry, 'link', '')
-                    if not link or link in existing_links:
-                        continue
-
-                    cleaned_title = self._clean_text(getattr(entry, 'title', 'No Title'), fallback='No Title')
-                    cleaned_summary = self._clean_text(
-                        getattr(entry, 'summary', getattr(entry, 'description', '')),
-                        fallback='',
-                    )
-                    enrichment = self._enrich_story_metadata(cleaned_title, cleaned_summary)
-                    
-                    new_stories.append({
-                        "source": self._clean_text(feed.feed.get('title', url), fallback=url),
-                        "title": cleaned_title,
-                        "link": link,
-                        "published": self._normalize_published(entry),
-                        "captured_at": captured_at,
-                        "theme": "",
-                        "keywords": enrichment["keywords"],
-                        "sentiment_label": enrichment["sentiment_label"],
-                        "sentiment_score": enrichment["sentiment_score"],
-                        "extraction_status": "",
-                        "full_text_path": "",
-                    })
-                    existing_links.add(link)
-                    feed_story_count += 1
-
-                duration = time.time() - start
-                logging.info(
-                    "Feed complete: %s | new_entries=%s | total_entries=%s | duration=%.2fs",
-                    url,
-                    feed_story_count,
-                    len(getattr(feed, 'entries', [])),
-                    duration,
-                )
-
-                if getattr(feed, 'bozo', 0):
-                    logging.warning("Feed parser reported bozo feed for %s: %s", url, getattr(feed, 'bozo_exception', 'unknown parse issue'))
-            except Exception as e:
-                failed_feeds += 1
-                logging.error("Failed to process %s: %s", url, e)
-
-        if new_stories:
-            self._append_rows_atomic(new_stories)
-            logging.info("Added %s new stories.", len(new_stories))
-
-        logging.info(
-            "Feed run summary | total_feeds=%s | successful_feeds=%s | failed_feeds=%s | new_stories=%s",
-            len(feed_urls),
-            processed_feeds,
-            failed_feeds,
-            len(new_stories),
-        )
-
-def run_daily_update():
+    capture_only fetches feeds, drops comment items and fills in metadata, then
+    stops -- no full-text extraction, no corpora, no embeddings, no Hub push.
+    It banks the URLs. The nightly full run does the expensive work afterwards
+    from whatever has accumulated, and needs none of the heavy dependencies.
+    """
     DATABASE = "news_database.csv"
     pipeline = NewsPipeline(DATABASE)
 
@@ -622,17 +741,27 @@ def run_daily_update():
         pipeline.remove_comment_articles()
         pipeline.enrich_missing_metadata()
 
+        if capture_only:
+            logging.info("Capture-only run complete; skipping extraction, "
+                         "corpora, analytics and publishing.")
+            return
+
         # Cascade fetcher for outlets that block standard RSS access.
         # Tries WordPress REST API then sitemap+curl_cffi per outlet.
-        # Runs before BERTopic so new cascade stories get themed in this run.
+        # Runs before full-text extraction so cascade stories are picked up in
+        # the same run rather than waiting for the next night.
         try:
             from fetch_hard_outlets import process_outlets, DAILY_MAX_STORIES_PER_OUTLET
             process_outlets(max_stories=DAILY_MAX_STORIES_PER_OUTLET)
         except Exception as e:
             logging.error("Hard-outlets cascade failed: %s", e)
 
-        # Using BERTopic for local, rate-limit-free thematic analysis
-        pipeline.tag_stories_with_bertopic()
+        # The BERTopic theme step was removed here. It refit the model on each
+        # night's new headlines, so labels were never comparable between runs --
+        # 38% came out "Unclassified" and the rest clustered on institution names
+        # rather than subject. Topics now come from the frozen centroid model
+        # (scripts/apply_topics.py), which runs as its own workflow step. The
+        # `theme` column is retained for history but no longer written.
 
         # Commented out AI tagging to avoid rate limits
         # api_key = os.environ.get("GEMINI_API_KEY")
@@ -674,4 +803,14 @@ def run_daily_update():
         logging.error("Failed to rebuild bag-of-words: %s", e)
 
 if __name__ == "__main__":
-    run_daily_update()
+    import argparse
+
+    parser = argparse.ArgumentParser(description=run_daily_update.__doc__)
+    parser.add_argument(
+        "--capture-only", action="store_true",
+        help="fetch feeds and bank new story URLs, then stop. Cheap enough to "
+             "run several times a day so stories are not lost off the end of "
+             "an RSS window between nightly runs.",
+    )
+    args = parser.parse_args()
+    run_daily_update(capture_only=args.capture_only)

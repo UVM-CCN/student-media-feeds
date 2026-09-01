@@ -10,9 +10,11 @@ on:
     - cron: '59 23 * * *'
   workflow_dispatch:  # Actions tab -> Daily News Scrape -> Run workflow
 
-# Two overlapping runs would race on both the git push and the Hub upload.
+# Shared with capture-feeds.yml: both jobs commit to main, and this one also
+# pushes to the Hub. Two runs overlapping would race on the git push. Same
+# group means they queue instead.
 concurrency:
-  group: daily-scrape
+  group: student-media-pipeline
   cancel-in-progress: false
 
 jobs:
