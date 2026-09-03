@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Student Media Coverage Dashboard</title>
 <style>
-  /* Light is the base definition; dark redefines only the tokens, under both
-     the OS setting and an explicit theme stamp so a toggle wins either way. */
+  /* Light only, by request. One token set, no theme stamps. */
   :root {
     color-scheme: light;
     --surface-1: #fcfcfb;
@@ -17,42 +16,10 @@
     --grid: #e1e0d9;
     --axis: #c3c2b7;
     --border: rgba(11,11,11,0.10);
-    --series: #2a78d6;
-    --series-wash: rgba(42,120,214,0.10);
-    --deemph: #c3c2b7;
+    --accent: #1e88e5;
+    --deemph: #d5d4cc;
+    --neutral-bar: #7d8590;
     --shadow: 0 1px 2px rgba(11,11,11,.04);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      color-scheme: dark;
-      --surface-1: #1a1a19;
-      --plane: #0d0d0d;
-      --ink: #ffffff;
-      --ink-2: #c3c2b7;
-      --muted: #898781;
-      --grid: #2c2c2a;
-      --axis: #383835;
-      --border: rgba(255,255,255,0.10);
-      --series: #3987e5;
-      --series-wash: rgba(57,135,229,0.14);
-      --deemph: #383835;
-      --shadow: none;
-    }
-  }
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-    --surface-1: #1a1a19;
-    --plane: #0d0d0d;
-    --ink: #ffffff;
-    --ink-2: #c3c2b7;
-    --muted: #898781;
-    --grid: #2c2c2a;
-    --axis: #383835;
-    --border: rgba(255,255,255,0.10);
-    --series: #3987e5;
-    --series-wash: rgba(57,135,229,0.14);
-    --deemph: #383835;
-    --shadow: none;
   }
 
   * { box-sizing: border-box; }
@@ -73,14 +40,14 @@
   .kpis { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin: 26px 0 8px; }
   .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); }
   .tile .label { color: var(--ink-2); font-size: .78rem; }
-  .tile .value { font-size: 1.5rem; font-weight: 650; margin-top: 3px; }
+  .tile .value { font-size: 1.5rem; font-weight: 650; margin-top: 3px; font-variant-numeric: tabular-nums; }
   .tile.hero .value { font-size: 2.6rem; line-height: 1.05; font-weight: 680; letter-spacing: -.02em; }
 
   /* ---- filter row: one row, above everything it scopes ---- */
   .filters { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: flex-end; margin: 24px 0 18px; }
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field label { font-size: .74rem; color: var(--ink-2); }
-  select, button.seg {
+  button.seg {
     font: inherit; font-size: .85rem; color: var(--ink);
     background: var(--surface-1); border: 1px solid var(--border);
     border-radius: 7px; padding: 6px 10px;
@@ -89,45 +56,68 @@
   .seggroup button { border-radius: 0; cursor: pointer; }
   .seggroup button:first-child { border-radius: 7px 0 0 7px; }
   .seggroup button:last-child  { border-radius: 0 7px 7px 0; border-left: none; }
-  .seggroup button[aria-pressed="true"] { background: var(--series); border-color: var(--series); color: #fff; font-weight: 600; }
+  .seggroup button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
   button.link {
     font: inherit; font-size: .82rem; background: none; border: none;
     color: var(--ink-2); cursor: pointer; text-decoration: underline; padding: 0;
   }
+  .rangeread { font-size: .82rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .rangeread b { color: var(--ink); font-weight: 600; }
 
   h2 { font-size: 1rem; font-weight: 640; margin: 30px 0 4px; }
-  .hint { color: var(--muted); font-size: .8rem; margin: 0 0 14px; }
+  .hint { color: var(--muted); font-size: .8rem; margin: 0 0 14px; max-width: 76ch; }
 
-  /* ---- small multiples ---- */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(215px,1fr)); gap: 12px; }
-  .panel {
-    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px 12px 8px; cursor: pointer; text-align: left; font: inherit; color: inherit;
-    box-shadow: var(--shadow); transition: border-color .12s;
-  }
-  .panel:hover { border-color: var(--axis); }
-  .panel[aria-pressed="true"] { border-color: var(--series); box-shadow: 0 0 0 1px var(--series); }
-  .panel:focus-visible { outline: 2px solid var(--series); outline-offset: 2px; }
-  .panel .pname { font-size: .82rem; font-weight: 600; line-height: 1.25; }
-  .panel .pval  { font-size: .74rem; color: var(--ink-2); margin-top: 2px; font-variant-numeric: tabular-nums; }
-  .panel svg { display: block; width: 100%; height: auto; margin-top: 6px; }
-
-  /* ---- detail + states ---- */
+  /* ---- cards ---- */
   .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow); }
   .card svg { display: block; width: 100%; height: auto; }
   .cols { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
   @media (min-width: 900px) { .cols.two { grid-template-columns: 1.35fr 1fr; } }
 
-  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 2px 0 10px; font-size: .8rem; color: var(--ink-2); }
-  .legend .k { display: inline-flex; align-items: center; gap: 6px; }
-  .legend .swatch { width: 14px; height: 2px; border-radius: 1px; background: var(--series); }
-  .legend .swatch.gray { background: var(--deemph); }
+  /* ---- interactive legend ---- */
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+  .legend button {
+    display: inline-flex; align-items: center; gap: 7px;
+    font: inherit; font-size: .8rem; color: var(--ink-2);
+    background: none; border: 1px solid transparent; border-radius: 999px;
+    padding: 3px 10px 3px 8px; cursor: pointer; line-height: 1.4;
+    transition: background-color .12s, border-color .12s, color .12s;
+  }
+  .legend button:hover { background: rgba(11,11,11,.045); }
+  .legend button .swatch { width: 14px; height: 3px; border-radius: 2px; flex: none; }
+  .legend button[aria-pressed="true"] { color: var(--ink); font-weight: 600; border-color: var(--border); background: rgba(11,11,11,.05); }
+  .legend button.dim { color: var(--muted); }
+  .legend button.dim .swatch { opacity: .3; }
+  .legend button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .legend .clear { margin-left: 4px; text-decoration: underline; color: var(--ink-2); }
+
+  /* ---- brush ---- */
+  .brushcard { padding: 12px 16px 6px; }
+  .brushhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 2px; }
+  .brushhead .t { font-size: .8rem; color: var(--ink-2); font-weight: 600; }
+  .check { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem;
+           color: var(--ink-2); cursor: pointer; margin-right: auto; }
+  .check input { accent-color: var(--accent); margin: 0; cursor: pointer; }
+  .check:hover { color: var(--ink); }
+  .check input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .brushcard .hint { margin: 4px 0 0; }
+  .brush .selection { fill: rgba(30,136,229,.12); stroke: var(--accent); stroke-width: 1; shape-rendering: crispEdges; }
+  .brush .handle { fill: var(--surface-1); stroke: var(--accent); stroke-width: 1.5; rx: 2; }
+  .brush .overlay { cursor: crosshair; }
+
+  /* ---- charts ---- */
+  .tick line { stroke: var(--grid); }
+  .tick text { fill: var(--muted); font-size: 11px; }
+  .tick.thin text { fill: var(--deemph); }
+  .domain { stroke: var(--axis); }
+  .axis-title { fill: var(--ink-2); font-size: 11px; }
 
   table { border-collapse: collapse; width: 100%; font-size: .82rem; }
   th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
   th:first-child, td:first-child { text-align: left; font-variant-numeric: normal; }
   thead th { color: var(--ink-2); font-weight: 600; white-space: nowrap; }
   .tablewrap { overflow-x: auto; }
+  td .tkey { display: inline-block; width: 12px; height: 3px; border-radius: 2px; margin-right: 7px; vertical-align: middle; }
+  tr.focused td { background: rgba(30,136,229,.06); }
   .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
   /* ---- tooltip ---- */
@@ -135,13 +125,16 @@
     position: fixed; pointer-events: none; opacity: 0; transition: opacity .08s;
     background: var(--surface-1); color: var(--ink); border: 1px solid var(--border);
     border-radius: 8px; padding: 8px 10px; font-size: .8rem; z-index: 50;
-    box-shadow: 0 4px 14px rgba(0,0,0,.14); max-width: 260px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.14); max-width: 280px;
   }
-  #tip .tv { font-weight: 650; font-size: .95rem; }
-  #tip .tl { color: var(--ink-2); }
-  #tip .row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
-  #tip .key { width: 12px; height: 2px; border-radius: 1px; background: var(--series); flex: none; }
-  .note { color: var(--muted); font-size: .78rem; margin-top: 10px; }
+  #tip .tt { color: var(--ink-2); margin-bottom: 3px; }
+  #tip .row { display: flex; align-items: center; gap: 6px; }
+  #tip .key { width: 12px; height: 3px; border-radius: 2px; flex: none; }
+  #tip .tv { font-weight: 650; font-variant-numeric: tabular-nums; min-width: 3.6em; }
+  #tip .tl { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .note { color: var(--muted); font-size: .78rem; margin-top: 10px; max-width: 84ch; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
@@ -150,21 +143,13 @@
     <h1>Student media coverage</h1>
     <p>How topic coverage across U.S. student newsrooms changes over time and across
        the country. Each story is assigned to one of ten topics by a frozen model, so
-       shares are comparable from month to month.</p>
+       shares are comparable from day to day.</p>
     <div class="meta" id="meta"></div>
   </header>
 
   <div class="kpis" id="kpis"></div>
 
   <div class="filters">
-    <div class="field">
-      <label for="from">From</label>
-      <select id="from"></select>
-    </div>
-    <div class="field">
-      <label for="to">To</label>
-      <select id="to"></select>
-    </div>
     <div class="field">
       <label id="measlabel">Measure</label>
       <div class="seggroup" role="group" aria-labelledby="measlabel">
@@ -173,36 +158,64 @@
       </div>
     </div>
     <div class="field">
-      <label for="reset">&nbsp;</label>
+      <label id="smoothlabel">Smoothing</label>
+      <div class="seggroup" role="group" aria-labelledby="smoothlabel">
+        <button class="seg" id="sRaw" aria-pressed="true">Daily</button>
+        <button class="seg" id="sAvg" aria-pressed="false">7-day avg</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Range</label>
+      <div class="rangeread" id="rangeread"></div>
+    </div>
+    <div class="field">
+      <label>&nbsp;</label>
       <button class="link" id="reset">Reset</button>
     </div>
   </div>
 
   <h2>Coverage by topic over time</h2>
-  <p class="hint" id="smHint"></p>
-  <div class="grid" id="grid"></div>
+  <p class="hint" id="mainHint"></p>
+  <div class="card">
+    <div class="legend" id="legend"></div>
+    <div id="chart"></div>
+  </div>
 
-  <h2 id="detailTitle">All topics</h2>
-  <p class="hint" id="detailHint"></p>
-  <div class="cols two">
+  <div class="card brushcard" style="margin-top:14px">
+    <div class="brushhead">
+      <span class="t">Time range</span>
+      <label class="check" for="fullRange">
+        <input type="checkbox" id="fullRange">
+        <span>Show full historical range</span>
+      </label>
+      <span class="rangeread" id="brushread"></span>
+    </div>
+    <p class="hint" id="brushHint"></p>
+    <div id="brush"></div>
+  </div>
+
+  <div class="cols two" style="margin-top:14px">
     <div class="card">
-      <div class="legend" id="detailLegend"></div>
-      <div id="detail"></div>
+      <h2 style="margin:0 0 4px" id="statesTitle">Stories by state</h2>
+      <p class="hint" id="statesHint" style="margin-bottom:10px"></p>
+      <div id="states"></div>
     </div>
     <div class="card">
-      <div class="legend"><span class="k"><span class="swatch"></span> Stories</span></div>
-      <div id="states"></div>
+      <h2 style="margin:0 0 4px">Topic totals in range</h2>
+      <p class="hint" style="margin-bottom:10px">Click a bar to focus that topic, the same as clicking its legend entry.</p>
+      <div id="totals"></div>
     </div>
   </div>
 
   <h2>Table view</h2>
-  <p class="hint">Every plotted value, reachable without hovering.</p>
+  <p class="hint" id="tableHint">Every plotted value, reachable without hovering.</p>
   <div class="card tablewrap"><table id="table"></table></div>
 
   <p class="note" id="footnote"></p>
 </div>
 
 <div id="tip" role="status" aria-live="polite"></div>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
 <script src="dashboard_data.js"></script>
 <script>
 (function () {
@@ -210,43 +223,86 @@
   var D = window.DASHBOARD_DATA;
   var $ = function (id) { return document.getElementById(id); };
   if (!D) { $("meta").textContent = "dashboard_data.js failed to load."; return; }
+  if (typeof d3 === "undefined") { $("meta").textContent = "D3 failed to load."; return; }
 
-  var THIN = new Set(D.thin_months || []);
-  var DEF = D.default_range || [0, D.months.length - 1];
-  // Largest topic by default. The detail chart is an emphasis chart, and with
-  // nothing emphasized it degrades into ten converging gray lines that no one
-  // can read -- so there is always exactly one topic in focus.
-  var BIGGEST = D.topics.slice().sort(function (a, b) { return b.total - a.total; })[0];
-  var state = { topic: BIGGEST ? BIGGEST.key : null, measure: "share", i0: DEF[0], i1: DEF[1] };
+  /* Ten categorical slots, fixed in this order and keyed to the topic id, never
+     to rank -- a brush that changes the ordering must not repaint the survivors.
+     Worst adjacent pair separates by CVD dE 20.8 / normal dE 26.5 on this
+     surface. Ten lines is past the point where color alone can carry identity,
+     so the legend isolates, the crosshair names every series, and the table
+     below repeats every value. */
+  var COLORS = ["#1e88e5","#ca6702","#8f4fd1","#6a994e","#3949ab",
+                "#9a3412","#e87ba4","#166534","#eda100","#d81b60"];
+  function colorOf(key) { return COLORS[+key.slice(1) % COLORS.length]; }
+
+  var THIN = new Set(D.thin_days || []);
+  var DEF = D.default_range || [0, D.days.length - 1];
+  var DATES = D.days.map(function (m) {
+    return new Date(Date.UTC(+m.slice(0, 4), +m.slice(5, 7) - 1, +m.slice(8, 10)));
+  });
+  var DAY = 86400000;
+  // day string -> index, for walking a calendar window across a series that
+  // only carries the days which actually hold stories.
+  var DAYIDX = {};
+  D.days.forEach(function (d, i) { DAYIDX[d] = i; });
+  // A run of days more than this far apart is a gap in the archive, not a
+  // trend: the line breaks rather than drawing a straight year-long segment.
+  var GAP_DAYS = 3;
+  var SMOOTH_WINDOW = 7;
+  // Legend and table order is fixed by corpus-wide size, so it never reshuffles
+  // as the brush moves; color is keyed to the topic regardless.
+  var ORDER = D.topics.slice().sort(function (a, b) { return b.total - a.total; });
+
+  var state = { measure: "share", smooth: false, full: false, i0: DEF[0], i1: DEF[1], focus: null };
 
   var nf = new Intl.NumberFormat("en-US");
   function pct(x) { return (x * 100).toFixed(1) + "%"; }
-  function monthLabel(m) {
-    var p = m.split("-");
-    var d = new Date(Date.UTC(+p[0], +p[1] - 1, 1));
-    return d.toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+  // Parse the ISO string rather than looking the day up in DAYIDX: as_of is a
+  // date the series may not contain, if nothing was published that day.
+  function fmtDay(iso, opts) {
+    return new Date(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)))
+      .toLocaleString("en-US", opts);
   }
-  function el(tag, attrs, kids) {
-    var n = document.createElementNS("http://www.w3.org/2000/svg", tag);
-    for (var k in attrs) if (attrs[k] != null) n.setAttribute(k, attrs[k]);
-    (kids || []).forEach(function (c) { n.appendChild(c); });
-    return n;
+  function dayLabel(d) {
+    return fmtDay(d, { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
   }
+  function longDayLabel(d) {
+    return fmtDay(d, { weekday: "short", month: "short", day: "numeric",
+                       year: "numeric", timeZone: "UTC" });
+  }
+  function isoOf(t) { return new Date(t).toISOString().slice(0, 10); }
 
   /* ---------- slice helpers ---------- */
-  function months() { return D.months.slice(state.i0, state.i1 + 1); }
-  function totals() { return D.month_totals.slice(state.i0, state.i1 + 1); }
-  function series(key) { return D.series[key].slice(state.i0, state.i1 + 1); }
+  function idx() { return d3.range(state.i0, state.i1 + 1); }
   function valueAt(key, i) {
-    var c = series(key)[i], t = totals()[i];
+    if (state.smooth) return smoothed(key, i);
+    var c = D.series[key][i], t = D.day_classified[i];
     return state.measure === "share" ? (t ? c / t : 0) : c;
+  }
+  // Trailing 7-day window, walked over the calendar rather than over emitted
+  // days so a gap counts as the zero it is. Share is the ratio of the sums,
+  // not the mean of the daily ratios -- otherwise a 3-story Sunday weighs as
+  // heavily as a 150-story Wednesday.
+  function smoothed(key, i) {
+    var end = DATES[i].getTime(), c = 0, t = 0;
+    for (var k = 0; k < SMOOTH_WINDOW; k++) {
+      var j = DAYIDX[isoOf(end - k * DAY)];
+      if (j === undefined) continue;
+      c += D.series[key][j];
+      t += D.day_classified[j];
+    }
+    return state.measure === "share" ? (t ? c / t : 0) : c / SMOOTH_WINDOW;
   }
   function fmt(v) { return state.measure === "share" ? pct(v) : nf.format(v); }
   function topicTotal(key) {
-    return series(key).reduce(function (a, b) { return a + b; }, 0);
+    return idx().reduce(function (a, i) { return a + D.series[key][i]; }, 0);
   }
-  function sortedTopics() {
-    return D.topics.slice().sort(function (a, b) { return topicTotal(b.key) - topicTotal(a.key); });
+  function grandTotal() {
+    return idx().reduce(function (a, i) { return a + D.day_totals[i]; }, 0);
+  }
+  function labelOf(key) {
+    var t = D.topics.find(function (x) { return x.key === key; });
+    return t ? t.label : key;
   }
 
   /* ---------- tooltip ---------- */
@@ -254,283 +310,525 @@
   function showTip(e, title, rows) {
     tip.textContent = "";
     var h = document.createElement("div");
-    h.className = "tl"; h.textContent = title;
+    h.className = "tt"; h.textContent = title;
     tip.appendChild(h);
     rows.forEach(function (r) {
       var row = document.createElement("div"); row.className = "row";
       var k = document.createElement("span"); k.className = "key";
-      if (r.gray) k.style.background = "var(--deemph)";
+      k.style.background = r.color || "var(--neutral-bar)";
       var v = document.createElement("span"); v.className = "tv"; v.textContent = r.value;
       var l = document.createElement("span"); l.className = "tl"; l.textContent = r.label;
       row.appendChild(k); row.appendChild(v); row.appendChild(l);
       tip.appendChild(row);
     });
     tip.style.opacity = "1";
-    var pad = 14, w = tip.offsetWidth, h2 = tip.offsetHeight;
+    var pad = 14, w = tip.offsetWidth, hh = tip.offsetHeight;
     var x = e.clientX + pad, y = e.clientY + pad;
     if (x + w > innerWidth - 8) x = e.clientX - w - pad;
-    if (y + h2 > innerHeight - 8) y = e.clientY - h2 - pad;
+    if (y + hh > innerHeight - 8) y = e.clientY - hh - pad;
     tip.style.left = x + "px"; tip.style.top = y + "px";
   }
   function hideTip() { tip.style.opacity = "0"; }
   document.addEventListener("scroll", hideTip, true);
 
-  /* ---------- area path for a small multiple ---------- */
-  function areaPath(vals, max, w, h, pad) {
-    if (vals.length === 0) return { line: "", area: "" };
-    var n = vals.length;
-    var x = function (i) { return n === 1 ? w / 2 : pad + i * (w - pad * 2) / (n - 1); };
-    var y = function (v) { return h - pad - (max ? (v / max) * (h - pad * 2) : 0); };
-    var line = "", area = "";
-    for (var i = 0; i < n; i++) {
-      line += (i ? "L" : "M") + x(i).toFixed(1) + " " + y(vals[i]).toFixed(1);
+  /* ---------- main chart: ten lines, one focus ---------- */
+  var W = 900, H = 380, M = { t: 14, r: 146, b: 34, l: 52 };
+  function renderChart() {
+    var host = d3.select("#chart"); host.selectAll("*").remove();
+    var ii = idx();
+    var iw = W - M.l - M.r, ih = H - M.t - M.b;
+
+    // Scale to the days that carry a real sample. A 4-story day can hand one
+    // topic 60% and, left in the domain, squashes six months of genuine
+    // variation into the bottom fifth of the plot. Those days are still drawn
+    // -- the clip below lets them run off the top, which reads as the outlier
+    // it is -- they just do not get to set the frame.
+    var solid = ii.filter(function (i) { return !THIN.has(D.days[i]); });
+    if (!solid.length) solid = ii;
+    var max = d3.max(D.topics, function (t) {
+      return d3.max(solid, function (i) { return valueAt(t.key, i); });
+    }) || 1;
+
+    var x = d3.scaleTime()
+      .domain([DATES[state.i0], DATES[state.i1]])
+      .range([M.l, M.l + iw]);
+    if (state.i0 === state.i1) x.range([M.l + iw / 2, M.l + iw / 2]);
+    var y = d3.scaleLinear().domain([0, max]).nice(4).range([M.t + ih, M.t]);
+
+    var svg = host.append("svg")
+      .attr("viewBox", "0 0 " + W + " " + H)
+      .attr("role", "img")
+      .attr("aria-label", state.focus
+        ? labelOf(state.focus) + " coverage over time, other topics for context"
+        : "All ten topics over time");
+
+    // Thin-sample days, shaded behind everything. A day with a handful of
+    // stories hands some topic 100% share, so the spikes on the left of a wide
+    // selection are collection noise, not coverage -- say so on the chart
+    // rather than only in a footnote.
+    // One calendar day wide, from the time scale -- not iw/points, which would
+    // be wrong wherever the archive skips days.
+    var step = Math.max(1, x(new Date(DATES[state.i0].getTime() + DAY)) - x(DATES[state.i0]));
+    thinRuns(ii).forEach(function (r) {
+      var x0 = Math.max(M.l, x(DATES[r.a]) - step / 2);
+      var x1 = Math.min(M.l + iw, x(DATES[r.b]) + step / 2);
+      svg.append("rect")
+        .attr("x", x0).attr("y", M.t).attr("width", Math.max(1, x1 - x0)).attr("height", ih)
+        .attr("fill", "rgba(11,11,11,.045)");
+    });
+
+    // gridlines
+    svg.append("g")
+      .attr("transform", "translate(" + M.l + ",0)")
+      .call(d3.axisLeft(y).ticks(4)
+        .tickFormat(function (v) { return state.measure === "share" ? d3.format(".0%")(v) : nf.format(v); })
+        .tickSize(-iw))
+      .call(function (g) { g.select(".domain").remove(); });
+
+    // x axis. Format follows the span: a two-week brush wants day numbers, a
+    // fifteen-year one wants years, and d3's own multi-scale format switches
+    // between them at the right places.
+    var spanDays = (DATES[state.i1] - DATES[state.i0]) / DAY;
+    var axis = d3.axisBottom(x).ticks(Math.min(8, Math.max(2, ii.length))).tickSizeOuter(0);
+    // Under four months, name the day. Above that, d3's own multi-scale format
+    // picks the granularity per tick -- a fixed "%b %Y" would print "Apr 2026"
+    // three times running on a 90-day brush.
+    if (spanDays <= 120) {
+      // Pin ticks to day boundaries. Left to itself, d3 drops to 12-hourly on a
+      // very short span and "%b %e" then prints the same date twice.
+      axis.ticks(d3.utcDay.every(Math.max(1, Math.ceil(spanDays / 8))))
+          .tickFormat(d3.utcFormat("%b %e"));
     }
-    area = line + "L" + x(n - 1).toFixed(1) + " " + (h - pad) + "L" + x(0).toFixed(1) + " " + (h - pad) + "Z";
-    return { line: line, area: area, x: x, y: y };
+    var xAxis = svg.append("g")
+      .attr("transform", "translate(0," + (M.t + ih) + ")")
+      .call(axis);
+    xAxis.selectAll(".tick").each(function (d) {
+      if (THIN.has(d3.utcFormat("%Y-%m-%d")(d))) d3.select(this).classed("thin", true);
+    });
+
+    var line = d3.line()
+      .x(function (d) { return x(DATES[d.i]); })
+      .y(function (d) { return y(d.v); });
+
+    function pts(key) {
+      return ii.map(function (i) { return { i: i, v: valueAt(key, i) }; });
+    }
+
+    svg.append("clipPath").attr("id", "plotclip")
+      .append("rect").attr("x", M.l).attr("y", M.t).attr("width", iw).attr("height", ih);
+    var plot = svg.append("g").attr("clip-path", "url(#plotclip)");
+    // Unfocused lines first so the focused one is never overdrawn.
+    var draw = ORDER.slice().sort(function (a, b) {
+      return (a.key === state.focus ? 1 : 0) - (b.key === state.focus ? 1 : 0);
+    });
+    draw.forEach(function (t) {
+      var dim = state.focus && t.key !== state.focus;
+      var stroke = dim ? "var(--deemph)" : colorOf(t.key);
+      segments(pts(t.key)).forEach(function (seg) {
+        if (seg.length === 1) {
+          // An isolated day has no line to draw; a dot still carries the value.
+          plot.append("circle")
+            .attr("cx", x(DATES[seg[0].i])).attr("cy", y(seg[0].v)).attr("r", 2.5)
+            .attr("fill", stroke);
+          return;
+        }
+        plot.append("path")
+          .datum(seg)
+          .attr("fill", "none")
+          .attr("stroke", stroke)
+          .attr("stroke-width", t.key === state.focus ? 2.5 : 2)
+          .attr("stroke-linejoin", "round")
+          .attr("stroke-linecap", "round")
+          .attr("opacity", dim ? 1 : (state.focus ? 1 : .95))
+          .attr("d", line);
+      });
+    });
+
+    // End labels: with a focus, label it directly; with none, label the top
+    // three so the chart still says something without a hover.
+    var labelSet = state.focus
+      ? [D.topics.find(function (t) { return t.key === state.focus; })]
+      : ORDER.slice().sort(function (a, b) { return topicTotal(b.key) - topicTotal(a.key); }).slice(0, 3);
+    // Anchor on the last day with a real sample, not the last day in range:
+    // extraction lags capture, so the newest day or two often carry no topics
+    // yet and would label every series 0.0%.
+    var last = solid[solid.length - 1];
+    var placed = [];
+    // Highest first: collisions nudge upward, so any other order can leave a
+    // smaller value sitting above a larger one.
+    labelSet.sort(function (a, b) {
+      return (b ? valueAt(b.key, last) : 0) - (a ? valueAt(a.key, last) : 0);
+    });
+    labelSet.forEach(function (t) {
+      if (!t) return;
+      // Placed highest-value first, so a collision pushes the next one DOWN --
+      // pushing up would lift a smaller value above a larger one and invert
+      // the ranking the labels are there to show.
+      var vy = y(valueAt(t.key, last));
+      var floor = M.t + ih;
+      function taken(v) { return placed.some(function (p) { return Math.abs(p - v) < 12; }); }
+      while (taken(vy)) vy += 12;
+      if (vy > floor) {
+        // Out of room below -- happens when several series share a value, as
+        // on a two-day range where most sit at zero. Stack back up from the
+        // baseline instead of clamping them all onto the same line.
+        vy = floor;
+        while (taken(vy)) vy -= 12;
+      }
+      placed.push(vy);
+      svg.append("text")
+        .attr("x", M.l + iw + 8).attr("y", vy + 4)
+        .attr("fill", colorOf(t.key)).attr("font-size", 11).attr("font-weight", 600)
+        .text(fmt(valueAt(t.key, last)) + " " + shortLabel(t.label, 16));
+    });
+
+    // crosshair + hit layer: readers aim at a day, never at a 2px line
+    var hair = svg.append("line")
+      .attr("y1", M.t).attr("y2", M.t + ih)
+      .attr("stroke", "var(--axis)").attr("stroke-width", 1).attr("opacity", 0);
+    var dots = svg.append("g");
+    svg.append("rect")
+      .attr("x", M.l).attr("y", M.t).attr("width", iw).attr("height", ih)
+      .attr("fill", "transparent")
+      .on("pointermove", function (event) {
+        // Nearest emitted day to the cursor's date, not to a uniform slot:
+        // with gaps in the archive those are not the same point.
+        var px = d3.pointer(event, this)[0] + M.l;
+        var visible = DATES.slice(state.i0, state.i1 + 1);
+        var k = Math.max(0, Math.min(visible.length - 1,
+                                     d3.bisectCenter(visible, x.invert(px))));
+        var i = ii[k];
+        hair.attr("x1", x(DATES[i])).attr("x2", x(DATES[i])).attr("opacity", 1);
+
+        var rows = (state.focus
+          ? [D.topics.find(function (t) { return t.key === state.focus; })]
+          : ORDER.slice().sort(function (a, b) { return valueAt(b.key, i) - valueAt(a.key, i); })
+        ).map(function (t) {
+          return { value: fmt(valueAt(t.key, i)), label: shortLabel(t.label), color: colorOf(t.key) };
+        });
+
+        dots.selectAll("circle")
+          .data(state.focus ? [state.focus] : ORDER.map(function (t) { return t.key; }))
+          .join("circle")
+          .attr("cx", x(DATES[i]))
+          .attr("cy", function (key) { return y(valueAt(key, i)); })
+          .attr("r", function (key) { return key === state.focus ? 4.5 : 3.5; })
+          .attr("fill", function (key) {
+            return (state.focus && key !== state.focus) ? "var(--deemph)" : colorOf(key);
+          })
+          .attr("stroke", "var(--surface-1)").attr("stroke-width", 2);
+
+        showTip(event, longDayLabel(D.days[i])
+          + (state.smooth ? " · 7-day avg" : "")
+          + (THIN.has(D.days[i]) ? " · thin sample (" + D.day_totals[i] + " stories)" : ""), rows);
+      })
+      .on("pointerleave", function () {
+        hair.attr("opacity", 0); dots.selectAll("circle").remove(); hideTip();
+      });
   }
 
-  /* ---------- small multiples ---------- */
-  function renderGrid() {
-    var host = $("grid"); host.textContent = "";
-    var ms = months();
-    var list = sortedTopics();
-    // One shared y-max across panels: panels are only comparable if they share
-    // a scale. Per-panel autoscaling would make a 2% topic look like a 30% one.
-    var max = 0;
-    list.forEach(function (t) {
-      for (var i = 0; i < ms.length; i++) max = Math.max(max, valueAt(t.key, i));
+  // Contiguous runs of thin-sample days inside a list of day indices.
+  function thinRuns(ii) {
+    var runs = [], cur = null;
+    ii.forEach(function (i) {
+      if (THIN.has(D.days[i])) { if (cur) cur.b = i; else cur = { a: i, b: i }; }
+      else if (cur) { runs.push(cur); cur = null; }
     });
-    if (!max) max = 1;
+    if (cur) runs.push(cur);
+    return runs;
+  }
 
-    list.forEach(function (t) {
-      var vals = ms.map(function (_, i) { return valueAt(t.key, i); });
-      var btn = document.createElement("button");
-      btn.className = "panel";
-      btn.setAttribute("aria-pressed", state.topic === t.key ? "true" : "false");
-      var name = document.createElement("div"); name.className = "pname";
-      name.textContent = t.label;
-      var val = document.createElement("div"); val.className = "pval";
-      var tt = topicTotal(t.key);
-      var grand = totals().reduce(function (a, b) { return a + b; }, 0);
-      val.textContent = state.measure === "share"
-        ? pct(grand ? tt / grand : 0) + " of stories"
-        : nf.format(tt) + " stories";
-      btn.appendChild(name); btn.appendChild(val);
-
-      var W = 220, H = 62, P = 4;
-      var p = areaPath(vals, max, W, H, P);
-      var svg = el("svg", { viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "none",
-                            role: "img", "aria-label": t.label + " coverage trend" });
-      svg.appendChild(el("path", { d: p.area, fill: "var(--series-wash)" }));
-      svg.appendChild(el("path", { d: p.line, fill: "none", stroke: "var(--series)",
-                                   "stroke-width": 2, "stroke-linejoin": "round",
-                                   "stroke-linecap": "round", "vector-effect": "non-scaling-stroke" }));
-      // End marker with a surface ring, so it stays legible where it meets the edge.
-      if (vals.length) {
-        svg.appendChild(el("circle", { cx: p.x(vals.length - 1), cy: p.y(vals[vals.length - 1]),
-                                       r: 3.5, fill: "var(--series)",
-                                       stroke: "var(--surface-1)", "stroke-width": 2 }));
+  // Split a point list wherever the archive skips more than GAP_DAYS, so the
+  // chart never draws a straight line across months that hold no stories.
+  function segments(pts) {
+    var out = [], cur = [];
+    pts.forEach(function (p, k) {
+      if (k > 0 && (DATES[p.i] - DATES[pts[k - 1].i]) / DAY > GAP_DAYS) {
+        if (cur.length) out.push(cur);
+        cur = [];
       }
-      btn.appendChild(svg);
+      cur.push(p);
+    });
+    if (cur.length) out.push(cur);
+    return out;
+  }
 
-      btn.addEventListener("click", function () {
-        state.topic = t.key;
+  function shortLabel(l, n) {
+    n = n || 28;
+    return l.length > n ? l.slice(0, n - 1).replace(/[ ,&]+$/, "") + "…" : l;
+  }
+
+  /* ---------- brush: the time range control ---------- */
+  var BW = 900, BH = 84, BM = { t: 6, r: 78, b: 22, l: 52 };
+  var brushBehavior = null, brushG = null, bx = null;
+  // Far edge of the brush. RSS feeds only carry a publisher's recent items, so
+  // everything before the scraper started is backfill scraps -- 1,590 stories
+  // spread over 683 days against 25,700 in 2026. Spanning the brush across all
+  // of it would spend most of its width on 6% of the corpus and squeeze the
+  // part anyone is reading into the last few pixels, so the archive is opt-in.
+  function domStart() { return state.full ? 0 : (D.recent_start || 0); }
+
+  function renderBrush() {
+    var host = d3.select("#brush"); host.selectAll("*").remove();
+    var iw = BW - BM.l - BM.r, ih = BH - BM.t - BM.b;
+    var d0 = domStart(), dN = DATES.length - 1;
+    var vol = D.day_totals.slice(d0);
+
+    bx = d3.scaleTime()
+      .domain([DATES[d0], DATES[dN]])
+      .range([BM.l, BM.l + iw]);
+    var by = d3.scaleLinear()
+      .domain([0, d3.max(vol) || 1])
+      .range([BM.t + ih, BM.t]);
+
+    var svg = host.append("svg")
+      .attr("viewBox", "0 0 " + BW + " " + BH)
+      .attr("role", "img")
+      .attr("aria-label", "Story volume per day; drag to select a time range");
+
+    // Same thin-sample shading as the main chart, so the noisy stretch is
+    // visible before it gets selected rather than after.
+    var bstep = Math.max(1, bx(new Date(DATES[d0].getTime() + DAY)) - bx(DATES[d0]));
+    thinRuns(d3.range(d0, DATES.length)).forEach(function (r) {
+      var x0 = Math.max(BM.l, bx(DATES[r.a]) - bstep / 2);
+      var x1 = Math.min(BM.l + iw, bx(DATES[r.b]) + bstep / 2);
+      svg.append("rect")
+        .attr("x", x0).attr("y", BM.t).attr("width", Math.max(1, x1 - x0)).attr("height", ih)
+        .attr("fill", "rgba(11,11,11,.045)");
+    });
+
+    var area = d3.area()
+      .x(function (d, i) { return bx(DATES[d0 + i]); })
+      .y0(by(0))
+      .y1(function (d) { return by(d); });
+    svg.append("path").datum(vol)
+      .attr("fill", "rgba(30,136,229,.16)")
+      .attr("d", area);
+    svg.append("path").datum(vol)
+      .attr("fill", "none").attr("stroke", "var(--accent)").attr("stroke-width", 1.5)
+      .attr("d", d3.line().x(function (d, i) { return bx(DATES[d0 + i]); }).y(function (d) { return by(d); }));
+
+    // Years read fine across the full archive; a single year needs months.
+    var bAxis = d3.axisBottom(bx).ticks(8).tickSizeOuter(0);
+    if ((DATES[dN] - DATES[d0]) / DAY <= 400) bAxis.tickFormat(d3.utcFormat("%b"));
+    else bAxis.tickFormat(d3.utcFormat("%Y"));
+    svg.append("g")
+      .attr("transform", "translate(0," + (BM.t + ih) + ")")
+      .call(bAxis);
+
+    // Snap to a day the series actually holds: a pixel-precise range would
+    // report a boundary the data does not have.
+    function nearest(px) {
+      var i = d3.bisectCenter(DATES, bx.invert(px));
+      return Math.max(d0, Math.min(dN, i));
+    }
+
+    brushBehavior = d3.brushX()
+      .extent([[BM.l, BM.t], [BM.l + iw, BM.t + ih]])
+      .on("brush", function (event) {
+        if (!event.selection || !event.sourceEvent) return;
+        var a = nearest(event.selection[0]), b = nearest(event.selection[1]);
+        $("brushread").innerHTML = rangeText(Math.min(a, b), Math.max(a, b));
+      })
+      .on("end", function (event) {
+        if (!event.sourceEvent) return;
+        if (!event.selection) { setRange(DEF[0], DEF[1]); return; }
+        var a = nearest(event.selection[0]), b = nearest(event.selection[1]);
+        if (a === b) b = Math.min(DATES.length - 1, a + 1);
+        setRange(Math.min(a, b), Math.max(a, b));
+      });
+
+    brushG = svg.append("g").attr("class", "brush").call(brushBehavior);
+    syncBrush();
+  }
+  function syncBrush() {
+    if (!brushG || !bx) return;
+    clampToDomain();
+    brushG.call(brushBehavior.move, [bx(DATES[state.i0]), bx(DATES[state.i1])]);
+    $("brushread").innerHTML = rangeText(state.i0, state.i1);
+  }
+  // Turning the archive back off can leave a selection that starts before the
+  // brush now reaches; pull it inside rather than drawing a handle off-canvas.
+  function clampToDomain() {
+    var d0 = domStart();
+    if (state.i0 < d0) state.i0 = d0;
+    if (state.i1 < state.i0) state.i1 = Math.min(DATES.length - 1, state.i0 + 1);
+  }
+  function rangeText(i0, i1) {
+    var span = Math.round((DATES[i1] - DATES[i0]) / DAY) + 1;
+    return "<b>" + dayLabel(D.days[i0]) + "</b> – <b>" + dayLabel(D.days[i1]) +
+           "</b> · " + span.toLocaleString() + " days";
+  }
+  function setRange(i0, i1) {
+    state.i0 = i0; state.i1 = i1;
+    render();
+    syncBrush();
+  }
+
+  /* ---------- legend: click to isolate ---------- */
+  function renderLegend() {
+    var host = $("legend"); host.textContent = "";
+    ORDER.forEach(function (t) {
+      var b = document.createElement("button");
+      b.type = "button";
+      var on = state.focus === t.key;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      if (state.focus && !on) b.className = "dim";
+      var sw = document.createElement("span");
+      sw.className = "swatch"; sw.style.background = colorOf(t.key);
+      var tx = document.createElement("span"); tx.textContent = t.label;
+      b.appendChild(sw); b.appendChild(tx);
+      b.title = on ? "Show all topics" : "Show only " + t.label;
+      b.addEventListener("click", function () {
+        state.focus = on ? null : t.key;
         render();
       });
-      btn.addEventListener("pointermove", function (e) {
-        showTip(e, t.label, [{ value: val.textContent, label: "" }]);
-      });
-      btn.addEventListener("pointerleave", hideTip);
-      btn.addEventListener("focus", function (e) {
-        var r = btn.getBoundingClientRect();
-        showTip({ clientX: r.left, clientY: r.bottom }, t.label, [{ value: val.textContent, label: "" }]);
-      });
-      btn.addEventListener("blur", hideTip);
-      host.appendChild(btn);
+      host.appendChild(b);
+    });
+    if (state.focus) {
+      var c = document.createElement("button");
+      c.type = "button"; c.className = "clear";
+      c.textContent = "Show all";
+      c.addEventListener("click", function () { state.focus = null; render(); });
+      host.appendChild(c);
+    }
+  }
+
+  /* ---------- topic totals in range (one series, neutral or focus color) ---------- */
+  function renderTotals() {
+    var host = d3.select("#totals"); host.selectAll("*").remove();
+    var rows = ORDER.map(function (t) { return { key: t.key, label: t.label, n: topicTotal(t.key) }; })
+      .sort(function (a, b) { return b.n - a.n; });
+    var max = d3.max(rows, function (r) { return r.n; }) || 1;
+    var BW2 = 340, rowH = 34, R = 46, barL = 0, H2 = rows.length * rowH + 6;
+
+    var svg = host.append("svg")
+      .attr("viewBox", "0 0 " + BW2 + " " + H2)
+      .attr("role", "img").attr("aria-label", "Topic totals in the selected range");
+
+    rows.forEach(function (r, i) {
+      var yy = i * rowH + 2, bh = 13, barY = yy + 15;
+      var w = Math.max(2, (r.n / max) * (BW2 - R));
+      var fill = state.focus && r.key !== state.focus ? "var(--deemph)" : colorOf(r.key);
+      var g = svg.append("g").style("cursor", "pointer");
+      g.append("text").attr("x", 0).attr("y", yy + 9)
+        .attr("fill", "var(--ink-2)").attr("font-size", 11)
+        .text(shortLabel(r.label));
+      g.append("rect")
+        .attr("x", barL).attr("y", barY).attr("width", w).attr("height", bh).attr("rx", 4)
+        .attr("fill", fill);
+      g.append("rect")
+        .attr("x", barL).attr("y", barY).attr("width", Math.min(4, w)).attr("height", bh)
+        .attr("fill", fill);
+      g.append("text").attr("x", barL + w + 7).attr("y", barY + bh - 2)
+        .attr("fill", "var(--ink-2)").attr("font-size", 11)
+        .attr("font-variant-numeric", "tabular-nums")
+        .text(nf.format(r.n));
+      g.append("rect")
+        .attr("x", 0).attr("y", yy).attr("width", BW2).attr("height", rowH).attr("fill", "transparent")
+        .on("pointermove", function (event) {
+          showTip(event, r.label, [{ value: nf.format(r.n), label: "stories in range", color: colorOf(r.key) }]);
+        })
+        .on("pointerleave", hideTip)
+        .on("click", function () {
+          state.focus = state.focus === r.key ? null : r.key;
+          render();
+        });
     });
   }
 
-  /* ---------- detail: emphasis line chart ---------- */
-  function renderDetail() {
-    var host = $("detail"); host.textContent = "";
-    var ms = months();
-    var W = 720, H = 300, L = 46, R = 16, T = 14, B = 42;
-    var iw = W - L - R, ih = H - T - B;
-
-    var list = sortedTopics();
-    var max = 0;
-    list.forEach(function (t) {
-      for (var i = 0; i < ms.length; i++) max = Math.max(max, valueAt(t.key, i));
-    });
-    if (!max) max = 1;
-
-    var x = function (i) { return ms.length === 1 ? L + iw / 2 : L + i * iw / (ms.length - 1); };
-    var y = function (v) { return T + ih - (v / max) * ih; };
-
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
-      "aria-label": (state.topic ? labelOf(state.topic) : "All topics") + " over time" });
-
-    // gridlines: solid hairlines, one step off surface
-    var ticks = 4;
-    for (var g = 0; g <= ticks; g++) {
-      var vv = max * g / ticks, yy = y(vv);
-      svg.appendChild(el("line", { x1: L, x2: W - R, y1: yy, y2: yy,
-        stroke: "var(--grid)", "stroke-width": 1 }));
-      var tl = el("text", { x: L - 8, y: yy + 4, "text-anchor": "end",
-        fill: "var(--muted)", "font-size": 11 });
-      tl.textContent = state.measure === "share" ? (vv * 100).toFixed(0) + "%" : nf.format(Math.round(vv));
-      svg.appendChild(tl);
-    }
-    // baseline
-    svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(0), y2: y(0),
-      stroke: "var(--axis)", "stroke-width": 1 }));
-
-    // x labels — thin every other when crowded so they never collide
-    var step = ms.length > 9 ? Math.ceil(ms.length / 8) : 1;
-    ms.forEach(function (m, i) {
-      if (i % step && i !== ms.length - 1) return;
-      // Anchor the end labels inward; centered text at the extremes overflows
-      // the viewBox and gets clipped ("Aug 202").
-      var anchor = i === 0 ? "start" : (i === ms.length - 1 ? "end" : "middle");
-      var t2 = el("text", { x: x(i), y: H - B + 18, "text-anchor": anchor,
-        fill: THIN.has(m) ? "var(--deemph)" : "var(--muted)", "font-size": 11 });
-      t2.textContent = monthLabel(m);
-      svg.appendChild(t2);
-    });
-
-    // context series in de-emphasis gray, then the focus series on top
-    list.forEach(function (t) {
-      if (state.topic && t.key === state.topic) return;
-      var vals = ms.map(function (_, i) { return valueAt(t.key, i); });
-      var d = ""; vals.forEach(function (v, i) { d += (i ? "L" : "M") + x(i) + " " + y(v); });
-      svg.appendChild(el("path", { d: d, fill: "none",
-        stroke: state.topic ? "var(--deemph)" : "var(--deemph)",
-        "stroke-width": state.topic ? 1.5 : 1.5, "stroke-linejoin": "round", opacity: state.topic ? 1 : .9 }));
-    });
-    if (state.topic) {
-      var vals = ms.map(function (_, i) { return valueAt(state.topic, i); });
-      var p = areaPath(vals, max, 0, 0, 0);
-      var d = "", a = "";
-      vals.forEach(function (v, i) { d += (i ? "L" : "M") + x(i) + " " + y(v); });
-      a = d + "L" + x(ms.length - 1) + " " + y(0) + "L" + x(0) + " " + y(0) + "Z";
-      svg.appendChild(el("path", { d: a, fill: "var(--series-wash)" }));
-      svg.appendChild(el("path", { d: d, fill: "none", stroke: "var(--series)",
-        "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
-      vals.forEach(function (v, i) {
-        svg.appendChild(el("circle", { cx: x(i), cy: y(v), r: 4, fill: "var(--series)",
-          stroke: "var(--surface-1)", "stroke-width": 2 }));
-      });
-      // direct-label the endpoint only
-      var last = vals.length - 1;
-      var lab = el("text", { x: x(last) - 6, y: y(vals[last]) - 12, "text-anchor": "end",
-        fill: "var(--ink)", "font-size": 12, "font-weight": 650 });
-      lab.textContent = fmt(vals[last]);
-      svg.appendChild(lab);
-    }
-
-    // crosshair + hit layer: readers aim at a month, never at a 2px line
-    var hair = el("line", { x1: 0, x2: 0, y1: T, y2: T + ih, stroke: "var(--axis)",
-      "stroke-width": 1, opacity: 0 });
-    svg.appendChild(hair);
-    var hit = el("rect", { x: L, y: T, width: iw, height: ih, fill: "transparent" });
-    svg.appendChild(hit);
-    function onMove(e) {
-      var r = svg.getBoundingClientRect();
-      var px = (e.clientX - r.left) / r.width * W;
-      var i = Math.round((px - L) / (iw || 1) * (ms.length - 1));
-      i = Math.max(0, Math.min(ms.length - 1, i));
-      hair.setAttribute("x1", x(i)); hair.setAttribute("x2", x(i)); hair.setAttribute("opacity", 1);
-      var rows = (state.topic ? [D.topics.find(function (t) { return t.key === state.topic; })]
-                              : sortedTopics().slice(0, 5))
-        .map(function (t) { return { value: fmt(valueAt(t.key, i)), label: t.label,
-                                     gray: state.topic ? false : true }; });
-      var title = monthLabel(ms[i]) + (THIN.has(ms[i]) ? " · thin sample" : "");
-      showTip(e, title, rows);
-    }
-    hit.addEventListener("pointermove", onMove);
-    hit.addEventListener("pointerleave", function () { hair.setAttribute("opacity", 0); hideTip(); });
-    host.appendChild(svg);
-  }
-
-  function labelOf(key) {
-    var t = D.topics.find(function (x) { return x.key === key; });
-    return t ? t.label : key;
-  }
-
-  /* ---------- geography: one series, one color (states are nominal) ---------- */
+  /* ---------- geography: one series (states are nominal) ---------- */
   function renderStates() {
-    var host = $("states"); host.textContent = "";
+    var host = d3.select("#states"); host.selectAll("*").remove();
     var rows = D.states.map(function (s) {
-      return { code: s.code, n: state.topic ? (s.counts[state.topic] || 0) : s.total };
+      return { code: s.code, n: state.focus ? (s.counts[state.focus] || 0) : s.total };
     }).filter(function (r) { return r.n > 0; })
       .sort(function (a, b) { return b.n - a.n; }).slice(0, 12);
 
-    if (!rows.length) { var p = document.createElement("p"); p.className = "hint";
-      p.textContent = "No located stories for this selection."; host.appendChild(p); return; }
+    if (!rows.length) {
+      host.append("p").attr("class", "hint").text("No located stories for this topic.");
+      return;
+    }
+    var color = state.focus ? colorOf(state.focus) : "var(--neutral-bar)";
+    var max = rows[0].n, BW2 = 340, rowH = 26, L = 34, R = 46;
+    var H2 = rows.length * rowH + 8;
+    var svg = host.append("svg")
+      .attr("viewBox", "0 0 " + BW2 + " " + H2)
+      .attr("role", "img").attr("aria-label", "Stories by state");
 
-    var max = rows[0].n;
-    var BW = 320, rowH = 26, L = 34, R = 46;
-    var H = rows.length * rowH + 8;
-    var svg = el("svg", { viewBox: "0 0 " + BW + " " + H, role: "img",
-      "aria-label": "Stories by state" });
     rows.forEach(function (r, i) {
-      var y = i * rowH + 4, bh = 14;
-      var w = Math.max(1, (r.n / max) * (BW - L - R));
-      var code = el("text", { x: 0, y: y + bh - 2, fill: "var(--ink-2)", "font-size": 11 });
-      code.textContent = r.code;
-      svg.appendChild(code);
-      // 4px rounded data-end, square at the baseline
-      svg.appendChild(el("rect", { x: L, y: y, width: w, height: bh, rx: 4,
-        fill: "var(--series)" }));
-      svg.appendChild(el("rect", { x: L, y: y, width: Math.min(4, w), height: bh,
-        fill: "var(--series)" }));
-      var v = el("text", { x: L + w + 7, y: y + bh - 2, fill: "var(--ink-2)", "font-size": 11 });
-      v.textContent = nf.format(r.n);
-      svg.appendChild(v);
-      // hit target spans the whole row, not just the painted bar
-      var hit = el("rect", { x: 0, y: y - 4, width: BW, height: rowH, fill: "transparent" });
-      hit.addEventListener("pointermove", function (e) {
-        showTip(e, r.code, [{ value: nf.format(r.n), label: "stories" }]);
-      });
-      hit.addEventListener("pointerleave", hideTip);
-      svg.appendChild(hit);
+      var yy = i * rowH + 4, bh = 14;
+      var w = Math.max(2, (r.n / max) * (BW2 - L - R));
+      svg.append("text").attr("x", 0).attr("y", yy + bh - 2)
+        .attr("fill", "var(--ink-2)").attr("font-size", 11).text(r.code);
+      svg.append("rect").attr("x", L).attr("y", yy).attr("width", w).attr("height", bh)
+        .attr("rx", 4).attr("fill", color);
+      svg.append("rect").attr("x", L).attr("y", yy).attr("width", Math.min(4, w)).attr("height", bh)
+        .attr("fill", color);
+      svg.append("text").attr("x", L + w + 7).attr("y", yy + bh - 2)
+        .attr("fill", "var(--ink-2)").attr("font-size", 11)
+        .attr("font-variant-numeric", "tabular-nums").text(nf.format(r.n));
+      svg.append("rect").attr("x", 0).attr("y", yy - 4).attr("width", BW2).attr("height", rowH)
+        .attr("fill", "transparent")
+        .on("pointermove", function (event) {
+          showTip(event, r.code, [{ value: nf.format(r.n), label: "stories",
+                                    color: state.focus ? colorOf(state.focus) : null }]);
+        })
+        .on("pointerleave", hideTip);
     });
-    host.appendChild(svg);
   }
 
   /* ---------- table view ---------- */
+  var TABLE_MAX_DAYS = 90;
   function renderTable() {
     var t = $("table"); t.textContent = "";
-    var ms = months();
+    // A daily table over a wide brush would be tens of thousands of cells. The
+    // table exists so every plotted value is reachable without a pointer, and
+    // the most recent stretch is the part anyone reads; the rest stays in the
+    // JSON. The caption says which days are shown.
+    var all = idx();
+    var ii = all.length > TABLE_MAX_DAYS ? all.slice(-TABLE_MAX_DAYS) : all;
+    $("tableHint").textContent = all.length > TABLE_MAX_DAYS
+      ? "Every plotted value, reachable without hovering — showing the most recent "
+        + TABLE_MAX_DAYS + " of " + nf.format(all.length) + " days in range."
+      : "Every plotted value, reachable without hovering.";
     var thead = document.createElement("thead");
     var hr = document.createElement("tr");
-    ["Topic"].concat(ms.map(monthLabel)).concat(["Total"]).forEach(function (h) {
-      var th = document.createElement("th"); th.textContent = h; hr.appendChild(th);
-    });
+    ["Topic"].concat(ii.map(function (i) { return dayLabel(D.days[i]); })).concat(["Total"])
+      .forEach(function (h) {
+        var th = document.createElement("th"); th.textContent = h; hr.appendChild(th);
+      });
     thead.appendChild(hr); t.appendChild(thead);
     var tb = document.createElement("tbody");
-    sortedTopics().forEach(function (tp) {
-      var tr = document.createElement("tr");
-      var td0 = document.createElement("td"); td0.textContent = tp.label; tr.appendChild(td0);
-      ms.forEach(function (_, i) {
-        var td = document.createElement("td"); td.textContent = fmt(valueAt(tp.key, i)); tr.appendChild(td);
+    ORDER.slice().sort(function (a, b) { return topicTotal(b.key) - topicTotal(a.key); })
+      .forEach(function (tp) {
+        var tr = document.createElement("tr");
+        if (state.focus === tp.key) tr.className = "focused";
+        var td0 = document.createElement("td");
+        var sw = document.createElement("span");
+        sw.className = "tkey"; sw.style.background = colorOf(tp.key);
+        td0.appendChild(sw);
+        td0.appendChild(document.createTextNode(tp.label));
+        tr.appendChild(td0);
+        ii.forEach(function (i) {
+          var td = document.createElement("td"); td.textContent = fmt(valueAt(tp.key, i)); tr.appendChild(td);
+        });
+        var tdT = document.createElement("td"); tdT.textContent = nf.format(topicTotal(tp.key));
+        tr.appendChild(tdT); tb.appendChild(tr);
       });
-      var tdT = document.createElement("td"); tdT.textContent = nf.format(topicTotal(tp.key));
-      tr.appendChild(tdT); tb.appendChild(tr);
-    });
     t.appendChild(tb);
   }
 
   /* ---------- chrome ---------- */
   function renderKpis() {
     var host = $("kpis"); host.textContent = "";
-    var ms = months();
-    var grand = totals().reduce(function (a, b) { return a + b; }, 0);
     var items = [
-      { label: "Stories in range", value: nf.format(grand), hero: true },
+      { label: "Stories in range", value: nf.format(grandTotal()), hero: true },
       { label: "Publications", value: nf.format(D.totals.publications) },
-      { label: "Topics", value: String(D.topics.length) },
-      { label: "Months covered", value: String(ms.length) }
+      // Captured, not published: what last night's run pulled in. Independent
+      // of the brush, like Publications.
+      { label: "Added " + (D.as_of ? dayLabel(D.as_of) : "yesterday"),
+        value: nf.format(D.added_on_as_of || 0) }
     ];
     items.forEach(function (it) {
       var d = document.createElement("div"); d.className = "tile" + (it.hero ? " hero" : "");
@@ -543,68 +841,75 @@
   function renderChrome() {
     $("meta").textContent = "Model " + D.model_version + " · built " +
       (D.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
-    var thin = (D.thin_months || []).length;
-    $("smHint").textContent = "One panel per topic, sharing a single vertical scale so they stay comparable. "
-      + "Click a panel to focus it below." + (thin ? " Months with fewer than 200 stories are shown in gray on the axis — early collection was sparse, so their shares are noisy." : "");
-    $("detailTitle").textContent = state.topic ? labelOf(state.topic) : "All topics";
-    $("detailHint").textContent =
-      "Selected topic in blue; the other nine in gray for context. "
-      + "Click any panel above to switch focus.";
-    var lg = $("detailLegend"); lg.textContent = "";
-    function key(label, gray) {
-      var s = document.createElement("span"); s.className = "k";
-      var sw = document.createElement("span"); sw.className = "swatch" + (gray ? " gray" : "");
-      var tx = document.createElement("span"); tx.textContent = label;
-      s.appendChild(sw); s.appendChild(tx); return s;
-    }
-    if (state.topic) {
-      lg.appendChild(key(labelOf(state.topic), false));
-      lg.appendChild(key("Other topics", true));
-    } else {
-      lg.appendChild(key("All ten topics", true));
-    }
+    var thin = (D.thin_days || []).length;
+    $("mainHint").textContent =
+      "All ten topics on one scale. Click a legend entry to isolate that topic; click it again, or Show all, to bring the rest back. "
+      + "Drag on the volume strip below to change the time range."
+      + (thin ? " Shaded days carry fewer than " + (D.min_day_stories || 30)
+          + " stories, where a single story swings a share." : "")
+      + " Student papers publish on a school week, so the raw daily series carries a"
+      + " weekly sawtooth — Sundays run about a third of a Wednesday. The 7-day average"
+      + " cancels that cycle.";
+    $("rangeread").innerHTML = rangeText(state.i0, state.i1);
+    // Against dated stories only -- the ~1,600 rows with no usable published
+    // date are in no year at all, so counting them here would credit them to
+    // the recent span.
+    var pre = D.recent_start || 0, before = 0, dated = 0;
+    D.day_totals.forEach(function (n, p) {
+      dated += n;
+      if (p < pre) before += n;
+    });
+    $("brushHint").textContent = state.full
+      ? "Showing the full archive back to " + dayLabel(D.days[0]) + ". The "
+        + nf.format(pre) + " days before " + (D.recent_year || "") + " hold only "
+        + nf.format(before) + " stories between them — RSS feeds carry a publisher's"
+        + " recent items, so those years are whatever each outlet's feed still listed"
+        + " when it was added, not a sample of what was published."
+      : "The brush spans " + (D.recent_year || "") + " onward, which holds "
+        + nf.format(dated - before) + " of the " + nf.format(dated)
+        + " dated stories. Check the box for the " + nf.format(before)
+        + " backfilled from earlier years.";
+    $("statesTitle").textContent = state.focus ? "Where " + labelOf(state.focus) + " is covered" : "Stories by state";
+    $("statesHint").textContent = state.focus
+      ? "Top 12 states for this topic, across the whole archive."
+      : "Top 12 states by total located stories, across the whole archive.";
     $("footnote").textContent =
-      "Coverage is shown as each topic's share of that month's stories. Raw counts rise "
+      "Coverage is shown as each topic's share of that day's stories. Raw counts rise "
       + "sharply over the period because the number of monitored outlets grew, so counts "
       + "measure collection as much as coverage; share does not. "
       + nf.format(D.totals.stories - D.totals.classified) + " of "
-      + nf.format(D.totals.stories) + " stories are unclassified (no extracted text, or too short).";
-  }
-
-  function fillMonthSelects() {
-    ["from", "to"].forEach(function (which) {
-      var sel = $(which); sel.textContent = "";
-      D.months.forEach(function (m, i) {
-        var o = document.createElement("option"); o.value = String(i);
-        o.textContent = monthLabel(m); sel.appendChild(o);
-      });
-    });
-    $("from").value = String(state.i0);
-    $("to").value = String(state.i1);
+      + nf.format(D.totals.stories) + " stories are unclassified (no extracted text, or too short). "
+      + "The series stops at " + (D.as_of ? dayLabel(D.as_of) : "the last complete day")
+      + "; capture runs overnight and extraction trails it, so today is always a "
+      + "partial day and is held back rather than plotted as a fall-off. "
+      + "State totals cover the whole archive and do not follow the time range.";
   }
 
   function render() {
-    renderChrome(); renderKpis(); renderGrid(); renderDetail(); renderStates(); renderTable();
+    renderChrome(); renderKpis(); renderLegend(); renderChart();
+    renderStates(); renderTotals(); renderTable();
     $("mShare").setAttribute("aria-pressed", state.measure === "share" ? "true" : "false");
     $("mCount").setAttribute("aria-pressed", state.measure === "count" ? "true" : "false");
+    $("sRaw").setAttribute("aria-pressed", state.smooth ? "false" : "true");
+    $("sAvg").setAttribute("aria-pressed", state.smooth ? "true" : "false");
   }
 
-  $("from").addEventListener("change", function () {
-    state.i0 = +this.value; if (state.i0 > state.i1) { state.i1 = state.i0; $("to").value = String(state.i1); }
-    render();
-  });
-  $("to").addEventListener("change", function () {
-    state.i1 = +this.value; if (state.i1 < state.i0) { state.i0 = state.i1; $("from").value = String(state.i0); }
-    render();
-  });
   $("mShare").addEventListener("click", function () { state.measure = "share"; render(); });
   $("mCount").addEventListener("click", function () { state.measure = "count"; render(); });
+  $("fullRange").addEventListener("change", function () {
+    state.full = this.checked;
+    renderBrush();   // rebuilds the scale, then syncBrush clamps the selection
+    render();
+  });
+  $("sRaw").addEventListener("click", function () { state.smooth = false; render(); });
+  $("sAvg").addEventListener("click", function () { state.smooth = true; render(); });
   $("reset").addEventListener("click", function () {
-    state = { topic: BIGGEST ? BIGGEST.key : null, measure: "share", i0: DEF[0], i1: DEF[1] };
-    fillMonthSelects(); render();
+    state = { measure: "share", smooth: false, full: false, i0: DEF[0], i1: DEF[1], focus: null };
+    $("fullRange").checked = false;
+    renderBrush(); render();
   });
 
-  fillMonthSelects();
+  renderBrush();
   render();
 })();
 </script>
