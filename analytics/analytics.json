@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-03T04:05:18.974832+00:00",
-  "total_stories": 29758,
+  "generated_at": "2026-09-04T03:48:46.138750+00:00",
+  "total_stories": 30790,
   "total_feeds": 108,
   "themes": {
     "Department | Midwest | Semester | Annual": 383,
@@ -25,58 +25,58 @@
     "Florida | Arrested | Hillsborough | Court | Protections": 100
   },
   "sentiment": {
-    "neutral": 28908,
-    "negative": 286,
-    "positive": 564
+    "neutral": 29908,
+    "negative": 293,
+    "positive": 589
   },
   "keywords": {
-    "students": 1488,
-    "state": 943,
-    "student": 880,
-    "college": 825,
-    "first": 680,
-    "university": 649,
-    "season": 647,
-    "campus": 604,
-    "florida": 566,
-    "community": 523,
-    "county": 523,
-    "women": 497,
-    "year": 483,
-    "city": 426,
-    "summer": 403,
-    "school": 394,
-    "soccer": 392,
-    "football": 377,
-    "have": 376,
-    "center": 348,
-    "week": 336,
-    "post": 325,
-    "trump": 320,
-    "team": 315,
-    "penn": 310,
-    "opinion": 305,
-    "years": 301,
-    "president": 301,
-    "basketball": 298,
+    "students": 1522,
+    "state": 982,
+    "student": 900,
+    "college": 846,
+    "first": 714,
+    "season": 684,
+    "university": 673,
+    "campus": 629,
+    "florida": 575,
+    "county": 539,
+    "community": 534,
+    "women": 514,
+    "year": 501,
+    "city": 435,
+    "football": 418,
+    "summer": 414,
+    "soccer": 414,
+    "school": 411,
+    "have": 390,
+    "center": 359,
+    "week": 355,
+    "post": 336,
+    "trump": 326,
+    "team": 321,
+    "penn": 321,
+    "years": 317,
+    "opinion": 314,
+    "president": 307,
+    "basketball": 301,
     "spring": 290
   },
   "sources": {
-    "Tampa Free Press": 1748,
-    "The Dominion Post": 489,
-    "The Seattle Medium": 460,
-    "Honolulu Civil Beat": 426,
-    "Indiana Daily Student": 409,
-    "The NewsHouse": 401,
-    "Milwaukee Neighborhood News Service": 319,
-    "Voice of OC": 294,
-    "www.easternprogress.com - RSS Results": 294,
-    "The Daily Texan": 264,
-    "The Daily Iowan": 255,
-    "The Observer": 247,
-    "Iowa State Daily": 244,
-    "Caplin News": 242,
-    "The Daily Northwestern": 236
+    "Tampa Free Press": 1800,
+    "The Dominion Post": 511,
+    "The Seattle Medium": 470,
+    "Honolulu Civil Beat": 439,
+    "Indiana Daily Student": 419,
+    "The NewsHouse": 404,
+    "Milwaukee Neighborhood News Service": 324,
+    "www.easternprogress.com - RSS Results": 314,
+    "Voice of OC": 298,
+    "Iowa State Daily": 266,
+    "The Daily Texan": 266,
+    "The Daily Iowan": 265,
+    "Caplin News": 248,
+    "www.cowleycollegemedia.com - RSS Results of type article": 248,
+    "The Observer": 247
   },
   "timeseries": {
     "2011-04-24": {
@@ -11879,22 +11879,28 @@
       }
     },
     "2025-03-11": {
-      "total": 1,
+      "total": 2,
       "themes": {
         "District | Public | Tribunes | Building | Petitions": 1
       },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "public": 1,
         "does": 1,
         "president": 1,
         "need": 1,
-        "adviser": 1
+        "adviser": 1,
+        "kahl": 1,
+        "ripon": 1,
+        "college": 1,
+        "breaststroke": 1,
+        "freshman": 1
       },
       "sources": {
-        "UH Beat Archives - Honolulu Civil Beat": 1
+        "UH Beat Archives - Honolulu Civil Beat": 1,
+        "Ripon Media": 1
       }
     },
     "2025-03-12": {
@@ -12123,6 +12129,23 @@
         "Eagle View Blog & Community Media": 1
       }
     },
+    "2025-03-25": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "ripon": 1,
+        "chair": 1,
+        "philosophy": 1,
+        "paul": 1,
+        "jeffries": 1
+      },
+      "sources": {
+        "Ripon Media": 1
+      }
+    },
     "2025-03-26": {
       "total": 2,
       "themes": {
@@ -12172,6 +12195,23 @@
       "sources": {
         "The Graceland Buzz": 1,
         "Ka Mana'o": 1
+      }
+    },
+    "2025-03-30": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "science": 1,
+        "center": 1,
+        "students": 1,
+        "jungle": 1,
+        "construction": 1
+      },
+      "sources": {
+        "Ripon Media": 1
       }
     },
     "2025-03-31": {
@@ -12296,12 +12336,14 @@
       }
     },
     "2025-04-05": {
-      "total": 2,
+      "total": 4,
       "themes": {},
       "sentiment": {
-        "neutral": 2
+        "neutral": 4
       },
       "keywords": {
+        "ripon": 2,
+        "liberal": 2,
         "asmsu": 1,
         "elections": 1,
         "open": 1,
@@ -12309,11 +12351,10 @@
         "government": 1,
         "spring": 1,
         "media": 1,
-        "months": 1,
-        "made": 1,
-        "filled": 1
+        "months": 1
       },
       "sources": {
+        "Ripon Media": 2,
         "The State News": 1,
         "The Campus Magazine": 1
       }
@@ -12457,7 +12498,7 @@
       }
     },
     "2025-04-12": {
-      "total": 4,
+      "total": 5,
       "themes": {
         "Teens | Researchers | Publishing | Behavior | Communitys": 1,
         "Tom | Collegiate | Interviews | Chen | Interview": 1,
@@ -12465,7 +12506,7 @@
         "Kansas | Kentucky | Speedway | Louis | Sac": 1
       },
       "sentiment": {
-        "neutral": 4
+        "neutral": 5
       },
       "keywords": {
         "book": 1,
@@ -12480,7 +12521,8 @@
         "debut": 1
       },
       "sources": {
-        "The Wilson Billboard": 4
+        "The Wilson Billboard": 4,
+        "Ripon Media": 1
       }
     },
     "2025-04-13": {
@@ -12500,6 +12542,23 @@
       },
       "sources": {
         "The Wilson Billboard": 1
+      }
+    },
+    "2025-04-14": {
+      "total": 1,
+      "themes": {},
+      "sentiment": {
+        "neutral": 1
+      },
+      "keywords": {
+        "graduation": 1,
+        "seniors": 1,
+        "senior": 1,
+        "success": 1,
+        "upon": 1
+      },
+      "sources": {
+        "Ripon Media": 1
       }
     },
     "2025-04-15": {
@@ -14180,22 +14239,28 @@
       }
     },
     "2025-08-19": {
-      "total": 1,
+      "total": 2,
       "themes": {
         "Shows | Ravine | Irvines | Parks | Claytons": 1
       },
       "sentiment": {
-        "neutral": 1
+        "neutral": 2
       },
       "keywords": {
         "illinois": 1,
         "beekeepers": 1,
         "battle": 1,
         "losses": 1,
-        "costs": 1
+        "costs": 1,
+        "chemistry": 1,
+        "catalyst": 1,
+        "success": 1,
+        "student": 1,
+        "behind": 1
       },
       "sources": {
-        "Medill Illinois News Bureau": 1
+        "Medill Illinois News Bureau": 1,
+        "Ripon Media": 1
       }
     },
     "2025-08-20": {
@@ -14637,12 +14702,12 @@
       }
     },
     "2025-09-29": {
-      "total": 5,
+      "total": 6,
       "themes": {
         "Topic 73": 2
       },
       "sentiment": {
-        "neutral": 5
+        "neutral": 6
       },
       "keywords": {
         "title": 2,
@@ -14660,7 +14725,8 @@
         "Buffalo Review West": 2,
         "Medill Illinois News Bureau": 1,
         "Fresh Take Georgia": 1,
-        "Collegiate News Service": 1
+        "Collegiate News Service": 1,
+        "Ripon Media": 1
       }
     },
     "2025-09-30": {
@@ -15887,13 +15953,13 @@
       }
     },
     "2025-11-13": {
-      "total": 6,
+      "total": 8,
       "themes": {
         "Business | Economic | Cleveland | Liberty": 1,
         "Ending | Conversations | Writer | Bellas | Sweet": 1
       },
       "sentiment": {
-        "neutral": 6
+        "neutral": 8
       },
       "keywords": {
         "local": 1,
@@ -15908,6 +15974,7 @@
         "trump": 1
       },
       "sources": {
+        "Ripon Media": 2,
         "Canalside Chronicles": 1,
         "Annapolis – CNS Maryland": 1,
         "The NewsHouse": 1,
@@ -16643,7 +16710,7 @@
       }
     },
     "2025-12-05": {
-      "total": 17,
+      "total": 18,
       "themes": {
         "Alaska | Lax | Survivor | Anchor | Seattle": 1,
         "Shows | Ravine | Irvines | Parks | Claytons": 1,
@@ -16655,7 +16722,7 @@
         "Mississippi | Baylor | School | Students | Nationwide": 1
       },
       "sentiment": {
-        "neutral": 15,
+        "neutral": 16,
         "positive": 1,
         "negative": 1
       },
@@ -16687,7 +16754,8 @@
         "Teaching & Learning": 1,
         "The Informer": 1,
         "The Graceland Buzz": 1,
-        "www.thepinelog.com - RSS Results of type article": 1
+        "www.thepinelog.com - RSS Results of type article": 1,
+        "Ripon Media": 1
       }
     },
     "2025-12-06": {
@@ -29640,7 +29708,7 @@
       }
     },
     "2026-07-02": {
-      "total": 176,
+      "total": 177,
       "themes": {
         "Msu | State | Release | Over | Major": 38,
         "Construction | Street | Redraw | Democracy | Rediscovering": 21,
@@ -29654,7 +29722,7 @@
         "Towns | Smartwatch | Hampshire | Watch | Wisconsin": 1
       },
       "sentiment": {
-        "neutral": 174,
+        "neutral": 175,
         "positive": 2
       },
       "keywords": {
@@ -29718,7 +29786,8 @@
         "The Butler Collegian": 1,
         "The Globe": 1,
         "News-Register": 1,
-        "NMSU Round Up": 1
+        "NMSU Round Up": 1,
+        "F Newsmagazine": 1
       }
     },
     "2026-07-03": {
@@ -33964,7 +34033,7 @@
       }
     },
     "2026-08-25": {
-      "total": 386,
+      "total": 387,
       "themes": {
         "Event | Backtoschool | In | Release | After": 43,
         "Odom | States | State | Will": 39,
@@ -33978,12 +34047,12 @@
         "Incidents | Campus | Campuswide | Campuses | Public": 4
       },
       "sentiment": {
-        "neutral": 378,
+        "neutral": 379,
         "positive": 4,
         "negative": 4
       },
       "keywords": {
-        "students": 27,
+        "students": 28,
         "university": 19,
         "soccer": 18,
         "season": 17,
@@ -34022,6 +34091,7 @@
         "WKUHerald.com": 4,
         "The Michigan Daily": 4,
         "The Daily Pennsylvanian": 4,
+        "Vanguard": 4,
         "The Lion's Roar": 4,
         "The Daily Iowan": 3,
         "Capitol News Illinois": 3,
@@ -34033,7 +34103,6 @@
         "Voice of OC": 3,
         "The State News": 3,
         "Public health trip brings physical, spiritual care to communities in Guatemala, El Salvador | Liberty News": 3,
-        "Vanguard": 3,
         "The Reporter: The Student Newspaper at Miami Dade College": 3,
         "The Criterion": 3,
         "Iron Blade": 3,
@@ -34786,7 +34855,7 @@
       }
     },
     "2026-08-30": {
-      "total": 319,
+      "total": 320,
       "themes": {
         "Sunday | Funding | Day | Edt | Opens": 70,
         "Cornell | Syracuse | Bc | Saint | Lsu": 34,
@@ -34802,14 +34871,14 @@
       "sentiment": {
         "negative": 3,
         "positive": 18,
-        "neutral": 298
+        "neutral": 299
       },
       "keywords": {
         "season": 21,
         "soccer": 20,
         "state": 17,
         "volleyball": 15,
-        "first": 13,
+        "first": 14,
         "football": 10,
         "expands": 10,
         "tech": 9,
@@ -34920,7 +34989,8 @@
         "The Voyager": 1,
         "The Chronicle": 1,
         "Howard University News Service": 1,
-        "Reporter Magazine": 1
+        "Reporter Magazine": 1,
+        "The Washburn Review": 1
       }
     },
     "2026-08-31": {
@@ -35146,10 +35216,10 @@
       }
     },
     "2026-09-01": {
-      "total": 834,
+      "total": 835,
       "themes": {},
       "sentiment": {
-        "neutral": 801,
+        "neutral": 802,
         "positive": 29,
         "negative": 4
       },
@@ -35364,45 +35434,49 @@
         "The Dartmouth": 1,
         "www.thesouthend.wayne.edu - RSS Results": 1,
         "Reporter Magazine": 1,
-        "Convocation guests Shawn Johnson and Andrew East share lessons on committing to faith-filled goals | Liberty News": 1
+        "Convocation guests Shawn Johnson and Andrew East share lessons on committing to faith-filled goals | Liberty News": 1,
+        "The Washburn Review": 1
       }
     },
     "2026-09-02": {
-      "total": 865,
+      "total": 976,
       "themes": {},
       "sentiment": {
-        "neutral": 843,
+        "neutral": 949,
         "negative": 10,
-        "positive": 12
+        "positive": 17
       },
       "keywords": {
-        "season": 50,
+        "season": 51,
         "students": 38,
+        "football": 31,
         "first": 30,
-        "football": 28,
+        "expands": 28,
         "college": 26,
         "state": 24,
         "campus": 24,
         "summer": 23,
-        "student": 21,
-        "post": 20
+        "student": 21
       },
       "sources": {
+        "www.ninertimes.com - RSS Results of type article": 52,
         "Tampa Free Press": 47,
-        "www.ninertimes.com - RSS Results of type article": 33,
+        "www.cowleycollegemedia.com - RSS Results of type article": 45,
+        "www.nsunews.com - RSS Results of type article": 28,
+        "The Collegian": 25,
         "The Dominion Post": 25,
-        "The Collegian": 24,
-        "www.cowleycollegemedia.com - RSS Results of type article": 23,
         "The Daily Beacon": 20,
+        "The Daily Cardinal": 20,
         "SM2": 16,
+        "The Hoya": 15,
         "The Beacon": 15,
         "The Daily Orange": 14,
-        "The Hoya": 14,
         "The Daily Iowan": 13,
         "Reveille": 13,
         "The Butler Collegian": 13,
         "The Fordham Ram": 13,
         "Indiana Daily Student": 13,
+        "www.raiderstudentmedia.com - RSS Results of type article": 13,
         "The Wayne Stater": 12,
         "www.thestatehousefile.com - RSS Results": 12,
         "UWM Post": 12,
@@ -35424,10 +35498,10 @@
         "THE HERALD": 9,
         "The Scarlet": 9,
         "Milwaukee Neighborhood News Service": 8,
+        "The Cornell Daily Sun": 8,
         "The Daily Evergreen": 7,
         "The Michigan Daily": 7,
         "WKUHerald.com": 7,
-        "The Cornell Daily Sun": 7,
         "Northern Star": 6,
         "www.ntdaily.com - RSS Results": 6,
         "The Daily Texan": 5,
@@ -35446,11 +35520,13 @@
         "The Ithacan": 4,
         "The Daily Illini": 4,
         "All the Lehigh University News First - The Brown and White": 4,
+        "Wisconsin Watch": 4,
         "QCity Metro Latest News": 4,
         "Daily Emerald": 4,
         "www.thedaonline.com - RSS Results of type article": 4,
         "The Argonaut": 4,
         "www.dailycal.org - RSS Results": 4,
+        "The Washburn Review": 4,
         "The Western Carolina Journalist": 3,
         "FAU University Press": 3,
         "The Vanderbilt Hustler": 3,
@@ -35458,13 +35534,12 @@
         "The Bell Ringer": 3,
         "The NewsHouse": 3,
         "The Daily Campus": 3,
-        "Wisconsin Watch": 3,
         "Voice of OC": 3,
         "USC Annenberg": 3,
         "The Oracle": 3,
         "The Collegio": 3,
-        "The Washburn Review": 3,
         "The Johns Hopkins News-Letter": 3,
+        "www.thepinelog.com - RSS Results of type article": 3,
         "The Daily Northwestern": 2,
         "Student Senate Association, Inc.  PURCHASE PHOENIX": 2,
         "The Daily Mississippian": 2,
@@ -35490,6 +35565,7 @@
         "The Blue Banner": 2,
         "Reporter Magazine": 2,
         "The Oswegonian": 2,
+        "The Pacer": 2,
         "News - The Daily Illini": 2,
         "EU Valor Media News": 2,
         "The Rensselaer Polytechnic": 2,
@@ -35546,7 +35622,6 @@
         "The Albion College Pleiad Online": 1,
         "UVU REVIEW": 1,
         "The Hornet": 1,
-        "The Pacer": 1,
         "The Linfield Review": 1,
         "Banner News": 1,
         "The Daily Free Press": 1,
@@ -35598,82 +35673,299 @@
         "The Decaturian": 1,
         "www.thesouthend.wayne.edu - RSS Results": 1,
         "The Orion": 1,
-        "The Daily Cardinal": 1
+        "The Sentinel": 1
       }
     },
     "2026-09-03": {
-      "total": 148,
+      "total": 935,
       "themes": {},
       "sentiment": {
-        "neutral": 146,
-        "positive": 1,
-        "negative": 1
+        "neutral": 909,
+        "positive": 20,
+        "negative": 6
       },
       "keywords": {
-        "students": 12,
-        "first": 9,
-        "season": 9,
-        "college": 9,
-        "soccer": 7,
-        "city": 7,
-        "student": 6,
-        "bates": 6,
-        "digital": 6,
-        "fall": 5
+        "students": 39,
+        "season": 39,
+        "first": 35,
+        "football": 34,
+        "state": 26,
+        "student": 24,
+        "university": 24,
+        "college": 23,
+        "soccer": 22,
+        "campus": 22
       },
       "sources": {
+        "Tampa Free Press": 49,
+        "www.raiderstudentmedia.com - RSS Results of type article": 37,
+        "www.ninertimes.com - RSS Results of type article": 31,
+        "www.easternprogress.com - RSS Results": 30,
+        "www.cowleycollegemedia.com - RSS Results of type article": 26,
+        "www.nsunews.com - RSS Results of type article": 24,
+        "The Dominion Post": 22,
+        "trop": 20,
+        "Trinitonian": 19,
+        "The Daily Orange": 19,
+        "Reveille": 18,
+        "www.dailycal.org - RSS Results": 16,
+        "The Battalion": 12,
+        "Creightonian": 12,
+        "The Tulane Hullabaloo": 12,
+        "Iowa State Daily": 12,
+        "The Daily Mississippian": 11,
+        "The Baylor Lariat": 11,
+        "The Daily Pennsylvanian": 11,
         "The Bates Student": 10,
-        "The Tulane Hullabaloo": 10,
-        "www.easternprogress.com - RSS Results": 10,
         "The Crimson White": 10,
-        "The Battalion": 9,
-        "Student Life": 7,
-        "The Daily Mississippian": 7,
-        "www.dailycal.org - RSS Results": 6,
-        "The Hoya": 5,
-        "The Daily Orange": 5,
-        "The Michigan Daily": 4,
-        "www.ntdaily.com - RSS Results": 4,
-        "Trinitonian": 4,
-        "The Lantern": 4,
-        "The Collegio": 3,
-        "The Vanderbilt Hustler": 3,
+        "The GW Hatchet": 10,
+        "The Tiger": 10,
+        "The Kenyon Collegian": 10,
+        "The Seattle Medium": 10,
+        "East Tennessean": 10,
+        "Indiana Daily Student": 10,
+        "Student Life": 9,
+        "www.uatrav.com - RSS Results": 8,
+        "Honolulu Civil Beat": 8,
+        "Northern Star": 8,
+        "The George-Anne Media Group": 8,
+        "BG Falcon Media": 8,
+        "Daily Trojan": 8,
+        "The Rocky Mountain Collegian": 8,
+        "dailytitan.com - RSS Results": 8,
+        "The Michigan Daily": 7,
+        "The Hoya": 7,
+        "Kansas State Collegian": 7,
+        "The Gustavian Weekly": 7,
+        "The Advance-Titan": 7,
+        "The Badger Herald": 6,
+        "The Diamondback": 6,
+        "www.ntdaily.com - RSS Results": 6,
+        "The Lantern": 6,
+        "Old Gold & Black": 6,
+        "Caplin News": 6,
+        "The Torch": 6,
+        "The Arrow Latest News": 6,
+        "Kentucky Kernel": 6,
+        "www.videtteonline.com - RSS Results": 6,
+        "The Cornell Daily Sun": 6,
+        "Voice of OC": 5,
+        "The Vanderbilt Hustler": 5,
+        "RMU Sentry Media": 5,
+        "The Collegian": 5,
+        "IPM Newsroom": 5,
+        "Berry College Student Media": 5,
+        "www.thedaonline.com - RSS Results of type article": 5,
+        "The Parthenon": 5,
+        "The Collegio": 4,
+        "Pipe Dream": 4,
+        "The Ithacan": 4,
+        "WKUHerald.com": 4,
+        "The Daily Texan": 4,
+        "News Feed": 4,
+        "The Daily Evergreen": 4,
+        "The A&T Register": 4,
+        "QCity Metro Latest News": 4,
+        "The Beacon": 4,
+        "The Hawks’ Herald": 4,
+        "The North Wind": 4,
+        "The State News": 4,
+        "The Daily Utah Chronicle": 3,
+        "The Maneater": 3,
+        "Pepperdine Graphic": 3,
+        "The Runner": 3,
+        "The Daily Eastern News": 3,
         "The Daily Iowan": 3,
-        "The Daily Texan": 3,
-        "The Badger Herald": 2,
-        "The Daily Utah Chronicle": 2,
-        "The Maneater": 2,
-        "www.uatrav.com - RSS Results": 2,
-        "Creightonian": 2,
+        "The Daily Egyptian": 3,
+        "The Heights": 3,
+        "The Voyager": 3,
+        "The Sunflower": 3,
+        "The Daily Illini": 3,
+        "KentStater": 3,
+        "The Hofstra Chronicle": 3,
+        "Tiger Media Network": 3,
+        "The Huntington News": 3,
+        "The Reporting Project – Covering Licking County, Ohio": 3,
+        "9th Street Journal": 3,
+        "The NewsHouse": 3,
+        "Milwaukee Neighborhood News Service": 3,
+        "The Wichitan": 2,
         "The Oglethorpe Echo": 2,
-        "WKUHerald.com": 2,
+        "The Decaturian": 2,
+        "New University | UC Irvine": 2,
+        "The Daily Aztec": 2,
+        "The Daily Northwestern": 2,
+        "The Daily Wildcat": 2,
+        "Reporter Magazine": 2,
+        "https://themetropolitan.metrostate.edu/feed/": 2,
+        "Technician": 2,
+        "All the Lehigh University News First - The Brown and White": 2,
+        "The Record": 2,
+        "The Blue Banner": 2,
+        "The Pine Needle": 2,
+        "Wisconsin Watch": 2,
+        "The All State": 2,
+        "The Bell Ringer": 2,
+        "THE COLLEGE REPORTER": 2,
+        "The Defender": 2,
+        "The Skyline View": 2,
+        "The Miami Hurricane": 2,
+        "Capitol News Illinois": 2,
+        "MATC Times": 2,
+        "The Ferris State Torch": 2,
+        "MTSU Sidelines": 2,
+        "Mustang News": 2,
+        "The Sundial": 2,
+        "The Hilltop": 2,
+        "The Orion": 2,
+        "The Daily Cardinal": 2,
         "Cedars": 1,
-        "The Wichitan": 1,
         "UWM Post": 1,
         "The Paw Print": 1,
-        "Pepperdine Graphic": 1,
         "www.thestatehousefile.com - RSS Results": 1,
         "FAU University Press": 1,
-        "The Runner": 1,
-        "Voice of OC": 1,
         "el Don News": 1,
-        "Kansas State Collegian": 1,
-        "Honolulu Civil Beat": 1,
-        "The Diamondback": 1,
-        "Pipe Dream": 1,
         "The Quinnipiac Chronicle": 1,
         "The Summit": 1,
-        "The Daily Eastern News": 1,
-        "Northern Star": 1,
-        "The Decaturian": 1,
         "www.thesouthend.wayne.edu - RSS Results": 1,
-        "Reveille": 1,
-        "The Ithacan": 1,
         "The Patriot": 1,
         "Massachusetts Daily Collegian": 1,
-        "The George-Anne Media Group": 1,
         "THE ROADRUNNER": 1,
-        "BG Falcon Media": 1
+        "https://thetowerlight.com/feed/": 1,
+        "SAC Media": 1,
+        "Lindenlink": 1,
+        "https://thevalleyvanguard.com/feed/": 1,
+        "Daily Sundial": 1,
+        "El Camino College The Union": 1,
+        "The Minnesota Daily": 1,
+        "City Times": 1,
+        "The Campus": 1,
+        "UVU REVIEW": 1,
+        "Great Lakes Echo": 1,
+        "The Retrograde": 1,
+        "The Paisano": 1,
+        "The Trailblazer": 1,
+        "Tejano Tribune": 1,
+        "TCU 360": 1,
+        "Talon News": 1,
+        "The New Englander eNewspaper": 1,
+        "The Regis Highlander": 1,
+        "The Oswegonian": 1,
+        "Sun News Daily": 1,
+        "The Vision Online": 1,
+        "The Triangle": 1,
+        "The Clarion": 1,
+        "The Echo": 1,
+        "Grady Newsource": 1,
+        "The Collegiate Live": 1,
+        "Cardinal & Cream": 1,
+        "The Bradley Scout": 1,
+        "The Prospectus": 1,
+        "https://cuatower.com/feed/": 1,
+        "The Free Press": 1,
+        "News – KnightNews.com": 1,
+        "They’re Back: Fans ignited for new season of Flames Football | Liberty News": 1,
+        "The Oracle": 1,
+        "UNF Spinnaker": 1,
+        "The Western Carolina Journalist": 1,
+        "SUU News": 1,
+        "The University News": 1,
+        "The Rider Newspaper": 1,
+        "Eagle Media": 1,
+        "The Macon Newsroom": 1,
+        "Muleskinner": 1,
+        "The Linfield Review": 1,
+        "The Collegian Reporter": 1,
+        "Campus Echo Online": 1,
+        "Schoolcraft Connection": 1,
+        "The Argonaut": 1,
+        "The Houstonian": 1,
+        "The Signpost": 1,
+        "PantherNOW": 1,
+        "Daily Emerald": 1,
+        "The Hornet Tribune": 1,
+        "The Eudora Times": 1,
+        "Viewpoints": 1,
+        "Vanguard": 1,
+        "The Stylus": 1,
+        "Chadron State College News": 1,
+        "The Lion's Roar": 1,
+        "The Rambler": 1,
+        "The Times-Delphic": 1,
+        "EU Valor Media News": 1,
+        "SM2": 1,
+        "The DePaulia": 1,
+        "The Cuestonian": 1,
+        "Flyer News: Univ. of Dayton's Student Newspaper": 1,
+        "The Columbia Chronicle": 1,
+        "www.dailygazette.com - RSS Results in spotlightnews of type article": 1
+      }
+    },
+    "2026-09-04": {
+      "total": 97,
+      "themes": {},
+      "sentiment": {
+        "neutral": 94,
+        "negative": 2,
+        "positive": 1
+      },
+      "keywords": {
+        "state": 9,
+        "iowa": 9,
+        "first": 7,
+        "football": 7,
+        "candidate": 6,
+        "season": 6,
+        "house": 5,
+        "district": 5,
+        "week": 5,
+        "michigan": 4
+      },
+      "sources": {
+        "The Daily Iowan": 10,
+        "Iowa State Daily": 10,
+        "www.laloyolan.com - RSS Results": 10,
+        "Honolulu Civil Beat": 6,
+        "The Michigan Daily": 6,
+        "The Battalion": 4,
+        "The Daily Orange": 3,
+        "The Herald Times": 3,
+        "Tampa Free Press": 3,
+        "The Lantern": 2,
+        "Reveille": 2,
+        "The Bridge News": 2,
+        "Milwaukee Neighborhood News Service": 2,
+        "The Daily Mississippian": 2,
+        "The Daily Beacon": 2,
+        "WKUHerald.com": 2,
+        "Sun News Daily": 1,
+        "The Volunteer": 1,
+        "www.thedaonline.com - RSS Results of type article": 1,
+        "The Houstonian": 1,
+        "The Heights": 1,
+        "The Duquesne Duke": 1,
+        "RMU Sentry Media": 1,
+        "New University | UC Irvine": 1,
+        "Marquette Wire": 1,
+        "The Voice": 1,
+        "The Badger Herald": 1,
+        "Daily Sundial": 1,
+        "The Miami Hurricane": 1,
+        "The Diamondback": 1,
+        "FAU University Press": 1,
+        "The Rocket": 1,
+        "The Skyline View": 1,
+        "The University Star": 1,
+        "The Arbiter": 1,
+        "The Daily Eastern News": 1,
+        "The Runner": 1,
+        "The Paladin": 1,
+        "News - The Daily Illini": 1,
+        "The Hoya": 1,
+        "The Maneater": 1,
+        "The Daily Texan": 1,
+        "Grand Valley Lanthorn": 1,
+        "Massachusetts Daily Collegian": 1
       }
     }
   }
