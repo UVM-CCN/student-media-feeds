@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2022-08"]={"2022-08-27":{"t6":{"n":1,"s":[["Convocation ceremony encourages students that they belong","Mount Mercy Times","https://mountmercytimes.home.blog/2022/08/27/convocation-ceremony-encourages-students-that-they-belong/"]]}}};

@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2020-11"]={"2020-11-20":{"t2":{"n":1,"s":[["Announcement on the Future of The Transcript","The Transcript","https://owutranscript.com/2020/11/20/announcement-on-the-future-of-the-transcript/"]]}}};

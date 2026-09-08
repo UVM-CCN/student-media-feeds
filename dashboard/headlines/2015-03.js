@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2015-03"]={"2015-03-30":{"t2":{"n":1,"s":[["Introducing Writing Professor Alison Wellford","News \u2013 The Crestiad","https://crestiad.wordpress.com/2015/03/30/introducing-writing-professor-alison-wellford/"]]}}};

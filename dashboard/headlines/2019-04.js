@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2019-04"]={"2019-04-15":{"t0":{"n":1,"s":[["William Penn University\u2019s Knowledge of the First Amendment","The Statesmen Status","https://statesmenstatus.wordpress.com/2019/04/15/william-penn-universitys-knowledge-of-the-first-amendment/"]]}}};

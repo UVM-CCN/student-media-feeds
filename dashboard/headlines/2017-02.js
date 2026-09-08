@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2017-02"]={"2017-02-20":{"t4":{"n":1,"s":[["EDITORIAL: Gas tax - Indiana Daily Student","Indiana Daily Student","https://www.idsnews.com/article/2017/02/gas-tax-8bd7"]]}}};

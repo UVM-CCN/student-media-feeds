@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2023-07"]={"2023-07-26":{"t3":{"n":1,"s":[["CNCC welcomes new athletic director","CNCC | The Herald Times","https://www.theheraldtimes.com/cncc-welcomes-new-athletic-director/meeker/"]]}}};

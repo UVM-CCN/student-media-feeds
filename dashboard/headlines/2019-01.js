@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2019-01"]={"2019-01-31":{"t8":{"n":1,"s":[["Dean\u2019s Convocation Continues Tradition of Highlighting Diversity on Campus","The Statesmen Status","https://statesmenstatus.wordpress.com/2019/01/31/deans-convocation-continues-tradition-of-highlighting-diversity-on-campus/"]]}}};

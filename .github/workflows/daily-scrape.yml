@@ -115,5 +115,6 @@ jobs:
           git add news_database.csv analytics/ \
                   map/map_data.js map/map_data.json \
                   dashboard/dashboard_data.js dashboard/dashboard_data.json \
+                  dashboard/headlines/ \
                   data/publication_locations.csv
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database and analytics - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)

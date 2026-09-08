@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2018-06"]={"2018-06-18":{"t5":{"n":1,"s":[["Cool Room Contest judges explain how to effectively decorate - Indiana Daily Student","Indiana Daily Student","https://www.idsnews.com/article/2017/10/cool-room-contest-judges-explain-how-to-effectively-decorate"]]}}};

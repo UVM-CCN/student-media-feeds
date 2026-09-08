@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2015-10"]={"2015-10-07":{"t6":{"n":1,"s":[["SGA Election Results 2015","News \u2013 The Crestiad","https://crestiad.wordpress.com/2015/10/07/sga-election-results-2015/"]]}}};

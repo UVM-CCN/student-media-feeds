@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2014-05"]={"2014-05-04":{"t6":{"n":1,"s":[["Our semester in review - Indiana Daily Student","Indiana Daily Student","https://www.idsnews.com/article/2014/05/our-semester-in-review"]]}}};

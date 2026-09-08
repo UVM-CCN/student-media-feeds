@@ -90,6 +90,39 @@
   .legend button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .legend .clear { margin-left: 4px; text-decoration: underline; color: var(--ink-2); }
 
+  /* ---- day drill-down ---- */
+  .daycard { margin-top: 14px; }
+  .dayhead { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+  .dayhead h2 { margin: 0 0 2px; }
+  .dayhead .hint { margin: 0; }
+  .dayhead .link { margin-left: auto; flex: none; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .chips button {
+    display: inline-flex; align-items: center; gap: 7px;
+    font: inherit; font-size: .8rem; color: var(--ink-2);
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 999px;
+    padding: 4px 11px 4px 9px; cursor: pointer; line-height: 1.4;
+    transition: background-color .12s, border-color .12s, color .12s;
+  }
+  .chips button:hover { background: rgba(11,11,11,.045); border-color: var(--axis); }
+  .chips button .swatch { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .chips button .cnt { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .chips button[aria-pressed="true"] { color: var(--ink); font-weight: 600; border-color: var(--ink-2); }
+  .chips button[aria-pressed="true"] .cnt { color: var(--ink-2); }
+  .chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .stories { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .stories li {
+    padding: 9px 12px; border-left: 3px solid var(--topic, var(--accent));
+    background: var(--plane); border-radius: 0 6px 6px 0;
+  }
+  .stories a { color: var(--ink); text-decoration: none; font-size: .92rem; line-height: 1.35; }
+  .stories a:hover { text-decoration: underline; }
+  .stories a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .stories .src { display: block; color: var(--muted); font-size: .76rem; margin-top: 3px; }
+  .daynote { color: var(--muted); font-size: .78rem; margin: 10px 0 0; }
+  .dayempty { color: var(--ink-2); font-size: .88rem; margin: 0; }
+  .marker { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 3 3; }
+
   /* ---- brush ---- */
   .brushcard { padding: 12px 16px 6px; }
   .brushhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 2px; }
@@ -101,7 +134,7 @@
   .check input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .brushcard .hint { margin: 4px 0 0; }
   .brush .selection { fill: rgba(30,136,229,.12); stroke: var(--accent); stroke-width: 1; shape-rendering: crispEdges; }
-  .brush .handle { fill: var(--surface-1); stroke: var(--accent); stroke-width: 1.5; rx: 2; }
+  .brush .handle { fill: var(--surface-1); stroke: var(--accent); stroke-width: 1.5; rx: 0; }
   .brush .overlay { cursor: crosshair; }
 
   /* ---- charts ---- */
@@ -181,6 +214,18 @@
     <div id="chart"></div>
   </div>
 
+  <div class="card daycard" id="dayCard" hidden>
+    <div class="dayhead">
+      <div>
+        <h2 id="dayTitle"></h2>
+        <p class="hint" id="daySub"></p>
+      </div>
+      <button class="link" id="dayClose">Close</button>
+    </div>
+    <div class="chips" id="dayChips"></div>
+    <div id="dayStories"></div>
+  </div>
+
   <div class="card brushcard" style="margin-top:14px">
     <div class="brushhead">
       <span class="t">Time range</span>
@@ -196,14 +241,14 @@
 
   <div class="cols two" style="margin-top:14px">
     <div class="card">
-      <h2 style="margin:0 0 4px" id="statesTitle">Stories by state</h2>
-      <p class="hint" id="statesHint" style="margin-bottom:10px"></p>
-      <div id="states"></div>
-    </div>
-    <div class="card">
       <h2 style="margin:0 0 4px">Topic totals in range</h2>
       <p class="hint" style="margin-bottom:10px">Click a bar to focus that topic, the same as clicking its legend entry.</p>
       <div id="totals"></div>
+    </div>
+    <div class="card">
+      <h2 style="margin:0 0 4px" id="statesTitle">Stories by state</h2>
+      <p class="hint" id="statesHint" style="margin-bottom:10px"></p>
+      <div id="states"></div>
     </div>
   </div>
 
@@ -253,7 +298,51 @@
   // as the brush moves; color is keyed to the topic regardless.
   var ORDER = D.topics.slice().sort(function (a, b) { return b.total - a.total; });
 
-  var state = { measure: "share", smooth: false, full: false, i0: DEF[0], i1: DEF[1], focus: null };
+  var state = { measure: "share", smooth: false, full: false,
+                i0: DEF[0], i1: DEF[1], focus: null, day: null };
+
+  /* ---------- headlines: one month fetched at a time, on drill-down ----------
+     The full set is ~2MB against the main payload's 52KB, so it is not worth
+     paying for on every page view when most readers never open a day -- and
+     even then, only the clicked day's month is needed (~300KB at most).
+     Injected as a script tag rather than fetched because the dashboard is also
+     opened straight off disk, where fetch() of a sibling file is blocked but a
+     script tag is not. Each month file registers itself into
+     window.DASHBOARD_HEADLINES under its own key, so months accumulate rather
+     than overwrite. */
+  var SHARDS = (D.headline_shards || []).reduce(function (m, k) { m[k] = 1; return m; }, {});
+  var shard = {};   // "2026-08" -> "loading" | "ready" | "error"
+  var shardWaiting = {};
+  function monthOf(dayKey) { return dayKey.slice(0, 7); }
+
+  function ensureHeadlines(dayKey, done) {
+    var m = monthOf(dayKey);
+    if (!SHARDS[m]) return done("missing");       // no file was built for it
+    if (shard[m] === "ready") return done(null);
+    if (shard[m] === "error") return done("error");
+    (shardWaiting[m] = shardWaiting[m] || []).push(done);
+    if (shard[m] === "loading") return;
+    shard[m] = "loading";
+    var s = document.createElement("script");
+    s.src = "headlines/" + m + ".js";
+    s.async = true;
+    function settle(status) {
+      shard[m] = status ? "error" : "ready";
+      (shardWaiting[m] || []).splice(0).forEach(function (f) { f(status); });
+    }
+    s.onload = function () {
+      var store = window.DASHBOARD_HEADLINES;
+      settle(store && store[m] ? null : "error");
+    };
+    s.onerror = function () { settle("error"); };
+    document.head.appendChild(s);
+  }
+  function headlinesFor(dayKey, topicKey) {
+    var store = window.DASHBOARD_HEADLINES || {};
+    var month = store[monthOf(dayKey)];
+    var day = month && month[dayKey];
+    return (day && day[topicKey]) || null;
+  }
 
   var nf = new Intl.NumberFormat("en-US");
   function pct(x) { return (x * 100).toFixed(1) + "%"; }
@@ -284,14 +373,33 @@
   // not the mean of the daily ratios -- otherwise a 3-story Sunday weighs as
   // heavily as a 150-story Wednesday.
   function smoothed(key, i) {
-    var end = DATES[i].getTime(), c = 0, t = 0;
+    var end = DATES[i].getTime(), c = 0, t = 0, withData = 0;
     for (var k = 0; k < SMOOTH_WINDOW; k++) {
       var j = DAYIDX[isoOf(end - k * DAY)];
       if (j === undefined) continue;
       c += D.series[key][j];
       t += D.day_classified[j];
+      if (D.day_classified[j] > 0) withData++;
     }
-    return state.measure === "share" ? (t ? c / t : 0) : c / SMOOTH_WINDOW;
+    // Counts average over the days that actually carry topic data. A day whose
+    // stories are captured but not yet extracted is unknown, not zero, and
+    // averaging it in as zero would report a decline that is really a backlog.
+    return state.measure === "share" ? (t ? c / t : 0) : c / Math.max(1, withData);
+  }
+
+  // Whether day i can carry a topic value at all. Extraction trails capture, so
+  // the newest days routinely hold hundreds of stories with no topic yet: their
+  // share is undefined, not 0%, and plotting 0 draws a cliff that is really a
+  // processing backlog. Smoothed points survive as long as their window holds
+  // any classified story, since the ratio of sums is still well defined.
+  function defined(i) {
+    if (!state.smooth) return D.day_classified[i] > 0;
+    var end = DATES[i].getTime();
+    for (var k = 0; k < SMOOTH_WINDOW; k++) {
+      var j = DAYIDX[isoOf(end - k * DAY)];
+      if (j !== undefined && D.day_classified[j] > 0) return true;
+    }
+    return false;
   }
   function fmt(v) { return state.measure === "share" ? pct(v) : nf.format(v); }
   function topicTotal(key) {
@@ -411,7 +519,9 @@
       .y(function (d) { return y(d.v); });
 
     function pts(key) {
-      return ii.map(function (i) { return { i: i, v: valueAt(key, i) }; });
+      return ii.map(function (i) {
+        return defined(i) ? { i: i, v: valueAt(key, i) } : null;
+      });
     }
 
     svg.append("clipPath").attr("id", "plotclip")
@@ -482,6 +592,23 @@
         .text(fmt(valueAt(t.key, last)) + " " + shortLabel(t.label, 16));
     });
 
+    // Nearest emitted day to an x in SVG user units. Shared by hover and click
+    // so the crosshair and the drill-down always resolve to the same day.
+    var visibleDates = DATES.slice(state.i0, state.i1 + 1);
+    function nearestDay(px) {
+      var k = Math.max(0, Math.min(visibleDates.length - 1,
+                                   d3.bisectCenter(visibleDates, x.invert(px))));
+      return ii[k];
+    }
+
+    // Selected day: a persistent dashed marker, distinct from the gray hover
+    // crosshair so it is clear which one is a click and which is a pointer.
+    if (state.day !== null && state.day >= state.i0 && state.day <= state.i1) {
+      svg.append("line").attr("class", "marker")
+        .attr("x1", x(DATES[state.day])).attr("x2", x(DATES[state.day]))
+        .attr("y1", M.t).attr("y2", M.t + ih);
+    }
+
     // crosshair + hit layer: readers aim at a day, never at a 2px line
     var hair = svg.append("line")
       .attr("y1", M.t).attr("y2", M.t + ih)
@@ -490,25 +617,32 @@
     svg.append("rect")
       .attr("x", M.l).attr("y", M.t).attr("width", iw).attr("height", ih)
       .attr("fill", "transparent")
+      .style("cursor", "pointer")
+      .on("click", function (event) {
+        state.day = nearestDay(d3.pointer(event, this)[0]);
+        hideTip();
+        render();
+        $("dayCard").scrollIntoView({ block: "nearest", behavior: "smooth" });
+      })
       .on("pointermove", function (event) {
-        // Nearest emitted day to the cursor's date, not to a uniform slot:
-        // with gaps in the archive those are not the same point.
-        var px = d3.pointer(event, this)[0] + M.l;
-        var visible = DATES.slice(state.i0, state.i1 + 1);
-        var k = Math.max(0, Math.min(visible.length - 1,
-                                     d3.bisectCenter(visible, x.invert(px))));
-        var i = ii[k];
+        // d3.pointer already returns SVG user units -- the rect's x is geometry,
+        // not a new coordinate system -- so adding M.l would double-count the
+        // left margin and offset the crosshair from the cursor.
+        var i = nearestDay(d3.pointer(event, this)[0]);
         hair.attr("x1", x(DATES[i])).attr("x2", x(DATES[i])).attr("opacity", 1);
 
-        var rows = (state.focus
-          ? [D.topics.find(function (t) { return t.key === state.focus; })]
-          : ORDER.slice().sort(function (a, b) { return valueAt(b.key, i) - valueAt(a.key, i); })
-        ).map(function (t) {
-          return { value: fmt(valueAt(t.key, i)), label: shortLabel(t.label), color: colorOf(t.key) };
-        });
+        var open = defined(i);
+        var rows = !open
+          ? [{ value: nf.format(D.day_totals[i]), label: "captured, none extracted yet" }]
+          : (state.focus
+              ? [D.topics.find(function (t) { return t.key === state.focus; })]
+              : ORDER.slice().sort(function (a, b) { return valueAt(b.key, i) - valueAt(a.key, i); })
+            ).map(function (t) {
+              return { value: fmt(valueAt(t.key, i)), label: shortLabel(t.label), color: colorOf(t.key) };
+            });
 
         dots.selectAll("circle")
-          .data(state.focus ? [state.focus] : ORDER.map(function (t) { return t.key; }))
+          .data(!open ? [] : state.focus ? [state.focus] : ORDER.map(function (t) { return t.key; }))
           .join("circle")
           .attr("cx", x(DATES[i]))
           .attr("cy", function (key) { return y(valueAt(key, i)); })
@@ -519,8 +653,10 @@
           .attr("stroke", "var(--surface-1)").attr("stroke-width", 2);
 
         showTip(event, longDayLabel(D.days[i])
-          + (state.smooth ? " · 7-day avg" : "")
-          + (THIN.has(D.days[i]) ? " · thin sample (" + D.day_totals[i] + " stories)" : ""), rows);
+          + (open && state.smooth ? " · 7-day avg" : "")
+          + (!open ? " · awaiting extraction"
+             : THIN.has(D.days[i]) ? " · thin sample (" + D.day_classified[i] + " classified)" : ""),
+          rows);
       })
       .on("pointerleave", function () {
         hair.attr("opacity", 0); dots.selectAll("circle").remove(); hideTip();
@@ -541,13 +677,18 @@
   // Split a point list wherever the archive skips more than GAP_DAYS, so the
   // chart never draws a straight line across months that hold no stories.
   function segments(pts) {
-    var out = [], cur = [];
-    pts.forEach(function (p, k) {
-      if (k > 0 && (DATES[p.i] - DATES[pts[k - 1].i]) / DAY > GAP_DAYS) {
+    var out = [], cur = [], prev = null;
+    pts.forEach(function (p) {
+      if (!p) {                       // day with no topic data: a hole, not a zero
+        if (cur.length) out.push(cur);
+        cur = []; prev = null;
+        return;
+      }
+      if (prev && (DATES[p.i] - DATES[prev.i]) / DAY > GAP_DAYS) {
         if (cur.length) out.push(cur);
         cur = [];
       }
-      cur.push(p);
+      cur.push(p); prev = p;
     });
     if (cur.length) out.push(cur);
     return out;
@@ -665,6 +806,117 @@
     syncBrush();
   }
 
+  /* ---------- day drill-down: a day, then a topic, then the stories ---------- */
+  function renderDay() {
+    var card = $("dayCard");
+    if (state.day === null) { card.hidden = true; return; }
+    card.hidden = false;
+    var i = state.day, key = D.days[i];
+
+    $("dayTitle").textContent = longDayLabel(key);
+    $("daySub").textContent = nf.format(D.day_totals[i]) + " stories captured · "
+      + nf.format(D.day_classified[i]) + " with a topic assigned";
+
+    var chips = $("dayChips"), out = $("dayStories");
+    chips.textContent = ""; out.textContent = "";
+
+    if (!D.day_classified[i]) {
+      var p = document.createElement("p");
+      p.className = "dayempty";
+      p.textContent = "These stories were captured but not extracted yet, so none "
+        + "carries a topic. Extraction runs overnight — check back tomorrow.";
+      out.appendChild(p);
+      return;
+    }
+
+    // Only topics actually present that day, largest first.
+    var present = D.topics.filter(function (t) { return D.series[t.key][i] > 0; })
+      .sort(function (a, b) { return D.series[b.key][i] - D.series[a.key][i]; });
+
+    present.forEach(function (t) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-pressed", state.focus === t.key ? "true" : "false");
+      var sw = document.createElement("span");
+      sw.className = "swatch"; sw.style.background = colorOf(t.key);
+      var nm = document.createElement("span"); nm.textContent = t.label;
+      var ct = document.createElement("span");
+      ct.className = "cnt"; ct.textContent = D.series[t.key][i];
+      b.appendChild(sw); b.appendChild(nm); b.appendChild(ct);
+      // Selecting here is the same act as selecting in the legend, so it drives
+      // the same state -- one notion of "the topic in focus", not two.
+      b.addEventListener("click", function () {
+        state.focus = state.focus === t.key ? null : t.key;
+        render();
+      });
+      chips.appendChild(b);
+    });
+
+    if (!state.focus) {
+      var pick = document.createElement("p");
+      pick.className = "dayempty";
+      pick.textContent = "Pick a topic above to see what was published.";
+      out.appendChild(pick);
+      return;
+    }
+    if (!D.series[state.focus][i]) {
+      var none = document.createElement("p");
+      none.className = "dayempty";
+      none.textContent = "No " + labelOf(state.focus) + " stories on this day.";
+      out.appendChild(none);
+      return;
+    }
+
+    var loading = document.createElement("p");
+    loading.className = "dayempty";
+    loading.textContent = "Loading headlines…";
+    out.appendChild(loading);
+
+    var wantDay = key, wantTopic = state.focus;
+    ensureHeadlines(wantDay, function (status) {
+      // The reader may have moved on while the file was in flight.
+      if (state.day === null || D.days[state.day] !== wantDay || state.focus !== wantTopic) return;
+      out.textContent = "";
+      if (status) {
+        var err = document.createElement("p");
+        err.className = "dayempty";
+        err.textContent = "Could not load headlines/" + monthOf(wantDay) + ".js — the "
+          + "headlines/ folder ships alongside this page and has to be copied with it.";
+        out.appendChild(err);
+        return;
+      }
+      var cell = headlinesFor(wantDay, wantTopic);
+      if (!cell || !cell.s.length) {
+        var na = document.createElement("p");
+        na.className = "dayempty";
+        na.textContent = "No headlines recorded for this topic on this day.";
+        out.appendChild(na);
+        return;
+      }
+      var ol = document.createElement("ol");
+      ol.className = "stories";
+      ol.style.setProperty("--topic", colorOf(wantTopic));
+      cell.s.forEach(function (s) {
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.textContent = s[0];
+        if (s[2]) { a.href = s[2]; a.target = "_blank"; a.rel = "noopener noreferrer"; }
+        var src = document.createElement("span");
+        src.className = "src"; src.textContent = s[1] || "Unknown publication";
+        li.appendChild(a); li.appendChild(src);
+        ol.appendChild(li);
+      });
+      out.appendChild(ol);
+      var note = document.createElement("p");
+      note.className = "daynote";
+      note.textContent = cell.n > cell.s.length
+        ? "Showing " + cell.s.length + " of " + nf.format(cell.n)
+          + " — sampled across publications, not the first six filed."
+        : "All " + cell.n + " " + (cell.n === 1 ? "story" : "stories") + " for this topic.";
+      out.appendChild(note);
+    });
+  }
+
   /* ---------- legend: click to isolate ---------- */
   function renderLegend() {
     var host = $("legend"); host.textContent = "";
@@ -700,7 +952,7 @@
     var rows = ORDER.map(function (t) { return { key: t.key, label: t.label, n: topicTotal(t.key) }; })
       .sort(function (a, b) { return b.n - a.n; });
     var max = d3.max(rows, function (r) { return r.n; }) || 1;
-    var BW2 = 340, rowH = 34, R = 46, barL = 0, H2 = rows.length * rowH + 6;
+    var BW2 = 340, rowH = 34, R = 0, barL = 0, H2 = rows.length * rowH + 6;
 
     var svg = host.append("svg")
       .attr("viewBox", "0 0 " + BW2 + " " + H2)
@@ -715,7 +967,7 @@
         .attr("fill", "var(--ink-2)").attr("font-size", 11)
         .text(shortLabel(r.label));
       g.append("rect")
-        .attr("x", barL).attr("y", barY).attr("width", w).attr("height", bh).attr("rx", 4)
+        .attr("x", barL).attr("y", barY).attr("width", w).attr("height", bh).attr("rx", 0)
         .attr("fill", fill);
       g.append("rect")
         .attr("x", barL).attr("y", barY).attr("width", Math.min(4, w)).attr("height", bh)
@@ -762,7 +1014,7 @@
       svg.append("text").attr("x", 0).attr("y", yy + bh - 2)
         .attr("fill", "var(--ink-2)").attr("font-size", 11).text(r.code);
       svg.append("rect").attr("x", L).attr("y", yy).attr("width", w).attr("height", bh)
-        .attr("rx", 4).attr("fill", color);
+        .attr("rx", 0).attr("fill", color);
       svg.append("rect").attr("x", L).attr("y", yy).attr("width", Math.min(4, w)).attr("height", bh)
         .attr("fill", color);
       svg.append("text").attr("x", L + w + 7).attr("y", yy + bh - 2)
@@ -811,7 +1063,11 @@
         td0.appendChild(document.createTextNode(tp.label));
         tr.appendChild(td0);
         ii.forEach(function (i) {
-          var td = document.createElement("td"); td.textContent = fmt(valueAt(tp.key, i)); tr.appendChild(td);
+          var td = document.createElement("td");
+          // Match the chart: an unextracted day has no value, not a zero.
+          td.textContent = defined(i) ? fmt(valueAt(tp.key, i)) : "—";
+          if (!defined(i)) td.title = "Captured, not yet extracted";
+          tr.appendChild(td);
         });
         var tdT = document.createElement("td"); tdT.textContent = nf.format(topicTotal(tp.key));
         tr.appendChild(tdT); tb.appendChild(tr);
@@ -844,6 +1100,7 @@
     var thin = (D.thin_days || []).length;
     $("mainHint").textContent =
       "All ten topics on one scale. Click a legend entry to isolate that topic; click it again, or Show all, to bring the rest back. "
+      + "Click any day in the chart to read what was published on it. "
       + "Drag on the volume strip below to change the time range."
       + (thin ? " Shaded days carry fewer than " + (D.min_day_stories || 30)
           + " stories, where a single story swings a share." : "")
@@ -886,7 +1143,7 @@
   }
 
   function render() {
-    renderChrome(); renderKpis(); renderLegend(); renderChart();
+    renderChrome(); renderKpis(); renderLegend(); renderChart(); renderDay();
     renderStates(); renderTotals(); renderTable();
     $("mShare").setAttribute("aria-pressed", state.measure === "share" ? "true" : "false");
     $("mCount").setAttribute("aria-pressed", state.measure === "count" ? "true" : "false");
@@ -901,10 +1158,12 @@
     renderBrush();   // rebuilds the scale, then syncBrush clamps the selection
     render();
   });
+  $("dayClose").addEventListener("click", function () { state.day = null; render(); });
   $("sRaw").addEventListener("click", function () { state.smooth = false; render(); });
   $("sAvg").addEventListener("click", function () { state.smooth = true; render(); });
   $("reset").addEventListener("click", function () {
-    state = { measure: "share", smooth: false, full: false, i0: DEF[0], i1: DEF[1], focus: null };
+    state = { measure: "share", smooth: false, full: false,
+              i0: DEF[0], i1: DEF[1], focus: null, day: null };
     $("fullRange").checked = false;
     renderBrush(); render();
   });

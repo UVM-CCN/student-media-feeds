@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2020-07"]={"2020-07-04":{"t2":{"n":1,"s":[["Culture vs. Culture","The Advance","https://stillmannews.wordpress.com/2020/07/04/culture-vs-culture/"]]}}};

@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2014-12"]={"2014-12-02":{"t0":{"n":1,"s":[["OMG, It\u2019s Ebola?!!!","News \u2013 The Crestiad","https://crestiad.wordpress.com/2014/12/02/omg-its-ebola/"]]}}};

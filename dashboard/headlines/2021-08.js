@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2021-08"]={"2021-08-27":{"t6":{"n":1,"s":[["Volume83 Issue01 Articles","The Paw Print","https://blogs.adams.edu/thepawprint/volume83-issue01-articles/"]]}}};

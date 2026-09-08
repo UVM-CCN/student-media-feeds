@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2024-01"]={"2024-01-22":{"t6":{"n":1,"s":[["Editor\u2019s note regarding The Occurrence\u2019s absence","Occurrence","https://oaktonoccurrence.com/4136/campus-news/editors-note-regarding-the-occurrences-absence/"]]}}};

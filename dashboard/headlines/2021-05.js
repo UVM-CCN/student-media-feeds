@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2021-05"]={"2021-05-05":{"t7":{"n":2,"s":[["IST student\u2019s band releases second album","The Roar","https://sites.psu.edu/theroar/2021/05/05/ist-students-band-releases-second-album/"],["Long live the queens","The Roar","https://sites.psu.edu/theroar/2021/05/05/long-live-the-queens/"]]}}};

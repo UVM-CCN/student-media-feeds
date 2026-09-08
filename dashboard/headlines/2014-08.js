@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2014-08"]={"2014-08-22":{"t9":{"n":1,"s":[["Evidently, anything's evidence - Indiana Daily Student","Indiana Daily Student","https://www.idsnews.com/article/2014/08/op-ed"]]}}};

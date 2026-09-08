@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2018-08"]={"2018-08-16":{"t6":{"n":1,"s":[["Bridging the Divide","The Campus Voice","https://thecampusvoice.wordpress.com/2018/08/16/bridging-the-divide/"]]}}};

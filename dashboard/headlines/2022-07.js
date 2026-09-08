@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2022-07"]={"2022-07-15":{"t2":{"n":1,"s":[["Utah students create video, posters for campaign to promote vaccinations","Amplify Utah - The Story Room","https://amplifyutah.org/the-story-room/utah-students-create-video-posters-for-campaign-to-promote-vaccinations"]]}}};

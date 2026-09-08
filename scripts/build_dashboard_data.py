@@ -59,6 +59,27 @@ LOCATIONS_CSV = os.path.join(ROOT, "data", "publication_locations.csv")
 OUT_DIR = os.path.join(ROOT, "dashboard")
 OUT_JSON = os.path.join(OUT_DIR, "dashboard_data.json")
 OUT_JS = os.path.join(OUT_DIR, "dashboard_data.js")
+HEADLINES_DIR = os.path.join(OUT_DIR, "headlines")
+
+# Headlines per day-topic cell for the drill-down. The median cell holds 3
+# stories and the 90th percentile 19, so six shows most cells whole and gives a
+# fair look at the big ones.
+HEADLINE_SAMPLE = 6
+
+# The samples are written one file per month rather than one file overall, for
+# two reasons that point the same way:
+#
+#   * Git. The set is ~2MB and a single file would be rewritten whole every
+#     night, so each daily commit would store another ~2MB blob -- git cannot
+#     delta a one-line JSON payload. Split by month, only the current month's
+#     file changes; the other 113 stay byte-identical and are stored once. Of
+#     those, 92 are under 5KB and will never change again.
+#   * Load time. A reader opening one day in August pulls that month's ~300KB,
+#     not the whole archive.
+#
+# Each file registers itself into one shared object, so several months can be
+# loaded together without clobbering each other.
+
 
 # Below this many stories in a day, a topic share is too noisy to plot. Set
 # against the weekend floor rather than the weekday median: Saturdays and
@@ -84,6 +105,51 @@ RECENT_YEAR_SHARE = 0.05
 def day_of(value: str) -> str | None:
     m = re.match(r"(\d{4})-(\d{2})-(\d{2})", (value or "").strip())
     return m.group(0) if m else None
+
+
+def sample_cell(items: list, k: int) -> list:
+    """
+    Up to `k` stories from one day-topic cell, spread across publications.
+
+    Taking the first k in file order would usually return one newsroom's whole
+    output -- the CSV is grouped by feed -- which answers "what did this paper
+    publish" rather than "what did this topic look like that day". Round-robin
+    over sources shows breadth first and only doubles up on a paper once every
+    other paper in the cell has appeared. Sorted throughout so a rebuild that
+    adds no stories produces no diff.
+    """
+    by_source: dict[str, list] = defaultdict(list)
+    for it in items:
+        by_source[it[1]].append(it)
+    for group in by_source.values():
+        group.sort(key=lambda x: (x[0], x[2]))
+    sources = sorted(by_source)
+    out: list = []
+    depth = 0
+    while len(out) < k:
+        added = False
+        for s in sources:
+            if depth < len(by_source[s]):
+                out.append(by_source[s][depth])
+                added = True
+                if len(out) >= k:
+                    break
+        if not added:
+            break
+        depth += 1
+    return out
+
+
+def write_pair(json_path: str, js_path: str, var: str, data) -> None:
+    """Same payload twice: JSON for tooling, a script-tag assignment for the
+    page. Browsers block fetch() of a sibling file over file://, so the .js is
+    what the dashboard actually loads -- see the note in main()."""
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, separators=(",", ":"))
+    with open(js_path, "w", encoding="utf-8") as f:
+        f.write(f"window.{var} = ")
+        json.dump(data, f, separators=(",", ":"))
+        f.write(";\n")
 
 
 def last_complete_day(today: date) -> str:
@@ -140,6 +206,7 @@ def main() -> int:
     day_total = Counter()               # day -> every story published that day
     day_classified = Counter()          # day -> stories that carry a topic
     captured_on = Counter()             # day -> stories the pipeline ingested
+    cells = defaultdict(list)           # (day, topic key) -> [(title, source, link)]
     state_topic = defaultdict(Counter)  # state -> topic key -> n
     state_total = Counter()
     topic_total = Counter()
@@ -174,6 +241,10 @@ def main() -> int:
             daily[day][key] += 1
             day_total[day] += 1
             day_classified[day] += 1
+            title = (r.get("title") or "").strip()
+            if title:
+                cells[(day, key)].append(
+                    (title, (r.get("source") or "").strip(), (r.get("link") or "").strip()))
         state = states_by_domain.get(host(r.get("link", "")) or "")
         if state:
             state_topic[state][key] += 1
@@ -273,21 +344,50 @@ def main() -> int:
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(OUT_JSON, "w", encoding="utf-8") as f:
-        json.dump(data, f, separators=(",", ":"))
+
+    by_month: dict[str, dict] = defaultdict(dict)
+    for (d, key), items in sorted(cells.items()):
+        if d > cutoff:
+            continue
+        by_month[d[:7]].setdefault(d, {})[key] = {
+            "n": len(items),
+            "s": [list(x) for x in sample_cell(items, HEADLINE_SAMPLE)],
+        }
+
+    os.makedirs(HEADLINES_DIR, exist_ok=True)
+    written = 0
+    for month, payload in by_month.items():
+        path = os.path.join(HEADLINES_DIR, f"{month}.js")
+        body = ('(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})'
+                f'[{json.dumps(month)}]=' + json.dumps(payload, separators=(",", ":")) + ";\n")
+        # Only touch a file whose contents actually changed, so an unchanged
+        # month keeps its mtime and stays out of the nightly commit.
+        if not os.path.exists(path) or open(path, encoding="utf-8").read() != body:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(body)
+            written += 1
+    # The manifest goes in the main payload so the page knows which months exist
+    # without probing for files that are not there.
+    data["headline_shards"] = sorted(by_month)
+    data["headline_sample"] = HEADLINE_SAMPLE
 
     # The dashboard ships as a directory someone copies onto a server, or opens
     # locally. Browsers block fetch() of a sibling JSON file over file://, so
-    # the page loads this script-tag version instead and works either way.
-    with open(OUT_JS, "w", encoding="utf-8") as f:
-        f.write("window.DASHBOARD_DATA = ")
-        json.dump(data, f, separators=(",", ":"))
-        f.write(";\n")
+    # the page loads the script-tag version instead and works either way. The
+    # month files are loaded the same way, but only when a reader drills into a
+    # day -- the page injects that month's <script> on demand.
+    write_pair(OUT_JSON, OUT_JS, "DASHBOARD_DATA", data)
 
     size = os.path.getsize(OUT_JSON) / 1024
     csv_size = os.path.getsize(SOURCE_CSV) / 1024 / 1024
     print(f"wrote {os.path.relpath(OUT_JSON, ROOT)}  ({size:.0f} KB)")
     print(f"  replaces a {csv_size:.1f} MB client-side CSV parse")
+    hl_bytes = sum(os.path.getsize(os.path.join(HEADLINES_DIR, f"{m}.js")) for m in by_month)
+    cells_out = sum(len(day) for month in by_month.values() for day in month.values())
+    print(f"wrote {os.path.relpath(HEADLINES_DIR, ROOT)}/  "
+          f"({len(by_month)} monthly files, {hl_bytes / 1024 / 1024:.2f} MB total, "
+          f"{written} rewritten this run): up to {HEADLINE_SAMPLE} headlines for each of "
+          f"{cells_out:,} day-topic cells, loaded a month at a time on demand")
     print(f"  {len(rows):,} stories, {classified:,} classified, "
           f"{data['totals']['publications']:,} publications")
     print(f"  series stops at {cutoff} (last complete day); "

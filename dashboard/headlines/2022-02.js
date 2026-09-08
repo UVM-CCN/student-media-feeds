@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2022-02"]={"2022-02-18":{"t2":{"n":1,"s":[["Times editor-in-chief named \u2018Student Journalist of the Year\u2019 at ICMA awards","Mount Mercy Times","https://mountmercytimes.home.blog/2022/02/18/times-editor-in-chief-named-student-journalist-of-the-year-at-icma-awards/"]]}}};

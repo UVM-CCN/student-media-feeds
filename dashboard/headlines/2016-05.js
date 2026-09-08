@@ -1,0 +1,1 @@
+(window.DASHBOARD_HEADLINES=window.DASHBOARD_HEADLINES||{})["2016-05"]={"2016-05-02":{"t8":{"n":1,"s":[["Living Legend Sez","The Crestiad","https://crestiad.wordpress.com/2016/05/02/living-legend-sez/"]]}}};
