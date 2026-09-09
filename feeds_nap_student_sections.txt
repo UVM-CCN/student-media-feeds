@@ -1,0 +1,24 @@
+# Student-section feeds at News-Academic Partnership outlets.
+#
+# These outlets are professional newsrooms. Students contribute a small share of
+# the total output -- a semester capstone, a fellowship cohort, a practicum. The
+# site-wide feed at each of these domains was dropped on 2026-09-09 because it
+# carried the professional newsroom's entire output into a student-media corpus
+# (5,076 stories, 15% of the database, almost none of it student-written).
+#
+# Each URL below is the narrow section/author archive that isolates the student
+# work. DO NOT replace these with the site-wide /feed/ -- that is the exact
+# regression this file exists to prevent. Verified against the corpus 2026-09-09.
+
+# UH Beat -- University of Hawaii at Manoa legislative capstone, published by
+# Honolulu Civil Beat. Custom "projects" archive, not a category or tag.
+https://www.civilbeat.org/projects/uh-beat/feed/
+
+# Collegiate News Service -- Chapman University, published by Voice of OC.
+# The /tag/ archive also resolves but carries fewer posts; /category/ is fuller.
+https://voiceofoc.org/category/collegiate-news-service/feed/
+
+# Medill Illinois News Bureau -- Northwestern statehouse fellows, published by
+# Capitol News Illinois. Co-Authors Plus author archive; note the /news/ prefix
+# -- capitolnewsillinois.com/author/medill/ (without it) returns 404.
+https://capitolnewsillinois.com/news/author/medill/feed/

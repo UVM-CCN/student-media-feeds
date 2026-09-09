@@ -23,6 +23,10 @@
   }
 
   * { box-sizing: border-box; }
+  /* The UA rule for [hidden] is display:none at the lowest specificity, so any
+     class that sets display -- .daybar is flex -- silently overrides it and the
+     element stays on screen. Restate it so hidden always means hidden. */
+  [hidden] { display: none !important; }
   body {
     margin: 0;
     background: var(--plane);
@@ -30,21 +34,21 @@
     font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 72px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 20px 64px; }
 
-  header h1 { font-size: 1.5rem; font-weight: 650; margin: 0 0 4px; letter-spacing: -.01em; }
-  header p  { margin: 0; color: var(--ink-2); font-size: .92rem; max-width: 68ch; }
-  .meta { margin-top: 10px; color: var(--muted); font-size: .78rem; }
+  header h1 { font-size: 1.35rem; font-weight: 650; margin: 0 0 3px; letter-spacing: -.01em; }
+  header p  { margin: 0; color: var(--ink-2); font-size: .88rem; max-width: 74ch; }
+  .meta { margin-top: 7px; color: var(--muted); font-size: .78rem; }
 
   /* ---- KPI row ---- */
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin: 26px 0 8px; }
-  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin: 16px 0 0; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; box-shadow: var(--shadow); }
   .tile .label { color: var(--ink-2); font-size: .78rem; }
   .tile .value { font-size: 1.5rem; font-weight: 650; margin-top: 3px; font-variant-numeric: tabular-nums; }
-  .tile.hero .value { font-size: 2.6rem; line-height: 1.05; font-weight: 680; letter-spacing: -.02em; }
+  .tile.hero .value { font-size: 1.9rem; line-height: 1.1; font-weight: 680; letter-spacing: -.02em; }
 
   /* ---- filter row: one row, above everything it scopes ---- */
-  .filters { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: flex-end; margin: 24px 0 18px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: flex-end; margin: 14px 0 10px; }
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field label { font-size: .74rem; color: var(--ink-2); }
   button.seg {
@@ -64,52 +68,50 @@
   .rangeread { font-size: .82rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
   .rangeread b { color: var(--ink); font-weight: 600; }
 
-  h2 { font-size: 1rem; font-weight: 640; margin: 30px 0 4px; }
-  .hint { color: var(--muted); font-size: .8rem; margin: 0 0 14px; max-width: 76ch; }
+  h2 { font-size: 1rem; font-weight: 640; margin: 18px 0 3px; }
+  .hint { color: var(--muted); font-size: .79rem; margin: 0 0 10px; max-width: 96ch; }
 
   /* ---- cards ---- */
-  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow); }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; box-shadow: var(--shadow); }
   .card svg { display: block; width: 100%; height: auto; }
   .cols { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
   @media (min-width: 900px) { .cols.two { grid-template-columns: 1.35fr 1fr; } }
 
   /* ---- interactive legend ---- */
-  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 8px; }
   .legend button {
-    display: inline-flex; align-items: center; gap: 7px;
-    font: inherit; font-size: .8rem; color: var(--ink-2);
+    display: inline-flex; align-items: center; gap: 6px;
+    font: inherit; font-size: .78rem; color: var(--ink-2);
     background: none; border: 1px solid transparent; border-radius: 999px;
-    padding: 3px 10px 3px 8px; cursor: pointer; line-height: 1.4;
+    padding: 2px 9px 2px 7px; cursor: pointer; line-height: 1.35;
     transition: background-color .12s, border-color .12s, color .12s;
   }
   .legend button:hover { background: rgba(11,11,11,.045); }
   .legend button .swatch { width: 14px; height: 3px; border-radius: 2px; flex: none; }
-  .legend button[aria-pressed="true"] { color: var(--ink); font-weight: 600; border-color: var(--border); background: rgba(11,11,11,.05); }
+  .legend button[aria-pressed="true"] { color: var(--ink); font-weight: 600; border-color: var(--ink-2); background: rgba(11,11,11,.05); }
   .legend button.dim { color: var(--muted); }
   .legend button.dim .swatch { opacity: .3; }
+  .legend button .cnt {
+    color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 500;
+    font-size: .74rem; padding-left: 1px;
+  }
+  .legend button[aria-pressed="true"] .cnt { color: var(--ink-2); }
+  /* Nothing ran under this topic on the chosen day: still the colour key, but
+     there is nothing to open. */
+  .legend button.zero { color: var(--deemph); }
+  .legend button.zero .swatch { opacity: .35; }
+  .legend button.zero .cnt { color: var(--deemph); }
   .legend button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .legend .clear { margin-left: 4px; text-decoration: underline; color: var(--ink-2); }
 
-  /* ---- day drill-down ---- */
-  .daycard { margin-top: 14px; }
-  .dayhead { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
-  .dayhead h2 { margin: 0 0 2px; }
-  .dayhead .hint { margin: 0; }
-  .dayhead .link { margin-left: auto; flex: none; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-  .chips button {
-    display: inline-flex; align-items: center; gap: 7px;
-    font: inherit; font-size: .8rem; color: var(--ink-2);
-    background: var(--surface-1); border: 1px solid var(--border); border-radius: 999px;
-    padding: 4px 11px 4px 9px; cursor: pointer; line-height: 1.4;
-    transition: background-color .12s, border-color .12s, color .12s;
+  /* ---- day context line, directly above the legend it scopes ---- */
+  .daybar {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    font-size: .82rem; margin: 0 0 8px;
   }
-  .chips button:hover { background: rgba(11,11,11,.045); border-color: var(--axis); }
-  .chips button .swatch { width: 9px; height: 9px; border-radius: 50%; flex: none; }
-  .chips button .cnt { color: var(--muted); font-variant-numeric: tabular-nums; }
-  .chips button[aria-pressed="true"] { color: var(--ink); font-weight: 600; border-color: var(--ink-2); }
-  .chips button[aria-pressed="true"] .cnt { color: var(--ink-2); }
-  .chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .daybar strong { font-weight: 640; }
+  .daybar #daySub { color: var(--muted); }
+  .daybar .link { margin-left: auto; flex: none; }
   .stories { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
   .stories li {
     padding: 9px 12px; border-left: 3px solid var(--topic, var(--accent));
@@ -120,8 +122,50 @@
   .stories a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .stories .src { display: block; color: var(--muted); font-size: .76rem; margin-top: 3px; }
   .daynote { color: var(--muted); font-size: .78rem; margin: 10px 0 0; }
-  .dayempty { color: var(--ink-2); font-size: .88rem; margin: 0; }
+  .dayempty { color: var(--ink-2); font-size: .85rem; margin: 0; }
   .marker { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 3 3; }
+
+  /* ---- stories drawer ---- */
+  .drawer {
+    position: fixed; top: 0; right: 0; z-index: 60;
+    width: min(430px, 92vw); height: 100vh;
+    background: var(--surface-1); border-left: 1px solid var(--border);
+    box-shadow: -8px 0 28px rgba(11,11,11,.10);
+    display: flex; flex-direction: column;
+    transform: translateX(100%); visibility: hidden;
+    transition: transform .22s ease, visibility .22s;
+  }
+  .drawer.open { transform: none; visibility: visible; }
+  .drawer-head {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 16px 12px; border-bottom: 1px solid var(--grid); flex: none;
+  }
+  .drawer-id { min-width: 0; }
+  .drawer-topic {
+    font-weight: 650; font-size: .95rem; line-height: 1.25;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .drawer-topic .swatch { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .drawer-day { color: var(--muted); font-size: .8rem; margin-top: 3px; }
+  .drawer-x {
+    margin-left: auto; flex: none; font: inherit; font-size: 1.35rem; line-height: 1;
+    background: none; border: 1px solid transparent; border-radius: 7px;
+    color: var(--ink-2); cursor: pointer; padding: 2px 9px 5px;
+  }
+  .drawer-x:hover { background: rgba(11,11,11,.06); color: var(--ink); }
+  .drawer-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .drawer-body { padding: 14px 16px 28px; overflow-y: auto; flex: 1; }
+
+  /* ---- collapsed table ---- */
+  .tabledetails { margin-top: 24px; }
+  .tabledetails > summary {
+    cursor: pointer; font-size: 1rem; font-weight: 640; padding: 4px 0;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .tabledetails > summary::marker { color: var(--muted); }
+  .tabledetails > summary .hint { margin: 0; font-weight: 400; }
+  .tabledetails > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .tabledetails .tablewrap { margin-top: 10px; }
 
   /* ---- brush ---- */
   .brushcard { padding: 12px 16px 6px; }
@@ -174,9 +218,9 @@
 <div class="wrap">
   <header>
     <h1>Student media coverage</h1>
-    <p>How topic coverage across U.S. student newsrooms changes over time and across
-       the country. Each story is assigned to one of ten topics by a frozen model, so
-       shares are comparable from day to day.</p>
+    <p>Topic coverage across U.S. student newsrooms, over time and across the country.
+       Every story is assigned to one of ten topics by a frozen model, so shares are
+       comparable from day to day.</p>
     <div class="meta" id="meta"></div>
   </header>
 
@@ -210,20 +254,17 @@
   <h2>Coverage by topic over time</h2>
   <p class="hint" id="mainHint"></p>
   <div class="card">
+    <!-- One pill row, above the chart, doing both jobs: it is the colour key,
+         and it is how you pick a topic. Selecting a day adds per-day counts to
+         the pills rather than growing a second, near-identical row below. -->
+    <div class="daybar" id="dayBar" hidden>
+      <strong id="dayTitle"></strong>
+      <span id="daySub"></span>
+      <button class="link" id="dayClose">Clear day</button>
+    </div>
+    <p class="dayempty" id="dayEmpty" hidden></p>
     <div class="legend" id="legend"></div>
     <div id="chart"></div>
-  </div>
-
-  <div class="card daycard" id="dayCard" hidden>
-    <div class="dayhead">
-      <div>
-        <h2 id="dayTitle"></h2>
-        <p class="hint" id="daySub"></p>
-      </div>
-      <button class="link" id="dayClose">Close</button>
-    </div>
-    <div class="chips" id="dayChips"></div>
-    <div id="dayStories"></div>
   </div>
 
   <div class="card brushcard" style="margin-top:14px">
@@ -252,12 +293,27 @@
     </div>
   </div>
 
-  <h2>Table view</h2>
-  <p class="hint" id="tableHint">Every plotted value, reachable without hovering.</p>
-  <div class="card tablewrap"><table id="table"></table></div>
+  <!-- Collapsed by default: it is the reach-every-value fallback, not the
+       thing anyone reads first, and open it ran ~700px. <details> keeps it
+       one keystroke away and in the accessibility tree either way. -->
+  <details class="tabledetails">
+    <summary>Table view <span class="hint" id="tableHint"></span></summary>
+    <div class="card tablewrap"><table id="table"></table></div>
+  </details>
 
   <p class="note" id="footnote"></p>
 </div>
+
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTopic">
+  <div class="drawer-head">
+    <div class="drawer-id">
+      <div class="drawer-topic" id="drawerTopic"></div>
+      <div class="drawer-day" id="drawerDay"></div>
+    </div>
+    <button class="drawer-x" id="drawerClose" aria-label="Close stories">&times;</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
 
 <div id="tip" role="status" aria-live="polite"></div>
 <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
@@ -440,7 +496,7 @@
   document.addEventListener("scroll", hideTip, true);
 
   /* ---------- main chart: ten lines, one focus ---------- */
-  var W = 900, H = 380, M = { t: 14, r: 146, b: 34, l: 52 };
+  var W = 1100, H = 320, M = { t: 12, r: 150, b: 30, l: 52 };
   function renderChart() {
     var host = d3.select("#chart"); host.selectAll("*").remove();
     var ii = idx();
@@ -622,7 +678,7 @@
         state.day = nearestDay(d3.pointer(event, this)[0]);
         hideTip();
         render();
-        $("dayCard").scrollIntoView({ block: "nearest", behavior: "smooth" });
+        // No scrolling: the day bar opens inside this card, right below the chart.
       })
       .on("pointermove", function (event) {
         // d3.pointer already returns SVG user units -- the rect's x is geometry,
@@ -700,7 +756,7 @@
   }
 
   /* ---------- brush: the time range control ---------- */
-  var BW = 900, BH = 84, BM = { t: 6, r: 78, b: 22, l: 52 };
+  var BW = 1100, BH = 76, BM = { t: 6, r: 150, b: 22, l: 52 };
   var brushBehavior = null, brushG = null, bx = null;
   // Far edge of the brush. RSS feeds only carry a publisher's recent items, so
   // everything before the scraper started is backfill scraps -- 1,590 stories
@@ -806,131 +862,167 @@
     syncBrush();
   }
 
-  /* ---------- day drill-down: a day, then a topic, then the stories ---------- */
+  /* ---------- day drill-down ----------
+     The day context line only; the topic pills that go with it are the legend
+     above, so choosing a topic never moves the chart and the stories open in a
+     drawer rather than growing the page. */
   function renderDay() {
-    var card = $("dayCard");
-    if (state.day === null) { card.hidden = true; return; }
-    card.hidden = false;
-    var i = state.day, key = D.days[i];
-
-    $("dayTitle").textContent = longDayLabel(key);
-    $("daySub").textContent = nf.format(D.day_totals[i]) + " stories captured · "
-      + nf.format(D.day_classified[i]) + " with a topic assigned";
-
-    var chips = $("dayChips"), out = $("dayStories");
-    chips.textContent = ""; out.textContent = "";
+    var bar = $("dayBar"), empty = $("dayEmpty");
+    if (state.day === null) {
+      bar.hidden = true; empty.hidden = true;
+      closeDrawer();
+      return;
+    }
+    var i = state.day;
+    bar.hidden = false;
+    $("dayTitle").textContent = longDayLabel(D.days[i]);
 
     if (!D.day_classified[i]) {
-      var p = document.createElement("p");
-      p.className = "dayempty";
-      p.textContent = "These stories were captured but not extracted yet, so none "
-        + "carries a topic. Extraction runs overnight — check back tomorrow.";
-      out.appendChild(p);
+      $("daySub").textContent = nf.format(D.day_totals[i]) + " captured";
+      empty.hidden = false;
+      empty.textContent = "Captured but not extracted yet, so none carries a topic. "
+        + "Extraction runs overnight — check back tomorrow.";
+      closeDrawer();
       return;
     }
+    empty.hidden = true;
+    $("daySub").textContent = nf.format(D.day_totals[i]) + " captured · "
+      + nf.format(D.day_classified[i]) + " with a topic · pick one above to read it";
 
-    // Only topics actually present that day, largest first.
-    var present = D.topics.filter(function (t) { return D.series[t.key][i] > 0; })
-      .sort(function (a, b) { return D.series[b.key][i] - D.series[a.key][i]; });
+    if (state.focus && D.series[state.focus][i]) openDrawer();
+    else closeDrawer();
+  }
 
-    present.forEach(function (t) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.setAttribute("aria-pressed", state.focus === t.key ? "true" : "false");
-      var sw = document.createElement("span");
-      sw.className = "swatch"; sw.style.background = colorOf(t.key);
-      var nm = document.createElement("span"); nm.textContent = t.label;
-      var ct = document.createElement("span");
-      ct.className = "cnt"; ct.textContent = D.series[t.key][i];
-      b.appendChild(sw); b.appendChild(nm); b.appendChild(ct);
-      // Selecting here is the same act as selecting in the legend, so it drives
-      // the same state -- one notion of "the topic in focus", not two.
-      b.addEventListener("click", function () {
-        state.focus = state.focus === t.key ? null : t.key;
-        render();
-      });
-      chips.appendChild(b);
-    });
+  /* ---------- the drawer ---------- */
+  var drawerOpen = false;
+  function closeDrawer() {
+    if (!drawerOpen) return;
+    drawerOpen = false;
+    $("drawer").classList.remove("open");
+    $("drawer").setAttribute("aria-hidden", "true");
+  }
+  function openDrawer() {
+    var i = state.day, day = D.days[i], topic = state.focus;
+    var el = $("drawer"), body = $("drawerBody");
+    $("drawerTopic").innerHTML = "";
+    var sw = document.createElement("span");
+    sw.className = "swatch"; sw.style.background = colorOf(topic);
+    $("drawerTopic").appendChild(sw);
+    $("drawerTopic").appendChild(document.createTextNode(labelOf(topic)));
+    $("drawerDay").textContent = longDayLabel(day) + " · "
+      + nf.format(D.series[topic][i]) + " stories";
 
-    if (!state.focus) {
-      var pick = document.createElement("p");
-      pick.className = "dayempty";
-      pick.textContent = "Pick a topic above to see what was published.";
-      out.appendChild(pick);
-      return;
-    }
-    if (!D.series[state.focus][i]) {
-      var none = document.createElement("p");
-      none.className = "dayempty";
-      none.textContent = "No " + labelOf(state.focus) + " stories on this day.";
-      out.appendChild(none);
-      return;
-    }
-
+    body.textContent = "";
     var loading = document.createElement("p");
     loading.className = "dayempty";
     loading.textContent = "Loading headlines…";
-    out.appendChild(loading);
+    body.appendChild(loading);
 
-    var wantDay = key, wantTopic = state.focus;
-    ensureHeadlines(wantDay, function (status) {
+    if (!drawerOpen) {
+      drawerOpen = true;
+      el.classList.add("open");
+      el.setAttribute("aria-hidden", "false");
+    }
+
+    ensureHeadlines(day, function (status) {
       // The reader may have moved on while the file was in flight.
-      if (state.day === null || D.days[state.day] !== wantDay || state.focus !== wantTopic) return;
-      out.textContent = "";
+      if (!drawerOpen || state.day === null
+          || D.days[state.day] !== day || state.focus !== topic) return;
+      body.textContent = "";
       if (status) {
-        var err = document.createElement("p");
-        err.className = "dayempty";
-        err.textContent = "Could not load headlines/" + monthOf(wantDay) + ".js — the "
-          + "headlines/ folder ships alongside this page and has to be copied with it.";
-        out.appendChild(err);
+        body.appendChild(msg("Could not load headlines/" + monthOf(day) + ".js — the "
+          + "headlines/ folder ships alongside this page and has to be copied with it."));
         return;
       }
-      var cell = headlinesFor(wantDay, wantTopic);
+      var cell = headlinesFor(day, topic);
       if (!cell || !cell.s.length) {
-        var na = document.createElement("p");
-        na.className = "dayempty";
-        na.textContent = "No headlines recorded for this topic on this day.";
-        out.appendChild(na);
+        body.appendChild(msg("No headlines recorded for this topic on this day."));
         return;
       }
       var ol = document.createElement("ol");
       ol.className = "stories";
-      ol.style.setProperty("--topic", colorOf(wantTopic));
-      cell.s.forEach(function (s) {
+      ol.style.setProperty("--topic", colorOf(topic));
+      cell.s.forEach(function (st) {
         var li = document.createElement("li");
         var a = document.createElement("a");
-        a.textContent = s[0];
-        if (s[2]) { a.href = s[2]; a.target = "_blank"; a.rel = "noopener noreferrer"; }
+        a.textContent = st[0];
+        if (st[2]) { a.href = st[2]; a.target = "_blank"; a.rel = "noopener noreferrer"; }
         var src = document.createElement("span");
-        src.className = "src"; src.textContent = s[1] || "Unknown publication";
+        src.className = "src"; src.textContent = st[1] || "Unknown publication";
         li.appendChild(a); li.appendChild(src);
         ol.appendChild(li);
       });
-      out.appendChild(ol);
+      body.appendChild(ol);
       var note = document.createElement("p");
       note.className = "daynote";
       note.textContent = cell.n > cell.s.length
         ? "Showing " + cell.s.length + " of " + nf.format(cell.n)
           + " — sampled across publications, not the first six filed."
         : "All " + cell.n + " " + (cell.n === 1 ? "story" : "stories") + " for this topic.";
-      out.appendChild(note);
+      body.appendChild(note);
     });
   }
+  function msg(text) {
+    var p = document.createElement("p");
+    p.className = "dayempty"; p.textContent = text;
+    return p;
+  }
 
-  /* ---------- legend: click to isolate ---------- */
+  $("drawerClose").addEventListener("click", function () {
+    state.focus = null;
+    render();
+  });
+  // Click anywhere outside closes it. Chips, legend entries and the chart are
+  // excluded -- they are how you switch topic or day.
+  //
+  // Capture phase, deliberately: those handlers re-render, which replaces the
+  // very node that was clicked. In the bubble phase the target is already
+  // detached and closest() can no longer find #legend, so every pill click
+  // read as an outside click and shut the drawer it had just opened.
+  document.addEventListener("click", function (e) {
+    if (!drawerOpen) return;
+    if ($("drawer").contains(e.target)) return;
+    if (e.target.closest && e.target.closest("#legend, #chart, #dayBar")) return;
+    state.focus = null;
+    render();
+  }, true);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && drawerOpen) { state.focus = null; render(); }
+  });
+
+  /* ---------- legend: the colour key and the topic picker, in one row ----------
+     This used to be two near-identical pill rows -- a legend above the chart
+     and a per-day chip row below it -- both of which set the same focus. They
+     are merged: picking a day adds that day's counts to these pills instead of
+     duplicating them. Every topic stays listed whether or not it ran that day,
+     because the row is still the chart's colour key. */
   function renderLegend() {
     var host = $("legend"); host.textContent = "";
+    var i = state.day;
     ORDER.forEach(function (t) {
       var b = document.createElement("button");
       b.type = "button";
       var on = state.focus === t.key;
+      var n = i === null ? null : D.series[t.key][i];
       b.setAttribute("aria-pressed", on ? "true" : "false");
-      if (state.focus && !on) b.className = "dim";
+      var cls = [];
+      if (state.focus && !on) cls.push("dim");
+      // Listed but visibly inert: it has a colour on the chart, just nothing
+      // to read on the chosen day.
+      if (n === 0) cls.push("zero");
+      b.className = cls.join(" ");
       var sw = document.createElement("span");
       sw.className = "swatch"; sw.style.background = colorOf(t.key);
       var tx = document.createElement("span"); tx.textContent = t.label;
       b.appendChild(sw); b.appendChild(tx);
-      b.title = on ? "Show all topics" : "Show only " + t.label;
+      if (n !== null) {
+        var ct = document.createElement("span");
+        ct.className = "cnt"; ct.textContent = n;
+        b.appendChild(ct);
+      }
+      b.title = on ? "Show all topics"
+        : n ? "Read the " + n + " " + t.label + " stories from this day"
+        : "Show only " + t.label;
       b.addEventListener("click", function () {
         state.focus = on ? null : t.key;
         render();
@@ -952,7 +1044,12 @@
     var rows = ORDER.map(function (t) { return { key: t.key, label: t.label, n: topicTotal(t.key) }; })
       .sort(function (a, b) { return b.n - a.n; });
     var max = d3.max(rows, function (r) { return r.n; }) || 1;
-    var BW2 = 340, rowH = 34, R = 0, barL = 0, H2 = rows.length * rowH + 6;
+    // Match the viewBox to the rendered width so one user unit is one pixel. A
+    // fixed 340-wide box stretched across a ~600px column scaled type and bars
+    // ~1.8x. R reserves room for the value label; at 0 the longest bar ran the
+    // full width and its number was clipped off the canvas.
+    var BW2 = Math.max(280, Math.round(host.node().getBoundingClientRect().width) || 340);
+    var rowH = 30, R = 52, barL = 0, H2 = rows.length * rowH + 6;
 
     var svg = host.append("svg")
       .attr("viewBox", "0 0 " + BW2 + " " + H2)
@@ -1002,7 +1099,8 @@
       return;
     }
     var color = state.focus ? colorOf(state.focus) : "var(--neutral-bar)";
-    var max = rows[0].n, BW2 = 340, rowH = 26, L = 34, R = 46;
+    var max = rows[0].n, rowH = 26, L = 34, R = 52;
+    var BW2 = Math.max(280, Math.round(host.node().getBoundingClientRect().width) || 340);
     var H2 = rows.length * rowH + 8;
     var svg = host.append("svg")
       .attr("viewBox", "0 0 " + BW2 + " " + H2)
@@ -1099,14 +1197,12 @@
       (D.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
     var thin = (D.thin_days || []).length;
     $("mainHint").textContent =
-      "All ten topics on one scale. Click a legend entry to isolate that topic; click it again, or Show all, to bring the rest back. "
-      + "Click any day in the chart to read what was published on it. "
-      + "Drag on the volume strip below to change the time range."
+      "Click a legend entry to isolate a topic, or any day in the chart to read what ran on it. "
+      + "Drag the strip below to change the range."
       + (thin ? " Shaded days carry fewer than " + (D.min_day_stories || 30)
-          + " stories, where a single story swings a share." : "")
-      + " Student papers publish on a school week, so the raw daily series carries a"
-      + " weekly sawtooth — Sundays run about a third of a Wednesday. The 7-day average"
-      + " cancels that cycle.";
+          + " stories, where one story swings a share." : "")
+      + " Papers publish on a school week, so the raw series has a weekly sawtooth; the"
+      + " 7-day average cancels it.";
     $("rangeread").innerHTML = rangeText(state.i0, state.i1);
     // Against dated stories only -- the ~1,600 rows with no usable published
     // date are in no year at all, so counting them here would credit them to
@@ -1162,7 +1258,7 @@
   $("sRaw").addEventListener("click", function () { state.smooth = false; render(); });
   $("sAvg").addEventListener("click", function () { state.smooth = true; render(); });
   $("reset").addEventListener("click", function () {
-    state = { measure: "share", smooth: false, full: false,
+    state = { measure: "share", smooth: true, full: false,
               i0: DEF[0], i1: DEF[1], focus: null, day: null };
     $("fullRange").checked = false;
     renderBrush(); render();
