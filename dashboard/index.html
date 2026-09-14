@@ -4,10 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Student Media Coverage Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
   /* Light only, by request. One token set, no theme stamps. */
   :root {
     color-scheme: light;
+    --uvm-green: #154734;
+    --uvm-yellow: #FFD100;
+    --uvm-blue:#00313C;
     --surface-1: #fcfcfb;
     --plane: #f9f9f7;
     --ink: #0b0b0b;
@@ -31,11 +37,31 @@
     margin: 0;
     background: var(--plane);
     color: var(--ink);
-    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: "Lora", serif;
+    font-size: 1rem; line-height: 1.45;
     -webkit-font-smoothing: antialiased;
   }
 
-  
+  #dayprompt.dayprompt {
+    margin-right: 10%;
+  }
+
+  nav {
+    background: var(--uvm-green);
+    height: 72px;
+    display: flex;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: white;
+  }
+
+  /* nav is flex; auto left margin absorbs the free space and pushes the logos
+     to the right edge, leaving the h1 at the left. */
+  .logo-headers {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 20px 64px; }
 
   header h1 { font-size: 1.35rem; font-weight: 650; margin: 0 0 3px; letter-spacing: -.01em; }
@@ -125,6 +151,14 @@
   .stories .src { display: block; color: var(--muted); font-size: .76rem; margin-top: 3px; }
   .daynote { color: var(--muted); font-size: .78rem; margin: 10px 0 0; }
   .dayempty { color: var(--ink-2); font-size: .85rem; margin: 0; }
+  /* Sits between the legend and the chart, right-aligned to the plot. Full
+     --ink rather than the muted grey the other day text uses: it is a call to
+     action that only appears once a day is selected, so it has to read as
+     louder than the context line it came from. */
+  .dayprompt {
+    color: var(--ink); font-size: .85rem; font-weight: 600;
+    text-align: right; margin: 0 0 6px;
+  }
   .marker { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 3 3; }
 
   /* ---- stories drawer ---- */
@@ -200,12 +234,19 @@
 </style>
 </head>
 <body>
+  <nav>
+    <div>
+      <h1>Tracking student media coverage</h1>
+    </div>
+    <div class="logo-headers">
+      <img src="./images/uvm-logo-white.svg" alt="University of Vermont" style="height: 38px; margin: 12px 0 12px 16px">
+      <img src="./images/ccn-logo-white-greenbg.png" alt="UVM Student Media" style="height: 44px; margin: 12px 0 12px 16px">
+    </div>
+  </nav>
 <div class="wrap">
   <header>
-    <h1>Student media coverage</h1>
-    <p>Topic coverage across U.S. student newsrooms, over time and across the country.
-       Every story is assigned to one of ten topics by a frozen model, so shares are
-       comparable from day to day.</p>
+    <p>Student journalists are publishing new stories every day. This dashboard tracks as many publications as possible in our student media database to show how coverage of certain topics is changing over time.
+       Every story is assigned to one of ten topics by a frozen model, so shares arecomparable from day to day.</p>
     <div class="meta" id="meta"></div>
   </header>
 
@@ -213,10 +254,10 @@
 
   <div class="filters">
     <div class="field">
-      <label id="measlabel">Measure</label>
+      <label id="measlabel">Measurement</label>
       <div class="seggroup" role="group" aria-labelledby="measlabel">
-        <button class="seg" id="mShare" aria-pressed="true">Share</button>
-        <button class="seg" id="mCount" aria-pressed="false">Count</button>
+        <button class="seg" id="mShare" aria-pressed="true">Share of stories</button>
+        <button class="seg" id="mCount" aria-pressed="false">Raw story count</button>
       </div>
     </div>
     <div class="field">
@@ -236,7 +277,7 @@
     </div>
   </div>
 
-  <h2>Coverage by topic over time</h2>
+  <h2>Coverage by topic over time</h2><span>Click a legend entry to isolate a topic, or any day in the chart to read what ran on it.</span>
   <p class="hint" id="mainHint"></p>
   <div class="card">
     <!-- One pill row, above the chart, doing both jobs: it is the colour key,
@@ -250,6 +291,7 @@
     </div>
     <p class="dayempty" id="dayEmpty" hidden></p>
     <div class="legend" id="legend"></div>
+    <p class="dayprompt" id="dayPrompt" hidden></p>
     <div id="chart"></div>
   </div>
 
@@ -845,9 +887,9 @@
      above, so choosing a topic never moves the chart and the stories open in a
      drawer rather than growing the page. */
   function renderDay() {
-    var bar = $("dayBar"), empty = $("dayEmpty");
+    var bar = $("dayBar"), empty = $("dayEmpty"), prompt = $("dayPrompt");
     if (state.day === null) {
-      bar.hidden = true; empty.hidden = true;
+      bar.hidden = true; empty.hidden = true; prompt.hidden = true;
       closeDrawer();
       return;
     }
@@ -857,7 +899,7 @@
 
     if (!D.day_classified[i]) {
       $("daySub").textContent = nf.format(D.day_totals[i]) + " captured";
-      empty.hidden = false;
+      empty.hidden = false; prompt.hidden = true;
       empty.textContent = "Captured but not extracted yet, so none carries a topic. "
         + "Extraction runs overnight — check back tomorrow.";
       closeDrawer();
@@ -865,7 +907,10 @@
     }
     empty.hidden = true;
     $("daySub").textContent = nf.format(D.day_totals[i]) + " captured · "
-      + nf.format(D.day_classified[i]) + " with a topic · click a topic below to see its headlines";
+      + nf.format(D.day_classified[i]) + " with a topic";
+    // "above" because the legend now sits above this line, not below it.
+    prompt.hidden = false;
+    prompt.textContent = "Click a topic above to see sample headlines";
 
     if (state.focus && D.series[state.focus][i]) openDrawer();
     else closeDrawer();
@@ -1130,8 +1175,7 @@
       (D.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
     var thin = (D.thin_days || []).length;
     $("mainHint").textContent =
-      "Click a legend entry to isolate a topic, or any day in the chart to read what ran on it. "
-      + "Drag the strip below to change the range."
+      ""
       + (thin ? " Shaded days carry fewer than " + (D.min_day_stories || 30)
           + " stories, where one story swings a share." : "")
       + " Papers publish on a school week, so the raw series has a weekly sawtooth; the"
