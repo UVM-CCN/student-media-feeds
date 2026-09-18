@@ -126,12 +126,46 @@ def split_multi_url(raw: str) -> list[str]:
     return cleaned
 
 
+# Outlets deliberately excluded from the corpus. This script takes an arbitrary
+# CSV and URL column, so it can be pointed at ccn_nap_master.csv just as easily
+# as a News Labs sheet -- which would re-add the professional outlets removed on
+# 2026-09-09. Same list as scripts/discover_from_ccn.py, one file, one home.
+EXCLUDED_OUTLETS_FILE = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "data", "excluded_outlets.txt")
+
+_excluded_cache: set[str] | None = None
+
+
+def load_excluded_domains() -> set[str]:
+    """Reads data/excluded_outlets.txt. Missing file is fatal, not ignorable."""
+    global _excluded_cache
+    if _excluded_cache is None:
+        if not os.path.exists(EXCLUDED_OUTLETS_FILE):
+            sys.exit(f"ERROR: {EXCLUDED_OUTLETS_FILE} is missing. It is the only "
+                     f"thing preventing feed discovery from re-adding the "
+                     f"professional outlets that were removed from this corpus. "
+                     f"Refusing to run without it.")
+        domains = set()
+        with open(EXCLUDED_OUTLETS_FILE, encoding="utf-8") as f:
+            for line in f:
+                line = line.split("#", 1)[0].strip().lower()
+                if line:
+                    domains.add(line[4:] if line.startswith("www.") else line)
+        _excluded_cache = domains
+    return _excluded_cache
+
+
 def should_skip(url: str) -> bool:
     parsed = urllib.parse.urlparse(url)
-    domain = parsed.netloc.lower()
+    domain = parsed.netloc.lower().split(":")[0]
     domain = domain[4:] if domain.startswith("www.") else domain
 
-    if any(domain.endswith(d) for d in SKIP_DOMAINS):
+    for d in load_excluded_domains():
+        if domain == d or domain.endswith("." + d):
+            return True
+
+    if any(domain == d or domain.endswith("." + d) for d in SKIP_DOMAINS):
         return True
 
     path = parsed.path.lower()

@@ -2,7 +2,18 @@ import csv
 import os
 import sys
 
+# The full schema, not just the columns scrape.py populates.
+#
+# This list is the guard against a silent schema regression. Every rewrite in
+# scrape.py used to flatten news_database.csv onto its own hardcoded column
+# list, which deleted the three topic_* columns on every capture run -- the
+# whole corpus lost its topic assignments three times a day. That shipped
+# unnoticed for months precisely because this list stopped at sentiment_score,
+# so a CSV that had just lost every topic assignment still validated green.
+#
+# Anything a pipeline stage is expected to leave behind belongs here.
 REQUIRED_HEADERS = [
+    # written by scrape.py
     "source",
     "title",
     "link",
@@ -12,6 +23,13 @@ REQUIRED_HEADERS = [
     "keywords",
     "sentiment_label",
     "sentiment_score",
+    # written by fetch_full_text.py
+    "extraction_status",
+    "full_text_path",
+    # written by scripts/apply_topics.py
+    "topic_id",
+    "topic_confidence",
+    "topic_model_version",
 ]
 VALID_SENTIMENT_LABELS = {"positive", "neutral", "negative"}
 

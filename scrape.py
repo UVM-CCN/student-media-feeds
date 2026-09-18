@@ -63,13 +63,49 @@ class NewsPipeline:
             "extraction_status",
             "full_text_path",
         ]
+        # Columns later pipeline stages own. scrape.py never populates these --
+        # scripts/apply_topics.py does -- but it guarantees they exist so the
+        # schema validator can require them, and _schema() guarantees no rewrite
+        # here drops them.
+        self.downstream_headers = [
+            "topic_id",
+            "topic_confidence",
+            "topic_model_version",
+        ]
         self._setup_csv()
+
+    def _schema(self) -> List[str]:
+        """
+        The full column list to write: core columns, then the columns later
+        stages own, then anything else already in the file.
+
+        Reading the existing header instead of projecting onto a hardcoded list
+        is the point. Every rewrite in this class used to flatten the file onto
+        self.headers, which silently deleted topic_id, topic_confidence and
+        topic_model_version on every capture run -- the whole corpus lost its
+        topic assignments three times a day and the nightly had to re-embed all
+        of it. Anything a future stage adds is now carried through the same way.
+        """
+        ordered = list(self.headers)
+        for h in self.downstream_headers:
+            if h not in ordered:
+                ordered.append(h)
+        if os.path.exists(self.output_file):
+            try:
+                with open(self.output_file, 'r', newline='', encoding='utf-8') as f:
+                    existing = csv.DictReader(f).fieldnames or []
+            except OSError:
+                existing = []
+            for h in existing:
+                if h and h not in ordered:
+                    ordered.append(h)
+        return ordered
 
     def _setup_csv(self):
         """Initializes or migrates the CSV file schema."""
         if not os.path.exists(self.output_file):
             with open(self.output_file, 'w', newline='', encoding='utf-8') as f:
-                writer = csv.DictWriter(f, fieldnames=self.headers)
+                writer = csv.DictWriter(f, fieldnames=self._schema())
                 writer.writeheader()
             logging.info(f"Created new database file: {self.output_file}")
             return
@@ -79,10 +115,11 @@ class NewsPipeline:
             existing_headers = reader.fieldnames or []
             rows = list(reader)
 
-        if existing_headers == self.headers:
+        schema = self._schema()
+        if existing_headers == schema:
             return
 
-        missing_headers = [h for h in self.headers if h not in existing_headers]
+        missing_headers = [h for h in schema if h not in existing_headers]
         if not missing_headers:
             return
 
@@ -91,12 +128,7 @@ class NewsPipeline:
             self.output_file,
             ", ".join(missing_headers),
         )
-        with open(self.output_file, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.DictWriter(f, fieldnames=self.headers)
-            writer.writeheader()
-            for row in rows:
-                migrated_row = {h: row.get(h, "") for h in self.headers}
-                writer.writerow(migrated_row)
+        self._write_rows_atomic(rows)
 
     def _clean_text(self, value: Any, fallback: str = "") -> str:
         """Normalizes feed text values and strips embedded HTML."""
@@ -255,17 +287,18 @@ class NewsPipeline:
                 updated += 1
 
         if updated > 0:
-            normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in rows]
-            self._write_rows_atomic(normalized_rows)
+            self._write_rows_atomic(rows)
             logging.info("Backfilled analytics metadata for %s existing stories.", updated)
 
     def _write_rows_atomic(self, rows: List[dict]) -> None:
         """Writes the full dataset using a temp file then atomically replaces the target."""
+        schema = self._schema()
         temp_path = f"{self.output_file}.tmp"
         with open(temp_path, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.DictWriter(f, fieldnames=self.headers)
+            writer = csv.DictWriter(f, fieldnames=schema)
             writer.writeheader()
-            writer.writerows(rows)
+            for row in rows:
+                writer.writerow({h: row.get(h, "") for h in schema})
         os.replace(temp_path, self.output_file)
 
     def _append_rows_atomic(self, rows_to_append: List[dict]) -> None:
@@ -278,9 +311,9 @@ class NewsPipeline:
             with open(self.output_file, 'r', newline='', encoding='utf-8') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    existing_rows.append({h: row.get(h, "") for h in self.headers})
+                    existing_rows.append(dict(row))
 
-        combined = existing_rows + [{h: row.get(h, "") for h in self.headers} for row in rows_to_append]
+        combined = existing_rows + list(rows_to_append)
         self._write_rows_atomic(combined)
 
     def get_existing_links(self) -> Set[str]:
@@ -355,8 +388,7 @@ class NewsPipeline:
         removed_count = initial_count - len(filtered_rows)
         
         if removed_count > 0:
-            normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in filtered_rows]
-            self._write_rows_atomic(normalized_rows)
+            self._write_rows_atomic(filtered_rows)
             logging.info(f"Removed {removed_count} comment articles. Kept {len(filtered_rows)} articles.")
         else:
             logging.info("No comment articles found to remove.")
@@ -442,8 +474,7 @@ class NewsPipeline:
                             except (ValueError, KeyError, TypeError):
                                 continue
 
-                    normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in rows]
-                    self._write_rows_atomic(normalized_rows)
+                    self._write_rows_atomic(rows)
                     
                     logging.info(f"Successfully processed batch {i // batch_size + 1}/{total_batches}")
                     time.sleep(2)
@@ -593,8 +624,7 @@ class NewsPipeline:
         removed_count = initial_count - len(filtered_rows)
         
         if removed_count > 0:
-            normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in filtered_rows]
-            self._write_rows_atomic(normalized_rows)
+            self._write_rows_atomic(filtered_rows)
             logging.info(f"Removed {removed_count} comment articles. Kept {len(filtered_rows)} articles.")
         else:
             logging.info("No comment articles found to remove.")
@@ -680,8 +710,7 @@ class NewsPipeline:
                             except (ValueError, KeyError, TypeError):
                                 continue
 
-                    normalized_rows = [{h: row.get(h, "") for h in self.headers} for row in rows]
-                    self._write_rows_atomic(normalized_rows)
+                    self._write_rows_atomic(rows)
                     
                     logging.info(f"Successfully processed batch {i // batch_size + 1}/{total_batches}")
                     time.sleep(2)

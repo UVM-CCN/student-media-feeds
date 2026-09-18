@@ -1,0 +1,35 @@
+# Outlets deliberately excluded from the student-media corpus.
+#
+# One domain per line. Blank lines and #-comments ignored. Matching is on the
+# registrable domain and covers subdomains.
+#
+# WHY THIS FILE EXISTS
+# --------------------
+# Every domain below is a professional newsroom that appears in
+# ccn_nap_master.csv because students contribute *some* stories to it -- a
+# semester capstone, a fellowship cohort, a practicum, a student club. The
+# outlet's site-wide RSS feed carries the professional newsroom's entire
+# output, so subscribing to it pulled 5,433 mostly staff-written stories into a
+# student-media corpus (15% of the database) on 2026-09-09.
+#
+# The feeds were removed. This file stops them coming back: any script that
+# discovers feeds from ccn_nap_master.csv must consult it, or the next
+# discovery run silently readmits all of them.
+#
+# Where a narrow student-section feed exists at one of these domains, it is
+# subscribed separately and is NOT affected by this list -- see
+# feeds_nap_student_sections.txt. Those sections are matched by feed URL, not
+# by domain, which is why excluding the domain here is safe.
+
+tampafp.com              # Southeastern University NextGen Journalism Club
+civilbeat.org            # UH Manoa capstone -- student work at /projects/uh-beat/
+voiceofoc.org            # Chapman -- student work at /category/collegiate-news-service/
+seattlemedium.com        # UW Media Diversity course, two stories per student per quarter
+wisconsinwatch.org       # UW-Madison investigative class contributes deep-dives
+qcitymetro.com           # Queens University of Charlotte practicum
+capitolnewsillinois.com  # Northwestern Medill fellows -- /news/author/medill/
+wuft.org                 # University of Florida -- student service is Fresh Take Florida
+milwaukeenns.org         # Marquette
+ipmnewsroom.org          # Illinois Public Media; the student arm is Illinois Student Newsroom
+dominionpost.com         # NOT the student paper -- WVU's is thedaonline.com (Daily Athenaeum)
+dailygazette.com         # Schenectady daily; aggregates too many desks to separate

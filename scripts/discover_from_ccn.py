@@ -14,6 +14,32 @@ import xml.etree.ElementTree as ET
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from feed_discoverer import discover_feeds_from_url, is_valid_feed
 
+# Outlets deliberately excluded from the corpus: professional newsrooms that
+# appear in ccn_nap_master.csv because students contribute a handful of stories
+# to them. Their site-wide feeds were removed on 2026-09-09; without this the
+# next discovery run would append every one of them straight back into
+# extra_urls.txt. Kept in a data file rather than inline so the feed lists and
+# this script share one source of truth.
+EXCLUDED_OUTLETS_FILE = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "data", "excluded_outlets.txt")
+
+
+def load_excluded_domains(path: str = EXCLUDED_OUTLETS_FILE) -> set[str]:
+    """Reads data/excluded_outlets.txt. Missing file is fatal, not ignorable."""
+    if not os.path.exists(path):
+        sys.exit(f"ERROR: {path} is missing. It is the only thing preventing "
+                 f"feed discovery from re-adding the professional outlets that "
+                 f"were removed from this corpus. Refusing to run without it.")
+    domains = set()
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.split("#", 1)[0].strip().lower()
+            if line:
+                domains.add(line[4:] if line.startswith("www.") else line)
+    return domains
+
+
 # Domains that will never have scrapeable RSS feeds
 SKIP_DOMAINS = {
     "youtube.com", "facebook.com", "twitter.com", "instagram.com",
@@ -27,6 +53,19 @@ SKIP_PATH_FRAGMENTS = [
 ]
 
 
+def normalize_host(url: str) -> str:
+    """
+    Registrable host, lowercased, www. stripped.
+
+    Deliberately not netloc.lstrip("www."): lstrip removes any leading
+    character in the set "w.", so hosts starting with those letters are
+    silently mangled -- "wisconsinwatch.org" becomes "isconsinwatch.org" and
+    then matches nothing in any domain list.
+    """
+    host = urllib.parse.urlparse(url).netloc.lower().split(":")[0]
+    return host[4:] if host.startswith("www.") else host
+
+
 def load_opml_domains(opml_dir: str) -> set[str]:
     domains = set()
     for fname in os.listdir(opml_dir):
@@ -37,7 +76,7 @@ def load_opml_domains(opml_dir: str) -> set[str]:
             for attr in ("htmlUrl", "xmlUrl"):
                 url = outline.get(attr, "")
                 if url:
-                    host = urllib.parse.urlparse(url).netloc.lstrip("www.")
+                    host = normalize_host(url)
                     if host:
                         domains.add(host)
     return domains
@@ -58,11 +97,15 @@ def clean_url(raw: str) -> list[str]:
     return cleaned
 
 
-def should_skip(url: str) -> bool:
+def should_skip(url: str, excluded: set[str] | None = None) -> bool:
     parsed = urllib.parse.urlparse(url)
-    domain = parsed.netloc.lstrip("www.")
+    domain = normalize_host(url)
 
-    if any(domain.endswith(d) for d in SKIP_DOMAINS):
+    for d in (excluded if excluded is not None else load_excluded_domains()):
+        if domain == d or domain.endswith("." + d):
+            return True
+
+    if any(domain == d or domain.endswith("." + d) for d in SKIP_DOMAINS):
         return True
 
     path = parsed.path.lower()
@@ -77,6 +120,10 @@ def main():
     opml_dir = os.path.join(base, "feeds")
     ccn_csv = os.path.join(base, "ccn_nap_master.csv")
     output_file = os.path.join(base, "extra_urls.txt")
+
+    excluded = load_excluded_domains()
+    print(f"Loaded {len(excluded)} excluded outlet domains from "
+          f"data/excluded_outlets.txt")
 
     print("Loading existing OPML domains...")
     opml_domains = load_opml_domains(opml_dir)
@@ -112,13 +159,13 @@ def main():
             continue
 
         for url in urls:
-            domain = urllib.parse.urlparse(url).netloc.lstrip("www.")
+            domain = normalize_host(url)
 
             if domain in opml_domains:
                 skipped_tracked += 1
                 continue
 
-            if should_skip(url):
+            if should_skip(url, excluded):
                 print(f"  [SKIP unsuitable] {name} | {url}")
                 skipped_unsuitable += 1
                 continue

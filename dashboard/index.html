@@ -246,7 +246,7 @@
 <div class="wrap">
   <header>
     <p>Student journalists are publishing new stories every day. This dashboard tracks as many publications as possible in our student media database to show how coverage of certain topics is changing over time.
-       Every story is assigned to one of ten topics by a frozen model, so shares arecomparable from day to day.</p>
+       Every story is assigned to one of ten topics by a frozen model, so topics can be compared from day to day.</p>
     <div class="meta" id="meta"></div>
   </header>
 
@@ -1159,7 +1159,7 @@
       { label: "Publications", value: nf.format(D.totals.publications) },
       // Captured, not published: what last night's run pulled in. Independent
       // of the brush, like Publications.
-      { label: "Added " + (D.as_of ? dayLabel(D.as_of) : "yesterday"),
+      { label: "Stories added " + (D.as_of ? dayLabel(D.as_of) : "yesterday"),
         value: nf.format(D.added_on_as_of || 0) }
     ];
     items.forEach(function (it) {
