@@ -114,7 +114,10 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add news_database.csv analytics/ \
                   map/map_data.js map/map_data.json \
-                  dashboard/dashboard_data.js dashboard/dashboard_data.json \
-                  dashboard/headlines/ \
+                  student-media-tracker/dashboard_data.js \
+                  student-media-tracker/dashboard_data.json \
+                  student-media-tracker/map_points.js \
+                  student-media-tracker/map_points.json \
+                  student-media-tracker/headlines/ \
                   data/publication_locations.csv
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database and analytics - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)

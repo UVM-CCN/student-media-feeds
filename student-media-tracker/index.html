@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   /* Light only, by request. One token set, no theme stamps. */
   :root {
@@ -100,10 +101,50 @@
   .hint { color: var(--muted); font-size: .79rem; margin: 0 0 10px; max-width: 96ch; }
 
   /* ---- cards ---- */
+  /* ---- coverage map ---------------------------------------------------
+     Reads the same state object as every other view on this page: the brush
+     range and the focused topic decide what it draws, so it can never disagree
+     with the chart above it. */
+  #map { height: 460px; border-radius: 8px; background: #EAE7E0; z-index: 0; }
+  /* The card rule `.card svg { width:100%; height:auto }` is meant for the d3
+     charts, but the map lives in a card too -- and Leaflet draws its vector
+     markers into an SVG overlay pane and ships an SVG flag in its attribution.
+     Left alone the rule stretched both, hiding every marker and blowing the
+     flag up to a few hundred pixels. The ID selector outranks it. */
+  #map svg { width: auto; height: auto; display: initial; max-width: none; }
+  /* OSM's standard tiles carry a lot of colour. Muting the pane keeps the heat
+     layer readable; applied to the pane, not each tile, to avoid seams. */
+  .leaflet-tile-pane { filter: saturate(.45) brightness(1.04); }
+  .leaflet-container { font: inherit; background: #EAE7E0; }
+  .leaflet-popup-content-wrapper { border-radius: 8px; box-shadow: 0 6px 20px rgba(11,11,11,.16); }
+  .leaflet-popup-content { margin: 11px 13px; font-size: .8rem; line-height: 1.5; width: 16.5rem !important; }
+  .mp-name { font-weight: 600; display: block; }
+  .mp-inst { color: var(--muted); font-size: .73rem; display: block; margin-bottom: .3rem; }
+  .mp-total { display: block; font-size: .75rem; color: var(--ink-2); padding-bottom: .45rem; border-bottom: 1px solid var(--grid); }
+  .mp-bars { display: flex; flex-direction: column; gap: 3px; margin-top: .5rem; }
+  .mp-bar { display: grid; grid-template-columns: 6.6rem 1fr 1.7rem; align-items: center; gap: .4rem; font-size: .7rem; }
+  .mp-bar .bl { color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mp-bar .tr { height: 6px; background: var(--grid); border-radius: 2px; overflow: hidden; }
+  .mp-bar .fl { height: 100%; border-radius: 0 3px 3px 0; min-width: 1px; background: var(--accent); }
+  .mp-bar .vv { font-family: "Noto Sans Mono", ui-monospace, monospace; text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .mp-bar.zero .bl, .mp-bar.zero .vv { color: var(--muted); opacity: .55; }
+
+  .mapfoot { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; max-width: 320px; }
+  .mapramp { height: 8px; border-radius: 2px;
+             background: linear-gradient(90deg,#FFEDA0 0%,#FEB24C 35%,#FD8D3C 60%,#F03B20 80%,#A50F15 100%); }
+  .mapends { display: flex; justify-content: space-between; align-items: baseline; gap: .4rem;
+             font-family: "Noto Sans Mono", ui-monospace, monospace; font-size: .63rem; color: var(--muted); }
+  .mapends span:first-child, .mapends span:last-child { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  #mapUnit { flex: 1; text-align: center; letter-spacing: .04em; }
+
   .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; box-shadow: var(--shadow); }
   .card svg { display: block; width: 100%; height: auto; }
   .cols { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
-  @media (min-width: 900px) { .cols.two { grid-template-columns: 1.35fr 1fr; } }
+  /* 30/70: the topic bars are a ranked list and read fine narrow, while the map
+     is the one view that gains from width -- the contiguous US is roughly 2.4:1,
+     so every pixel of width buys legible geography. Order in the DOM is bars
+     first, map second. */
+  @media (min-width: 900px) { .cols.two { grid-template-columns: 3fr 7fr; } }
 
   /* ---- interactive legend ---- */
   .legend { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 8px; }
@@ -315,9 +356,17 @@
       <div id="totals"></div>
     </div>
     <div class="card">
-      <h2 style="margin:0 0 4px" id="statesTitle">Stories by state</h2>
-      <p class="hint" id="statesHint" style="margin-bottom:10px"></p>
-      <div id="states"></div>
+      <h2 style="margin:0 0 4px">Where the coverage comes from</h2>
+    <p class="hint" id="mapHint" style="margin-bottom:10px">Loading map…</p>
+    <div id="map"></div>
+    <div class="mapfoot">
+      <div class="mapramp" aria-hidden="true"></div>
+      <div class="mapends">
+        <span id="mapLo">—</span>
+        <span id="mapUnit"></span>
+        <span id="mapHi">—</span>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -337,6 +386,8 @@
 
 <div id="tip" role="status" aria-live="polite"></div>
 <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <script src="dashboard_data.js"></script>
 <script>
 (function () {
@@ -1109,49 +1160,8 @@
     });
   }
 
-  /* ---------- geography: one series (states are nominal) ---------- */
-  function renderStates() {
-    var host = d3.select("#states"); host.selectAll("*").remove();
-    var rows = D.states.map(function (s) {
-      return { code: s.code, n: state.focus ? (s.counts[state.focus] || 0) : s.total };
-    }).filter(function (r) { return r.n > 0; })
-      .sort(function (a, b) { return b.n - a.n; }).slice(0, 12);
 
-    if (!rows.length) {
-      host.append("p").attr("class", "hint").text("No located stories for this topic.");
-      return;
-    }
-    var color = state.focus ? colorOf(state.focus) : "var(--neutral-bar)";
-    var max = rows[0].n, rowH = 26, L = 34, R = 52;
-    var BW2 = Math.max(280, Math.round(host.node().getBoundingClientRect().width) || 340);
-    var H2 = rows.length * rowH + 8;
-    var svg = host.append("svg")
-      .attr("viewBox", "0 0 " + BW2 + " " + H2)
-      .attr("role", "img").attr("aria-label", "Stories by state");
-
-    rows.forEach(function (r, i) {
-      var yy = i * rowH + 4, bh = 14;
-      var w = Math.max(2, (r.n / max) * (BW2 - L - R));
-      svg.append("text").attr("x", 0).attr("y", yy + bh - 2)
-        .attr("fill", "var(--ink-2)").attr("font-size", 11).text(r.code);
-      svg.append("rect").attr("x", L).attr("y", yy).attr("width", w).attr("height", bh)
-        .attr("rx", 0).attr("fill", color);
-      svg.append("rect").attr("x", L).attr("y", yy).attr("width", Math.min(4, w)).attr("height", bh)
-        .attr("fill", color);
-      svg.append("text").attr("x", L + w + 7).attr("y", yy + bh - 2)
-        .attr("fill", "var(--ink-2)").attr("font-size", 11)
-        .attr("font-variant-numeric", "tabular-nums").text(nf.format(r.n));
-      svg.append("rect").attr("x", 0).attr("y", yy - 4).attr("width", BW2).attr("height", rowH)
-        .attr("fill", "transparent")
-        .on("pointermove", function (event) {
-          showTip(event, r.code, [{ value: nf.format(r.n), label: "stories",
-                                    color: state.focus ? colorOf(state.focus) : null }]);
-        })
-        .on("pointerleave", hideTip);
-    });
-  }
-
-  /* ---------- chrome ---------- */  /* ---------- chrome ---------- */
+  /* ---------- chrome ---------- */
   function renderKpis() {
     var host = $("kpis"); host.textContent = "";
     var items = [
@@ -1199,10 +1209,7 @@
         + nf.format(dated - before) + " of the " + nf.format(dated)
         + " dated stories. Check the box for the " + nf.format(before)
         + " backfilled from earlier years.";
-    $("statesTitle").textContent = state.focus ? "Where " + labelOf(state.focus) + " is covered" : "Stories by state";
-    $("statesHint").textContent = state.focus
-      ? "Top 12 states for this topic, across the whole archive."
-      : "Top 12 states by total located stories, across the whole archive.";
+    
     $("footnote").textContent =
       "Coverage is shown as each topic's share of that day's stories. Raw counts rise "
       + "sharply over the period because the number of monitored outlets grew, so counts "
@@ -1215,9 +1222,171 @@
       + "State totals cover the whole archive and do not follow the time range.";
   }
 
+  /* ---------- coverage map ------------------------------------------------
+     Driven entirely by the same `state` as the chart: state.i0/i1 (the brush),
+     state.focus (the legend selection) and state.measure. There is no second
+     copy of the filter logic here, so the map cannot drift out of agreement
+     with the rest of the page.
+
+     map_points.js is ~365 KB and feeds a section below the fold, so it is
+     fetched on its own after first paint rather than blocking it -- the same
+     dynamic-script pattern the headline shards use. */
+  var MAP_FLOOR = 0.12;
+  var MAP_GRADIENT = { 0.0:"#FFEDA0", 0.35:"#FEB24C", 0.6:"#FD8D3C", 0.8:"#F03B20", 1.0:"#A50F15" };
+  var lmap = null, heatLayer = null, pinLayer = null, mapState = "idle", mapFitted = false;
+
+  function ensureMapPoints() {
+    if (mapState !== "idle") return;
+    mapState = "loading";
+    var sc = document.createElement("script");
+    sc.src = "map_points.js";
+    sc.onload = function () {
+      if (!window.MAP_POINTS) { mapState = "failed"; $("mapHint").textContent =
+        "map_points.js loaded but defined nothing — rebuild with scripts/build_dashboard_data.py."; return; }
+      mapState = "ready"; initMap(); renderMap();
+    };
+    sc.onerror = function () {
+      mapState = "failed";
+      $("mapHint").textContent = "Could not load map_points.js — it ships alongside this page and has to be copied with it.";
+    };
+    document.head.appendChild(sc);
+  }
+
+  function initMap() {
+    // No hardcoded centre/zoom. This card has moved between a full-width row
+    // and a half-width column already, and a fixed zoom 4 that framed the
+    // country at 1180px crops both coasts at 680px. Fitting to the points
+    // themselves means the view is correct at whatever width it is given.
+    lmap = L.map("map", { zoomControl: true, minZoom: 2, maxZoom: 12, scrollWheelZoom: false })
+            .setView([39.5, -97], 3);
+    // OpenStreetMap: no API key. No {r} retina tile and no {s} subdomains exist
+    // on this endpoint — asking for either returns 404s.
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
+    }).addTo(lmap);
+    heatLayer = L.heatLayer([], { radius: 25, blur: 20, maxZoom: 9, minOpacity: .3, gradient: MAP_GRADIENT }).addTo(lmap);
+    pinLayer = L.layerGroup().addTo(lmap);
+  }
+
+  // One outlet's counts across the brushed range, as { topicKey: n }.
+  function mapCounts(pi) {
+    var days = window.MAP_POINTS.c[pi] || {}, out = {}, total = 0;
+    for (var k in days) {
+      var di = +k;
+      if (di < state.i0 || di > state.i1) continue;     // exactly the brush range
+      var cell = days[k];
+      for (var t in cell) {
+        var key = "t" + t;
+        out[key] = (out[key] || 0) + cell[t];
+        total += cell[t];
+      }
+    }
+    out.__total = total;
+    return out;
+  }
+
+  function renderMap() {
+    if (mapState !== "ready") return;
+    var P = window.MAP_POINTS, rows = [], maxV = 0, nPubs = 0, nStories = 0;
+
+    P.pubs.forEach(function (p, pi) {
+      var c = mapCounts(pi), tot = c.__total;
+      if (!tot) return;
+      // state.measure is shared with the chart: "share" asks what proportion of
+      // this outlet's in-range output the focused topic is. With no topic
+      // focused a share has no referent, so count is the only honest reading.
+      var v = state.focus
+        ? (state.measure === "share" ? (c[state.focus] || 0) / tot : (c[state.focus] || 0))
+        : tot;
+      nPubs++; nStories += state.focus ? (c[state.focus] || 0) : tot;
+      if (v > 0) { rows.push({ p: p, v: v, c: c, tot: tot }); if (v > maxV) maxV = v; }
+    });
+
+    var minV = rows.reduce(function (a, r) { return Math.min(a, r.v); }, Infinity);
+    if (!isFinite(minV)) minV = 0;
+    var span = maxV - minV;
+
+    heatLayer.setLatLngs(rows.map(function (r) {
+      var norm = span > 0 ? (r.v - minV) / span : 1;
+      return [r.p.lat, r.p.lon, MAP_FLOOR + (1 - MAP_FLOOR) * norm];
+    }));
+
+    var tint = state.focus ? colorOf(state.focus) : "#1d6fd4";
+    pinLayer.clearLayers();
+    rows.forEach(function (r) {
+      var norm = span > 0 ? (r.v - minV) / span : 1;
+      L.circleMarker([r.p.lat, r.p.lon], {
+        radius: 3 + 7 * Math.sqrt(norm), color: "#0f172a", weight: 1, opacity: .5,
+        fillColor: tint, fillOpacity: .55
+      }).bindPopup(mapPopup(r)).addTo(pinLayer);
+    });
+
+    // Frame the data once. Re-fitting on every render would yank the map back
+    // each time the reader changed a topic or nudged the brush.
+    if (!mapFitted && rows.length) {
+      mapFitted = true;
+      // Fit the contiguous states only. Including the Alaska and Hawaii outlets
+      // stretches the bounds across a third of the globe and shrinks the lower
+      // 48 -- where nearly every newsroom is -- to an unreadable blob. Their
+      // markers are still drawn and still reachable by zooming out.
+      var main = rows.filter(function (r) {
+        return r.p.lat > 24 && r.p.lat < 50 && r.p.lon > -126 && r.p.lon < -66;
+      });
+      var fit = main.length ? main : rows;
+      lmap.fitBounds(L.latLngBounds(fit.map(function (r) { return [r.p.lat, r.p.lon]; })),
+                     { padding: [16, 16], maxZoom: 6 });
+    }
+
+    var pct = state.focus && state.measure === "share";
+    $("mapLo").textContent = pct ? fmtPct(minV) : nf.format(Math.round(minV));
+    $("mapHi").textContent = pct ? fmtPct(maxV) : nf.format(Math.round(maxV));
+    $("mapUnit").textContent = pct ? "share of outlet output" : "stories per outlet";
+    $("mapHint").textContent =
+      nf.format(nPubs) + " publications with " + nf.format(nStories) + " "
+      + (state.focus ? labelOf(state.focus) + " " : "") + "stories over "
+      + rangeWords(state.i0, state.i1) + ". Heat follows the brush and the topic "
+      + "selected above; click a point for that newsroom's breakdown.";
+  }
+
+  function fmtPct(v) { return (100 * v).toFixed(1) + "%"; }
+  function labelOf(key) {
+    var t = D.topics.filter(function (x) { return x.key === key; })[0];
+    return t ? t.label : key;
+  }
+  function rangeWords(a, b) { return dayLabel(D.days[a]) + " – " + dayLabel(D.days[b]); }
+
+  function mapPopup(r) {
+    // Ranked by this outlet's own count in the current range, descending, so the
+    // popup answers "what does this newsroom cover" rather than repeating the
+    // corpus-wide ordering. Zeros are kept so an absent topic stays visible.
+    var rows = ORDER.map(function (t) {
+      return { key: t.key, label: t.label, v: r.c[t.key] || 0 };
+    }).sort(function (a, b) { return b.v - a.v; });   // stable: ties keep corpus order
+    var top = rows[0] ? rows[0].v : 0;
+    var bars = rows.map(function (x) {
+      var w = top > 0 ? 100 * x.v / top : 0;
+      return '<div class="mp-bar' + (x.v ? "" : " zero") + '"><span class="bl">' + esc(x.label) + "</span>"
+           + '<span class="tr"><span class="fl" style="width:' + w + "%;background:" + colorOf(x.key) + '"></span></span>'
+           + '<span class="vv">' + x.v + "</span></div>";
+    }).join("");
+    var ident = [r.p.i ? esc(r.p.i) + (r.p.s ? ", " + esc(r.p.s) : "") : null, esc(r.p.d)]
+                .filter(Boolean).join(" &middot; ");
+    return '<span class="mp-name">' + esc(r.p.n || r.p.d) + "</span>"
+         + '<span class="mp-inst">' + ident + "</span>"
+         + '<span class="mp-total">' + nf.format(r.tot) + " stories in range</span>"
+         + '<div class="mp-bars">' + bars + "</div>";
+  }
+
+  function esc(v) {
+    return String(v).replace(/[&<>"']/g, function (c) {
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+    });
+  }
+
   function render() {
     renderChrome(); renderKpis(); renderLegend(); renderChart(); renderDay();
-    renderStates(); renderTotals();
+    renderTotals(); renderMap();
     $("mShare").setAttribute("aria-pressed", state.measure === "share" ? "true" : "false");
     $("mCount").setAttribute("aria-pressed", state.measure === "count" ? "true" : "false");
     $("sRaw").setAttribute("aria-pressed", state.smooth ? "false" : "true");
@@ -1243,6 +1412,7 @@
 
   renderBrush();
   render();
+  ensureMapPoints();
 })();
 </script>
 </body>

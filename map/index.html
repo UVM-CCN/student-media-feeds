@@ -7,19 +7,19 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   :root {
-    --panel: #171B23;
-    --panel-2: #212734;
-    --ink: #EEF1F6;
-    --ink-2: #AEB7C6;
-    --muted: #7B8598;
-    --rule: #2E3646;
-    --accent: #6FA8F5;
+    --panel: #FFFFFF;
+    --panel-2: #EEF1F5;
+    --ink: #101720;
+    --ink-2: #3F4B5A;
+    --muted: #6A7686;
+    --rule: #DBE0E8;
+    --accent: #1D6FD4;
     --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; font-family: var(--sans); }
-  #map { position: absolute; inset: 0; background: #0C0F14; }
+  #map { position: absolute; inset: 0; background: #EAE7E0; }
 
   .panel {
     position: absolute; top: 1rem; left: 1rem; z-index: 1000;
@@ -27,7 +27,7 @@
     display: flex; flex-direction: column;
     background: var(--panel); color: var(--ink);
     border: 1px solid var(--rule); border-radius: 6px;
-    box-shadow: 0 8px 28px rgba(0,0,0,.45);
+    box-shadow: 0 4px 16px rgba(16,24,40,.10);
     overflow: hidden;
   }
   .panel header { padding: .9rem 1rem .75rem; border-bottom: 1px solid var(--rule); }
@@ -45,7 +45,7 @@
     padding: .38rem .55rem; border-radius: 3px; cursor: pointer;
   }
   .topic:hover { border-color: var(--rule); color: var(--ink); }
-  .topic[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #0B1220; font-weight: 600; }
+  .topic[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
   .topic .c { font-family: var(--mono); font-size: .72rem; font-variant-numeric: tabular-nums; opacity: .8; }
   .topic:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -64,7 +64,8 @@
   .row input { accent-color: var(--accent); }
 
   .scale { display: flex; flex-direction: column; gap: .3rem; }
-  .ramp { height: 8px; border-radius: 2px; background: linear-gradient(90deg, #2C5AA0 0%, #43A9C7 35%, #7DD87F 60%, #F2D65C 80%, #E8574A 100%); }
+  /* Must mirror GRADIENT below exactly -- the legend is a claim about the map. */
+  .ramp { height: 8px; border-radius: 2px; background: linear-gradient(90deg, #FFEDA0 0%, #FEB24C 35%, #FD8D3C 60%, #F03B20 80%, #A50F15 100%); }
   .scale .ends { display: flex; justify-content: space-between; align-items: baseline; gap: .4rem; font-family: var(--mono); font-size: .64rem; color: var(--muted); }
   .scale .ends span:first-child, .scale .ends span:last-child { color: var(--ink-2); font-variant-numeric: tabular-nums; }
   #scaleUnit { flex: 1; text-align: center; font-size: .6rem; letter-spacing: .04em; }
@@ -87,7 +88,14 @@
   .pop-bar .vv { font-family: var(--mono); text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
   .pop-bar.zero .bl, .pop-bar.zero .vv { color: var(--muted); opacity: .55; }
   .pop-bar.sel .bl, .pop-bar.sel .vv { color: var(--ink); font-weight: 600; opacity: 1; }
-  .pop-bar.sel .fl { background: #F2D65C; }
+  .pop-bar.sel .fl { background: #D7301F; }
+
+  /* OSM's standard style carries far more colour than the Carto dark basemap it
+     replaced -- roads, parks and labels all compete with the heat layer. Muting
+     the tile pane keeps the data on top legible. Applied to the pane, not to
+     .leaflet-tile, because per-tile filters show seams at tile boundaries.
+     Drop this rule if you want OSM at full strength. */
+  .leaflet-tile-pane { filter: saturate(.45) brightness(1.04); }
 
   .attrib { position: absolute; bottom: 0; right: 0; z-index: 900; }
 
@@ -107,6 +115,8 @@
   </header>
   <div class="body">
     <div>
+      <label class="row"><input type="checkbox" id="showPts"> Show publication markers</label>
+      <br>
       <span class="lab">Topic</span>
       <div class="topics" id="topics"></div>
     </div>
@@ -126,7 +136,7 @@
       <div class="ends"><span id="scaleLo">—</span><span id="scaleUnit"></span><span id="scaleHi">—</span></div>
     </div>
 
-    <label class="row"><input type="checkbox" id="showPts"> Show publication markers</label>
+    
 
     <div>
       <div class="stat"><span>Publications shown</span><b id="nPubs">—</b></div>
@@ -145,12 +155,22 @@
   var DATA = window.MAP_DATA;
   if (!DATA) {
     document.getElementById("map").innerHTML =
-      '<p style="color:#fff;font:14px system-ui;padding:2rem">' +
+      '<p style="color:#101720;font:14px system-ui;padding:2rem">' +
       'map_data.js did not load. Run <code>python scripts/build_map_data.py</code> first.</p>';
     return;
   }
 
-  var GRADIENT = { 0.0: "#2C5AA0", 0.35: "#43A9C7", 0.6: "#7DD87F", 0.8: "#F2D65C", 1.0: "#E8574A" };
+  // Sequential, not spectral. The previous ramp was a rainbow (blue-cyan-green-
+  // yellow-red) built for the dark Carto basemap, where its pale greens and
+  // yellows read brightly. Those sit at the 60-80% band -- the values that matter
+  // most -- and on a light basemap pale means invisible, so the scale went blind
+  // exactly where it should have shouted.
+  //
+  // This is ColorBrewer YlOrRd: lightness falls monotonically as intensity rises,
+  // so hot areas get darker and denser against the light ground instead of
+  // lighter. Sparse areas stay quiet, which is the correct behaviour when low
+  // values cover most of the map. Keep .ramp in sync with these stops.
+  var GRADIENT = { 0.0: "#FFEDA0", 0.35: "#FEB24C", 0.6: "#FD8D3C", 0.8: "#F03B20", 1.0: "#A50F15" };
   var ALL = "__all__";
   var state = { topic: ALL, mode: "count", markers: false };
 
@@ -163,9 +183,12 @@
   var map = L.map("map", { zoomControl: true, minZoom: 3, maxZoom: 12 })
              .setView([39.5, -97], 4);
 
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: "abcd", maxZoom: 12
+  // OpenStreetMap's own tiles: no API key, no account. Note there is no {r}
+  // retina variant and no {s} subdomains on this endpoint -- both were Carto
+  // features and requesting them here returns 404s.
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
   }).addTo(map);
 
   var heat = L.heatLayer([], { radius: 26, blur: 22, maxZoom: 9, minOpacity: 0.25, gradient: GRADIENT }).addTo(map);
@@ -272,8 +295,8 @@
         var radius = 3 + Math.sqrt(rawCount(p)) * 0.9;
         L.circleMarker([p.lat, p.lon], {
           radius: Math.min(radius, 14),
-          color: "#EEF1F6", weight: 1, opacity: 0.55,
-          fillColor: "#6FA8F5", fillOpacity: 0.45
+          color: "#0F172A", weight: 1, opacity: 0.55,
+          fillColor: "#1D6FD4", fillOpacity: 0.55
         }).bindPopup(popupHtml(p)).addTo(markerLayer);
       });
     }
@@ -283,10 +306,20 @@
   }
 
   function popupHtml(p) {
-    // Every category, always, in the same order for every outlet — a fixed axis
-    // is what makes two popups comparable at a glance.
+    // Ranked by this outlet's own story count, descending, so the popup answers
+    // "what does this newsroom actually cover" at a glance. Every category is
+    // still listed, including zeros, so the absence of a topic stays visible.
+    //
+    // Note this is a per-outlet axis: two popups no longer share row positions
+    // the way they did when this followed ORDERED (corpus-wide totals). The
+    // topic buttons in the panel still use ORDERED, which is why the sort is on
+    // a copy here rather than on ORDERED itself.
     var rows = ORDERED.map(function (t) {
       return { key: t.key, label: t.label, v: p[t.key] || 0 };
+    }).sort(function (a, b) {
+      // Ties keep corpus order: ORDERED is already sorted that way, and
+      // Array.prototype.sort is stable, so equal counts need no tiebreak.
+      return b.v - a.v;
     });
     var top = rows.reduce(function (a, r) { return Math.max(a, r.v); }, 0) || 1;
     var assigned = rows.reduce(function (a, r) { return a + r.v; }, 0);

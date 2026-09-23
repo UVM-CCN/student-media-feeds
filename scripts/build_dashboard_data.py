@@ -56,9 +56,17 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE_CSV = os.path.join(ROOT, "news_database.csv")
 LABELS_JSON = os.path.join(ROOT, "data", "topic_labels.json")
 LOCATIONS_CSV = os.path.join(ROOT, "data", "publication_locations.csv")
-OUT_DIR = os.path.join(ROOT, "dashboard")
+# Renamed from "dashboard" in 6519a50. The rename moved the committed files but
+# not this constant, so the nightly kept writing to a recreated dashboard/ while
+# the page served from student-media-tracker/ went stale.
+OUT_DIR = os.path.join(ROOT, "student-media-tracker")
 OUT_JSON = os.path.join(OUT_DIR, "dashboard_data.json")
 OUT_JS = os.path.join(OUT_DIR, "dashboard_data.js")
+# The map's per-publication grid. Kept out of dashboard_data.js deliberately: it
+# is ~7x that file's size and feeds a section below the fold, so the page defers
+# it rather than making first paint wait on it.
+MAP_JSON = os.path.join(OUT_DIR, "map_points.json")
+MAP_JS = os.path.join(OUT_DIR, "map_points.js")
 HEADLINES_DIR = os.path.join(OUT_DIR, "headlines")
 
 # Headlines per day-topic cell for the drill-down. The median cell holds 3
@@ -180,6 +188,29 @@ def load_labels() -> dict[str, str]:
     return labels, data.get("model_version", "")
 
 
+def load_places() -> dict[str, dict]:
+    """domain -> {lat, lon, publication, institution, state} for located outlets."""
+    out = {}
+    if not os.path.exists(LOCATIONS_CSV):
+        return out
+    with open(LOCATIONS_CSV, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            dom = (row.get("domain") or "").strip()
+            lat, lon = (row.get("lat") or "").strip(), (row.get("lon") or "").strip()
+            if not (dom and lat and lon):
+                continue
+            try:
+                out[dom] = {
+                    "lat": round(float(lat), 5), "lon": round(float(lon), 5),
+                    "n": (row.get("publication") or "").strip(),
+                    "i": (row.get("institution") or "").strip(),
+                    "s": (row.get("state") or "").strip(),
+                }
+            except ValueError:
+                continue
+    return out
+
+
 def load_states() -> dict[str, str]:
     """domain -> state code, for the geographic rollup."""
     out = {}
@@ -197,6 +228,10 @@ def load_states() -> dict[str, str]:
 def main() -> int:
     labels, model_version = load_labels()
     states_by_domain = load_states()
+    places = load_places()
+    # domain -> day -> topic key -> n. Sparse: only 24k of a possible 8.3M cells
+    # are non-zero, so this stays small enough to ship whole.
+    geo_cells: dict[str, dict[str, Counter]] = defaultdict(lambda: defaultdict(Counter))
     keys = [f"t{t}" for t in sorted(labels, key=int)]
 
     with open(SOURCE_CSV, newline="", encoding="utf-8") as f:
@@ -245,10 +280,16 @@ def main() -> int:
             if title:
                 cells[(day, key)].append(
                     (title, (r.get("source") or "").strip(), (r.get("link") or "").strip()))
-        state = states_by_domain.get(host(r.get("link", "")) or "")
+        dom = host(r.get("link", "")) or ""
+        state = states_by_domain.get(dom)
         if state:
             state_topic[state][key] += 1
             state_total[state] += 1
+        # Same row, same filters, keyed for the map. Undated rows are skipped for
+        # the same reason they are skipped in the time series: they belong to no
+        # day, so no brush range can honestly include them.
+        if day and dom in places:
+            geo_cells[dom][day][key] += 1
 
     built = datetime.now(timezone.utc)
     cutoff = last_complete_day(built.date())
@@ -377,6 +418,38 @@ def main() -> int:
     # month files are loaded the same way, but only when a reader drills into a
     # day -- the page injects that month's <script> on demand.
     write_pair(OUT_JSON, OUT_JS, "DASHBOARD_DATA", data)
+
+    # ---- map grid -------------------------------------------------------
+    # Indices, not strings: `c` is keyed by the publication's index in `pubs`
+    # and then by the day's index in `days`, which is the same index the
+    # dashboard's brush already works in. The map can therefore filter on the
+    # live brush range with no date parsing and no month-boundary rounding.
+    day_index = {d: i for i, d in enumerate(days)}
+    pubs, cells_out = [], {}
+    for dom in sorted(geo_cells):
+        by_day = {}
+        for day, topics in geo_cells[dom].items():
+            di = day_index.get(day)
+            if di is None:          # outside the emitted window (partial last day)
+                continue
+            by_day[str(di)] = {k[1:]: n for k, n in topics.items()}
+        if not by_day:
+            continue
+        place = places[dom]
+        cells_out[str(len(pubs))] = by_day
+        pubs.append({"d": dom, **place})
+
+    map_data = {
+        "generated_at": built.isoformat(timespec="seconds"),
+        "model_version": model_version,
+        "pubs": pubs,
+        "c": cells_out,
+    }
+    write_pair(MAP_JSON, MAP_JS, "MAP_POINTS", map_data)
+    n_cells = sum(len(v) for v in cells_out.values())
+    print(f"wrote {os.path.relpath(MAP_JS, ROOT)}  "
+          f"({os.path.getsize(MAP_JS) / 1024:.0f} KB): "
+          f"{len(pubs):,} located publications, {n_cells:,} publication-days")
 
     size = os.path.getsize(OUT_JSON) / 1024
     csv_size = os.path.getsize(SOURCE_CSV) / 1024 / 1024
