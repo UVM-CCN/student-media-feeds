@@ -7,8 +7,11 @@ __pycache__/
 *.log
 *.tmp
 
-# Backup archives (use git history instead)
+# Backup archives and site snapshots (rebuild from the repo instead).
+# student-media-tracker.tar.gz was a snapshot of the site directory committed
+# inside the site directory -- 808 KB that rsync would have published.
 *.zip
+*.tar.gz
 
 # OS
 .DS_Store

@@ -1,0 +1,39 @@
+# Cache policy for the Silk deployment.
+#
+# WHY THIS FILE MATTERS
+# ---------------------
+# The data files are replaced nightly under the SAME filenames --
+# dashboard_data.js, map_points.js and headlines/*.js are rewritten by
+# scripts/build_dashboard_data.py on every run. Apache sends no Cache-Control
+# for them by default, so browsers fall back to heuristic caching and a
+# returning reader keeps yesterday's numbers however reliably the pipeline
+# runs. The site looks healthy and quietly serves stale data, which reads as a
+# broken deploy when the deploy is fine.
+#
+# max-age=0 + must-revalidate does not mean "never cache". The browser keeps
+# the file and revalidates with an ETag, so an unchanged file costs a 304 and
+# no body transfer.
+#
+# Requires mod_headers. If ETS has not enabled it, ask them to set the same
+# two rules for this directory server-side -- this file will be ignored
+# silently, not error.
+
+<IfModule mod_headers.c>
+  # Page and data: rebuilt nightly, so revalidate on every visit.
+  <FilesMatch "\.(html|js)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # Logos and fonts: effectively immutable, cache for a week.
+  <FilesMatch "\.(svg|png|jpg|jpeg|gif|webp|woff2?)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# The directory holds 115 headline shards plus the data files. Serve the page,
+# never a browsable file index.
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+DirectoryIndex index.html
