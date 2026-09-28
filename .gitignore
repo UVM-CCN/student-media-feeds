@@ -52,3 +52,10 @@ huggingface/dataset_build/
 # scripts/geocode_publications.py, the only CI consumer, uses institution,
 # state, outlet name, URL and coordinates only.
 *.private.csv
+
+# Article bodies for stories deliberately removed from the corpus (the
+# professional-outlet exclusions and the Daily Gazette). They were committed to
+# full_text/ before the corpus moved to Hugging Face, and HF rebuilds its
+# parquet from news_database.csv -- so once full_text/ was purged from git
+# history this archive became their only copy. Kept locally, never published.
+excluded_full_text_archive.tar.gz
