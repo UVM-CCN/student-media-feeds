@@ -748,6 +748,7 @@
       .on("click", function (event) {
         state.day = nearestDay(d3.pointer(event, this)[0]);
         hideTip();
+        wantDrawer = true;   // the one gesture that may open the drawer
         render();
         // No scrolling: the day bar opens inside this card, right below the chart.
       })
@@ -961,14 +962,29 @@
       + nf.format(D.day_classified[i]) + " with a topic";
     // "above" because the legend now sits above this line, not below it.
     prompt.hidden = false;
-    prompt.textContent = "Click a topic above to see sample headlines";
+    // Must match the interaction above: with no topic chosen there is nothing to
+    // put in the drawer, and picking one no longer opens it on its own.
+    prompt.textContent = state.focus
+      ? "Click this day again to read its headlines"
+      : "Choose a topic above, then click a day to read its headlines";
 
-    if (state.focus && D.series[state.focus][i]) openDrawer();
+    var hasStories = state.focus && D.series[state.focus][i];
+    if (hasStories && (wantDrawer || drawerOpen)) openDrawer();  // also refreshes
     else closeDrawer();
+    wantDrawer = false;                                          // single use
   }
 
   /* ---------- the drawer ---------- */
   var drawerOpen = false;
+
+  // The drawer needs BOTH a day and a topic, so it used to slide out the moment
+  // the second one arrived -- whichever that was. Picking a topic to filter the
+  // charts therefore threw the panel open as a side effect.
+  //
+  // Opening is now an intent set by clicking a day in the time series, consumed
+  // on the next render. Changing the topic refreshes an already-open drawer but
+  // never opens a closed one.
+  var wantDrawer = false;
   function closeDrawer() {
     if (!drawerOpen) return;
     drawerOpen = false;
