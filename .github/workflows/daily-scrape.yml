@@ -121,3 +121,32 @@ jobs:
                   student-media-tracker/headlines/ \
                   data/publication_locations.csv
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database and analytics - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)
+
+  publish-pages:
+    needs: scrape
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      # ref: main matters. A scheduled run pins github.sha to the commit that
+      # existed when the schedule fired, so the default checkout would publish
+      # the site as it was BEFORE the scrape job committed tonight's rebuild.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/configure-pages@v5
+
+      # Only the site directory is uploaded. Nothing else in the repo is served.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: student-media-tracker
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

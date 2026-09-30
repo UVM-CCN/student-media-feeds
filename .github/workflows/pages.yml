@@ -1,0 +1,30 @@
+name: Publish site to Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['student-media-tracker/**']
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: student-media-tracker
+      - id: deploy
+        uses: actions/deploy-pages@v4
