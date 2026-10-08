@@ -90,6 +90,39 @@
   .seggroup button:first-child { border-radius: 7px 0 0 7px; }
   .seggroup button:last-child  { border-radius: 0 7px 7px 0; border-left: none; }
   .seggroup button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .tile button.link { display: block; margin-top: 4px; }
+
+  dialog.pubs {
+    width: min(560px, calc(100vw - 32px)); max-height: min(640px, calc(100vh - 48px));
+    padding: 0; border: 1px solid var(--border); border-radius: 12px;
+    background: var(--surface-1); color: var(--ink);
+    box-shadow: 0 12px 40px rgba(11,11,11,.22);
+  }
+  dialog.pubs[open] { display: flex; flex-direction: column; }
+  dialog.pubs::backdrop { background: rgba(11,11,11,.4); }
+  .pubs header { display: flex; align-items: center; gap: 12px; padding: 14px 18px 8px; }
+  .pubs h2 { margin: 0; flex: 1; font-size: 1.05rem; }
+  .pubs .x { font-size: 1.4rem; line-height: 1; text-decoration: none; padding: 0 4px; }
+  .pubs .search { padding: 0 18px 10px; }
+  .pubs input[type="search"] {
+    width: 100%; font: inherit; font-size: .9rem; padding: 7px 10px;
+    border: 1px solid var(--axis); border-radius: 7px; background: #fff; color: var(--ink);
+  }
+  .pubs input[type="search"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .pubs .count { padding: 0 18px 6px; font-size: .8rem; color: var(--ink-2); }
+  .pubs ul { list-style: none; margin: 0; padding: 0 0 6px; overflow-y: auto; border-top: 1px solid var(--border); }
+  .pubs li { padding: 8px 18px; border-bottom: 1px solid var(--border); }
+  .pubs li:last-child { border-bottom: none; }
+  .pubs li .nm { font-weight: 600; font-size: .92rem; overflow-wrap: anywhere; }
+  .pubs li .col { color: var(--ink-2); font-size: .8rem; }
+  .pubs li .nm a { color: inherit; text-decoration: none; }
+  .pubs li .nm a:hover { text-decoration: underline; color: var(--accent); }
+  .pubs li .url { font-size: .8rem; overflow-wrap: anywhere; }
+  .pubs li .url a { color: var(--accent); text-decoration: underline; }
+  .pubs li .url a:hover { text-decoration-thickness: 2px; }
+  .pubs li .url a:focus-visible, .pubs li .nm a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pubs .none { padding: 18px; color: var(--ink-2); font-size: .9rem; }
+
   button.link {
     font: inherit; font-size: .82rem; background: none; border: none;
     color: var(--ink-2); cursor: pointer; text-decoration: underline; padding: 0;
@@ -383,6 +416,16 @@
   </div>
   <div class="drawer-body" id="drawerBody"></div>
 </aside>
+
+<dialog class="pubs" id="pubsDialog" aria-labelledby="pubsTitle">
+  <header>
+    <h2 id="pubsTitle">All publications</h2>
+    <button class="link x" id="pubsClose" aria-label="Close">&times;</button>
+  </header>
+  <div class="search"><input type="search" id="pubsSearch" placeholder="Search by publication or college" aria-label="Search publications"></div>
+  <div class="count" id="pubsCount" aria-live="polite"></div>
+  <ul id="pubsList"></ul>
+</dialog>
 
 <div id="tip" role="status" aria-live="polite"></div>
 <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
@@ -1182,7 +1225,7 @@
     var host = $("kpis"); host.textContent = "";
     var items = [
       { label: "Stories in range", value: nf.format(grandTotal()), hero: true },
-      { label: "Publications", value: nf.format(D.totals.publications) },
+      { label: "Publications", value: nf.format(D.totals.publications), pubs: true },
       // Captured, not published: what last night's run pulled in. Independent
       // of the brush, like Publications.
       { label: "Stories added " + (D.as_of ? dayLabel(D.as_of) : "yesterday"),
@@ -1192,9 +1235,78 @@
       var d = document.createElement("div"); d.className = "tile" + (it.hero ? " hero" : "");
       var l = document.createElement("div"); l.className = "label"; l.textContent = it.label;
       var v = document.createElement("div"); v.className = "value"; v.textContent = it.value;
-      d.appendChild(l); d.appendChild(v); host.appendChild(d);
+      d.appendChild(l); d.appendChild(v);
+      if (it.pubs) {
+        var b = document.createElement("button"); b.className = "link"; b.type = "button";
+        b.textContent = "View all publications";
+        b.addEventListener("click", openPubs);
+        d.appendChild(b);
+      }
+      host.appendChild(d);
     });
   }
+
+  /* ---------- all-publications modal ---------- */
+  function renderPubs() {
+    var q = $("pubsSearch").value.trim().toLowerCase();
+    var all = D.publications || [];
+    var rows = q ? all.filter(function (p) {
+      return (p.n + " " + p.c + " " + (p.u || "")).toLowerCase().indexOf(q) !== -1;
+    }) : all;
+    var ul = $("pubsList"); ul.textContent = "";
+    rows.forEach(function (p) {
+      var li = document.createElement("li");
+      var n = document.createElement("div"); n.className = "nm";
+      if (/^https?:\/\//.test(p.u || "")) {
+        var a = document.createElement("a"); a.href = p.u; a.textContent = p.n;
+        a.target = "_blank"; a.rel = "noopener noreferrer";
+        n.appendChild(a);
+      } else {
+        n.textContent = p.n;
+      }
+      li.appendChild(n);
+      if (p.c) {
+        var c = document.createElement("div"); c.className = "col"; c.textContent = p.c;
+        li.appendChild(c);
+      }
+      if (p.u) {
+        var u = document.createElement("div"); u.className = "url";
+        var t = p.u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+        if (/^https?:\/\//.test(p.u)) {
+          var l = document.createElement("a"); l.href = p.u; l.textContent = t;
+          l.target = "_blank"; l.rel = "noopener noreferrer";
+          u.appendChild(l);
+        } else {
+          u.textContent = t;
+        }
+        li.appendChild(u);
+      }
+      ul.appendChild(li);
+    });
+    $("pubsCount").textContent = (q ? nf.format(rows.length) + " of " : "")
+      + nf.format(all.length) + " publications";
+    if (!rows.length) {
+      var li = document.createElement("li"); li.className = "none";
+      li.textContent = "No publications match “" + $("pubsSearch").value.trim() + "”.";
+      ul.appendChild(li);
+    }
+  }
+  function openPubs() {
+    $("pubsSearch").value = "";
+    renderPubs();
+    $("pubsDialog").showModal();
+    $("pubsSearch").focus();
+  }
+  $("pubsSearch").addEventListener("input", renderPubs);
+  // In a search input Escape first clears the text; close the dialog instead.
+  $("pubsSearch").addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { e.preventDefault(); $("pubsDialog").close(); }
+  });
+  $("pubsClose").addEventListener("click", function () { $("pubsDialog").close(); });
+  // A click on the backdrop lands on the <dialog> element itself.
+  $("pubsDialog").addEventListener("click", function (e) {
+    if (e.target === this) this.close();
+  });
 
   function renderChrome() {
     $("meta").textContent = "Model " + D.model_version + " · built " +

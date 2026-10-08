@@ -56,6 +56,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE_CSV = os.path.join(ROOT, "news_database.csv")
 LABELS_JSON = os.path.join(ROOT, "data", "topic_labels.json")
 LOCATIONS_CSV = os.path.join(ROOT, "data", "publication_locations.csv")
+OUTLETS_CSV = os.path.join(ROOT, "data", "student-media-outlets.csv")
 # Renamed from "dashboard" in 6519a50. The rename moved the committed files but
 # not this constant, so the nightly kept writing to a recreated dashboard/ while
 # the page served from student-media-tracker/ went stale.
@@ -211,6 +212,21 @@ def load_places() -> dict[str, dict]:
     return out
 
 
+def load_home_urls() -> dict[str, str]:
+    """host -> the outlet's home URL as listed in the outlets sheet."""
+    out = {}
+    if not os.path.exists(OUTLETS_CSV):
+        return out
+    with open(OUTLETS_CSV, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            # A few cells hold two URLs ("a or b"); the first is the main one.
+            parts = (row.get("URL of Outlet") or "").replace(",", " ").split()
+            url = parts[0] if parts else ""
+            if url.startswith("http") and host(url):
+                out.setdefault(host(url), url)
+    return out
+
+
 def load_states() -> dict[str, str]:
     """domain -> state code, for the geographic rollup."""
     out = {}
@@ -246,11 +262,15 @@ def main() -> int:
     state_total = Counter()
     topic_total = Counter()
     publications = set()
+    source_domains: dict[str, Counter] = defaultdict(Counter)  # source -> link host -> n
     classified = with_text = 0
     undated = 0
 
     for r in rows:
-        publications.add((r.get("source") or "").strip())
+        src = (r.get("source") or "").strip()
+        publications.add(src)
+        if src:
+            source_domains[src][host(r.get("link", "")) or ""] += 1
         cap = day_of(r.get("captured_at"))
         if cap:
             captured_on[cap] += 1
@@ -290,6 +310,21 @@ def main() -> int:
         # day, so no brush range can honestly include them.
         if day and dom in places:
             geo_cells[dom][day][key] += 1
+
+    # One entry per publication for the "View all publications" list. Name and
+    # college come from the located outlet when a source's links resolve to one;
+    # otherwise the feed's own source name is shown with no college.
+    home_urls = load_home_urls()
+    pub_list = []
+    for src, doms in source_domains.items():
+        dom = next((d for d, _ in doms.most_common() if d in places), None)
+        place = places.get(dom)
+        if not dom:
+            dom = next((d for d, _ in doms.most_common() if d), "")
+        pub_list.append({"n": (place and place["n"]) or src,
+                         "c": (place and place["i"]) or "",
+                         "u": home_urls.get(dom) or (f"https://{dom}" if dom else "")})
+    pub_list.sort(key=lambda p: (p["n"].lower(), p["c"].lower()))
 
     built = datetime.now(timezone.utc)
     cutoff = last_complete_day(built.date())
@@ -382,6 +417,7 @@ def main() -> int:
             "publications": len([p for p in publications if p]),
             "undated": undated,
         },
+        "publications": pub_list,
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)
