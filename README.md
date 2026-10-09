@@ -7,6 +7,7 @@ A Python-based RSS feed aggregator designed to track and archive news stories fr
 - [x] categorzie by theme
 - [x] add time series analysis
 - [ ] integrate SOCKs tools?
+- [ ] Revisit [data/splc_feed_discovery_results.csv](data/splc_feed_discovery_results.csv) (SPLC colleges not yet in our database) and see if more can be added to the pipeline. Filter on `Revisit = yes`: 27 outlets were added in `feeds_splc_discovered.txt`; 284 remain, mostly sites with no feed found, sites that blocked the probe (403/429, try `fetch_hard_outlets.py`), stale URLs, outlets missing a URL, and 72 whose domain is already tracked but whose college label doesn't match.
 
 ## Overview
 
