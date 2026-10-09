@@ -1006,12 +1006,13 @@
     // "above" because the legend now sits above this line, not below it.
     prompt.hidden = false;
     // Must match the interaction above: with no topic chosen there is nothing to
-    // put in the drawer, and picking one no longer opens it on its own.
+    // put in the drawer; choosing one from the legend opens it for this day.
     prompt.textContent = state.focus
-      ? "Click this day again to read its headlines"
-      : "Choose a topic above, then click a day to read its headlines";
+      ? "No stories for this topic on this day"
+      : "Choose a topic above to read this day's headlines";
 
     var hasStories = state.focus && D.series[state.focus][i];
+    prompt.hidden = !!hasStories;  // the drawer is the answer once there is something to read
     if (hasStories && (wantDrawer || drawerOpen)) openDrawer();  // also refreshes
     else closeDrawer();
     wantDrawer = false;                                          // single use
@@ -1158,6 +1159,9 @@
         : "Show only " + t.label;
       b.addEventListener("click", function () {
         state.focus = on ? null : t.key;
+        // A day is already chosen in the chart, so picking a topic is the
+        // second half of that gesture: open the drawer without another click.
+        if (state.focus && state.day !== null) wantDrawer = true;
         render();
       });
       host.appendChild(b);
