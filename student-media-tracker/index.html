@@ -39,8 +39,15 @@
     background: var(--plane);
     color: var(--ink);
     font-family: "Lora", serif;
-    font-size: 1rem; line-height: 1.45;
+    font-size: 1rem; line-height: 1.45; 
     -webkit-font-smoothing: antialiased;
+  }
+
+  footer {
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background: rgb(238, 238, 238);
   }
 
   #dayprompt.dayprompt {
@@ -150,15 +157,14 @@
   .leaflet-tile-pane { filter: saturate(.45) brightness(1.04); }
   .leaflet-container { font: inherit; background: #EAE7E0; }
   .leaflet-popup-content-wrapper { border-radius: 8px; box-shadow: 0 6px 20px rgba(11,11,11,.16); }
-  .leaflet-popup-content { margin: 11px 13px; font-size: .8rem; line-height: 1.5; width: 16.5rem !important; }
+  .leaflet-popup-content { margin: 11px 13px; font-size: .8rem; line-height: 1.5; width: 16rem !important; }
   .mp-name { font-weight: 600; display: block; }
   .mp-inst { color: var(--muted); font-size: .73rem; display: block; margin-bottom: .3rem; }
   .mp-total { display: block; font-size: .75rem; color: var(--ink-2); padding-bottom: .45rem; border-bottom: 1px solid var(--grid); }
   .mp-bars { display: flex; flex-direction: column; gap: 3px; margin-top: .5rem; }
-  .mp-bar { display: grid; grid-template-columns: 6.6rem 1fr 1.7rem; align-items: center; gap: .4rem; font-size: .7rem; }
-  .mp-bar .bl { color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mp-bar .tr { height: 6px; background: var(--grid); border-radius: 2px; overflow: hidden; }
-  .mp-bar .fl { height: 100%; border-radius: 0 3px 3px 0; min-width: 1px; background: var(--accent); }
+  .mp-bar { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: .6rem; font-size: .7rem; }
+  .mp-bar .bl { color: var(--ink-2); display: flex; align-items: center; gap: .4rem; }
+  .mp-bar .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
   .mp-bar .vv { font-family: "Noto Sans Mono", ui-monospace, monospace; text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
   .mp-bar.zero .bl, .mp-bar.zero .vv { color: var(--muted); opacity: .55; }
 
@@ -304,6 +310,12 @@
   #tip .tl { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .note { color: var(--muted); font-size: .78rem; margin-top: 10px; max-width: 84ch; }
 
+  .site-footer { margin: 24px 0 0; padding: 20px 16px; background: #E4E3E0; border-top: 1px solid var(--border);
+                 display: block; width: 100%; box-sizing: border-box; text-align: center;
+                 font-size: .8rem; color: var(--ink-2); }
+  .site-footer span { margin-right: .6rem; text-align: center }
+  .site-footer a { color: var(--ink); font-weight: 600; }
+
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -313,6 +325,7 @@
       <h1>Tracking student media coverage</h1>
     </div>
     <div class="logo-headers">
+      <!-- <a href="search.html" style="color: white; font-size: .85rem; margin-right: 8px">Search stories</a> -->
       <img src="./images/uvm-logo-white.svg" alt="University of Vermont" style="height: 38px; margin: 12px 0 12px 16px">
       <img src="./images/ccn-logo-white-greenbg.png" alt="UVM Student Media" style="height: 44px; margin: 12px 0 12px 16px">
     </div>
@@ -426,6 +439,11 @@
   <div class="count" id="pubsCount" aria-live="polite"></div>
   <ul id="pubsList"></ul>
 </dialog>
+
+<footer class="site-footer">
+  <span>Questions, corrections, or a publication we should be tracking?</span>
+  <a href="mailto:bcooley@uvm.edu">Contact us</a>
+</footer>
 
 <div id="tip" role="status" aria-live="polite"></div>
 <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
@@ -1495,11 +1513,8 @@
     var rows = ORDER.map(function (t) {
       return { key: t.key, label: t.label, v: r.c[t.key] || 0 };
     }).sort(function (a, b) { return b.v - a.v; });   // stable: ties keep corpus order
-    var top = rows[0] ? rows[0].v : 0;
     var bars = rows.map(function (x) {
-      var w = top > 0 ? 100 * x.v / top : 0;
-      return '<div class="mp-bar' + (x.v ? "" : " zero") + '"><span class="bl">' + esc(x.label) + "</span>"
-           + '<span class="tr"><span class="fl" style="width:' + w + "%;background:" + colorOf(x.key) + '"></span></span>'
+      return '<div class="mp-bar' + (x.v ? "" : " zero") + '"><span class="bl"><span class="dot" style="background:' + colorOf(x.key) + '"></span>' + esc(x.label) + "</span>"
            + '<span class="vv">' + x.v + "</span></div>";
     }).join("");
     var ident = [r.p.i ? esc(r.p.i) + (r.p.s ? ", " + esc(r.p.s) : "") : null, esc(r.p.d)]
