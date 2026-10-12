@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2011-05"]={"src":["Page not found \u2013 The Rattler Online"],"rows":[[5,null,0,"Chaos in Egypt affects long-planned trip for student","https://www.stmurattlernew.com/2011/05/chaos-in-egypt-affects-long-planned-trip-for-student/"]]};

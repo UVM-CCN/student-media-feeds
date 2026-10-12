@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2023-07"]={"src":["CNCC | The Herald Times"],"rows":[[26,3,0,"CNCC welcomes new athletic director","https://www.theheraldtimes.com/cncc-welcomes-new-athletic-director/meeker/"]]};

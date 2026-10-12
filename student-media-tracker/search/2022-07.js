@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2022-07"]={"src":["Amplify Utah - The Story Room"],"rows":[[15,2,0,"Utah students create video, posters for campaign to promote vaccinations","https://amplifyutah.org/the-story-room/utah-students-create-video-posters-for-campaign-to-promote-vaccinations"]]};

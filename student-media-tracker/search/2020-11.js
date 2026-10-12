@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2020-11"]={"src":["The Transcript"],"rows":[[20,2,0,"Announcement on the Future of The Transcript","https://owutranscript.com/2020/11/20/announcement-on-the-future-of-the-transcript/"]]};

@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2015-03"]={"src":["News \u2013 The Crestiad"],"rows":[[30,2,0,"Introducing Writing Professor Alison Wellford","https://crestiad.wordpress.com/2015/03/30/introducing-writing-professor-alison-wellford/"]]};

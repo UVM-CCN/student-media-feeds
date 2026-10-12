@@ -119,6 +119,7 @@ jobs:
                   student-media-tracker/map_points.js \
                   student-media-tracker/map_points.json \
                   student-media-tracker/headlines/ \
+                  student-media-tracker/search/ \
                   data/publication_locations.csv
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update news database and analytics - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)
 

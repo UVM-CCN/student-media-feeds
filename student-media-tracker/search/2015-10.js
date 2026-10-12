@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2015-10"]={"src":["News \u2013 The Crestiad"],"rows":[[7,6,0,"SGA Election Results 2015","https://crestiad.wordpress.com/2015/10/07/sga-election-results-2015/"]]};

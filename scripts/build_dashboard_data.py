@@ -69,6 +69,8 @@ OUT_JS = os.path.join(OUT_DIR, "dashboard_data.js")
 MAP_JSON = os.path.join(OUT_DIR, "map_points.json")
 MAP_JS = os.path.join(OUT_DIR, "map_points.js")
 HEADLINES_DIR = os.path.join(OUT_DIR, "headlines")
+# Every story, not a sample, for search.html. See write_search_index().
+SEARCH_DIR = os.path.join(OUT_DIR, "search")
 
 # Headlines per day-topic cell for the drill-down. The median cell holds 3
 # stories and the 90th percentile 19, so six shows most cells whole and gives a
@@ -239,6 +241,80 @@ def load_states() -> dict[str, str]:
             if dom and state:
                 out[dom] = state
     return out
+
+
+def write_search_index(rows: list, labels: dict, keys: list, built: datetime) -> None:
+    """
+    The full story list for search.html, sharded by published month.
+
+    The headline shards hold at most HEADLINE_SAMPLE stories per day-topic
+    cell, which is right for a drill-down and wrong for search: a keyword hit
+    outside the sample would simply not exist. So search gets every row, cut
+    to the five fields it shows -- ~14MB across the corpus, which is why it is
+    split by month like the headlines. The page loads only the months its date
+    range touches, and an old month's file never changes, so git stores it once.
+
+    Unlike the dashboard series, nothing is held back after the last complete
+    day: a partial day distorts a share, but a story found by search is just as
+    real for having been published this morning. Undated rows get their own
+    file, which the page loads only when asked.
+
+    Each shard carries its own source table, so a newly discovered outlet adds
+    an entry to the current month rather than renumbering every past file.
+    """
+    by_month: dict[str, list] = defaultdict(list)
+    seen = set()
+    for r in rows:
+        title = (r.get("title") or "").strip()
+        link = (r.get("link") or "").strip()
+        if not title or not link or link in seen:
+            continue
+        seen.add(link)
+        day = day_of(r.get("published"))
+        tid = (r.get("topic_id") or "").strip()
+        by_month[day[:7] if day else "undated"].append(
+            (day or "", int(tid) if tid.isdigit() else None,
+             (r.get("source") or "").strip(), title, link))
+
+    os.makedirs(SEARCH_DIR, exist_ok=True)
+    written = 0
+    months = []
+    for month, items in sorted(by_month.items()):
+        items.sort(key=lambda x: (x[0], x[2], x[3], x[4]))
+        sources = sorted({x[2] for x in items})
+        src_index = {s: i for i, s in enumerate(sources)}
+        payload = {
+            "src": sources,
+            # [day of month (0 when undated), topic id or null, source index,
+            #  title, link]
+            "rows": [[int(d[8:10]) if d else 0, t, src_index[s], title, link]
+                     for d, t, s, title, link in items],
+        }
+        body = ('(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})'
+                f'[{json.dumps(month)}]=' + json.dumps(payload, separators=(",", ":")) + ";\n")
+        path = os.path.join(SEARCH_DIR, f"{month}.js")
+        if not os.path.exists(path) or open(path, encoding="utf-8").read() != body:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(body)
+            written += 1
+        if month != "undated":
+            months.append([month, len(items)])
+
+    manifest = {
+        "generated_at": built.isoformat(timespec="seconds"),
+        "topics": [{"key": k, "id": int(k[1:]), "label": labels[k[1:]]} for k in keys],
+        "months": months,
+        "undated": len(by_month.get("undated", [])),
+        "total": len(seen),
+    }
+    with open(os.path.join(SEARCH_DIR, "index.js"), "w", encoding="utf-8") as f:
+        f.write("window.SEARCH_INDEX = ")
+        json.dump(manifest, f, separators=(",", ":"))
+        f.write(";\n")
+    size = sum(os.path.getsize(os.path.join(SEARCH_DIR, f"{m}.js")) for m in by_month)
+    print(f"wrote {os.path.relpath(SEARCH_DIR, ROOT)}/  "
+          f"({len(by_month)} files, {size / 1024 / 1024:.2f} MB total, "
+          f"{written} rewritten this run): {len(seen):,} unique stories for search")
 
 
 def main() -> int:
@@ -454,6 +530,7 @@ def main() -> int:
     # month files are loaded the same way, but only when a reader drills into a
     # day -- the page injects that month's <script> on demand.
     write_pair(OUT_JSON, OUT_JS, "DASHBOARD_DATA", data)
+    write_search_index(rows, labels, keys, built)
 
     # ---- map grid -------------------------------------------------------
     # Indices, not strings: `c` is keyed by the publication's index in `pubs`

@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2016-04"]={"src":["The Crestiad"],"rows":[[11,7,0,"Batman vs. Superman: One of the Best Superhero Movies EVER!","https://crestiad.wordpress.com/2016/04/11/batman-vs-superman-one-of-the-best-superhero-movies-ever/"]]};

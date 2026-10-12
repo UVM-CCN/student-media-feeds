@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2017-11"]={"src":["Milligan Stampede"],"rows":[[1,null,0,"Men\u2019s soccer coach fired after 10 seasons","https://www.milliganstampede.com/jm_breaking_news/adam-laney-will-no-longer-be-mens-soccer-coach/"]]};

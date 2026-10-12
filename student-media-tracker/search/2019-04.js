@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2019-04"]={"src":["The Statesmen Status"],"rows":[[15,0,0,"William Penn University\u2019s Knowledge of the First Amendment","https://statesmenstatus.wordpress.com/2019/04/15/william-penn-universitys-knowledge-of-the-first-amendment/"]]};

@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2015-02"]={"src":["News \u2013 The Crestiad"],"rows":[[7,5,0,"Canova Commons Revealed In Time For The Spring Semester","https://crestiad.wordpress.com/2015/02/07/canova-commons-revealed-in-time-for-the-spring-semester/"]]};

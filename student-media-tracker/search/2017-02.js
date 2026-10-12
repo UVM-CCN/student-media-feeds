@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2017-02"]={"src":["Indiana Daily Student"],"rows":[[20,4,0,"EDITORIAL: Gas tax - Indiana Daily Student","https://www.idsnews.com/article/2017/02/gas-tax-8bd7"]]};

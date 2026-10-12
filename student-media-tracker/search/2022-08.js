@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2022-08"]={"src":["Mount Mercy Times"],"rows":[[27,6,0,"Convocation ceremony encourages students that they belong","https://mountmercytimes.home.blog/2022/08/27/convocation-ceremony-encourages-students-that-they-belong/"]]};

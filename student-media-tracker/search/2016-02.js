@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2016-02"]={"src":["The Crestiad"],"rows":[[22,6,0,"\u201cMr. Chemist\u2019s Neighborhood\u201d By David Raker","https://crestiad.wordpress.com/2016/02/22/mr-chemists-neighborhood-by-david-raker/"],[24,6,0,"MBA influences changes on campus","https://crestiad.wordpress.com/2016/02/24/mba-influences-changes-on-campus/"]]};

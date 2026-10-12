@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2014-05"]={"src":["Indiana Daily Student"],"rows":[[4,6,0,"Our semester in review - Indiana Daily Student","https://www.idsnews.com/article/2014/05/our-semester-in-review"]]};

@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2018-06"]={"src":["Indiana Daily Student"],"rows":[[18,5,0,"Cool Room Contest judges explain how to effectively decorate - Indiana Daily Student","https://www.idsnews.com/article/2017/10/cool-room-contest-judges-explain-how-to-effectively-decorate"]]};

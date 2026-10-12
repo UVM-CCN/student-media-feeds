@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2019-06"]={"src":["The Advance"],"rows":[[13,null,0,"Review: Playwright Margaret Edson takes 'Wit' seriously on subject of ovarian cancer","https://stillmannews.wordpress.com/2019/06/13/review-playwright-margaret-edson-takes-wit-seriously-on-subject-of-ovarian-cancer-3/"]]};

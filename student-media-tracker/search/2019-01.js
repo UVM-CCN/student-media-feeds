@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2019-01"]={"src":["The Statesmen Status"],"rows":[[31,8,0,"Dean\u2019s Convocation Continues Tradition of Highlighting Diversity on Campus","https://statesmenstatus.wordpress.com/2019/01/31/deans-convocation-continues-tradition-of-highlighting-diversity-on-campus/"]]};

@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2021-08"]={"src":["The Paw Print"],"rows":[[27,6,0,"Volume83 Issue01 Articles","https://blogs.adams.edu/thepawprint/volume83-issue01-articles/"],[27,null,0,"Volume83 Issue01 Paper","https://blogs.adams.edu/thepawprint/volume83-issue01-paper/"]]};

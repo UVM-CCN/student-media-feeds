@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2015-04"]={"src":["News \u2013 The Crestiad"],"rows":[[26,6,0,"Activating the Active Minds on Campus","https://crestiad.wordpress.com/2015/04/26/activating-the-active-minds-on-campus/"],[28,6,0,"Alternative Spring Break","https://crestiad.wordpress.com/2015/04/28/alternative-spring-break/"]]};

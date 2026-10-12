@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2014-08"]={"src":["Indiana Daily Student"],"rows":[[22,9,0,"Evidently, anything's evidence - Indiana Daily Student","https://www.idsnews.com/article/2014/08/op-ed"]]};

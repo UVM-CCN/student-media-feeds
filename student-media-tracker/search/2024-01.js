@@ -1,0 +1,1 @@
+(window.SEARCH_SHARDS=window.SEARCH_SHARDS||{})["2024-01"]={"src":["My Site","Occurrence"],"rows":[[5,null,0,"The Commuter, Round Up issue","https://www.commuterncc.com/post/the-commuter-round-up-edition"],[22,6,1,"Editor\u2019s note regarding The Occurrence\u2019s absence","https://oaktonoccurrence.com/4136/campus-news/editors-note-regarding-the-occurrences-absence/"]]};

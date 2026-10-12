@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Media Story Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+<style>
+  /* Same tokens as index.html. Light only, matching the dashboard. */
+  :root {
+    color-scheme: light;
+    --uvm-green: #154734;
+    --surface-1: #fcfcfb;
+    --plane: #f9f9f7;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --accent: #1e88e5;
+    --mark: #fff2a8;
+    --shadow: 0 1px 2px rgba(11,11,11,.04);
+    --mono: "Noto Sans Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0; background: var(--plane); color: var(--ink);
+    font-family: "Lora", serif; font-size: 1rem; line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    background: var(--uvm-green); min-height: 72px; display: flex; align-items: center;
+    gap: 16px; padding: 0 30px; color: #fff;
+  }
+  nav h1 { font-size: 1.35rem; margin: 0; font-weight: 650; }
+  nav a.back { color: #fff; font-size: .85rem; margin-left: auto; opacity: .9; }
+  nav a.back:hover { opacity: 1; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 20px 64px; }
+  .intro { margin: 0; color: var(--ink-2); font-size: .9rem; max-width: 78ch; }
+  .meta { margin-top: 6px; color: var(--muted); font-size: .78rem; }
+
+  .panel {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    box-shadow: var(--shadow); padding: 14px 16px; margin-top: 16px;
+  }
+  .panel h2 { font-size: .95rem; margin: 0 0 10px; font-weight: 650; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .field > label, .field > .lbl { font-size: .74rem; color: var(--ink-2); }
+  .grow { flex: 1 1 320px; }
+  input[type="search"], input[type="text"], input[type="date"], input[type="number"], select {
+    font: inherit; font-size: .9rem; padding: 7px 10px; color: var(--ink);
+    border: 1px solid var(--axis); border-radius: 7px; background: #fff; min-width: 0;
+  }
+  input:focus-visible, select:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 1px;
+  }
+  #q { width: 100%; font-size: 1rem; padding: 9px 12px; }
+  .hint { font-size: .75rem; color: var(--muted); margin-top: 4px; }
+  .hint code { font-family: var(--mono); font-size: .72rem; background: var(--grid); padding: 0 4px; border-radius: 3px; }
+
+  button.seg, button.btn {
+    font: inherit; font-size: .85rem; color: var(--ink); cursor: pointer;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 7px; padding: 6px 10px;
+  }
+  button.btn:hover, button.seg:hover { border-color: var(--axis); }
+  button.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  button.link { font: inherit; font-size: .78rem; background: none; border: none; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; }
+  .seggroup { display: flex; }
+  .seggroup button { border-radius: 0; }
+  .seggroup button:first-child { border-radius: 7px 0 0 7px; }
+  .seggroup button:last-child { border-radius: 0 7px 7px 0; }
+  .seggroup button + button { border-left: none; }
+  .seggroup button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; }
+  .check { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; color: var(--ink-2); }
+
+  /* topic chips double as the per-topic match count */
+  .topics { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none;
+    font: inherit; font-size: .82rem; text-align: left; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--border); background: #fff; color: var(--ink-2);
+  }
+  .chip .sw { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .chip .n { font-family: var(--mono); font-size: .72rem; color: var(--muted); }
+  .chip[aria-pressed="true"] { color: var(--ink); border-color: currentColor; background: var(--surface-1); font-weight: 600; }
+  .chip[aria-pressed="false"] .sw { background: transparent !important; box-shadow: inset 0 0 0 1.5px var(--axis); }
+  .chip-actions { display: flex; gap: 12px; margin-top: 8px; }
+
+  .status { margin: 18px 0 8px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+  .status .big { font-size: 1.25rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .status .sub { color: var(--ink-2); font-size: .85rem; }
+  .status .right { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: .8rem; color: var(--ink-2); }
+  .loading { color: var(--accent); font-size: .85rem; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--grid); vertical-align: top; font-size: .88rem; }
+  th { font-size: .74rem; font-weight: 600; color: var(--ink-2); background: var(--plane); }
+  td.d { font-family: var(--mono); font-size: .76rem; color: var(--ink-2); white-space: nowrap; }
+  td.t a { color: var(--ink); text-decoration: none; font-weight: 550; }
+  td.t a:hover { color: var(--accent); text-decoration: underline; }
+  td.p { color: var(--ink-2); }
+  td.tp { white-space: nowrap; font-size: .78rem; color: var(--ink-2); }
+  td.tp .sw { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2px; }
+  .more { display: flex; justify-content: center; margin-top: 12px; }
+  .empty { padding: 28px; text-align: center; color: var(--muted); }
+
+  .export .summary { font-size: .85rem; color: var(--ink-2); margin-top: 10px; }
+  .export .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .toast { font-size: .8rem; color: var(--uvm-green); align-self: center; }
+  #size { width: 80px; }
+
+  @media (max-width: 680px) {
+    nav { padding: 12px 16px; flex-wrap: wrap; }
+    .wrap { padding: 16px 16px 48px; }
+    thead { display: none; }
+    table, tbody, tr, td { display: block; width: 100%; }
+    tr { border-bottom: 1px solid var(--grid); padding: 8px 0; }
+    td { border: none; padding: 2px 12px; overflow-wrap: anywhere; }
+    input, select { max-width: 100%; }
+    .field, .grow { flex-basis: 100%; }
+    .field:has(> input[type="date"]) { flex-basis: auto; }
+    .status .right { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <h1>Search student media stories</h1>
+  <a class="back" href="index.html">← Coverage dashboard</a>
+</nav>
+<div class="wrap">
+  <p class="intro">Search every story headline in the student media database by keyword, topic, publication and date,
+    then export a sample with links. Searches cover headlines and publication names, not the full article text.</p>
+  <div class="meta" id="meta"></div>
+
+  <section class="panel" aria-label="Search">
+    <div class="row">
+      <div class="field grow">
+        <label for="q">Keywords</label>
+        <input id="q" type="search" placeholder='e.g. housing "student fees" -football' autocomplete="off">
+        <div class="hint">Use <code>"quotes"</code> for an exact phrase and <code>-word</code> to exclude a word.
+          Words match their beginnings, so <code>protest</code> also finds “protesters”.</div>
+      </div>
+      <div class="field">
+        <span class="lbl">Match</span>
+        <div class="seggroup" id="mode">
+          <button class="seg" data-v="all" aria-pressed="true">All words</button>
+          <button class="seg" data-v="any" aria-pressed="false">Any word</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pub">Publication</label>
+        <input id="pub" type="text" list="publist" placeholder="Any publication" autocomplete="off">
+        <datalist id="publist"></datalist>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:14px">
+      <div class="field">
+        <label for="from">From</label>
+        <input id="from" type="date">
+      </div>
+      <div class="field">
+        <label for="to">To</label>
+        <input id="to" type="date">
+      </div>
+      <div class="field">
+        <span class="lbl">Quick ranges</span>
+        <div class="presets" id="presets">
+          <button class="btn" data-days="7">Last 7 days</button>
+          <button class="btn" data-days="30">Last 30 days</button>
+          <button class="btn" data-days="90">Last 90 days</button>
+          <button class="btn" data-days="365">Last year</button>
+          <button class="btn" data-days="all">All time</button>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" id="undated"> Include stories with no date</label>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <span class="lbl">Topics <span id="topichint">(counts are matches within the current keywords and dates)</span></span>
+      <div class="topics" id="topics"></div>
+      <div class="chip-actions">
+        <button class="link" id="allTopics">Select all</button>
+        <button class="link" id="noTopics">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="status">
+    <span class="big" id="count">–</span>
+    <span class="sub" id="countsub"></span>
+    <span class="loading" id="loading" hidden></span>
+    <span class="right">
+      <label for="sort">Sort</label>
+      <select id="sort">
+        <option value="new">Newest first</option>
+        <option value="old">Oldest first</option>
+        <option value="pub">Publication A–Z</option>
+      </select>
+    </span>
+  </div>
+
+  <table>
+    <thead><tr><th>Date</th><th>Headline</th><th>Publication</th><th>Topic</th></tr></thead>
+    <tbody id="results"></tbody>
+  </table>
+  <div class="empty" id="empty" hidden>No stories match. Try fewer words, “Any word”, more topics or a wider date range.</div>
+  <div class="more"><button class="btn" id="more" hidden>Show more</button></div>
+
+  <section class="panel export" aria-label="Export">
+    <h2>Export a sample</h2>
+    <div class="row">
+      <div class="field">
+        <label for="size">Stories</label>
+        <input id="size" type="number" min="1" value="25">
+      </div>
+      <div class="field">
+        <label for="method">How to pick them</label>
+        <select id="method">
+          <option value="spread">Random, spread across publications</option>
+          <option value="random">Random</option>
+          <option value="newest">Newest</option>
+          <option value="all">All matching stories</option>
+        </select>
+      </div>
+      <button class="btn" id="reshuffle">Reshuffle</button>
+    </div>
+    <div class="summary" id="exportsummary"></div>
+    <div class="actions">
+      <button class="btn primary" id="csv">Download CSV</button>
+      <button class="btn" id="copyrich">Copy as linked list</button>
+      <button class="btn" id="copymd">Copy as Markdown</button>
+      <span class="toast" id="toast" role="status"></span>
+    </div>
+    <div class="hint">“Copy as linked list” pastes clickable headlines into email, Google Docs or Word.
+      The search itself is saved in the page address, so you can bookmark or share it.</div>
+  </section>
+</div>
+
+<script src="search/index.js"></script>
+<script>
+(function () {
+  "use strict";
+  var IDX = window.SEARCH_INDEX;
+  var COLORS = ["#1e88e5","#ca6702","#8f4fd1","#6a994e","#3949ab",
+                "#9a3412","#e87ba4","#166534","#eda100","#d81b60"];
+  var PAGE = 50;
+  var UNCLASSIFIED = -1;
+  var $ = function (id) { return document.getElementById(id); };
+
+  if (!IDX) {
+    $("count").textContent = "Search data not found";
+    $("countsub").textContent = "Run scripts/build_dashboard_data.py to generate search/.";
+    return;
+  }
+
+  var topicById = {};
+  IDX.topics.forEach(function (t) { topicById[t.id] = t; });
+  var topicIds = IDX.topics.map(function (t) { return t.id; }).concat([UNCLASSIFIED]);
+  function topicLabel(id) { return id === UNCLASSIFIED ? "Not yet classified" : topicById[id].label; }
+  function topicColor(id) { return id === UNCLASSIFIED ? "#b5b4ac" : COLORS[id % COLORS.length]; }
+
+  var months = IDX.months.map(function (m) { return m[0]; });
+  var firstDay = months[0] + "-01";
+  var todayISO = new Date().toISOString().slice(0, 10);
+
+  // ---- state ----------------------------------------------------------
+  var state = {
+    q: "", mode: "all", pub: "", from: "", to: "", undated: false,
+    topics: new Set(topicIds), sort: "new",
+    size: 25, method: "spread", seed: 1
+  };
+  var shown = PAGE;
+  var matches = [];        // rows passing every filter, sorted
+  var shards = {};         // month -> array of story objects
+  var pending = {};        // month -> Promise
+
+  // ---- text matching --------------------------------------------------
+  function norm(s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+            .replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
+  }
+  function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  // Terms match at a word start: "art" finds "artist" but not "start".
+  function parseQuery(q) {
+    var inc = [], exc = [], re = /(-?)"([^"]+)"|(-?)(\S+)/g, m;
+    q = norm(q);
+    while ((m = re.exec(q))) {
+      var neg = m[1] || m[3], text = (m[2] || m[4] || "").trim();
+      if (!text || text === "-") continue;
+      var rx = new RegExp("(^|[^a-z0-9])" + escapeRe(text).replace(/\s+/g, "\\s+"), "i");
+      (neg ? exc : inc).push({ text: text, rx: rx, phrase: !!m[2] });
+    }
+    return { inc: inc, exc: exc };
+  }
+
+  // ---- shard loading --------------------------------------------------
+  // Script injection rather than fetch so the page also works opened from disk.
+  function loadShard(month) {
+    if (shards[month]) return Promise.resolve();
+    if (pending[month]) return pending[month];
+    pending[month] = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = "search/" + month + ".js";
+      s.onload = function () {
+        var raw = (window.SEARCH_SHARDS || {})[month];
+        if (!raw) { reject(new Error("empty shard " + month)); return; }
+        shards[month] = raw.rows.map(function (r) {
+          var src = raw.src[r[2]];
+          return {
+            date: month === "undated" ? "" : month + "-" + (r[0] < 10 ? "0" : "") + r[0],
+            topic: r[1] === null ? UNCLASSIFIED : r[1],
+            source: src, title: r[3], link: r[4],
+            hay: norm(r[3] + " ‖ " + src)
+          };
+        });
+        delete window.SEARCH_SHARDS[month];   // keep one copy in memory
+        resolve();
+      };
+      s.onerror = function () { delete pending[month]; reject(new Error("could not load " + month)); };
+      document.head.appendChild(s);
+    });
+    return pending[month];
+  }
+
+  function monthsInRange() {
+    var f = (state.from || "0000").slice(0, 7), t = (state.to || "9999").slice(0, 7);
+    var list = months.filter(function (m) { return m >= f && m <= t; });
+    if (state.undated && IDX.undated) list.push("undated");
+    return list;
+  }
+
+  // ---- filtering ------------------------------------------------------
+  var runId = 0;
+  function run() {
+    var id = ++runId;
+    var need = monthsInRange().filter(function (m) { return !shards[m]; });
+    if (need.length) {
+      var label = need.length === 1 ? need[0] : need.length + " months";
+      $("loading").textContent = "Loading " + label + "…";
+      $("loading").hidden = false;
+    }
+    Promise.all(need.map(loadShard)).then(function () {
+      if (id !== runId) return;
+      $("loading").hidden = true;
+      filter();
+    }, function (err) {
+      $("loading").textContent = "Error: " + err.message;
+    });
+  }
+
+  function filter() {
+    var q = parseQuery(state.q);
+    var pubQ = norm(state.pub.trim());
+    var from = state.from || "0000", to = state.to || "9999";
+    var pool = [];
+    var pubs = new Set();
+    monthsInRange().forEach(function (m) { pool.push.apply(pool, shards[m] || []); });
+
+    var topicCounts = {};
+    topicIds.forEach(function (t) { topicCounts[t] = 0; });
+    var out = [];
+    for (var i = 0; i < pool.length; i++) {
+      var s = pool[i];
+      if (s.date && (s.date < from || s.date > to)) continue;
+      pubs.add(s.source);
+      if (pubQ && norm(s.source).indexOf(pubQ) === -1) continue;
+      if (!matchText(s.hay, q)) continue;
+      topicCounts[s.topic]++;
+      if (state.topics.has(s.topic)) out.push(s);
+    }
+    sortRows(out);
+    matches = out;
+    shown = PAGE;
+    renderPubList(pubs);
+    renderTopics(topicCounts);
+    renderResults(q);
+    renderExport();
+    writeHash();
+  }
+
+  function matchText(hay, q) {
+    for (var j = 0; j < q.exc.length; j++) if (q.exc[j].rx.test(hay)) return false;
+    if (!q.inc.length) return true;
+    if (state.mode === "any") {
+      for (var k = 0; k < q.inc.length; k++) if (q.inc[k].rx.test(hay)) return true;
+      return false;
+    }
+    for (var n = 0; n < q.inc.length; n++) if (!q.inc[n].rx.test(hay)) return false;
+    return true;
+  }
+
+  function sortRows(rows) {
+    var cmp = {
+      "new": function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : a.source.localeCompare(b.source); },
+      "old": function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : a.source.localeCompare(b.source); },
+      "pub": function (a, b) { return a.source.localeCompare(b.source) || (a.date < b.date ? 1 : a.date > b.date ? -1 : 0); }
+    }[state.sort];
+    rows.sort(cmp);
+  }
+
+  // ---- rendering ------------------------------------------------------
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // Highlight against the original title. norm() keeps string length for
+  // everything except decomposed accents, so map positions through a
+  // per-character normalization instead of slicing the normalized string.
+  function highlight(title, q) {
+    if (!q.inc.length) return esc(title);
+    var n = "", map = [];
+    for (var i = 0; i < title.length; i++) {
+      var c = norm(title[i]);
+      for (var k = 0; k < c.length; k++) { n += c[k]; map.push(i); }
+    }
+    map.push(title.length);
+    var spans = [];
+    q.inc.forEach(function (t) {
+      var rx = new RegExp(t.rx.source, "gi"), m;
+      while ((m = rx.exec(n))) {
+        var start = m.index + m[1].length;
+        spans.push([map[start], map[m.index + m[0].length]]);
+        if (m[0].length === 0) rx.lastIndex++;
+      }
+    });
+    if (!spans.length) return esc(title);
+    spans.sort(function (a, b) { return a[0] - b[0]; });
+    var html = "", pos = 0;
+    spans.forEach(function (sp) {
+      if (sp[0] < pos) return;
+      html += esc(title.slice(pos, sp[0])) + "<mark>" + esc(title.slice(sp[0], sp[1])) + "</mark>";
+      pos = sp[1];
+    });
+    return html + esc(title.slice(pos));
+  }
+
+  function fmtDate(d) {
+    if (!d) return "No date";
+    var p = d.split("-");
+    return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+p[1] - 1] + " " + +p[2] + ", " + p[0];
+  }
+
+  function renderResults(q) {
+    q = q || parseQuery(state.q);
+    var n = matches.length;
+    var pubCount = new Set(matches.map(function (s) { return s.source; })).size;
+    $("count").textContent = n.toLocaleString() + (n === 1 ? " story" : " stories");
+    $("countsub").textContent = n ? "from " + pubCount.toLocaleString() + " publication" + (pubCount === 1 ? "" : "s") +
+      " · " + rangeText() : rangeText();
+    $("empty").hidden = n > 0;
+    var html = "";
+    matches.slice(0, shown).forEach(function (s) {
+      html += "<tr><td class=\"d\">" + esc(fmtDate(s.date)) + "</td>" +
+        "<td class=\"t\"><a href=\"" + esc(s.link) + "\" target=\"_blank\" rel=\"noopener\">" + highlight(s.title, q) + "</a></td>" +
+        "<td class=\"p\">" + esc(s.source) + "</td>" +
+        "<td class=\"tp\"><span class=\"sw\" style=\"background:" + topicColor(s.topic) + "\"></span>" + esc(topicLabel(s.topic)) + "</td></tr>";
+    });
+    $("results").innerHTML = html;
+    $("more").hidden = shown >= n;
+    $("more").textContent = "Show " + Math.min(PAGE, n - shown).toLocaleString() + " more (" +
+      (n - shown).toLocaleString() + " remaining)";
+  }
+
+  function rangeText() {
+    var f = state.from ? fmtDate(state.from) : "earliest", t = state.to ? fmtDate(state.to) : "latest";
+    return f + " – " + t + (state.undated ? " (plus undated)" : "");
+  }
+
+  var topicsBuilt = false;
+  function renderTopics(counts) {
+    var box = $("topics");
+    if (!topicsBuilt) {
+      topicIds.forEach(function (id) {
+        var b = document.createElement("button");
+        b.className = "chip"; b.dataset.id = id;
+        b.style.color = topicColor(id);
+        b.innerHTML = "<span class=\"sw\" style=\"background:" + topicColor(id) + "\"></span>" +
+          "<span style=\"color:var(--ink)\">" + esc(topicLabel(id)) + "</span><span class=\"n\"></span>";
+        b.addEventListener("click", function () {
+          if (state.topics.has(id)) state.topics.delete(id); else state.topics.add(id);
+          filter();
+        });
+        box.appendChild(b);
+      });
+      topicsBuilt = true;
+    }
+    Array.prototype.forEach.call(box.children, function (b) {
+      var id = +b.dataset.id;
+      b.setAttribute("aria-pressed", state.topics.has(id) ? "true" : "false");
+      b.querySelector(".n").textContent = (counts[id] || 0).toLocaleString();
+    });
+  }
+
+  var lastPubKey = "";
+  function renderPubList(pubs) {
+    var list = Array.from(pubs).sort(function (a, b) { return a.localeCompare(b); });
+    var key = list.join("\n");
+    if (key === lastPubKey) return;
+    lastPubKey = key;
+    $("publist").innerHTML = list.map(function (p) { return "<option value=\"" + esc(p) + "\">"; }).join("");
+  }
+
+  // ---- sampling + export ----------------------------------------------
+  function rng(seed) {   // mulberry32: same seed, same sample, until Reshuffle
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function shuffle(arr, rand) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rand() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function sample() {
+    var k = Math.max(1, state.size | 0);
+    var rand = rng(state.seed);
+    var picked;
+    if (state.method === "all") picked = matches.slice();
+    else if (state.method === "newest") {
+      picked = matches.slice().sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }).slice(0, k);
+    } else if (state.method === "random") picked = shuffle(matches, rand).slice(0, k);
+    else {
+      // One story per publication before any publication gets a second, so a
+      // sample isn't dominated by whichever paper publishes most.
+      var by = {};
+      shuffle(matches, rand).forEach(function (s) { (by[s.source] = by[s.source] || []).push(s); });
+      var groups = shuffle(Object.keys(by), rand).map(function (p) { return by[p]; });
+      picked = [];
+      for (var depth = 0; picked.length < k; depth++) {
+        var added = false;
+        for (var g = 0; g < groups.length && picked.length < k; g++) {
+          if (depth < groups[g].length) { picked.push(groups[g][depth]); added = true; }
+        }
+        if (!added) break;
+      }
+    }
+    sortRows(picked);
+    return picked;
+  }
+
+  function renderExport() {
+    var n = matches.length;
+    var k = state.method === "all" ? n : Math.min(Math.max(1, state.size | 0), n);
+    var pubs = new Set(sample().map(function (s) { return s.source; })).size;
+    $("exportsummary").textContent = n
+      ? "Exports " + k.toLocaleString() + " of " + n.toLocaleString() + " matching stories, from " +
+        pubs.toLocaleString() + " publication" + (pubs === 1 ? "" : "s") + "."
+      : "Nothing to export yet.";
+    $("reshuffle").disabled = state.method === "newest" || state.method === "all";
+    $("size").disabled = state.method === "all";
+    ["csv", "copyrich", "copymd"].forEach(function (id) { $(id).disabled = !n; });
+  }
+
+  function describe() {
+    var parts = [];
+    if (state.q.trim()) parts.push("Keywords: " + state.q.trim() + (state.mode === "any" ? " (any word)" : ""));
+    if (state.pub.trim()) parts.push("Publication: " + state.pub.trim());
+    if (state.topics.size !== topicIds.length) {
+      parts.push("Topics: " + topicIds.filter(function (t) { return state.topics.has(t); }).map(topicLabel).join(", "));
+    }
+    parts.push("Dates: " + rangeText());
+    return parts.join(" · ");
+  }
+
+  function csvCell(v) {
+    v = String(v == null ? "" : v);
+    return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  }
+
+  function downloadCSV() {
+    var rows = [["date", "headline", "publication", "topic", "url"]];
+    sample().forEach(function (s) { rows.push([s.date, s.title, s.source, topicLabel(s.topic), s.link]); });
+    var body = "﻿" + rows.map(function (r) { return r.map(csvCell).join(","); }).join("\r\n") + "\r\n";
+    var slug = norm(state.q).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "stories";
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([body], { type: "text/csv;charset=utf-8" }));
+    a.download = "student-media-" + slug + "-" + todayISO + ".csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    toast("Downloaded " + (rows.length - 1).toLocaleString() + " stories");
+  }
+
+  function copyRich() {
+    var list = sample();
+    var html = "<p><em>" + esc(describe()) + "</em></p><ul>" + list.map(function (s) {
+      return "<li><a href=\"" + esc(s.link) + "\">" + esc(s.title) + "</a> — " + esc(s.source) + ", " + esc(fmtDate(s.date)) + "</li>";
+    }).join("") + "</ul>";
+    var text = describe() + "\n\n" + list.map(function (s) {
+      return "- " + s.title + " (" + s.source + ", " + fmtDate(s.date) + ")\n  " + s.link;
+    }).join("\n");
+    if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+      navigator.clipboard.write([new ClipboardItem({
+        "text/html": new Blob([html], { type: "text/html" }),
+        "text/plain": new Blob([text], { type: "text/plain" })
+      })]).then(function () { toast("Copied " + list.length + " linked stories"); }, function () { fallbackCopy(text, list.length); });
+    } else fallbackCopy(text, list.length);
+  }
+
+  function copyMarkdown() {
+    var list = sample();
+    var md = "_" + describe().replace(/_/g, "\\_") + "_\n\n" + list.map(function (s) {
+      return "- [" + s.title.replace(/([\[\]])/g, "\\$1") + "](" + s.link.replace(/\)/g, "%29") + ") — " +
+        s.source + ", " + fmtDate(s.date);
+    }).join("\n") + "\n";
+    fallbackCopy(md, list.length);
+  }
+
+  function fallbackCopy(text, n) {
+    var done = function () { toast("Copied " + n + " stories"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, legacy);
+    } else legacy();
+    function legacy() {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) { toast("Copy failed. Try Download CSV."); }
+      ta.remove();
+    }
+  }
+
+  var toastTimer;
+  function toast(msg) {
+    $("toast").textContent = msg;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { $("toast").textContent = ""; }, 3000);
+  }
+
+  // ---- URL state ------------------------------------------------------
+  function writeHash() {
+    var p = new URLSearchParams();
+    if (state.q) p.set("q", state.q);
+    if (state.mode !== "all") p.set("mode", state.mode);
+    if (state.pub) p.set("pub", state.pub);
+    if (state.from) p.set("from", state.from);
+    if (state.to) p.set("to", state.to);
+    if (state.undated) p.set("undated", "1");
+    if (state.topics.size !== topicIds.length) {
+      p.set("topics", topicIds.filter(function (t) { return state.topics.has(t); }).join(",") || "none");
+    }
+    if (state.sort !== "new") p.set("sort", state.sort);
+    history.replaceState(null, "", "#" + p.toString());
+  }
+
+  function readHash() {
+    var p = new URLSearchParams(location.hash.slice(1));
+    var valid = function (d) { return /^\d{4}-\d{2}-\d{2}$/.test(d || "") ? d : ""; };
+    state.q = p.get("q") || "";
+    state.mode = p.get("mode") === "any" ? "any" : "all";
+    state.pub = p.get("pub") || "";
+    state.undated = p.get("undated") === "1";
+    state.sort = ["new", "old", "pub"].indexOf(p.get("sort")) >= 0 ? p.get("sort") : "new";
+    if (p.has("topics")) {
+      var t = p.get("topics");
+      state.topics = new Set(t === "none" ? [] : t.split(",").map(Number).filter(function (x) { return topicIds.indexOf(x) >= 0; }));
+    }
+    if (p.has("from") || p.has("to")) {
+      state.from = valid(p.get("from")); state.to = valid(p.get("to"));
+    } else setPreset(30, true);
+  }
+
+  // ---- controls -------------------------------------------------------
+  function addDays(iso, n) {
+    var d = new Date(iso + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + n);
+    return d.toISOString().slice(0, 10);
+  }
+  function setPreset(days, silent) {
+    if (days === "all") { state.from = ""; state.to = ""; }
+    else { state.to = todayISO; state.from = addDays(todayISO, -(+days - 1)); }
+    if (!silent) syncControls();
+  }
+
+  function syncControls() {
+    $("q").value = state.q;
+    $("pub").value = state.pub;
+    $("from").value = state.from;
+    $("to").value = state.to;
+    $("undated").checked = state.undated;
+    $("sort").value = state.sort;
+    $("size").value = state.size;
+    $("method").value = state.method;
+    Array.prototype.forEach.call($("mode").children, function (b) {
+      b.setAttribute("aria-pressed", b.dataset.v === state.mode ? "true" : "false");
+    });
+  }
+
+  var debounce;
+  function later(fn) { clearTimeout(debounce); debounce = setTimeout(fn, 180); }
+
+  $("q").addEventListener("input", function () { state.q = this.value; later(filter); });
+  $("pub").addEventListener("input", function () { state.pub = this.value; later(filter); });
+  $("mode").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    state.mode = b.dataset.v; syncControls(); filter();
+  });
+  $("from").addEventListener("change", function () { state.from = this.value; run(); });
+  $("to").addEventListener("change", function () { state.to = this.value; run(); });
+  $("presets").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    setPreset(b.dataset.days); run();
+  });
+  $("undated").addEventListener("change", function () { state.undated = this.checked; run(); });
+  $("allTopics").addEventListener("click", function () { state.topics = new Set(topicIds); filter(); });
+  $("noTopics").addEventListener("click", function () { state.topics = new Set(); filter(); });
+  $("sort").addEventListener("change", function () { state.sort = this.value; sortRows(matches); shown = PAGE; renderResults(); writeHash(); });
+  $("more").addEventListener("click", function () { shown += PAGE; renderResults(); });
+  $("size").addEventListener("input", function () { state.size = Math.max(1, parseInt(this.value, 10) || 1); renderExport(); });
+  $("method").addEventListener("change", function () { state.method = this.value; renderExport(); });
+  $("reshuffle").addEventListener("click", function () { state.seed = (Math.random() * 1e9) | 0; renderExport(); toast("New sample drawn"); });
+  $("csv").addEventListener("click", downloadCSV);
+  $("copyrich").addEventListener("click", copyRich);
+  $("copymd").addEventListener("click", copyMarkdown);
+  window.addEventListener("hashchange", function () {
+    // Only react to edits made in the address bar, not our own replaceState.
+    readHash(); syncControls(); run();
+  });
+
+  $("from").min = $("to").min = firstDay;
+  $("meta").textContent = IDX.total.toLocaleString() + " stories indexed · updated " +
+    new Date(IDX.generated_at).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+
+  readHash();
+  syncControls();
+  run();
+})();
+</script>
+</body>
+</html>
