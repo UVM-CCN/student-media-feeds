@@ -79,9 +79,14 @@ jobs:
 
       # Reads publication_story_index.csv, which scrape.py regenerates above,
       # so this has to follow the scrape rather than run alongside it.
+      # geocode_publications.py rewrites publication_locations.csv from
+      # scratch, so label_school_types.py re-applies the university-type flags
+      # (land_grant / hbcu / community_college, from data/all-schools-2023.csv)
+      # on every run — the dashboard's cohort filter reads them.
       - name: Rebuild coverage map data
         run: |
           python scripts/geocode_publications.py
+          python scripts/label_school_types.py
           python scripts/build_map_data.py
 
       # The dashboard reads this pre-aggregated file rather than parsing

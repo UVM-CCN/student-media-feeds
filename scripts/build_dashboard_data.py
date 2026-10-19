@@ -41,6 +41,16 @@ The series is emitted per calendar day. Two consequences worth knowing:
     dashboard plots these on a time scale, so each day still sits at its true
     date and the gaps stay visible as gaps.
 
+University-type cohorts
+-----------------------
+Every time-series aggregate is emitted once per cohort — all / landgrant /
+hbcu / community — so the page can subset every view by university type
+without touching story rows. Flags come from data/publication_locations.csv
+(scripts/label_school_types.py, matched against IPEDS 2023) and join on the
+story's link domain. Cohorts overlap (many HBCUs are also land-grant) and
+"all" additionally holds stories whose institution never matched IPEDS, so
+the parts do not sum to the whole.
+
 Usage:
     python scripts/build_dashboard_data.py
 """
@@ -111,6 +121,18 @@ DEFAULT_WINDOW = 7
 # spends nearly all of its width on 6% of the corpus. The dashboard opens on
 # the qualifying years and puts the rest behind a checkbox.
 RECENT_YEAR_SHARE = 0.05
+
+# University-type cohorts the dashboard can subset by. Flags come from
+# scripts/label_school_types.py (columns on data/publication_locations.csv,
+# matched against IPEDS 2023). Cohorts OVERLAP — many HBCUs are also
+# land-grant — and "all" additionally holds every story whose institution
+# never matched IPEDS, so the parts never sum to the whole. Every aggregate
+# the page reads (series, day totals, KPIs, brush defaults) is emitted once
+# per cohort; the map and the drawer filter on the same flags client-side.
+COHORTS = ("all", "landgrant", "hbcu", "community")
+# One letter per flag, used as the compact wire form in publications,
+# source_flags, and map_points pubs.
+COHORT_LETTER = (("landgrant", "g"), ("hbcu", "h"), ("community", "c"))
 
 
 def day_of(value: str) -> str | None:
@@ -243,6 +265,35 @@ def load_states() -> dict[str, str]:
     return out
 
 
+def load_school_flags() -> dict[str, str]:
+    """domain -> subset of "ghc" (land-grant / HBCU / community college).
+
+    Written nightly by scripts/label_school_types.py. Every row counts, not
+    just the located ones: the time series includes outlets the map has never
+    placed, and dropping them here would silently bias every cohort toward
+    the geocoded subset.
+    """
+    def truthy(v):
+        return (v or "").strip().lower() in ("1", "true", "yes")
+    out = {}
+    if not os.path.exists(LOCATIONS_CSV):
+        return out
+    with open(LOCATIONS_CSV, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            dom = (row.get("domain") or "").strip()
+            if not dom:
+                continue
+            letters = ""
+            if truthy(row.get("land_grant")):
+                letters += "g"
+            if truthy(row.get("hbcu")):
+                letters += "h"
+            if truthy(row.get("community_college")):
+                letters += "c"
+            out[dom] = letters
+    return out
+
+
 def write_search_index(rows: list, labels: dict, keys: list, built: datetime) -> None:
     """
     The full story list for search.html, sharded by published month.
@@ -321,6 +372,7 @@ def main() -> int:
     labels, model_version = load_labels()
     states_by_domain = load_states()
     places = load_places()
+    school_flags = load_school_flags()
     # domain -> day -> topic key -> n. Sparse: only 24k of a possible 8.3M cells
     # are non-zero, so this stays small enough to ship whole.
     geo_cells: dict[str, dict[str, Counter]] = defaultdict(lambda: defaultdict(Counter))
@@ -329,29 +381,38 @@ def main() -> int:
     with open(SOURCE_CSV, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
-    daily = defaultdict(Counter)        # day -> topic key -> n
-    day_total = Counter()               # day -> every story published that day
-    day_classified = Counter()          # day -> stories that carry a topic
-    captured_on = Counter()             # day -> stories the pipeline ingested
+    # Every time-series counter exists once per cohort; "all" is the corpus the
+    # page used to show as its only view. A story joins each cohort its outlet's
+    # domain carries a flag for, so one row can land in up to four of them.
+    daily = {c: defaultdict(Counter) for c in COHORTS}   # day -> topic key -> n
+    day_total = {c: Counter() for c in COHORTS}          # day -> every story published
+    day_classified = {c: Counter() for c in COHORTS}     # day -> stories with a topic
+    captured_on = {c: Counter() for c in COHORTS}        # day -> stories ingested
+    topic_total = {c: Counter() for c in COHORTS}
+    publications = {c: set() for c in COHORTS}
+    row_stats = {c: Counter() for c in COHORTS}          # stories/classified/with_text/undated
     cells = defaultdict(list)           # (day, topic key) -> [(title, source, link)]
     state_topic = defaultdict(Counter)  # state -> topic key -> n
     state_total = Counter()
-    topic_total = Counter()
-    publications = set()
     source_domains: dict[str, Counter] = defaultdict(Counter)  # source -> link host -> n
-    classified = with_text = 0
-    undated = 0
 
     for r in rows:
         src = (r.get("source") or "").strip()
-        publications.add(src)
+        dom = host(r.get("link", "")) or ""
         if src:
-            source_domains[src][host(r.get("link", "")) or ""] += 1
+            source_domains[src][dom] += 1
+        letters = school_flags.get(dom, "")
+        cs = ["all"] + [c for c, ch in COHORT_LETTER if ch in letters]
+        for c in cs:
+            publications[c].add(src)
+            row_stats[c]["stories"] += 1
         cap = day_of(r.get("captured_at"))
         if cap:
-            captured_on[cap] += 1
+            for c in cs:
+                captured_on[c][cap] += 1
         if (r.get("extraction_status") or "").strip() == "ok":
-            with_text += 1
+            for c in cs:
+                row_stats[c]["with_text"] += 1
         tid = (r.get("topic_id") or "").strip()
         # `published` is the story's own date, which is what "coverage over
         # time" means. It is absent or unparseable for ~6% of rows; those are
@@ -360,23 +421,27 @@ def main() -> int:
         # backfilled archives into the month they happened to be scraped.
         day = day_of(r.get("published"))
         if not day:
-            undated += 1
+            for c in cs:
+                row_stats[c]["undated"] += 1
         if not tid:
             if day:
-                day_total[day] += 1
+                for c in cs:
+                    day_total[c][day] += 1
             continue
         key = f"t{tid}"
-        classified += 1
-        topic_total[key] += 1
+        for c in cs:
+            row_stats[c]["classified"] += 1
+            topic_total[c][key] += 1
         if day:
-            daily[day][key] += 1
-            day_total[day] += 1
-            day_classified[day] += 1
+            for c in cs:
+                daily[c][day][key] += 1
+                day_total[c][day] += 1
+                day_classified[c][day] += 1
             title = (r.get("title") or "").strip()
             if title:
                 cells[(day, key)].append(
-                    (title, (r.get("source") or "").strip(), (r.get("link") or "").strip()))
-        dom = host(r.get("link", "")) or ""
+                    (title, (r.get("source") or "").strip(), (r.get("link") or "").strip(),
+                     school_flags.get(dom, "")))
         state = states_by_domain.get(dom)
         if state:
             state_topic[state][key] += 1
@@ -389,110 +454,155 @@ def main() -> int:
 
     # One entry per publication for the "View all publications" list. Name and
     # college come from the located outlet when a source's links resolve to one;
-    # otherwise the feed's own source name is shown with no college.
+    # otherwise the feed's own source name is shown with no college. "f" carries
+    # the school-type letters; source_flags repeats them keyed by the exact
+    # source string the headline shards store, which is what the drawer filters
+    # a day's stories against — its "n" can differ from the source name.
     home_urls = load_home_urls()
     pub_list = []
+    source_flags = {}
     for src, doms in source_domains.items():
         dom = next((d for d, _ in doms.most_common() if d in places), None)
         place = places.get(dom)
         if not dom:
             dom = next((d for d, _ in doms.most_common() if d), "")
-        pub_list.append({"n": (place and place["n"]) or src,
-                         "c": (place and place["i"]) or "",
-                         "u": home_urls.get(dom) or (f"https://{dom}" if dom else "")})
+        entry = {"n": (place and place["n"]) or src,
+                 "c": (place and place["i"]) or "",
+                 "u": home_urls.get(dom) or (f"https://{dom}" if dom else "")}
+        letters = school_flags.get(dom, "")
+        if letters:
+            entry["f"] = letters
+            source_flags[src] = letters
+        pub_list.append(entry)
     pub_list.sort(key=lambda p: (p["n"].lower(), p["c"].lower()))
 
     built = datetime.now(timezone.utc)
     cutoff = last_complete_day(built.date())
-    all_days = sorted(set(daily) | set(day_total))
+    # The day axis is the whole corpus ("all" cohort). Cohorts ride the same
+    # axis with zeros where they published nothing, so one brush index means
+    # the same calendar day in every view and the map's per-day keys stay
+    # valid across a cohort switch.
+    all_days = sorted(set(daily["all"]) | set(day_total["all"]))
     days = [d for d in all_days if d <= cutoff]
-    partial = sum(day_total[d] for d in all_days if d > cutoff)
+    partial = sum(day_total["all"][d] for d in all_days if d > cutoff)
     if not days:
         print("ERROR: no complete days in the corpus", flush=True)
         return 1
 
-    # Default the view to the real collection window rather than the full span.
-    # `published` reaches back to 2011 because some outlets were backfilled from
-    # their archives, but those years hold a few hundred stories between them
-    # against ~24,000 in the last six months. Opening on the full range would
-    # show fifteen years of near-empty axis. The whole series is still emitted
-    # -- the dashboard's brush can widen to it -- this only picks the opening
-    # slice: the longest run of days ending at the present whose trailing
-    # DEFAULT_WINDOW-day average clears MIN_DAY_STORIES.
-    def trailing_avg(i: int) -> float:
-        end = date.fromisoformat(days[i])
-        # Over calendar days, not emitted days: a gap has to count as the zero
-        # it is, or a run of sparse days separated by empty weeks would average
-        # as though the empty weeks never happened.
-        total = sum(day_classified.get((end - timedelta(days=k)).isoformat(), 0)
-                    for k in range(DEFAULT_WINDOW))
-        return total / DEFAULT_WINDOW
+    def cohort_ranges(c: str) -> tuple[int, int, str]:
+        """(default_start, recent_start, recent_year) for one cohort."""
+        dc, dt = day_classified[c], day_total[c]
 
-    default_start = len(days) - 1
-    while default_start > 0 and trailing_avg(default_start - 1) >= MIN_DAY_STORIES:
-        default_start -= 1
+        # Earliest calendar year holding at least RECENT_YEAR_SHARE of the
+        # cohort's dated corpus, and the index its January 1st falls on. This
+        # is the far edge of the brush until the reader asks for the full
+        # archive. Deriving it from the data rather than hardcoding a year
+        # means it follows the corpus: once a second year clears the bar, the
+        # default span covers both.
+        year_total = Counter()
+        for d, n in dt.items():
+            year_total[d[:4]] += n
+        dated = sum(year_total.values()) or 1
+        qualifying = sorted(y for y, n in year_total.items()
+                            if n / dated >= RECENT_YEAR_SHARE)
+        recent_year = qualifying[0] if qualifying else days[0][:4]
 
-    # Earliest calendar year holding at least RECENT_YEAR_SHARE of the dated
-    # corpus, and the index its January 1st falls on. This is the far edge of
-    # the brush until the reader asks for the full archive. Deriving it from
-    # the data rather than hardcoding a year means it follows the corpus: once
-    # a second year clears the bar, the default span covers both.
-    year_total = Counter()
-    for d, n in day_total.items():
-        year_total[d[:4]] += n
-    dated = sum(year_total.values()) or 1
-    qualifying = sorted(y for y, n in year_total.items()
-                        if n / dated >= RECENT_YEAR_SHARE)
-    recent_year = qualifying[0] if qualifying else days[0][:4]
-    recent_start = next((i for i, d in enumerate(days) if d[:4] >= recent_year),
-                        default_start)
+        # Default the view to the real collection window rather than the full
+        # span. `published` reaches back to 2011 because some outlets were
+        # backfilled from their archives, but those years hold a few hundred
+        # stories between them against ~24,000 in the last six months. Opening
+        # on the full range would show fifteen years of near-empty axis. The
+        # whole series is still emitted -- the dashboard's brush can widen to
+        # it -- this only picks the opening slice: the longest run of days
+        # ending at the present whose trailing DEFAULT_WINDOW-day average
+        # clears MIN_DAY_STORIES.
+        def trailing_avg(i: int) -> float:
+            end = date.fromisoformat(days[i])
+            # Over calendar days, not emitted days: a gap has to count as the
+            # zero it is, or a run of sparse days separated by empty weeks
+            # would average as though the empty weeks never happened.
+            total = sum(dc.get((end - timedelta(days=k)).isoformat(), 0)
+                        for k in range(DEFAULT_WINDOW))
+            return total / DEFAULT_WINDOW
+
+        default_start = len(days) - 1
+        while default_start > 0 and trailing_avg(default_start - 1) >= MIN_DAY_STORIES:
+            default_start -= 1
+
+        # A small cohort (HBCU, community college) never sustains
+        # MIN_DAY_STORIES a day, so the walk stops immediately and the view
+        # would open on a single thin day -- honest, but unreadable. Open on
+        # the cohort's whole recent span instead: it is the brush domain the
+        # cohort gets anyway, and over months even a small cohort holds enough
+        # stories for a share comparison.
+        recent_start = next((i for i, d in enumerate(days) if d[:4] >= recent_year),
+                            default_start)
+        if len(days) - default_start < DEFAULT_WINDOW:
+            default_start = min(default_start, recent_start)
+        return default_start, recent_start, recent_year
+
+    def cohort_payload(c: str) -> dict:
+        default_start, recent_start, recent_year = cohort_ranges(c)
+        st = row_stats[c]
+        return {
+            "series": {k: [daily[c][d][k] for d in days] for k in keys},
+            "day_totals": [day_total[c][d] for d in days],
+            # Shares divide by day_classified, not by day_totals. Full-text
+            # extraction lags capture by a day or two, and an unextracted
+            # story has no topic — so dividing by every story published would
+            # drag the newest days toward zero across all ten topics and read
+            # as a coverage collapse that never happened. day_totals stays the
+            # honest volume figure for the KPI and the brush strip; this is
+            # the honest denominator for a share.
+            "day_classified": [day_classified[c][d] for d in days],
+            # Days too thin for a share to mean anything; the dashboard should
+            # render these differently rather than letting them swing the
+            # chart. Measured on the classified count, since that is what a
+            # share divides by -- a 400-story day with 4 extracted is still a
+            # 4-story sample. A small cohort runs thin most days by nature.
+            "thin_days": [d for d in days if day_classified[c][d] < MIN_DAY_STORIES],
+            "default_range": [default_start, len(days) - 1],
+            # Far edge of the brush before the reader opts into the full archive.
+            "recent_start": recent_start,
+            "recent_year": recent_year,
+            # `captured_at` is when a story entered the database, not when it
+            # was published, so this answers "what did the overnight run bring
+            # in" -- a different question from "what was published yesterday"
+            # (day_totals' last entry) and a different number, since a night's
+            # run also picks up older stories still sitting in a feed.
+            "added_on_as_of": captured_on[c].get(cutoff, 0),
+            "topic_totals": {k: topic_total[c][k] for k in keys if topic_total[c][k]},
+            "totals": {
+                "stories": st["stories"],
+                "classified": st["classified"],
+                "with_full_text": st["with_text"],
+                "publications": len([p for p in publications[c] if p]),
+                "undated": st["undated"],
+            },
+        }
 
     data = {
         "generated_at": built.isoformat(timespec="seconds"),
-        # Last complete day, and what the pipeline ingested on it. `captured_at`
-        # is when a story entered the database, not when it was published, so
-        # this answers "what did the overnight run bring in" -- which is a
-        # different question from "what was published yesterday" (day_totals'
-        # last entry) and a different number, since a night's run also picks up
-        # older stories still sitting in a feed.
+        # Last complete day. Per-cohort capture counts live in
+        # cohorts[c].added_on_as_of.
         "as_of": cutoff,
-        "added_on_as_of": captured_on.get(cutoff, 0),
         "model_version": model_version,
-        "topics": [{"key": k, "label": labels[k[1:]], "total": topic_total[k]}
+        # Labels are global and size-ordered by the whole corpus; per-cohort
+        # totals live in cohorts[c].topic_totals.
+        "topics": [{"key": k, "label": labels[k[1:]], "total": topic_total["all"][k]}
                    for k in keys],
         "days": days,
-        "default_range": [default_start, len(days) - 1],
-        # Far edge of the brush before the reader opts into the full archive.
-        "recent_start": recent_start,
-        "recent_year": recent_year,
-        "series": {k: [daily[d][k] for d in days] for k in keys},
-        "day_totals": [day_total[d] for d in days],
-        # Shares divide by this, not by day_totals. Full-text extraction lags
-        # capture by a day or two, and an unextracted story has no topic — so
-        # dividing by every story published would drag the newest days toward
-        # zero across all ten topics and read as a coverage collapse that never
-        # happened. day_totals stays the honest volume figure for the KPI and
-        # the brush strip; this is the honest denominator for a share.
-        "day_classified": [day_classified[d] for d in days],
-        # Days too thin for a share to mean anything; the dashboard should
-        # render these differently rather than letting them swing the chart.
-        # Measured on the classified count, since that is what a share divides
-        # by -- a 400-story day with 4 extracted is still a 4-story sample.
-        "thin_days": [d for d in days if day_classified[d] < MIN_DAY_STORIES],
         "min_day_stories": MIN_DAY_STORIES,
+        "cohorts": {c: cohort_payload(c) for c in COHORTS},
+        # Source name -> school-type letters ("g"/"h"/"c"), for filtering the
+        # drawer's headline samples client-side without per-story flags.
+        "source_flags": source_flags,
         "states": sorted(
             ({"code": s, "total": state_total[s],
               "counts": {k: v for k, v in state_topic[s].items() if v}}
              for s in state_total),
             key=lambda d: -d["total"],
         ),
-        "totals": {
-            "stories": len(rows),
-            "classified": classified,
-            "with_full_text": with_text,
-            "publications": len([p for p in publications if p]),
-            "undated": undated,
-        },
         "publications": pub_list,
     }
 
@@ -502,10 +612,21 @@ def main() -> int:
     for (d, key), items in sorted(cells.items()):
         if d > cutoff:
             continue
-        by_month[d[:7]].setdefault(d, {})[key] = {
+        cell = {
             "n": len(items),
-            "s": [list(x) for x in sample_cell(items, HEADLINE_SAMPLE)],
+            "s": [list(x[:3]) for x in sample_cell(items, HEADLINE_SAMPLE)],
         }
+        # A cohort's drawer must sample that cohort's stories, not filter the
+        # corpus-wide sample: a 6-story sample from a 150-story cell can hold no
+        # community-college paper at all, even when 30 of the 150 are from one.
+        per_cohort = {}
+        for c, ch in COHORT_LETTER:
+            sub = [x for x in items if ch in x[3]]
+            if sub:
+                per_cohort[c] = [list(x[:3]) for x in sample_cell(sub, HEADLINE_SAMPLE)]
+        if per_cohort:
+            cell["c"] = per_cohort
+        by_month[d[:7]].setdefault(d, {})[key] = cell
 
     os.makedirs(HEADLINES_DIR, exist_ok=True)
     written = 0
@@ -550,7 +671,13 @@ def main() -> int:
             continue
         place = places[dom]
         cells_out[str(len(pubs))] = by_day
-        pubs.append({"d": dom, **place})
+        pub = {"d": dom, **place}
+        letters = school_flags.get(dom, "")
+        if letters:
+            # School-type flags ("g"/"h"/"c"), so the map can follow the
+            # dashboard's University-type filter without a second lookup table.
+            pub["f"] = letters
+        pubs.append(pub)
 
     map_data = {
         "generated_at": built.isoformat(timespec="seconds"),
@@ -564,6 +691,7 @@ def main() -> int:
           f"({os.path.getsize(MAP_JS) / 1024:.0f} KB): "
           f"{len(pubs):,} located publications, {n_cells:,} publication-days")
 
+    all_c = data["cohorts"]["all"]
     size = os.path.getsize(OUT_JSON) / 1024
     csv_size = os.path.getsize(SOURCE_CSV) / 1024 / 1024
     print(f"wrote {os.path.relpath(OUT_JSON, ROOT)}  ({size:.0f} KB)")
@@ -574,26 +702,32 @@ def main() -> int:
           f"({len(by_month)} monthly files, {hl_bytes / 1024 / 1024:.2f} MB total, "
           f"{written} rewritten this run): up to {HEADLINE_SAMPLE} headlines for each of "
           f"{cells_out:,} day-topic cells, loaded a month at a time on demand")
-    print(f"  {len(rows):,} stories, {classified:,} classified, "
-          f"{data['totals']['publications']:,} publications")
+    print(f"  {len(rows):,} stories, {row_stats['all']['classified']:,} classified, "
+          f"{all_c['totals']['publications']:,} publications")
     print(f"  series stops at {cutoff} (last complete day); "
           f"{partial:,} stories dated after it held back as a partial day")
-    print(f"  {data['added_on_as_of']:,} stories captured on {cutoff}")
+    print(f"  {all_c['added_on_as_of']:,} stories captured on {cutoff}")
     span = (date.fromisoformat(days[-1]) - date.fromisoformat(days[0])).days + 1
     print(f"  days {days[0]} -> {days[-1]}: {len(days):,} with stories "
           f"out of {span:,} calendar days"
-          + (f", {len(data['thin_days'])} flagged thin "
-             f"(under {MIN_DAY_STORIES} stories)" if data["thin_days"] else ""))
-    pre = sum(day_total[d] for d in days[:recent_start])
-    print(f"  brush spans {days[recent_start]} -> {days[-1]} until the reader asks "
-          f"for the full archive ({recent_year}+ clears {RECENT_YEAR_SHARE:.0%} "
-          f"of the corpus; the {recent_start:,} earlier days hold {pre:,} stories)")
-    print(f"  opens on {days[default_start]} -> {days[-1]} "
-          f"({sum(day_total[d] for d in days[default_start:]):,} stories over "
-          f"{len(days) - default_start:,} days); "
+          + (f", {len(all_c['thin_days'])} flagged thin "
+             f"(under {MIN_DAY_STORIES} stories)" if all_c["thin_days"] else ""))
+    pre = sum(day_total["all"][d] for d in days[:all_c["recent_start"]])
+    print(f"  brush spans {days[all_c['recent_start']]} -> {days[-1]} until the reader asks "
+          f"for the full archive ({all_c['recent_year']}+ clears {RECENT_YEAR_SHARE:.0%} "
+          f"of the corpus; the {all_c['recent_start']:,} earlier days hold {pre:,} stories)")
+    print(f"  opens on {days[all_c['default_range'][0]]} -> {days[-1]} "
+          f"({sum(day_total['all'][d] for d in days[all_c['default_range'][0]:]):,} stories over "
+          f"{len(days) - all_c['default_range'][0]:,} days); "
           f"earlier days reachable via the brush")
+    print("  cohorts (classified stories / publications / thin days):")
+    for c in COHORTS:
+        cc = data["cohorts"][c]
+        print(f"    {c:10s} {cc['totals']['classified']:7,d} / "
+              f"{cc['totals']['publications']:4d} / {len(cc['thin_days']):4d}  "
+              f"opens {days[cc['default_range'][0]]}, brush from {cc['recent_year']}")
     print(f"  {len(data['states'])} states")
-    print(f"  {undated:,} rows have no usable published date "
+    print(f"  {row_stats['all']['undated']:,} rows have no usable published date "
           f"(excluded from the time series)")
     return 0
 

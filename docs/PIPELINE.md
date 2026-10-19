@@ -15,7 +15,7 @@ arbitrary:
 
 | Home | Holds | Why |
 |---|---|---|
-| **GitHub** | `news_database.csv`, `analytics/analytics.json`, `map/map_data.*`, `data/publication_locations.csv`, all code | Small, diffable, and what the dashboard reads. |
+| **GitHub** | `news_database.csv`, `analytics/analytics.json`, `map/map_data.*`, `data/publication_locations.csv`, `data/all-schools-2023.csv` (IPEDS source for school-type labels), all code | Small, diffable, and what the dashboard reads. |
 | **Hugging Face** (`center-for-community-news/student-media-feeds`) | `stories.parquet` (metadata + every article body), `publication_corpora/`, `bag_of_words.csv`, `publication_story_index.csv` | Heavy and append-only. Committing it churned megabytes nightly and bloated the repo. |
 
 `full_text/` is **not** in git. The Hub is its canonical home, and
@@ -93,6 +93,8 @@ python scrape.py
 | 8. Per-outlet corpora | `build_publication_corpora.py` | `full_text/**` | `publication_corpora/*.txt`, `publication_corpora_manifest.csv`, `publication_story_index.csv` |
 | 9. Bag of words | `build_bag_of_words.py` | `full_text/**` | `bag_of_words.csv` |
 | 10. Map data | `scripts/geocode_publications.py`, `scripts/build_map_data.py` | `publication_story_index.csv`, `data/*.csv` | `data/publication_locations.csv`, `map/map_data.*` |
+| 10b. School-type labels | `scripts/label_school_types.py` | `data/all-schools-2023.csv`, `data/school_type_overrides.csv`, `data/publication_locations.csv` | `data/publication_locations.csv` (adds `land_grant`, `hbcu`, `community_college`, …) |
+| 10c. Dashboard data | `scripts/build_dashboard_data.py` | `news_database.csv`, `data/topic_labels.json`, `data/publication_locations.csv`, `data/student-media-outlets.csv` | `student-media-tracker/dashboard_data.*`, `map_points.*`, `headlines/**`, `search/**` |
 | 7b. Assign topics | `scripts/apply_topics.py` | `full_text/**`, `models/topic_model.joblib` | `topic_id`, `topic_confidence`, `topic_model_version` |
 | 11. Publish corpus | `huggingface/build_hf_dataset.py`, `huggingface/sync_to_hf.py` | `news_database.csv`, `full_text/**`, corpora | Hub dataset |
 
@@ -182,6 +184,7 @@ output.
 
 ```bash
 python scripts/geocode_publications.py   # -> data/publication_locations.csv
+python scripts/label_school_types.py     # -> adds land_grant/hbcu/community_college columns
 python scripts/build_map_data.py         # -> map/map_data.js, map/map_data.json
 ```
 
@@ -260,6 +263,50 @@ node map/test/test_map.js
 
 Stubs Leaflet and the DOM, then exercises every topic in both weighting modes and
 checks the popup chart. Run it after editing the page script.
+
+---
+
+## School-type labels and the dashboard
+
+`scripts/label_school_types.py` adds four flag columns to
+`data/publication_locations.csv`:
+
+- `land_grant` — IPEDS `LANDGRNT` (`1` true, `2` false)
+- `hbcu` — IPEDS `HBCU` (same encoding)
+- `community_college` — **derived here**, not IPEDS: the institution name
+  contains "Community" or "Technical" (word boundary). Documented as a
+  heuristic — it misses renamed systems such as "Dallas College" campuses and
+  "Miami Dade College", where the word no longer appears.
+- `ipeds_unitid`, `ipeds_name`, `school_type_match` — the matched IPEDS row and
+  how it was matched (`exact` / `fuzzy` / `override` / `none`)
+
+**Reads** `data/all-schools-2023.csv` (IPEDS HD 2023, the raw source — committed
+so CI can relabel), `data/school_type_overrides.csv`, `data/publication_locations.csv`
+**Writes** `data/publication_locations.csv` (in place)
+
+Matching is tiered: an override wins, then an exact normalised name match against
+`INSTNM` or `IALIAS`, then a conservative fuzzy pass. Fuzzy candidates are ranked
+by state agreement, then active status, then similarity, with directional ratio
+floors so a short outlet name cannot be swallowed by a long institution name.
+Unmatched institutions are reported at the end of the run; pin the hard ones by
+adding an `institution,ipeds_unitid,note` row to `data/school_type_overrides.csv`
+(the same pattern as `data/publication_institution_overrides.csv`).
+
+The pipeline order matters: `geocode_publications.py` **rewrites**
+`publication_locations.csv` from scratch, so `label_school_types.py` has to run
+after it and before `build_dashboard_data.py` every night.
+
+### `student-media-tracker/index.html`
+
+The dashboard's university-type control (All / Land-grant / HBCU / Community
+college) reads precomputed cohorts from `dashboard_data.js`. `build_dashboard_data.py`
+emits four `D.cohorts[key]` objects over one shared `days` axis — every per-day
+series, day total, thin-day list and default range lives under the cohort, so the
+page never re-aggregates story rows. Publication flags travel as a one-letter
+string in `D.publications[].f`, `D.source_flags`, and each `map_points` pub's `f`;
+the day drawer reuses `D.source_flags` to narrow its (corpus-wide) headline sample
+to the selected cohort. Cohorts overlap — an HBCU land-grant appears in both — and
+stories whose institution could not be matched appear only under All.
 
 ---
 

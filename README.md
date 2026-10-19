@@ -39,12 +39,16 @@ This repository contains an automated news scraping system that:
 ├── data/
 │   ├── student-media-outlets.csv      # Outlet directory with LAT/LONG
 │   ├── missing_outlets.csv            # Outlets not yet in the feed lists
-│   ├── publication_locations.csv      # Generated: outlet -> coordinates
-│   └── publication_institution_overrides.csv  # Manual geocoding fixes
+│   ├── publication_locations.csv      # Generated: outlet -> coordinates + school-type flags
+│   ├── publication_institution_overrides.csv  # Manual geocoding fixes
+│   ├── school_type_overrides.csv      # Manual IPEDS pins for school-type labels
+│   └── all-schools-2023.csv           # IPEDS HD 2023 source (land-grant / HBCU flags)
 │
 ├── scripts/
 │   ├── geocode_publications.py        # Attach coordinates to every outlet
+│   ├── label_school_types.py          # Add land-grant / HBCU / community-college flags
 │   ├── build_map_data.py              # Topic-classify stories -> map data
+│   ├── build_dashboard_data.py        # Cohort + per-day series -> student-media-tracker/
 │   ├── validate_news_csv.py           # CI schema check
 │   └── discover_*.py, find_missing_outlets.py   # Feed discovery helpers
 │

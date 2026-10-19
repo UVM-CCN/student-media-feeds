@@ -355,6 +355,15 @@
       </div>
     </div>
     <div class="field">
+      <label id="cohortlabel">University type</label>
+      <div class="seggroup" role="group" aria-labelledby="cohortlabel" id="cohortGroup">
+        <button class="seg" data-cohort="all" aria-pressed="true">All</button>
+        <button class="seg" data-cohort="landgrant" aria-pressed="false">Land-grant</button>
+        <button class="seg" data-cohort="hbcu" aria-pressed="false">HBCU</button>
+        <button class="seg" data-cohort="community" aria-pressed="false">Community college</button>
+      </div>
+    </div>
+    <div class="field">
       <label>Range</label>
       <div class="rangeread" id="rangeread"></div>
     </div>
@@ -457,6 +466,13 @@
   var $ = function (id) { return document.getElementById(id); };
   if (!D) { $("meta").textContent = "dashboard_data.js failed to load."; return; }
   if (typeof d3 === "undefined") { $("meta").textContent = "D3 failed to load."; return; }
+  // Cohorts are the whole data contract since the university-type filter:
+  // every per-day series the page draws lives under D.cohorts[key]. A file
+  // built before that change would render as an empty page.
+  if (!D.cohorts || !D.cohorts.all) {
+    $("meta").textContent = "dashboard_data.js has no cohort data — rebuild with scripts/build_dashboard_data.py.";
+    return;
+  }
 
   /* Ten categorical slots, fixed in this order and keyed to the topic id, never
      to rank -- a brush that changes the ordering must not repaint the survivors.
@@ -468,8 +484,20 @@
                 "#9a3412","#e87ba4","#166534","#eda100","#d81b60"];
   function colorOf(key) { return COLORS[+key.slice(1) % COLORS.length]; }
 
-  var THIN = new Set(D.thin_days || []);
-  var DEF = D.default_range || [0, D.days.length - 1];
+  // Thin-day shading is a property of the cohort, not of the calendar: 30
+  // stories a day is ordinary for the whole corpus and rare for the HBCU
+  // subset, and each build flags its own days.
+  var THIN = {};
+  Object.keys(D.cohorts).forEach(function (k) {
+    THIN[k] = new Set(D.cohorts[k].thin_days || []);
+  });
+  function thin() { return THIN[state.cohort]; }
+  // University-type cohorts. Letters match the flags the build embeds in
+  // source_flags and map_points pubs; labels read as "at ___ institutions".
+  var COHORT_LETTER = { landgrant: "g", hbcu: "h", community: "c" };
+  var COHORT_LABEL = { all: "all universities", landgrant: "land-grant",
+                       hbcu: "HBCU", community: "community college" };
+  var DEF = D.cohorts.all.default_range || [0, D.days.length - 1];
   var DATES = D.days.map(function (m) {
     return new Date(Date.UTC(+m.slice(0, 4), +m.slice(5, 7) - 1, +m.slice(8, 10)));
   });
@@ -487,12 +515,18 @@
   var ORDER = D.topics.slice().sort(function (a, b) { return b.total - a.total; });
 
   var state = { measure: "share", smooth: true, full: false,
-                i0: DEF[0], i1: DEF[1], focus: null, day: null };
+                i0: DEF[0], i1: DEF[1], focus: null, day: null, cohort: "all" };
+
+  // The active cohort's aggregate bundle: series, day totals, brush defaults,
+  // KPI totals. Every read of per-day data below goes through this, so the
+  // chart, brush, totals, map and drawer can never disagree about which
+  // subset of the corpus they are showing.
+  function A() { return D.cohorts[state.cohort]; }
 
   /* ---------- headlines: one month fetched at a time, on drill-down ----------
      The full set is ~2MB against the main payload's 52KB, so it is not worth
      paying for on every page view when most readers never open a day -- and
-     even then, only the clicked day's month is needed (~300KB at most).
+     even then, only the clicked day's month is needed (under 1MB at most).
      Injected as a script tag rather than fetched because the dashboard is also
      opened straight off disk, where fetch() of a sibling file is blocked but a
      script tag is not. Each month file registers itself into
@@ -553,7 +587,7 @@
   function idx() { return d3.range(state.i0, state.i1 + 1); }
   function valueAt(key, i) {
     if (state.smooth) return smoothed(key, i);
-    var c = D.series[key][i], t = D.day_classified[i];
+    var c = A().series[key][i], t = A().day_classified[i];
     return state.measure === "share" ? (t ? c / t : 0) : c;
   }
   // Trailing 7-day window, walked over the calendar rather than over emitted
@@ -565,9 +599,9 @@
     for (var k = 0; k < SMOOTH_WINDOW; k++) {
       var j = DAYIDX[isoOf(end - k * DAY)];
       if (j === undefined) continue;
-      c += D.series[key][j];
-      t += D.day_classified[j];
-      if (D.day_classified[j] > 0) withData++;
+      c += A().series[key][j];
+      t += A().day_classified[j];
+      if (A().day_classified[j] > 0) withData++;
     }
     // Counts average over the days that actually carry topic data. A day whose
     // stories are captured but not yet extracted is unknown, not zero, and
@@ -581,20 +615,20 @@
   // processing backlog. Smoothed points survive as long as their window holds
   // any classified story, since the ratio of sums is still well defined.
   function defined(i) {
-    if (!state.smooth) return D.day_classified[i] > 0;
+    if (!state.smooth) return A().day_classified[i] > 0;
     var end = DATES[i].getTime();
     for (var k = 0; k < SMOOTH_WINDOW; k++) {
       var j = DAYIDX[isoOf(end - k * DAY)];
-      if (j !== undefined && D.day_classified[j] > 0) return true;
+      if (j !== undefined && A().day_classified[j] > 0) return true;
     }
     return false;
   }
   function fmt(v) { return state.measure === "share" ? pct(v) : nf.format(v); }
   function topicTotal(key) {
-    return idx().reduce(function (a, i) { return a + D.series[key][i]; }, 0);
+    return idx().reduce(function (a, i) { return a + A().series[key][i]; }, 0);
   }
   function grandTotal() {
-    return idx().reduce(function (a, i) { return a + D.day_totals[i]; }, 0);
+    return idx().reduce(function (a, i) { return a + A().day_totals[i]; }, 0);
   }
   function labelOf(key) {
     var t = D.topics.find(function (x) { return x.key === key; });
@@ -639,7 +673,7 @@
     // variation into the bottom fifth of the plot. Those days are still drawn
     // -- the clip below lets them run off the top, which reads as the outlier
     // it is -- they just do not get to set the frame.
-    var solid = ii.filter(function (i) { return !THIN.has(D.days[i]); });
+    var solid = ii.filter(function (i) { return !thin().has(D.days[i]); });
     if (!solid.length) solid = ii;
     var max = d3.max(D.topics, function (t) {
       return d3.max(solid, function (i) { return valueAt(t.key, i); });
@@ -699,7 +733,7 @@
       .attr("transform", "translate(0," + (M.t + ih) + ")")
       .call(axis);
     xAxis.selectAll(".tick").each(function (d) {
-      if (THIN.has(d3.utcFormat("%Y-%m-%d")(d))) d3.select(this).classed("thin", true);
+      if (thin().has(d3.utcFormat("%Y-%m-%d")(d))) d3.select(this).classed("thin", true);
     });
 
     var line = d3.line()
@@ -822,7 +856,7 @@
 
         var open = defined(i);
         var rows = !open
-          ? [{ value: nf.format(D.day_totals[i]), label: "captured, none extracted yet" }]
+          ? [{ value: nf.format(A().day_totals[i]), label: "captured, none extracted yet" }]
           : (state.focus
               ? [D.topics.find(function (t) { return t.key === state.focus; })]
               : ORDER.slice().sort(function (a, b) { return valueAt(b.key, i) - valueAt(a.key, i); })
@@ -844,7 +878,7 @@
         showTip(event, longDayLabel(D.days[i])
           + (open && state.smooth ? " · 7-day avg" : "")
           + (!open ? " · awaiting extraction"
-             : THIN.has(D.days[i]) ? " · thin sample (" + D.day_classified[i] + " classified)" : ""),
+             : thin().has(D.days[i]) ? " · thin sample (" + A().day_classified[i] + " classified)" : ""),
           rows);
       })
       .on("pointerleave", function () {
@@ -856,7 +890,7 @@
   function thinRuns(ii) {
     var runs = [], cur = null;
     ii.forEach(function (i) {
-      if (THIN.has(D.days[i])) { if (cur) cur.b = i; else cur = { a: i, b: i }; }
+      if (thin().has(D.days[i])) { if (cur) cur.b = i; else cur = { a: i, b: i }; }
       else if (cur) { runs.push(cur); cur = null; }
     });
     if (cur) runs.push(cur);
@@ -896,13 +930,13 @@
   // spread over 683 days against 25,700 in 2026. Spanning the brush across all
   // of it would spend most of its width on 6% of the corpus and squeeze the
   // part anyone is reading into the last few pixels, so the archive is opt-in.
-  function domStart() { return state.full ? 0 : (D.recent_start || 0); }
+  function domStart() { return state.full ? 0 : (A().recent_start || 0); }
 
   function renderBrush() {
     var host = d3.select("#brush"); host.selectAll("*").remove();
     var iw = BW - BM.l - BM.r, ih = BH - BM.t - BM.b;
     var d0 = domStart(), dN = DATES.length - 1;
-    var vol = D.day_totals.slice(d0);
+    var vol = A().day_totals.slice(d0);
 
     bx = d3.scaleTime()
       .domain([DATES[d0], DATES[dN]])
@@ -962,7 +996,11 @@
       })
       .on("end", function (event) {
         if (!event.sourceEvent) return;
-        if (!event.selection) { setRange(DEF[0], DEF[1]); return; }
+        if (!event.selection) {
+          var def = A().default_range || DEF;
+          setRange(def[0], def[1]);
+          return;
+        }
         var a = nearest(event.selection[0]), b = nearest(event.selection[1]);
         if (a === b) b = Math.min(DATES.length - 1, a + 1);
         setRange(Math.min(a, b), Math.max(a, b));
@@ -1010,8 +1048,8 @@
     bar.hidden = false;
     $("dayTitle").textContent = longDayLabel(D.days[i]);
 
-    if (!D.day_classified[i]) {
-      $("daySub").textContent = nf.format(D.day_totals[i]) + " captured";
+    if (!A().day_classified[i]) {
+      $("daySub").textContent = nf.format(A().day_totals[i]) + " captured";
       empty.hidden = false; prompt.hidden = true;
       empty.textContent = "Captured but not extracted yet, so none carries a topic. "
         + "Extraction runs overnight — check back tomorrow.";
@@ -1019,8 +1057,8 @@
       return;
     }
     empty.hidden = true;
-    $("daySub").textContent = nf.format(D.day_totals[i]) + " captured · "
-      + nf.format(D.day_classified[i]) + " with a topic";
+    $("daySub").textContent = nf.format(A().day_totals[i]) + " captured · "
+      + nf.format(A().day_classified[i]) + " with a topic";
     // "above" because the legend now sits above this line, not below it.
     prompt.hidden = false;
     // Must match the interaction above: with no topic chosen there is nothing to
@@ -1029,7 +1067,7 @@
       ? "No stories for this topic on this day"
       : "Choose a topic above to read this day's headlines";
 
-    var hasStories = state.focus && D.series[state.focus][i];
+    var hasStories = state.focus && A().series[state.focus][i];
     prompt.hidden = !!hasStories;  // the drawer is the answer once there is something to read
     if (hasStories && (wantDrawer || drawerOpen)) openDrawer();  // also refreshes
     else closeDrawer();
@@ -1054,7 +1092,7 @@
     $("drawer").setAttribute("aria-hidden", "true");
   }
   function openDrawer() {
-    var i = state.day, day = D.days[i], topic = state.focus;
+    var i = state.day, day = D.days[i], topic = state.focus, cohort = state.cohort;
     var el = $("drawer"), body = $("drawerBody");
     $("drawerTopic").innerHTML = "";
     var sw = document.createElement("span");
@@ -1062,7 +1100,7 @@
     $("drawerTopic").appendChild(sw);
     $("drawerTopic").appendChild(document.createTextNode(labelOf(topic)));
     $("drawerDay").textContent = longDayLabel(day) + " · "
-      + nf.format(D.series[topic][i]) + " stories";
+      + nf.format(A().series[topic][i]) + " stories";
 
     body.textContent = "";
     var loading = document.createElement("p");
@@ -1079,7 +1117,8 @@
     ensureHeadlines(day, function (status) {
       // The reader may have moved on while the file was in flight.
       if (!drawerOpen || state.day === null
-          || D.days[state.day] !== day || state.focus !== topic) return;
+          || D.days[state.day] !== day || state.focus !== topic
+          || state.cohort !== cohort) return;
       body.textContent = "";
       if (status) {
         body.appendChild(msg("Could not load headlines/" + monthOf(day) + ".js — the "
@@ -1087,14 +1126,23 @@
         return;
       }
       var cell = headlinesFor(day, topic);
-      if (!cell || !cell.s.length) {
-        body.appendChild(msg("No headlines recorded for this topic on this day."));
+      // Each cohort has its own sample drawn from its own stories (see
+      // headline_shards in build_dashboard_data.py), so a cohort view never
+      // filters the corpus-wide sample and can always show that cohort's stories.
+      var filtered = cohort !== "all";
+      var items = cell ? (filtered ? (cell.c && cell.c[cohort]) || [] : cell.s) : [];
+      var n = cell ? cell.n : 0;
+      if (filtered) n = A().series[topic][i];
+      if (!items.length) {
+        body.appendChild(msg(filtered
+          ? "No " + COHORT_LABEL[cohort] + " publications carried stories on this day."
+          : "No headlines recorded for this topic on this day."));
         return;
       }
       var ol = document.createElement("ol");
       ol.className = "stories";
       ol.style.setProperty("--topic", colorOf(topic));
-      cell.s.forEach(function (st) {
+      items.forEach(function (st) {
         var li = document.createElement("li");
         var a = document.createElement("a");
         a.textContent = st[0];
@@ -1107,10 +1155,13 @@
       body.appendChild(ol);
       var note = document.createElement("p");
       note.className = "daynote";
-      note.textContent = cell.n > cell.s.length
-        ? "Showing " + cell.s.length + " of " + nf.format(cell.n)
+      note.textContent = filtered
+        ? "Showing " + items.length + " of " + nf.format(n) + " "
+          + COHORT_LABEL[cohort] + " stories for this day and topic, sampled across publications."
+        : n > items.length
+        ? "Showing " + items.length + " of " + nf.format(n)
           + " — sampled across publications, not the first six filed."
-        : "All " + cell.n + " " + (cell.n === 1 ? "story" : "stories") + " for this topic.";
+        : "All " + n + " " + (n === 1 ? "story" : "stories") + " for this topic.";
       body.appendChild(note);
     });
   }
@@ -1155,7 +1206,7 @@
       var b = document.createElement("button");
       b.type = "button";
       var on = state.focus === t.key;
-      var n = i === null ? null : D.series[t.key][i];
+      var n = i === null ? null : A().series[t.key][i];
       b.setAttribute("aria-pressed", on ? "true" : "false");
       var cls = [];
       if (state.focus && !on) cls.push("dim");
@@ -1247,11 +1298,11 @@
     var host = $("kpis"); host.textContent = "";
     var items = [
       { label: "Stories in range", value: nf.format(grandTotal()), hero: true },
-      { label: "Publications", value: nf.format(D.totals.publications), pubs: true },
+      { label: "Publications", value: nf.format(A().totals.publications), pubs: true },
       // Captured, not published: what last night's run pulled in. Independent
       // of the brush, like Publications.
       { label: "Stories added " + (D.as_of ? dayLabel(D.as_of) : "yesterday"),
-        value: nf.format(D.added_on_as_of || 0) }
+        value: nf.format(A().added_on_as_of || 0) }
     ];
     items.forEach(function (it) {
       var d = document.createElement("div"); d.className = "tile" + (it.hero ? " hero" : "");
@@ -1333,10 +1384,10 @@
   function renderChrome() {
     $("meta").textContent = "Model " + D.model_version + " · built " +
       (D.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
-    var thin = (D.thin_days || []).length;
+    var thinN = (A().thin_days || []).length;
     $("mainHint").textContent =
       ""
-      + (thin ? " Shaded days carry fewer than " + (D.min_day_stories || 30)
+      + (thinN ? " Shaded days carry fewer than " + (D.min_day_stories || 30)
           + " stories, where one story swings a share." : "")
       + " Papers publish on a school week, so the raw series has a weekly sawtooth; the"
       + " 7-day average cancels it.";
@@ -1344,18 +1395,18 @@
     // Against dated stories only -- the ~1,600 rows with no usable published
     // date are in no year at all, so counting them here would credit them to
     // the recent span.
-    var pre = D.recent_start || 0, before = 0, dated = 0;
-    D.day_totals.forEach(function (n, p) {
+    var pre = A().recent_start || 0, before = 0, dated = 0;
+    A().day_totals.forEach(function (n, p) {
       dated += n;
       if (p < pre) before += n;
     });
     $("brushHint").textContent = state.full
       ? "Showing the full archive back to " + dayLabel(D.days[0]) + ". The "
-        + nf.format(pre) + " days before " + (D.recent_year || "") + " hold only "
+        + nf.format(pre) + " days before " + (A().recent_year || "") + " hold only "
         + nf.format(before) + " stories between them — RSS feeds carry a publisher's"
         + " recent items, so those years are whatever each outlet's feed still listed"
         + " when it was added, not a sample of what was published."
-      : "The brush spans " + (D.recent_year || "") + " onward, which holds "
+      : "The brush spans " + (A().recent_year || "") + " onward, which holds "
         + nf.format(dated - before) + " of the " + nf.format(dated)
         + " dated stories. Check the box for the " + nf.format(before)
         + " backfilled from earlier years.";
@@ -1364,12 +1415,19 @@
       "Coverage is shown as each topic's share of that day's stories. Raw counts rise "
       + "sharply over the period because the number of monitored outlets grew, so counts "
       + "measure collection as much as coverage; share does not. "
-      + nf.format(D.totals.stories - D.totals.classified) + " of "
-      + nf.format(D.totals.stories) + " stories are unclassified (no extracted text, or too short). "
+      + nf.format(A().totals.stories - A().totals.classified) + " of "
+      + nf.format(A().totals.stories) + " stories are unclassified (no extracted text, or too short). "
       + "The series stops at " + (D.as_of ? dayLabel(D.as_of) : "the last complete day")
       + "; capture runs overnight and extraction trails it, so today is always a "
       + "partial day and is held back rather than plotted as a fall-off. "
-      + "State totals cover the whole archive and do not follow the time range.";
+      + "State totals cover the whole archive and do not follow the time range. "
+      + (state.cohort === "all"
+        ? "University-type subsets label each outlet's institution against the 2023 "
+          + "IPEDS file: land-grant and HBCU come from IPEDS flags, community colleges "
+          + "from the words “Community”/“Technical” in the institution name. Stories "
+          + "whose institution could not be matched appear only under All."
+        : "Now showing " + COHORT_LABEL[state.cohort] + " institutions only. Small cohorts "
+          + "run thin on most days — read the smoothed share rather than any single day.");
   }
 
   /* ---------- coverage map ------------------------------------------------
@@ -1439,8 +1497,13 @@
   function renderMap() {
     if (mapState !== "ready") return;
     var P = window.MAP_POINTS, rows = [], maxV = 0, nPubs = 0, nStories = 0;
+    // The cohort filter applies here too: pubs carry the same one-letter
+    // flags the drawer filters on, so the map shows only the institutions
+    // the rest of the page is counting.
+    var letter = state.cohort === "all" ? null : COHORT_LETTER[state.cohort];
 
     P.pubs.forEach(function (p, pi) {
+      if (letter && (p.f || "").indexOf(letter) === -1) return;
       var c = mapCounts(pi), tot = c.__total;
       if (!tot) return;
       // state.measure is shared with the chart: "share" asks what proportion of
@@ -1495,7 +1558,9 @@
     $("mapHint").textContent =
       nf.format(nPubs) + " publications with " + nf.format(nStories) + " "
       + (state.focus ? labelOf(state.focus) + " " : "") + "stories over "
-      + rangeWords(state.i0, state.i1) + ". Heat follows the brush and the topic "
+      + rangeWords(state.i0, state.i1)
+      + (letter ? ", at " + COHORT_LABEL[state.cohort] + " institutions" : "")
+      + ". Heat follows the brush and the topic "
       + "selected above; click a point for that newsroom's breakdown.";
   }
 
@@ -1538,10 +1603,26 @@
     $("mCount").setAttribute("aria-pressed", state.measure === "count" ? "true" : "false");
     $("sRaw").setAttribute("aria-pressed", state.smooth ? "false" : "true");
     $("sAvg").setAttribute("aria-pressed", state.smooth ? "true" : "false");
+    Array.prototype.forEach.call($("cohortGroup").children, function (b) {
+      b.setAttribute("aria-pressed",
+        b.getAttribute("data-cohort") === state.cohort ? "true" : "false");
+    });
   }
 
   $("mShare").addEventListener("click", function () { state.measure = "share"; render(); });
   $("mCount").addEventListener("click", function () { state.measure = "count"; render(); });
+  // Switching cohort keeps the brush range (the day axis is shared, so the
+  // selection means the same dates in every view) but rebuilds the brush:
+  // its volume strip and its default domain edge are cohort data.
+  Array.prototype.forEach.call($("cohortGroup").children, function (b) {
+    b.addEventListener("click", function () {
+      var k = b.getAttribute("data-cohort");
+      if (state.cohort === k) return;
+      state.cohort = k;
+      renderBrush();   // rebuilds the scale, then syncBrush clamps the selection
+      render();
+    });
+  });
   $("fullRange").addEventListener("change", function () {
     state.full = this.checked;
     renderBrush();   // rebuilds the scale, then syncBrush clamps the selection
@@ -1552,7 +1633,7 @@
   $("sAvg").addEventListener("click", function () { state.smooth = true; render(); });
   $("reset").addEventListener("click", function () {
     state = { measure: "share", smooth: true, full: false,
-              i0: DEF[0], i1: DEF[1], focus: null, day: null };
+              i0: DEF[0], i1: DEF[1], focus: null, day: null, cohort: "all" };
     $("fullRange").checked = false;
     renderBrush(); render();
   });
