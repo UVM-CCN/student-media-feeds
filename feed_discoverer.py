@@ -9,6 +9,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from typing import List, Optional
 
+from http_compat import user_agent_for
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -39,7 +41,11 @@ def is_broken_feed_url(url: str) -> bool:
 def is_valid_feed(url: str, timeout: int = 10) -> bool:
     """Checks if a URL responds with a parseable RSS/Atom feed that has at least one entry."""
     try:
-        headers = {"User-Agent": "StudentMediaFeedsBot/1.0 (+https://github.com/)"}
+        headers = {
+            "User-Agent": user_agent_for(
+                url, "StudentMediaFeedsBot/1.0 (+https://github.com/)"
+            )
+        }
         response = requests.get(url, headers=headers, timeout=timeout)
         response.raise_for_status()
         feed = feedparser.parse(response.content)
@@ -54,7 +60,7 @@ def discover_feeds_from_url(url: str) -> List[str]:
     <link rel="alternate" type="application/rss+xml"> (and similar).
     """
     discovered = []
-    headers = {"User-Agent": "Mozilla/5.0 (StudentMediaFeedsBot)"}
+    headers = {"User-Agent": user_agent_for(url, "Mozilla/5.0 (StudentMediaFeedsBot)")}
 
     try:
         response = requests.get(url, headers=headers, timeout=10)

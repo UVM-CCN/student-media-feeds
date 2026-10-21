@@ -16,6 +16,8 @@ import listparser
 import requests
 from bs4 import BeautifulSoup
 
+from http_compat import user_agent_for
+
 
 # Feeds are fetched concurrently. Each feed is a separate host, so this adds no
 # per-host pressure -- it only stops 850+ sequential network round-trips from
@@ -184,7 +186,9 @@ class NewsPipeline:
         down, not flaky, and this job runs again in six hours.
         """
         headers = {
-            "User-Agent": "StudentMediaFeedsBot/1.0 (+https://github.com/)"
+            "User-Agent": user_agent_for(
+                url, "StudentMediaFeedsBot/1.0 (+https://github.com/)"
+            )
         }
 
         for attempt in range(max_retries):

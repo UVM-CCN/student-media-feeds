@@ -44,6 +44,8 @@ from typing import Optional
 import trafilatura
 from bs4 import BeautifulSoup
 
+from http_compat import user_agent_for
+
 try:
     from curl_cffi import requests as curl_requests
 except ImportError:
@@ -72,6 +74,10 @@ IMPERSONATE_PROFILE = "chrome120"  # curl_cffi browser fingerprint
 
 # Common sitemap paths, tried in order
 SITEMAP_CANDIDATES = [
+    # Recent-article sitemaps first: on SNworks/Bowman sites the index at
+    # /sitemap.xml has only section children, and the preferred-child filter
+    # below would follow news sections alone. /sitemap/recent.xml spans sections.
+    "/sitemap/recent.xml",
     "/sitemap.xml",
     "/sitemap_index.xml",
     "/news-sitemap.xml",
@@ -121,6 +127,7 @@ HARD_OUTLETS = [
     {"name": "The Daily Kansan", "url": "https://www.dailykansan.com",
      "skip": True, "skip_reason": "cascade failed 2026-06-22"},
     {"name": "The Daily Nebraskan", "url": "https://www.dailynebraskan.com"},
+    {"name": "The Post", "url": "https://www.thepostathens.com"},
     {"name": "The Daily O'Collegian", "url": "https://www.ocolly.com",
      "skip": True, "skip_reason": "cascade failed 2026-06-22"},
     {"name": "The Montana Kaimin", "url": "https://www.montanakaimin.com",
@@ -158,7 +165,7 @@ def _http_get(session, url: str, accept: str = "*/*") -> Optional[object]:
     try:
         return session.get(
             url,
-            headers={"User-Agent": USER_AGENT, "Accept": accept},
+            headers={"User-Agent": user_agent_for(url, USER_AGENT), "Accept": accept},
             timeout=REQUEST_TIMEOUT,
             impersonate=IMPERSONATE_PROFILE,
             allow_redirects=True,
