@@ -126,6 +126,147 @@ https://example.edu/news/feed/
 https://studentnews.edu/rss
 ```
 
+## How to add new publications
+
+`news_database.csv` is generated — never edit it by hand. A publication enters
+the corpus through two independent files:
+
+| File | Role | Needed for |
+|---|---|---|
+| `feeds_*.txt`, `extra_urls.txt`, `feeds/*.opml` | RSS/Atom URLs `scrape.py` fetches each run | getting stories into the database |
+| `data/student-media-outlets.csv` | outlet name, URL, contact, LAT/LONG | map geocoding and dashboard identity |
+
+A feed without a directory row still scrapes but maps as `unresolved`; a directory
+row without a feed is inert. Add both.
+
+### 1. Confirm it is student media
+
+These files track student journalism. If the outlet is a professional newsroom
+where students contribute a section (an NAP outlet), do **not** subscribe to the
+site-wide feed. Add the narrow student-section feed to
+`feeds_nap_student_sections.txt` and put the domain in
+`data/excluded_outlets.txt`; discovery scripts read that file and will otherwise
+re-admit the professional output.
+
+### 2. Check whether it is already tracked
+
+Check the outlet directory and every feed list before adding anything:
+
+```bash
+grep -rin "example.com" data/student-media-outlets.csv feeds_*.txt extra_urls.txt feeds/*.opml
+```
+
+Watch for the Feedly-proxy trap: an appearance in an OPML export is not proof of
+coverage. A URL like `https://feedly.com/web/<uuid>` is not fetchable and makes
+discovery scripts think the domain is already tracked. Replace it with a real
+feed or remove the outline. Also check `news_database.csv` for stories from the
+domain — zero stories means it is not actually being scraped.
+
+### 3. Find a working feed
+
+Follow `manual_feed_discovery_task.md`. In order:
+
+1. View page source and search for `<link rel="alternate" type="application/rss+xml">`
+   or `atom+xml`.
+2. Try common paths: `/feed/`, `/rss`, `/rss.xml`, `/?feed=rss2`.
+3. SNworks/TownNews/Bowman sites often use `/search/?f=rss` or
+   `/xml/feed/firehose.xml`.
+4. Squarespace sites have no site-wide feed; each collection exposes
+   `<collection>?format=rss` (for example `/seams?format=rss`).
+5. If a URL returns XML with `<item>` or `<entry>` blocks, it is valid.
+
+Skip `/comments/feed/` and prefer the broadest feed available. For a batch of
+sites, let the discovery script do the probing:
+
+```bash
+python scripts/discover_feeds_from_csv.py <csv_path> <url_column> feeds_<batch>.txt
+```
+
+It skips domains already tracked and unsuitable/social URLs, validates each
+candidate, and appends the working feeds.
+
+### 4. Add the feeds
+
+Manual additions go in `extra_urls.txt` (one URL per line; `#` comments are
+allowed), or append to the relevant `feeds_*.txt`. A new `feeds_<batch>.txt` also
+works, but then add it to `TXT_LISTS` in `benchmark/build_url_lists.py`.
+
+For outlets with multiple section feeds, add all of them. Duplicate article
+links are deduplicated by the pipeline. Example from the Ohio University batch:
+
+```
+# Thread Magazine -- Ohio University (Squarespace section feeds)
+https://www.thread-magazine.com/seams?format=rss
+https://www.thread-magazine.com/campus-casual?format=rss
+https://www.thread-magazine.com/back-of-the-closet-1?format=rss
+
+# The New Political -- Ohio University (SNworks)
+https://www.thenewpolitical.com/xml/feed/firehose.xml
+```
+
+### 5. Handle sites that block RSS
+
+If the feed and article pages return a bare 403 to the bot User-Agent but load
+normally with a browser User-Agent (Cloudflare error 1010 is typical), add the
+bare domain to `BROWSER_UA_HOSTS` in `http_compat.py`. `scrape.py`,
+`fetch_full_text.py`, `feed_discoverer.py`, and `fetch_hard_outlets.py` all call
+`user_agent_for()`, so one entry covers capture, validation, and extraction.
+Use this only when the feed works otherwise; it is a User-Agent exception, not
+a way around a paywall. Example: `thenewpolitical.com`.
+
+If the site has no feed at all, or the block persists, add it to `HARD_OUTLETS`
+in `fetch_hard_outlets.py`. The cascade tries the WordPress REST API, then a
+sitemap plus `curl_cffi` article fetches, and runs automatically in the nightly
+job.
+
+Sitemap discovery tries the paths in `SITEMAP_CANDIDATES` in order. Prefer
+`/sitemap/recent.xml` before `/sitemap.xml` on SNworks/Bowman sites: the index
+lists section sitemaps, and the preferred-child filter only follows children
+whose names match `post|article|news`, which misses sports and culture. Use
+`"skip": True` with a `skip_reason` if every strategy fails, so the nightly run
+does not spend minutes on it.
+
+Example:
+
+```python
+{"name": "The Post", "url": "https://www.thepostathens.com"},
+```
+
+### 6. Add the directory rows
+
+Append to `data/student-media-outlets.csv` with the existing columns:
+
+```csv
+College/University,State,Name of Outlet,URL of Outlet,Contact page,Notes,LAT,LONG
+Ohio University,OH,Thread Magazine,https://www.thread-magazine.com,https://www.thread-magazine.com/contact,,39.324358,-82.1013889
+Ohio University,OH,The New Political,https://www.thenewpolitical.com,https://www.thenewpolitical.com/page/about,,39.324358,-82.1013889
+```
+
+Coordinates are campus-level, not newsroom addresses. If the school geocodes to
+the wrong place or is missing, do not guess — add a
+`domain,institution,lat,lon,note` row to
+`data/publication_institution_overrides.csv`; overrides win over domain matching.
+
+### 7. Verify
+
+```bash
+python scrape.py --capture-only
+python scripts/validate_news_csv.py news_database.csv
+python scripts/geocode_publications.py
+```
+
+Check that new rows have the expected `source`, that the run reports no
+unresolved domains, and that multiple section feeds do not produce duplicate
+links. To backfill a hard outlet immediately, run `python fetch_hard_outlets.py`
+(100 stories/outlet); otherwise the nightly job collects 25/night.
+
+### 8. Commit
+
+Stage the feed list, `data/student-media-outlets.csv`, and any changes to
+`fetch_hard_outlets.py`, `http_compat.py`, or the OPML export. The nightly
+workflow handles full text, topics, corpora, analytics, map data, and the
+Hugging Face push.
+
 ## Usage
 
 ### Running Locally
