@@ -1,0 +1,5 @@
+definition,stories,pct_of_total,headline_only,metadata,note
+"Strict literal core: Title IX OR ""sexual violence"" OR sexual assault OR rape",843,1.2292034236887768,270,273,Literal wording from the research question; excludes abuse/misconduct/molestation/groping unless another core term also hits.
+Core: Title IX OR any sexual-violence/abuse term (excl. sexual harassment),964,1.4056371298172963,309,312,"Headline answer. Adds sexual abuse, sexual misconduct, molestation, groping, indecent assault, nonconsensual sex, coercion, battery."
+Expanded: core + sexual harassment,1005,1.465420451728613,316,319,"Adds sexual harassment stories, which the prompt lists separately from the core set."
+"Broad: expanded + domestic/intimate-partner/dating violence, stalking, generic harassment, trafficking, exploitation, consent",1526,2.2251060789431474,378,382,Related terms are NOT counted as sexual violence; shown for context only.

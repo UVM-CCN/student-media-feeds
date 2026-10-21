@@ -1,0 +1,76 @@
+type,category,phrase,result
+positive,title_ix,Title IX,PASS
+positive,title_ix,Title 9,PASS
+positive,title_ix,Title I X,PASS
+positive,title_ix,Tit1e IX,PASS
+positive,title_ix,Title lX,PASS
+positive,sexual_violence,sexual violence,PASS
+positive,sexual_violence,sexual-violence,PASS
+positive,sexual_assault,sexual assault,PASS
+positive,sexual_assault,sexually assaulted,PASS
+positive,sexual_assault,sex assault,PASS
+positive,rape,rape,PASS
+positive,rape,raped,PASS
+positive,rape,rapist,PASS
+positive,rape,gang rape,PASS
+positive,rape,statutory rape,PASS
+positive,sexual_abuse,sexual abuse,PASS
+positive,sexual_abuse,sexually abused,PASS
+positive,sexual_abuse,child sex abuse,PASS
+positive,sexual_misconduct,sexual misconduct,PASS
+positive,molestation,molestation,PASS
+positive,molestation,molested,PASS
+positive,molestation,child molester,PASS
+positive,groping,groping,PASS
+positive,groping,groped her,PASS
+positive,indecent_assault,indecent assault,PASS
+positive,nonconsensual_sex,nonconsensual sex,PASS
+positive,nonconsensual_sex,non-consensual sexual contact,PASS
+positive,sexual_coercion,sexual coercion,PASS
+positive,sexual_coercion,coerced sex,PASS
+positive,sexual_battery,sexual battery,PASS
+positive,sexual_harassment,sexual harassment,PASS
+positive,sexual_harassment,sexually harassed,PASS
+positive,sexual_harassment,sex-based harassment,PASS
+positive,domestic_violence,domestic violence,PASS
+positive,domestic_violence,domestic abuse,PASS
+positive,intimate_partner_violence,intimate partner violence,PASS
+positive,dating_violence,dating violence,PASS
+positive,dating_violence,teen dating violence,PASS
+positive,stalking,stalking,PASS
+positive,stalking,stalker,PASS
+positive,sex_trafficking,sex trafficking,PASS
+positive,sexual_exploitation,sexual exploitation,PASS
+positive,sexual_consent,sexual consent,PASS
+positive,sexual_consent,affirmative consent to sexual activity,PASS
+negative,rape,grape,PASS
+negative,rape,scrape,PASS
+negative,rape,therapist,PASS
+negative,rape,rapid,PASS
+negative,rape,rapping,PASS
+negative,rape,drape,PASS
+negative,rape,rapeseed,PASS
+negative,title_ix,matrix,PASS
+negative,title_ix,helix,PASS
+negative,title_ix,six,PASS
+negative,title_ix,fix,PASS
+negative,title_ix,appendix,PASS
+negative,title_ix,title case,PASS
+negative,sexual_assault,Sussex,PASS
+negative,sexual_assault,Essex,PASS
+negative,sexual_assault,Middlesex,PASS
+negative,sexual_assault,bisexual,PASS
+negative,sexual_assault,homosexual,PASS
+negative,sexual_abuse,child abuse,PASS
+negative,sexual_abuse,substance abuse,PASS
+negative,sexual_abuse,abuse of power,PASS
+negative,groping,groped around in her purse,PASS
+negative,groping,groping for answers,PASS
+negative,stalking,stalking horse,PASS
+negative,stalking,stalker-esque,PASS
+negative,stalking,stalker-y,PASS
+negative,molestation,Bambi Molesters,PASS
+negative,molestation,do not molest the alligators,PASS
+negative,molestation,"molesting, annoying",PASS
+negative,sexual_consent,affirmative consent for data privacy,PASS
+negative,nonconsensual_sex,nonconsensual medical procedure,PASS

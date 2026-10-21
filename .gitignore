@@ -62,3 +62,6 @@ huggingface/dataset_build/
 # parquet from news_database.csv -- so once full_text/ was purged from git
 # history this archive became their only copy. Kept locally, never published.
 excluded_full_text_archive.tar.gz
+
+# exclude data analysis
+data-researcher
