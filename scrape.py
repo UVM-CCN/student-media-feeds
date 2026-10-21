@@ -803,9 +803,14 @@ def run_daily_update(capture_only: bool = False):
 
         # Fetch + store full article text for any new stories.
         # Idempotent: skips anything already extracted, retries transient failures.
+        # retry_http_403 also re-attempts stories parked at http_403 before the
+        # retry policy existed. Those carry no attempt history, so without this
+        # the backlog (thousands of stories, most of them behind a transient
+        # Cloudflare block) would never be revisited. Each is stamped once and
+        # then paced on the cooldown, so the backlog drains over a few runs.
         try:
             from fetch_full_text import process_pending_stories
-            process_pending_stories(DATABASE)
+            process_pending_stories(DATABASE, retry_http_403=True)
         except Exception as e:
             logging.error("Full-text extraction failed: %s", e)
     else:
