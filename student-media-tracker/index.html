@@ -137,6 +137,26 @@
   .rangeread { font-size: .82rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
   .rangeread b { color: var(--ink); font-weight: 600; }
 
+  button.infolink {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: inherit; font-size: .79rem; color: var(--ink-2);
+    background: none; border: 1px solid var(--border); border-radius: 999px;
+    padding: 3px 10px 3px 7px; cursor: pointer; text-decoration: none;
+  }
+  button.infolink:hover, button.infolink:focus-visible { color: var(--ink); border-color: var(--accent); }
+  button.infolink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button.infolink svg { flex: none; color: var(--accent); width: 10px; height: 10px; }
+  /* Explicit centering: default browser positioning for :modal dialogs can
+     anchor to the viewport top, so pin the note box to the middle instead. */
+  dialog.note {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: min(520px, calc(100vw - 32px)); min-height: 176px;
+  }
+  dialog.note .note-body {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    padding: 0 18px 14px; margin: 0; max-width: none; font-size: .86rem; color: var(--ink);
+  }
+
   h2 { font-size: 1rem; font-weight: 640; margin: 18px 0 3px; }
   .hint { color: var(--muted); font-size: .79rem; margin: 0 0 10px; max-width: 96ch; }
 
@@ -275,8 +295,10 @@
   /* ---- collapsed table ---- */
   /* ---- brush ---- */  /* ---- brush ---- */
   .brushcard { padding: 12px 16px 6px; }
-  .brushhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 2px; }
+  .brushhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 2px; }
   .brushhead .t { font-size: .8rem; color: var(--ink-2); font-weight: 600; }
+  .brushnote { margin-top: 6px; }
+  #brush { margin-top: 6px; }
   .check { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem;
            color: var(--ink-2); cursor: pointer; margin-right: auto; }
   .check input { accent-color: var(--accent); margin: 0; cursor: pointer; }
@@ -294,7 +316,7 @@
   .domain { stroke: var(--axis); }
   .axis-title { fill: var(--ink-2); font-size: 11px; }
 
-  .visually-hidden {  .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
   /* ---- tooltip ---- */
   #tip {
@@ -350,8 +372,8 @@
     <div class="field">
       <label id="smoothlabel">Smoothing</label>
       <div class="seggroup" role="group" aria-labelledby="smoothlabel">
-        <button class="seg" id="sRaw" aria-pressed="false">Daily</button>
-        <button class="seg" id="sAvg" aria-pressed="true">7-day avg</button>
+        <button class="seg" id="sRaw" aria-pressed="true">Daily</button>
+        <button class="seg" id="sAvg" aria-pressed="false">7-day avg</button>
       </div>
     </div>
     <div class="field">
@@ -359,7 +381,7 @@
       <div class="seggroup" role="group" aria-labelledby="cohortlabel" id="cohortGroup">
         <button class="seg" data-cohort="all" aria-pressed="true">All</button>
         <button class="seg" data-cohort="landgrant" aria-pressed="false">Land-grant</button>
-        <button class="seg" data-cohort="hbcu" aria-pressed="false">HBCU</button>
+        <!-- <button class="seg" data-cohort="hbcu" aria-pressed="false">HBCU</button>-->
         <button class="seg" data-cohort="community" aria-pressed="false">Community college</button>
       </div>
     </div>
@@ -394,13 +416,18 @@
   <div class="card brushcard" style="margin-top:14px">
     <div class="brushhead">
       <span class="t">Time range</span>
-      <label class="check" for="fullRange">
-        <input type="checkbox" id="fullRange">
-        <span>Show full historical range</span>
-      </label>
       <span class="rangeread" id="brushread"></span>
     </div>
-    <p class="hint" id="brushHint"></p>
+    <div class="brushnote">
+      <button class="infolink" id="noteOpen" aria-haspopup="dialog" aria-controls="noteDialog">
+        <svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <circle cx="8" cy="8" r="6.8" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M8 7.2v4.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+          <path d="M8 4.55v.35" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span>Note on data</span>
+      </button>
+    </div>
     <div id="brush"></div>
   </div>
 
@@ -447,6 +474,14 @@
   <div class="search"><input type="search" id="pubsSearch" placeholder="Search by publication or college" aria-label="Search publications"></div>
   <div class="count" id="pubsCount" aria-live="polite"></div>
   <ul id="pubsList"></ul>
+</dialog>
+
+<dialog class="pubs note" id="noteDialog" aria-labelledby="noteTitle">
+  <header>
+    <h2 id="noteTitle">Note on data</h2>
+    <button class="link x" id="noteClose" aria-label="Close">&times;</button>
+  </header>
+  <p class="hint note-body" id="brushHint"></p>
 </dialog>
 
 <footer class="site-footer">
@@ -514,7 +549,7 @@
   // as the brush moves; color is keyed to the topic regardless.
   var ORDER = D.topics.slice().sort(function (a, b) { return b.total - a.total; });
 
-  var state = { measure: "share", smooth: true, full: false,
+  var state = { measure: "share", smooth: false,
                 i0: DEF[0], i1: DEF[1], focus: null, day: null, cohort: "all" };
 
   // The active cohort's aggregate bundle: series, day totals, brush defaults,
@@ -925,12 +960,12 @@
   /* ---------- brush: the time range control ---------- */
   var BW = 1100, BH = 76, BM = { t: 6, r: 150, b: 22, l: 52 };
   var brushBehavior = null, brushG = null, bx = null;
-  // Far edge of the brush. RSS feeds only carry a publisher's recent items, so
-  // everything before the scraper started is backfill scraps -- 1,590 stories
-  // spread over 683 days against 25,700 in 2026. Spanning the brush across all
-  // of it would spend most of its width on 6% of the corpus and squeeze the
-  // part anyone is reading into the last few pixels, so the archive is opt-in.
-  function domStart() { return state.full ? 0 : (A().recent_start || 0); }
+  // Start of the brush domain. RSS feeds only carry a publisher's recent items,
+  // so everything before the scraper started is backfill scraps -- about 1,600
+  // stories spread over nearly 700 days against 25,700 in 2026. Those years are
+  // left out of the domain entirely: most of its width would sit on 6% of the
+  // corpus and squeeze the part anyone is reading into the last few pixels.
+  function domStart() { return A().recent_start || 0; }
 
   function renderBrush() {
     var host = d3.select("#brush"); host.selectAll("*").remove();
@@ -1015,8 +1050,9 @@
     brushG.call(brushBehavior.move, [bx(DATES[state.i0]), bx(DATES[state.i1])]);
     $("brushread").innerHTML = rangeText(state.i0, state.i1);
   }
-  // Turning the archive back off can leave a selection that starts before the
-  // brush now reaches; pull it inside rather than drawing a handle off-canvas.
+  // A stale or out-of-domain selection (e.g. after switching cohorts to one
+  // whose recent span starts later) gets pulled inside so no handle is drawn
+  // off-canvas.
   function clampToDomain() {
     var d0 = domStart();
     if (state.i0 < d0) state.i0 = d0;
@@ -1380,6 +1416,11 @@
   $("pubsDialog").addEventListener("click", function (e) {
     if (e.target === this) this.close();
   });
+  $("noteOpen").addEventListener("click", function () { $("noteDialog").showModal(); });
+  $("noteClose").addEventListener("click", function () { $("noteDialog").close(); });
+  $("noteDialog").addEventListener("click", function (e) {
+    if (e.target === this) this.close();
+  });
 
   function renderChrome() {
     $("meta").textContent = "Model " + D.model_version + " · built " +
@@ -1400,16 +1441,12 @@
       dated += n;
       if (p < pre) before += n;
     });
-    $("brushHint").textContent = state.full
-      ? "Showing the full archive back to " + dayLabel(D.days[0]) + ". The "
-        + nf.format(pre) + " days before " + (A().recent_year || "") + " hold only "
-        + nf.format(before) + " stories between them — RSS feeds carry a publisher's"
-        + " recent items, so those years are whatever each outlet's feed still listed"
-        + " when it was added, not a sample of what was published."
-      : "The brush spans " + (A().recent_year || "") + " onward, which holds "
-        + nf.format(dated - before) + " of the " + nf.format(dated)
-        + " dated stories. Check the box for the " + nf.format(before)
-        + " backfilled from earlier years.";
+    $("brushHint").textContent =
+      "Story capturing began for this project in June of 2026. While some student stories appear in our database before this date, story capturing was less successful due to the nature of how RSS feeds work. The brush spans " + (A().recent_year || "") + " onward, which holds "
+      + nf.format(dated - before) + " of the " + nf.format(dated) + " dated stories. The "
+      + nf.format(before) + " stories from earlier years -- backfilled from each "
+      + "outlet's archive when it was added -- sit outside its width and are not "
+      + "reachable from this control.";
     
     $("footnote").textContent =
       "Coverage is shown as each topic's share of that day's stories. Raw counts rise "
@@ -1623,18 +1660,12 @@
       render();
     });
   });
-  $("fullRange").addEventListener("change", function () {
-    state.full = this.checked;
-    renderBrush();   // rebuilds the scale, then syncBrush clamps the selection
-    render();
-  });
   $("dayClose").addEventListener("click", function () { state.day = null; render(); });
   $("sRaw").addEventListener("click", function () { state.smooth = false; render(); });
   $("sAvg").addEventListener("click", function () { state.smooth = true; render(); });
   $("reset").addEventListener("click", function () {
-    state = { measure: "share", smooth: true, full: false,
+    state = { measure: "share", smooth: false,
               i0: DEF[0], i1: DEF[1], focus: null, day: null, cohort: "all" };
-    $("fullRange").checked = false;
     renderBrush(); render();
   });
 

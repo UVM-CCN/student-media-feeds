@@ -624,8 +624,11 @@
             const fullDomain = x2.domain();
             const domainStart = fullDomain[0];
             const domainEnd = fullDomain[1];
-            const oneYearAgo = d3.timeYear.offset(domainEnd, -1);
-            const defaultStart = oneYearAgo > domainStart ? oneYearAgo : domainStart;
+            const sep2026 = new Date('2026-09-01');
+            const defaultStart = new Date(Math.min(
+                domainEnd.getTime(),
+                Math.max(sep2026.getTime(), domainStart.getTime())
+            ));
             brushGroup.call(brush.move, [x2(defaultStart), x2(domainEnd)]);
 
             function brushed(event) {

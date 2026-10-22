@@ -122,6 +122,10 @@ DEFAULT_WINDOW = 7
 # the qualifying years and puts the rest behind a checkbox.
 RECENT_YEAR_SHARE = 0.05
 
+# Calendar date the dashboard opens on: the left edge of the default brush
+# range. Overrides the data-derived walk below when set.
+DEFAULT_OPEN = "2026-09-01"
+
 # University-type cohorts the dashboard can subset by. Flags come from
 # scripts/label_school_types.py (columns on data/publication_locations.csv,
 # matched against IPEDS 2023). Cohorts OVERLAP — many HBCUs are also
@@ -539,6 +543,12 @@ def main() -> int:
                             default_start)
         if len(days) - default_start < DEFAULT_WINDOW:
             default_start = min(default_start, recent_start)
+
+        if DEFAULT_OPEN:
+            open_i = next((i for i, d in enumerate(days) if d >= DEFAULT_OPEN),
+                          len(days) - 1)
+            default_start = min(open_i, len(days) - 1)
+
         return default_start, recent_start, recent_year
 
     def cohort_payload(c: str) -> dict:
