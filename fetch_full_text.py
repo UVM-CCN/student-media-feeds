@@ -27,8 +27,16 @@ State tracking lives in two new columns on news_database.csv:
         "ok"      — extracted successfully (skipped on future runs)
         "empty"   — fetched but extractor returned nothing
                     (paywall, JS-rendered, very short page) — skipped on future runs
-        "http_404", "http_403", "http_410" — terminal client errors, skipped
+        "http_404", "http_410" — terminal client errors, skipped
+        "http_403" — transient bot/rate-limit challenge. Retried on a cooldown
+                    (see MAX_HTTP_403_ATTEMPTS / HTTP_403_COOLDOWN_HOURS), not
+                    treated as final.
         "http_429", "http_5xx", "timeout", "error" — transient, retried next run
+
+    extraction_attempts / extraction_attempted_at:
+        How many fetch attempts a row has had and when the last one happened.
+        Only used to pace retries of 403s; success still clears the status to
+        "ok" and needs no history.
 
     full_text_path:
         Relative path to the .txt file (e.g. "full_text/ab/abcdef...txt") when
@@ -37,11 +45,14 @@ State tracking lives in two new columns on news_database.csv:
 
 Politeness defaults are conservative because we run against ~100 small student
 news sites that may not tolerate aggressive crawling:
-    - Per-domain minimum delay of 2s + jitter
+    - Per-domain minimum delay of 2s + jitter (overridable for sites that ask
+      for a longer Crawl-delay; see --delay)
     - Hard 30s request timeout
     - Up to 3 retries with exponential backoff
     - Honors Retry-After header on 429s
-    - Identifies the bot in User-Agent
+    - Identifies the bot in User-Agent, but uses a browser TLS fingerprint
+      (curl_cffi) because several hosts block the plain requests fingerprint
+      with a 403 regardless of User-Agent.
 """
 
 import csv
@@ -56,10 +67,17 @@ import time
 import urllib.parse
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Optional
+from typing import Any, Optional
 
 import requests
 import trafilatura
+
+from http_compat import user_agent_for
+
+try:
+    from curl_cffi import requests as curl_requests
+except ImportError:  # pip install curl_cffi; requirements.txt includes it
+    curl_requests = None
 
 
 FULL_TEXT_DIR = "full_text"
@@ -74,6 +92,7 @@ DOMAIN_JITTER_RANGE = (0.5, 1.5)
 REQUEST_TIMEOUT_SECONDS = 30
 MAX_RETRIES = 3
 CHECKPOINT_INTERVAL = 25  # save CSV progress every N stories during backfill
+IMPERSONATE_PROFILE = "chrome120"  # curl_cffi browser TLS fingerprint
 
 # Domains are fetched in parallel, but each domain is handled by exactly one
 # worker so MIN_DOMAIN_DELAY_SECONDS still serializes requests to any single
@@ -90,8 +109,23 @@ DOMAIN_FAILURE_THRESHOLD = 8
 # never let one story park a worker for minutes.
 MAX_RETRY_AFTER_SECONDS = 60
 
-# Statuses we consider "done" — never retry these
-TERMINAL_STATUSES = {"ok", "empty", "http_404", "http_403", "http_410"}
+# Statuses we consider "done" — never retry these.
+#
+# 403 is deliberately absent. Cloudflare and similar edges return 403 to
+# datacenter IPs and to request patterns they dislike, then serve the same URL
+# normally later. Treating it as terminal is what left 203 College Heights
+# Herald stories unextracted for two months while the article pages were
+# reachable the whole time. It is retried on a cooldown instead.
+TERMINAL_STATUSES = {"ok", "empty", "http_404", "http_410"}
+
+# A 403 is retried at most this many times, one cooldown apart. Six weeks of
+# retries is enough to ride out a block or a bad deploy; after that the host is
+# assumed to reject this pipeline and the row stops consuming a slot.
+MAX_HTTP_403_ATTEMPTS = 6
+HTTP_403_COOLDOWN_HOURS = 24 * 7
+
+# Bookkeeping columns written alongside extraction_status/full_text_path.
+ATTEMPT_COLUMNS = ("extraction_attempts", "extraction_attempted_at")
 
 # Tracks the last request time per hostname so we can throttle politely.
 # Module-level so it persists across calls within a single Python process.
@@ -112,50 +146,66 @@ def _get_domain(url: str) -> str:
         return ""
 
 
-def _throttle_for_domain(domain: str) -> None:
+def _throttle_for_domain(domain: str, min_delay: Optional[float] = None) -> None:
     """Block until enough time has elapsed since the last request to this domain."""
     if not domain:
         return
+    delay = MIN_DOMAIN_DELAY_SECONDS if min_delay is None else min_delay
     now = time.time()
     elapsed = now - _last_request_by_domain.get(domain, 0.0)
-    if elapsed < MIN_DOMAIN_DELAY_SECONDS:
-        wait = MIN_DOMAIN_DELAY_SECONDS - elapsed + random.uniform(*DOMAIN_JITTER_RANGE)
+    if elapsed < delay:
+        wait = delay - elapsed + random.uniform(*DOMAIN_JITTER_RANGE)
         time.sleep(wait)
     _last_request_by_domain[domain] = time.time()
 
 
-def _fetch_html(url: str) -> tuple[Optional[str], str]:
+def _is_timeout(exc: Exception) -> bool:
+    """True for both requests and curl_cffi timeout classes."""
+    return "timeout" in type(exc).__name__.lower() or "timed out" in str(exc).lower()
+
+
+def _fetch_html(url: str, domain_delay: Optional[float] = None) -> tuple[Optional[str], str]:
     """
     Fetch HTML with retries and per-domain throttling.
     Returns (html_or_none, status_label). status_label is "ok" on success or
     one of the failure labels documented in the module docstring.
     """
     headers = {
-        "User-Agent": USER_AGENT,
+        "User-Agent": user_agent_for(url, USER_AGENT),
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.5",
     }
     domain = _get_domain(url)
 
     for attempt in range(MAX_RETRIES):
-        _throttle_for_domain(domain)
+        _throttle_for_domain(domain, domain_delay)
         try:
-            r = requests.get(
-                url,
-                headers=headers,
-                timeout=REQUEST_TIMEOUT_SECONDS,
-                allow_redirects=True,
-            )
-        except requests.exceptions.Timeout:
-            logging.warning("Timeout for %s (attempt %d/%d)", url, attempt + 1, MAX_RETRIES)
-            if attempt == MAX_RETRIES - 1:
-                return None, "timeout"
-            time.sleep(2 ** attempt)
-            continue
-        except requests.exceptions.RequestException as e:
-            logging.warning("Request error for %s: %s (attempt %d/%d)", url, e, attempt + 1, MAX_RETRIES)
-            if attempt == MAX_RETRIES - 1:
-                return None, "error"
+            if curl_requests is not None:
+                # Browser TLS fingerprint: several outlets return 403 to the
+                # plain requests/urllib3 fingerprint even with a normal UA.
+                r = curl_requests.get(
+                    url,
+                    headers=headers,
+                    timeout=REQUEST_TIMEOUT_SECONDS,
+                    impersonate=IMPERSONATE_PROFILE,
+                    allow_redirects=True,
+                )
+            else:
+                r = requests.get(
+                    url,
+                    headers=headers,
+                    timeout=REQUEST_TIMEOUT_SECONDS,
+                    allow_redirects=True,
+                )
+        except Exception as e:  # noqa: BLE001 - both client libraries
+            if _is_timeout(e):
+                logging.warning("Timeout for %s (attempt %d/%d)", url, attempt + 1, MAX_RETRIES)
+                if attempt == MAX_RETRIES - 1:
+                    return None, "timeout"
+            else:
+                logging.warning("Request error for %s: %s (attempt %d/%d)", url, e, attempt + 1, MAX_RETRIES)
+                if attempt == MAX_RETRIES - 1:
+                    return None, "error"
             time.sleep(2 ** attempt)
             continue
 
@@ -164,6 +214,9 @@ def _fetch_html(url: str) -> tuple[Optional[str], str]:
         if status == 200:
             return r.text, "ok"
         if status in (404, 403, 410):
+            # One shot only: if a browser fingerprint still gets 403, the host
+            # is rejecting this client and hammering it just makes that worse.
+            # The caller retries it on the 403 cooldown.
             return None, f"http_{status}"
         if status == 429:
             try:
@@ -233,7 +286,7 @@ def _write_article_file(url: str, story: dict, text: str) -> str:
     return path
 
 
-def _process_story(story: dict) -> tuple[str, str]:
+def _process_story(story: dict, domain_delay: Optional[float] = None) -> tuple[str, str]:
     """
     Fetch + extract a single story.
     Returns (extraction_status, full_text_path). Path is "" when status != "ok".
@@ -250,7 +303,7 @@ def _process_story(story: dict) -> tuple[str, str]:
     if os.path.exists(path):
         return "ok", path
 
-    html, fetch_status = _fetch_html(url)
+    html, fetch_status = _fetch_html(url, domain_delay)
     if fetch_status != "ok":
         logging.warning("Fetch failed for %s: %s", url, fetch_status)
         return fetch_status, ""
@@ -283,8 +336,68 @@ def _write_csv_atomic(csv_path: str, fieldnames: list[str], rows: list[dict]) ->
     os.replace(tmp, csv_path)
 
 
+def _as_int(value: Any) -> int:
+    try:
+        return int(str(value).strip())
+    except (TypeError, ValueError):
+        return 0
+
+
+def _parse_ts(value: Any) -> Optional[datetime.datetime]:
+    raw = (value or "").strip()
+    if not raw:
+        return None
+    try:
+        dt = datetime.datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
+    return dt
+
+
+def _is_pending(row: dict, retry_http_403: bool) -> bool:
+    """
+    Whether a row should be fetched in this run.
+
+    Everything except the terminal set is pending, but a 403 is retried only
+    once its cooldown has elapsed (bounded by MAX_HTTP_403_ATTEMPTS). Rows that
+    failed with 403 before attempt tracking existed have no timestamp; those are
+    left alone unless --retry-http-403 asks for them, so enabling the new policy
+    does not re-fetch thousands of historical rows in one night.
+    """
+    status = (row.get("extraction_status") or "").strip()
+    if status in TERMINAL_STATUSES:
+        return False
+    if status != "http_403":
+        return True
+    if _as_int(row.get("extraction_attempts")) >= MAX_HTTP_403_ATTEMPTS:
+        return False
+    attempted = _parse_ts(row.get("extraction_attempted_at"))
+    if attempted is None:
+        return retry_http_403
+    age = datetime.datetime.now(datetime.timezone.utc) - attempted
+    return age.total_seconds() >= HTTP_403_COOLDOWN_HOURS * 3600
+
+
+def published_on_or_after(row: dict, cutoff: str) -> bool:
+    """Whether a row's published date is >= the YYYY-MM-DD cutoff.
+
+    Uses the first ten characters after stripping whitespace, which is enough
+    for the ISO dates the feeds emit; a row with an unparseable date is treated
+    as outside the window. Cutting by date lets a backfill stay scoped to, say,
+    the recent months a report covers instead of the whole history.
+    """
+    raw = (row.get("published") or "").strip()[:10]
+    return len(raw) == 10 and raw >= cutoff
+
+
 def process_pending_stories(csv_path: str = "news_database.csv",
-                            max_workers: int = MAX_WORKERS) -> dict:
+                            max_workers: int = MAX_WORKERS,
+                            domain: Optional[str] = None,
+                            retry_http_403: bool = False,
+                            domain_delay: Optional[float] = None,
+                            published_after: Optional[str] = None) -> dict:
     """
     Fetch full text for any story not yet successfully processed.
 
@@ -292,16 +405,27 @@ def process_pending_stories(csv_path: str = "news_database.csv",
     CHECKPOINT_INTERVAL stories, and terminal statuses are never retried.
 
     Work is grouped by domain and the groups run concurrently. Each domain is
-    owned by a single worker for the whole run, so MIN_DOMAIN_DELAY_SECONDS
-    still serializes requests to any one host — the concurrency only reclaims
-    the idle time previously spent waiting on one host while every other host
-    sat untouched.
+    owned by a single worker for the whole run, so the per-domain delay still
+    serializes requests to any one host — the concurrency only reclaims the
+    idle time previously spent waiting on one host while every other host sat
+    untouched.
 
     A host that fails DOMAIN_FAILURE_THRESHOLD times in a row trips a circuit
     breaker and the rest of its queue is skipped for this run. Those rows keep
-    a blank status, so the next run picks them up again from scratch. This is
-    what keeps one broken host (expired cert, blanket 429) from consuming the
-    entire run.
+    their existing status, so the next run picks them up again. This is what
+    keeps one broken host (expired cert, blanket 429) from consuming the entire
+    run.
+
+    Args:
+        domain: restrict the run to one host (e.g. "wkuherald.com"). Lets one
+            outlet be recovered without touching the rest of the corpus.
+        retry_http_403: include rows that failed with 403 before attempt
+            tracking existed. Off by default so a normal nightly does not
+            re-fetch every historical 403; the cooldown covers new ones.
+        domain_delay: minimum seconds between requests to one host. Set to a
+            site's robots.txt Crawl-delay when it exceeds the default.
+        published_after: only fetch rows whose published date is on or after
+            this YYYY-MM-DD string. Unset (default) means no date restriction.
 
     Returns a dict of counts: processed, ok, failed, deferred, skipped, total.
     """
@@ -313,7 +437,7 @@ def process_pending_stories(csv_path: str = "news_database.csv",
     fieldnames, rows = _read_csv(csv_path)
 
     # Ensure the tracking columns exist in the on-disk schema
-    for col in ("extraction_status", "full_text_path"):
+    for col in ("extraction_status", "full_text_path", *ATTEMPT_COLUMNS):
         if col not in fieldnames:
             fieldnames.append(col)
             for row in rows:
@@ -322,11 +446,22 @@ def process_pending_stories(csv_path: str = "news_database.csv",
     total = len(rows)
     counts = {"processed": 0, "ok": 0, "failed": 0, "deferred": 0,
               "skipped": 0, "total": total}
+    eligible = [i for i, row in enumerate(rows) if _is_pending(row, retry_http_403)]
+    counts["skipped"] = total - len(eligible)
     pending_indexes = [
-        i for i, row in enumerate(rows)
-        if (row.get("extraction_status") or "").strip() not in TERMINAL_STATUSES
+        i for i in eligible
+        if not domain or _get_domain((rows[i].get("link") or "").strip()) == domain
     ]
-    counts["skipped"] = total - len(pending_indexes)
+    if published_after:
+        pending_indexes = [
+            i for i in pending_indexes
+            if published_on_or_after(rows[i], published_after)
+        ]
+        logging.info("Published-after %s: %d rows still pending in window",
+                     published_after, len(pending_indexes))
+    if domain:
+        logging.info("Domain filter %s: %d of %d pending rows match",
+                     domain, len(pending_indexes), len(eligible))
 
     if not pending_indexes:
         logging.info("No pending stories. Total in DB: %d", total)
@@ -346,7 +481,7 @@ def process_pending_stories(csv_path: str = "news_database.csv",
     lock = threading.Lock()
     progress = {"done": 0}
 
-    def run_domain(domain: str, indexes: list[int]) -> None:
+    def run_domain(domain_name: str, indexes: list[int]) -> None:
         consecutive_failures = 0
         for position, i in enumerate(indexes):
             if consecutive_failures >= DOMAIN_FAILURE_THRESHOLD:
@@ -354,17 +489,24 @@ def process_pending_stories(csv_path: str = "news_database.csv",
                 logging.warning(
                     "Circuit breaker open for %s after %d consecutive failures; "
                     "deferring %d remaining stories to the next run",
-                    domain, consecutive_failures, remaining,
+                    domain_name, consecutive_failures, remaining,
                 )
                 with lock:
                     counts["deferred"] += remaining
                 return
 
-            status, path = _process_story(rows[i])
+            status, path = _process_story(rows[i], domain_delay)
 
             with lock:
                 rows[i]["extraction_status"] = status
                 rows[i]["full_text_path"] = path
+                if status != "ok":
+                    # Stamp failed attempts so a 403 can be paced on its
+                    # cooldown instead of re-fetched every run.
+                    rows[i]["extraction_attempts"] = str(
+                        _as_int(rows[i].get("extraction_attempts")) + 1)
+                    rows[i]["extraction_attempted_at"] = datetime.datetime.now(
+                        datetime.timezone.utc).isoformat()
                 counts["processed"] += 1
                 if status == "ok":
                     counts["ok"] += 1
@@ -417,8 +559,37 @@ def _configure_logging() -> None:
 
 
 def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument("--csv", default="news_database.csv")
+    parser.add_argument("--domain",
+                        help="only fetch stories whose link is on this host, "
+                             "e.g. wkuherald.com")
+    parser.add_argument("--retry-http-403", action="store_true",
+                        help="also retry rows that failed with 403 before "
+                             "attempt tracking existed")
+    parser.add_argument("--delay", type=float, default=None,
+                        help="minimum seconds between requests to one host "
+                             "(use a site's robots.txt Crawl-delay)")
+    parser.add_argument("--max-workers", type=int, default=MAX_WORKERS)
+    parser.add_argument("--published-after", default=None,
+                        help="only fetch stories published on or after this "
+                             "YYYY-MM-DD date")
+    args = parser.parse_args()
+
     _configure_logging()
-    process_pending_stories()
+    process_pending_stories(
+        args.csv,
+        max_workers=args.max_workers,
+        domain=args.domain,
+        retry_http_403=args.retry_http_403,
+        domain_delay=args.delay,
+        published_after=args.published_after,
+    )
 
 
 if __name__ == "__main__":

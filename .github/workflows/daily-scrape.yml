@@ -46,6 +46,8 @@ jobs:
           # Runners have no GPU, so the CPU wheel loses us nothing.
           pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
+          # Log the resolved version so a stale huggingface_hub is obvious.
+          pip show huggingface_hub
 
       # full_text/ is not stored in git — the Hub is its canonical home. It has
       # to be on disk before anything rebuilds the corpus, or
