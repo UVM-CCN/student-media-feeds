@@ -77,7 +77,7 @@ def main():
         print(
             f"ERROR: huggingface_hub {huggingface_hub.__version__} has no "
             "upload_large_folder.\n"
-            "Upgrade with: pip install -U 'huggingface_hub>=0.25'",
+            "Install a supported version with: pip install 'huggingface_hub>=0.34,<2'",
             file=sys.stderr,
         )
         sys.exit(1)
