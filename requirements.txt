@@ -7,7 +7,9 @@ trafilatura
 curl_cffi
 
 # Hugging Face dataset publishing (see huggingface/SETUP.md)
-huggingface_hub
+# >=0.25 is required: sync_to_hf.py calls HfApi.upload_large_folder, which
+# older releases don't have.
+huggingface_hub>=0.34
 pyarrow
 
 # Sentence embeddings for the frozen topic model (scripts/apply_topics.py).

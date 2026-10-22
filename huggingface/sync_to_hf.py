@@ -70,6 +70,18 @@ def main():
 
     api = HfApi(token=token)
 
+    # Fail fast, before the repo check and upload, if huggingface_hub is too
+    # old. upload_large_folder was added in 0.25.
+    if not hasattr(api, "upload_large_folder"):
+        import huggingface_hub
+        print(
+            f"ERROR: huggingface_hub {huggingface_hub.__version__} has no "
+            "upload_large_folder.\n"
+            "Upgrade with: pip install -U 'huggingface_hub>=0.25'",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     # Ensure the dataset repo exists. create_repo is a no-op if it already does
     # and exist_ok=True; we still wrap in try to surface useful errors.
     try:
