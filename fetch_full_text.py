@@ -380,11 +380,24 @@ def _is_pending(row: dict, retry_http_403: bool) -> bool:
     return age.total_seconds() >= HTTP_403_COOLDOWN_HOURS * 3600
 
 
+def published_on_or_after(row: dict, cutoff: str) -> bool:
+    """Whether a row's published date is >= the YYYY-MM-DD cutoff.
+
+    Uses the first ten characters after stripping whitespace, which is enough
+    for the ISO dates the feeds emit; a row with an unparseable date is treated
+    as outside the window. Cutting by date lets a backfill stay scoped to, say,
+    the recent months a report covers instead of the whole history.
+    """
+    raw = (row.get("published") or "").strip()[:10]
+    return len(raw) == 10 and raw >= cutoff
+
+
 def process_pending_stories(csv_path: str = "news_database.csv",
                             max_workers: int = MAX_WORKERS,
                             domain: Optional[str] = None,
                             retry_http_403: bool = False,
-                            domain_delay: Optional[float] = None) -> dict:
+                            domain_delay: Optional[float] = None,
+                            published_after: Optional[str] = None) -> dict:
     """
     Fetch full text for any story not yet successfully processed.
 
@@ -411,6 +424,8 @@ def process_pending_stories(csv_path: str = "news_database.csv",
             re-fetch every historical 403; the cooldown covers new ones.
         domain_delay: minimum seconds between requests to one host. Set to a
             site's robots.txt Crawl-delay when it exceeds the default.
+        published_after: only fetch rows whose published date is on or after
+            this YYYY-MM-DD string. Unset (default) means no date restriction.
 
     Returns a dict of counts: processed, ok, failed, deferred, skipped, total.
     """
@@ -437,6 +452,13 @@ def process_pending_stories(csv_path: str = "news_database.csv",
         i for i in eligible
         if not domain or _get_domain((rows[i].get("link") or "").strip()) == domain
     ]
+    if published_after:
+        pending_indexes = [
+            i for i in pending_indexes
+            if published_on_or_after(rows[i], published_after)
+        ]
+        logging.info("Published-after %s: %d rows still pending in window",
+                     published_after, len(pending_indexes))
     if domain:
         logging.info("Domain filter %s: %d of %d pending rows match",
                      domain, len(pending_indexes), len(eligible))
@@ -554,6 +576,9 @@ def main() -> None:
                         help="minimum seconds between requests to one host "
                              "(use a site's robots.txt Crawl-delay)")
     parser.add_argument("--max-workers", type=int, default=MAX_WORKERS)
+    parser.add_argument("--published-after", default=None,
+                        help="only fetch stories published on or after this "
+                             "YYYY-MM-DD date")
     args = parser.parse_args()
 
     _configure_logging()
@@ -563,6 +588,7 @@ def main() -> None:
         domain=args.domain,
         retry_http_403=args.retry_http_403,
         domain_delay=args.delay,
+        published_after=args.published_after,
     )
 
 
