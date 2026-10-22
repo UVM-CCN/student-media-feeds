@@ -82,6 +82,7 @@
   .tile .label { color: var(--ink-2); font-size: .78rem; }
   .tile .value { font-size: 1.5rem; font-weight: 650; margin-top: 3px; font-variant-numeric: tabular-nums; }
   .tile.hero .value { font-size: 1.9rem; line-height: 1.1; font-weight: 680; letter-spacing: -.02em; }
+  .tile .sub { color: var(--ink-2); font-size: .78rem; margin-top: 3px; }
 
   /* ---- filter row: one row, above everything it scopes ---- */
   .filters { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: flex-end; margin: 14px 0 10px; }
@@ -664,6 +665,9 @@
   }
   function grandTotal() {
     return idx().reduce(function (a, i) { return a + A().day_totals[i]; }, 0);
+  }
+  function rangeClassified() {
+    return idx().reduce(function (a, i) { return a + (A().day_classified[i] || 0); }, 0);
   }
   function labelOf(key) {
     var t = D.topics.find(function (x) { return x.key === key; });
@@ -1333,7 +1337,8 @@
   function renderKpis() {
     var host = $("kpis"); host.textContent = "";
     var items = [
-      { label: "Stories in range", value: nf.format(grandTotal()), hero: true },
+      { label: "Stories in range", value: nf.format(grandTotal()), hero: true,
+        sub: nf.format(rangeClassified()) + " with topic assigned" },
       { label: "Publications", value: nf.format(A().totals.publications), pubs: true },
       // Captured, not published: what last night's run pulled in. Independent
       // of the brush, like Publications.
@@ -1345,6 +1350,10 @@
       var l = document.createElement("div"); l.className = "label"; l.textContent = it.label;
       var v = document.createElement("div"); v.className = "value"; v.textContent = it.value;
       d.appendChild(l); d.appendChild(v);
+      if (it.sub) {
+        var s = document.createElement("div"); s.className = "sub"; s.textContent = it.sub;
+        d.appendChild(s);
+      }
       if (it.pubs) {
         var b = document.createElement("button"); b.className = "link"; b.type = "button";
         b.textContent = "View all publications";
@@ -1443,10 +1452,7 @@
     });
     $("brushHint").textContent =
       "Story capturing began for this project in June of 2026. While some student stories appear in our database before this date, story capturing was less successful due to the nature of how RSS feeds work. The brush spans " + (A().recent_year || "") + " onward, which holds "
-      + nf.format(dated - before) + " of the " + nf.format(dated) + " dated stories. The "
-      + nf.format(before) + " stories from earlier years -- backfilled from each "
-      + "outlet's archive when it was added -- sit outside its width and are not "
-      + "reachable from this control.";
+      + nf.format(dated - before) + " of the " + nf.format(dated) + " dated stories.";
     
     $("footnote").textContent =
       "Coverage is shown as each topic's share of that day's stories. Raw counts rise "
