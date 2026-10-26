@@ -373,8 +373,8 @@
     <div class="field">
       <label id="smoothlabel">Smoothing</label>
       <div class="seggroup" role="group" aria-labelledby="smoothlabel">
-        <button class="seg" id="sRaw" aria-pressed="true">Daily</button>
-        <button class="seg" id="sAvg" aria-pressed="false">7-day avg</button>
+        <button class="seg" id="sRaw" aria-pressed="false">Daily</button>
+        <button class="seg" id="sAvg" aria-pressed="true">7-day avg</button>
       </div>
     </div>
     <div class="field">
@@ -550,7 +550,7 @@
   // as the brush moves; color is keyed to the topic regardless.
   var ORDER = D.topics.slice().sort(function (a, b) { return b.total - a.total; });
 
-  var state = { measure: "share", smooth: false,
+  var state = { measure: "share", smooth: true,
                 i0: DEF[0], i1: DEF[1], focus: null, day: null, cohort: "all" };
 
   // The active cohort's aggregate bundle: series, day totals, brush defaults,
@@ -1670,7 +1670,7 @@
   $("sRaw").addEventListener("click", function () { state.smooth = false; render(); });
   $("sAvg").addEventListener("click", function () { state.smooth = true; render(); });
   $("reset").addEventListener("click", function () {
-    state = { measure: "share", smooth: false,
+    state = { measure: "share", smooth: true,
               i0: DEF[0], i1: DEF[1], focus: null, day: null, cohort: "all" };
     renderBrush(); render();
   });
