@@ -331,7 +331,7 @@
   #tip .key { width: 12px; height: 3px; border-radius: 2px; flex: none; }
   #tip .tv { font-weight: 650; font-variant-numeric: tabular-nums; min-width: 3.6em; }
   #tip .tl { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .note { color: var(--muted); font-size: .78rem; margin-top: 10px; max-width: 84ch; }
+  .note { color: var(--ink-2); font-size: .78rem; margin-top: 10px; max-width: 140ch; }
 
   .site-footer { margin: 24px 0 0; padding: 20px 16px; background: #E4E3E0; border-top: 1px solid var(--border);
                  display: block; width: 100%; box-sizing: border-box; text-align: center;
@@ -382,6 +382,7 @@
       <div class="seggroup" role="group" aria-labelledby="cohortlabel" id="cohortGroup">
         <button class="seg" data-cohort="all" aria-pressed="true">All</button>
         <button class="seg" data-cohort="landgrant" aria-pressed="false">Land-grant</button>
+        <button class="seg" data-cohort="private" aria-pressed="false">Private</button>
         <!-- <button class="seg" data-cohort="hbcu" aria-pressed="false">HBCU</button>-->
         <button class="seg" data-cohort="community" aria-pressed="false">Community college</button>
       </div>
@@ -530,9 +531,10 @@
   function thin() { return THIN[state.cohort]; }
   // University-type cohorts. Letters match the flags the build embeds in
   // source_flags and map_points pubs; labels read as "at ___ institutions".
-  var COHORT_LETTER = { landgrant: "g", hbcu: "h", community: "c" };
+  var COHORT_LETTER = { landgrant: "g", hbcu: "h", community: "c", private: "p" };
   var COHORT_LABEL = { all: "all universities", landgrant: "land-grant",
-                       hbcu: "HBCU", community: "community college" };
+                       hbcu: "HBCU", community: "community college",
+                       private: "private" };
   var DEF = D.cohorts.all.default_range || [0, D.days.length - 1];
   var DATES = D.days.map(function (m) {
     return new Date(Date.UTC(+m.slice(0, 4), +m.slice(5, 7) - 1, +m.slice(8, 10)));
@@ -1466,11 +1468,13 @@
       + "State totals cover the whole archive and do not follow the time range. "
       + (state.cohort === "all"
         ? "University-type subsets label each outlet's institution against the 2023 "
-          + "IPEDS file: land-grant and HBCU come from IPEDS flags, community colleges "
-          + "from the words “Community”/“Technical” in the institution name. Stories "
-          + "whose institution could not be matched appear only under All."
-        : "Now showing " + COHORT_LABEL[state.cohort] + " institutions only. Small cohorts "
-          + "run thin on most days — read the smoothed share rather than any single day.");
+          + "IPEDS file: land-grant and HBCU come from IPEDS flags, private from the "
+          + "CONTROL column (2 = private nonprofit, 3 = private for-profit), community "
+          + "colleges from the words “Community”/“Technical” in the institution name. "
+          + "Stories whose institution could not be matched appear only under All."
+        : "Now showing " + COHORT_LABEL[state.cohort] + " institutions only."
+          + (state.cohort === "private" ? "" : " Small cohorts "
+          + "run thin on most days — read the smoothed share rather than any single day."));
   }
 
   /* ---------- coverage map ------------------------------------------------

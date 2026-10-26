@@ -44,12 +44,12 @@ The series is emitted per calendar day. Two consequences worth knowing:
 University-type cohorts
 -----------------------
 Every time-series aggregate is emitted once per cohort — all / landgrant /
-hbcu / community — so the page can subset every view by university type
-without touching story rows. Flags come from data/publication_locations.csv
+hbcu / community / private — so the page can subset every view by university
+type without touching story rows. Flags come from data/publication_locations.csv
 (scripts/label_school_types.py, matched against IPEDS 2023) and join on the
-story's link domain. Cohorts overlap (many HBCUs are also land-grant) and
-"all" additionally holds stories whose institution never matched IPEDS, so
-the parts do not sum to the whole.
+story's link domain. Cohorts overlap (many HBCUs are also land-grant; private
+is IPEDS CONTROL 2 or 3) and "all" additionally holds stories whose institution
+never matched IPEDS, so the parts do not sum to the whole.
 
 Usage:
     python scripts/build_dashboard_data.py
@@ -133,10 +133,11 @@ DEFAULT_OPEN = "2026-09-01"
 # never matched IPEDS, so the parts never sum to the whole. Every aggregate
 # the page reads (series, day totals, KPIs, brush defaults) is emitted once
 # per cohort; the map and the drawer filter on the same flags client-side.
-COHORTS = ("all", "landgrant", "hbcu", "community")
+COHORTS = ("all", "landgrant", "hbcu", "community", "private")
 # One letter per flag, used as the compact wire form in publications,
 # source_flags, and map_points pubs.
-COHORT_LETTER = (("landgrant", "g"), ("hbcu", "h"), ("community", "c"))
+COHORT_LETTER = (("landgrant", "g"), ("hbcu", "h"), ("community", "c"),
+                 ("private", "p"))
 
 
 def day_of(value: str) -> str | None:
@@ -270,7 +271,8 @@ def load_states() -> dict[str, str]:
 
 
 def load_school_flags() -> dict[str, str]:
-    """domain -> subset of "ghc" (land-grant / HBCU / community college).
+    """domain -> subset of "ghcp" (land-grant / HBCU / community college /
+    private).
 
     Written nightly by scripts/label_school_types.py. Every row counts, not
     just the located ones: the time series includes outlets the map has never
@@ -294,6 +296,8 @@ def load_school_flags() -> dict[str, str]:
                 letters += "h"
             if truthy(row.get("community_college")):
                 letters += "c"
+            if truthy(row.get("private")):
+                letters += "p"
             out[dom] = letters
     return out
 
@@ -604,7 +608,7 @@ def main() -> int:
         "days": days,
         "min_day_stories": MIN_DAY_STORIES,
         "cohorts": {c: cohort_payload(c) for c in COHORTS},
-        # Source name -> school-type letters ("g"/"h"/"c"), for filtering the
+        # Source name -> school-type letters ("g"/"h"/"c"/"p"), for filtering the
         # drawer's headline samples client-side without per-story flags.
         "source_flags": source_flags,
         "states": sorted(
@@ -684,7 +688,7 @@ def main() -> int:
         pub = {"d": dom, **place}
         letters = school_flags.get(dom, "")
         if letters:
-            # School-type flags ("g"/"h"/"c"), so the map can follow the
+            # School-type flags ("g"/"h"/"c"/"p"), so the map can follow the
             # dashboard's University-type filter without a second lookup table.
             pub["f"] = letters
         pubs.append(pub)

@@ -1,11 +1,13 @@
 """Label every institution in the publication database by university type.
 
-Adds three boolean columns to data/publication_locations.csv — land_grant,
-hbcu, community_college — plus audit columns recording which IPEDS record
-(if any) each institution matched:
+Adds four boolean columns to data/publication_locations.csv — land_grant,
+hbcu, private, community_college — plus audit columns recording which IPEDS
+record (if any) each institution matched:
 
   land_grant / hbcu   IPEDS HD 2023 flags (LANDGRNT==1 / HBCU==1; 2 means no,
                       negative values mean not available and are read as no).
+  private             IPEDS HD 2023 CONTROL = 2 (private nonprofit) or
+                      3 (private for-profit); 1 = public.
   community_college   Name heuristic: the institution name contains the word
                       "Community" or "Technical" (word-boundary match, checked
                       against both our name and the matched IPEDS name). The
@@ -27,9 +29,9 @@ Matching runs in tiers, best first:
                 then active status, then similarity. Anything still unmatched
                 is reported so it can be added to the overrides file.
 
-Institutions with no IPEDS match keep land_grant/hbcu = False (unknown, really)
-and still get the name-based community_college flag. Downstream, stories at
-unmatched institutions appear only in the dashboard's "All" cohort.
+Institutions with no IPEDS match keep land_grant/hbcu/private = False (unknown,
+really) and still get the name-based community_college flag. Downstream,
+stories at unmatched institutions appear only in the dashboard's "All" cohort.
 
 Run after scripts/geocode_publications.py, which regenerates the CSV nightly
 and would otherwise drop these columns:
@@ -48,7 +50,7 @@ IPEDS_CSV = os.path.join(ROOT, "data", "all-schools-2023.csv")
 LOCATIONS_CSV = os.path.join(ROOT, "data", "publication_locations.csv")
 OVERRIDES_CSV = os.path.join(ROOT, "data", "school_type_overrides.csv")
 
-NEW_COLUMNS = ["land_grant", "hbcu", "community_college",
+NEW_COLUMNS = ["land_grant", "hbcu", "private", "community_college",
                "ipeds_unitid", "ipeds_name", "school_type_match"]
 
 # Name-based community-college rule: word-boundary match, case-insensitive.
@@ -83,6 +85,12 @@ def flag(value) -> bool:
     return (value or "").strip() == "1"
 
 
+def is_private(control) -> bool:
+    """IPEDS CONTROL: 1 = public, 2 = private nonprofit, 3 = private
+    for-profit, negatives = not available."""
+    return (control or "").strip() in ("2", "3")
+
+
 def load_ipeds():
     """-> (records, by_norm, by_unitid). by_norm indexes INSTNM and IALIAS."""
     records, by_norm, by_unitid = [], defaultdict(list), {}
@@ -95,6 +103,7 @@ def load_ipeds():
                 "active": (row.get("CYACTIVE") or "").strip() == "1",
                 "hbcu": flag(row.get("HBCU")),
                 "land_grant": flag(row.get("LANDGRNT")),
+                "private": is_private(row.get("CONTROL")),
                 "norm": norm_name(row.get("INSTNM")),
                 "tokens": tokens(row.get("INSTNM")),
             }
@@ -208,7 +217,8 @@ def match_all(rows):
             m = fuzzy_match(inst, state, records)
             if m:
                 rec = {k: m[k] for k in ("unitid", "name", "state", "active",
-                                         "hbcu", "land_grant", "norm", "tokens")}
+                                         "hbcu", "land_grant", "private",
+                                         "norm", "tokens")}
                 how = f"fuzzy:{m['score'][1]:.2f}"
         cache[(inst, state)] = (rec, how)
     return cache
@@ -251,11 +261,13 @@ def main() -> int:
         cc = bool(CC_RE.search(inst)) or bool(rec and CC_RE.search(rec["name"]))
         lg = bool(rec and rec["land_grant"])
         hb = bool(rec and rec["hbcu"])
+        pv = bool(rec and rec["private"])
 
         if not inst:
             how = "no-institution"
         r["land_grant"] = lg
         r["hbcu"] = hb
+        r["private"] = pv
         r["community_college"] = cc
         r["ipeds_unitid"] = rec["unitid"] if rec else ""
         r["ipeds_name"] = rec["name"] if rec else ""
@@ -264,9 +276,11 @@ def main() -> int:
         if inst:
             label_counts["land_grant"] += lg
             label_counts["hbcu"] += hb
+            label_counts["private"] += pv
             label_counts["community_college"] += cc
             story_counts["land_grant"] += stories if lg else 0
             story_counts["hbcu"] += stories if hb else 0
+            story_counts["private"] += stories if pv else 0
             story_counts["community_college"] += stories if cc else 0
             if rec is None:
                 unmatched[inst] += stories
@@ -282,7 +296,7 @@ def main() -> int:
     print(f"\nwrote {os.path.relpath(LOCATIONS_CSV, ROOT)}: {len(rows)} rows, "
           f"{inst_total} distinct institutions, {total_stories:,} stories")
     print("\nlabels (rows / stories):")
-    for k in ("land_grant", "hbcu", "community_college"):
+    for k in ("land_grant", "hbcu", "private", "community_college"):
         print(f"  {k:20s} {label_counts[k]:4d} rows  {story_counts[k]:7,d} stories "
               f"({100 * story_counts[k] / max(1, total_stories):.1f}%)")
 

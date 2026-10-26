@@ -4,6 +4,17 @@ Project memory for agents. Newest entry first. One entry per work session or che
 
 <!-- dev-log:entries -->
 
+## 2026-10-26 — Added "Private" university-type cohort from IPEDS CONTROL
+
+- **Agent:** opencode / glm-5.3-flash-free
+- **Intent:** Let the dashboard filter to private institutions only, parallel to the existing land-grant/HBCU flags.
+- **Code:** `scripts/label_school_types.py` gains `is_private()` (IPEDS `CONTROL` 2=private nonprofit, 3=private for-profit, else False) and a new `private` column written to `publication_locations.csv`; added to the fuzzy-match key whitelist too. `scripts/build_dashboard_data.py` adds `private` to `COHORTS` with wire letter `p` in `COHORT_LETTER`/`source_flags`/map pubs. `student-media-tracker/index.html` adds the Private button after Land-grant, `private:"p"` in COHORT_LETTER/COHORT_LABEL, updates the IPEDS metadata message, and skips the "small cohorts run thin" note for private (large cohort).
+- **Data:** `data/publication_locations.csv` now has a `private` column (393 of 941 rows true; 28,743 stories = 35.9%); dashboard rebuilt — `dashboard_data.js/.json` 5 cohorts, private = 25,100 classified stories / 432 publications; 75 headline shards rewritten with per-cohort private samples.
+- **Why:** CONTROL already exists in `data/all-schools-2023.csv`, so no new data source; unmatched institutions get private=False like the other flags, so they appear only under All.
+- **Verified:** Both scripts re-run; `node` parse of `dashboard_data.js` shows cohorts all/landgrant/hbcu/community/private with private totals; 417 publications carry the `p` flag incl. spot-checks (e.g. 9th Street Journal).
+- **Open:** None.
+- **Git:** `main` @ `d495687`, ~88 files uncommitted (data rebuild + code; not committed).
+
 ## 2026-10-26 — Default timeseries chart to 7-day average
 
 - **Agent:** Copilot
