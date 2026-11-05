@@ -4,6 +4,50 @@ Project memory for agents. Newest entry first. One entry per work session or che
 
 <!-- dev-log:entries -->
 
+## 2026-11-04 — Report 2 (local vs national elections), Sep 1–Nov 4 window
+
+- **Agent:** opencode / deepseek-v4-pro
+- **Intent:** Re-run the local-vs-national elections report over the refreshed Sep 1 – Nov 4, 2026 window, extending the prior pass (which stopped at Oct 26), with the required LOCAL-vs-NATIONAL comparison, student-government break-out, weekly trend, topic-mix vs dashboard categories, and a fresh precision spot-check on both the original gate and the expanded-gate additions.
+- **Code:** Reused `01_classify.py` (dual gate unchanged) and `05_stats_aug2026.py`. New scripts: `08_report_sep2026.py` (weekly ISO-week table + jurisdiction chart, late-Oct/early-Nov delta vs the Sep 1–Oct 26 baseline, topic mix vs `data/topic_labels.json`, 20 evenly-spaced verification sample), `09_sample_sep2026.py` (30 expanded-only + 20 original-gate precision samples), `10_record_labels_sep2026.py` (labels + precision print).
+- **Data:** Deduped window universe 54,146 (59,212 ok rows). Expanded gate 2,193 matches (4.05%), original 2,066 (3.82%), raw pre-dedupe 2,261/2,130. Split (expanded): BOTH_UNCLEAR 967 / NATIONAL 779 / LOCAL 447; 153 student-gov (145 LOCAL). Non-SG: LOCAL 302 vs NATIONAL 777 (~2.6× national). Timing: LOCAL leads through late Sep (student-gov season), NATIONAL overtakes early Oct and dominates through Election Day; **new Oct 27–Nov 4 = 526 stories (11% local / 33% national / 56% state-mixed), only 4 student-gov**. Precision: combined 50-sample strict 94% / loose 98%; expanded-only additions 30-sample strict 93.3% (0 FP). Error families: "midterm=exams" FPs (~18), body-count FP (1), "U.S. House District N" jurisdiction tie (1), stray body "midterm" mislabeling a local board race.
+- **Why:** `keyword_trends/` was deleted, so this themed report runs the reusable `analysis-local-vs-national-elections` classifier, not the keyword_trends tool.
+- **Verified:** Classifier re-run reproduces the existing `summary_sep2026.json` exactly; `08`–`10` run clean; 4 charts + weekly/topicmix/verification/precision CSVs written. Body coverage 84.6% universe / 71.9% matches (newest captures outrun backfill).
+- **Open:** Corpus-index subset (`publication_story_index.csv`) ends 2026-08-31, so 0 of this window's matches overlap it by exact URL (94% by domain). Not committed (data-researcher/ is gitignored).
+- **Git:** `main`; no commit made (per task).
+
+## 2026-11-04 — Report: Sports betting / sports gambling, Sep 1–Nov 4 window
+
+- **Agent:** opencode / deepseek-v4-pro
+- **Intent:** Re-run the sports-betting/gambling report over the refreshed Sep 1 – Nov 4, 2026 window (the prior pass stopped at Oct 22), with the athlete-pressure / money-in-college-sports sub-analysis and a fresh precision spot-check.
+- **Code:** Reused `01_match.py`, `06_athlete_pressure.py`, `07_athlete_review.py`, `05_stats_aug2026.py` (matcher rules unchanged). Two tiny, traceable edits: `07_athlete_review.py` now reads `athlete_review_labels{SFX}.csv` (so the Aug labels survive), and `05_stats_aug2026.py` writes `timeseries_daily{SFX}.png` (so the Aug chart survives). New scripts: `make_sep_review_labels.py` (derives the Sep athlete-review labels from the Aug labels with set-equality asserts — the threat/education sets are identical, help drops only row 21695), `08_weekly_and_mix.py` (weekly corpus/matches/share + topic mix vs `data/topic_labels.json`), `09_precision_sample.py`, `10_record_precision_labels.py`.
+- **Data:** Deduped window universe 54,146 (59,212 ok rows; 5,066 dupes). 173 matches (0.32%), raw pre-dedupe 177; match types strong 159 / generic-with-sports 12 / prediction-market 2. Monthly Sep 111 / Oct 60 / Nov 2. Novig/Sweeney cluster 84 (48.6%); weekly share spikes to 0.62% in W39–W40 then slides to ~0.10% by W45. **New (Oct 23–Nov 4): 11 matches** (Kalshi college-admissions markets, betting-out-of-elections, NBA partnerships, campus survey solicitations; 3 in the Novig cluster). Athlete pressure (manual review): threats 13 (10 incident/survey, 3 opinion, 0 FP), education 7 (3 program, 1 advocacy, 1 proposal, 2 FP), help 11 (5 helpline/expert, 3 boilerplate, 2 school resources, 1 FP). Precision: 25-sample spot-check strict 18/25 (72%), loose 96%, 1 FP.
+- **Why:** Dataset refreshed through Nov 4; the newest ~9 days (Oct 27+) have **zero full-text bodies** (backfill not caught up), so the tail is title-only and the headline count there is a lower bound — flagged as a new caveat.
+- **Verified:** All 47 report hyperlinks resolve to dataset rows (3 appear "missing" only because tracking params were stripped); 5 chart links resolve; Sep-labels set on charts.
+- **Open:** None.
+- **Git:** not committed (data-researcher/ is gitignored; DEV_LOG.md untracked).
+
+## 2026-11-04 — Report: Title IX / sexual assault / sexual violence, Sep 1–Nov 4 window
+
+- **Agent:** opencode / deepseek-v4-pro
+- **Intent:** Re-run the Title IX/sexual-violence report over the refreshed Sep 1 – Nov 4, 2026 window, extending the prior Sep 1 – Oct 26 pass, and add the required rigor (precision spot-checks, Greek/party context sub-analysis, topic mix, "what's new").
+- **Code:** `data-researcher/analysis-title-ix-sexual-violence/08_precision_spotcheck.py` (draws 30-match + 30-Greek/party samples, seed 20261104), `09_record_labels.py` (labels + precision print), `10_stats_sep2026.py` (weekly/monthly tables, topic mix vs `data/topic_labels.json`, context, what's-new, 5 charts with corrected "Sep 1" labels), `11_verification_sample.py` (20 evenly-spaced examples + Oct 27–Nov 4 listing). Reuses `load_stories.build`, `01_match.py`, `07_context_flags.py` (matcher rules unchanged).
+- **Data:** Deduped window universe 54,146; 874 matches (1.61%); monthly Sep 161 / Oct 703 / Nov 10. Event-driven: 67 pre-Sep-21 vs 807 post; Chi Phi mentioned in 275 (31.5%); Greek-life flag 296 (33.9%), party-near-SV 117. New (Oct 27–Nov 4): 34 matches, 0.53% (3.78/day vs 15.0/day prior), 0 Chi Phi. Precision: matches 25/30 strict (83.3%), loose 100%; Greek/party context 28/30 (93.3%), 2 FPs = "party" word-sense (legal "party to a crime", political "pro-family party").
+- **Why:** `keyword_trends/` was deleted and this is a themed report, so it runs the reusable `analysis-title-ix-sexual-violence` matcher, not the keyword_trends tool.
+- **Verified:** `01_match.py`/`07_context_flags.py` pickles (t9_scored/t9_context_sep2026.pkl) already present and consistent with the 59,212 ok window rows; `08`–`11` run clean; `summary_sep2026.json` + 5 PNGs + precision/verification CSVs written. Body coverage now 84.6% (newest captures outran backfill; 57 matches head-only).
+- **Open:** Corpus-index subset (`publication_story_index.csv`) ends 2026-08-31, so 0 of this window's matches overlap it. Not committed (data-researcher/ is gitignored).
+- **Git:** `main`; no commit made (per task).
+
+## 2026-11-04 — Report 1 (free speech / First Amendment / censorship), Sep 1–Nov 4 window
+
+- **Agent:** opencode / deepseek-v4-pro
+- **Intent:** Rebuild the free-speech matcher (the `keyword_trends` tool it previously used was deleted) and re-run the topic report over the refreshed Sep 1 – Nov 4, 2026 window, extending the prior Sep 1 – Oct 26 report.
+- **Code:** `data-researcher/analysis-free-speech-first-amendment-censorship/match_freespeech.py` (self-contained matcher reconstructing the four documented rules, first-match attribution, no `\bfree press\b`); `report_analysis.py` (aggregates, weekly/topic/outlet tables, verification + precision samples, 4 charts). Reuses `load_stories.build`.
+- **Data:** Deduped window universe 54,146 (was 45,567 on the Oct 26 snapshot); 403 matched stories (0.74%); rule composition free_speech 282 / censorship 49 / first_amendment 45 / book_ban_precise 27. Wave receded: weekly share 1.00% (W39 Sep 21–27) → 0.15% (W44) / 0.19% (W45 partial). Only 11 new matches Oct 27–Nov 4. Precision spot-check 22/30 strict (73%), 1 clear FP (print-edition "Free Speech Zone" ToC pollution).
+- **Why:** `keyword_trends/` now holds only a stale `.pyc`; the report-4 file was historical ordering, so this uses the report-1 slot per instructions.
+- **Verified:** `match_freespeech.py` and `report_analysis.py` both run clean; `summary_sepnov2026.json`, `matches_deduped_sepnov2026.csv`, `precision_sample_sepnov2026.csv`, and 4 PNGs written.
+- **Open:** None for this report. Not committed (data-researcher/ is gitignored).
+- **Git:** `main`; no commit made (per task).
+
 ## 2026-10-26 — Added "Private" university-type cohort from IPEDS CONTROL
 
 - **Agent:** opencode / glm-5.3-flash-free
