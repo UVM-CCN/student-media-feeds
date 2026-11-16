@@ -51,6 +51,7 @@ import json
 import re
 import sys
 from datetime import datetime, timezone
+from urllib.parse import urlparse
 
 try:
     import joblib
@@ -71,6 +72,7 @@ MODEL_PATH = os.path.join(ROOT, "models", "topic_model.joblib")
 LABELS_PATH = os.path.join(ROOT, "data", "topic_labels.json")
 HEADER_END_MARKER = "# ---"
 EMBED_MODEL = "all-MiniLM-L6-v2"
+TRAINING_EXCLUDED_HOSTS = {"dukechronicle.com", "www.dukechronicle.com"}
 
 BOILERPLATE = {
     "said", "says", "say", "told", "according", "asked", "added", "stated",
@@ -116,11 +118,14 @@ def load_documents(limit_words: int):
     dropped and why.
     """
     docs, meta = [], []
-    dropped = 0
+    dropped = excluded = 0
     with open(SOURCE_CSV, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     for row in rows:
         if (row.get("extraction_status") or "").strip() != "ok":
+            continue
+        if urlparse(row.get("link") or "").hostname in TRAINING_EXCLUDED_HOSTS:
+            excluded += 1
             continue
         path = (row.get("full_text_path") or "").strip()
         if not path:
@@ -139,6 +144,9 @@ def load_documents(limit_words: int):
     if dropped:
         print(f"  filtered out {dropped:,} items that are not stories "
               f"(image pages, CMS stubs, too short)")
+    if excluded:
+        print(f"  excluded {excluded:,} stories from topic-model training "
+              f"at the publisher's request")
     return docs, meta
 
 

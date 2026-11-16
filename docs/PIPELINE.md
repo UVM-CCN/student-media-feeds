@@ -139,6 +139,14 @@ each body), clusters with spherical k-means, and persists the L2-normalized
 centroids. `apply_topics.py` embeds new stories and assigns each to the nearest
 centroid by cosine similarity. It fits nothing.
 
+The Duke Chronicle's full text is collected for research but excluded from
+topic-model retraining in accordance with its stated no-AI-training policy.
+Its feed is captured on both schedules; feed and article requests share the
+site's requested 10-second crawl delay within a run. The site rejects the
+identifying bot User-Agent, so requests use the existing browser compatibility
+override. Keep the configured Hugging Face dataset private for full text;
+headline metadata is committed to the public repository.
+
 Why frozen centroids rather than a topic model's own inference:
 
 - **Refitting nightly is what broke `theme`.** Every run produced a different

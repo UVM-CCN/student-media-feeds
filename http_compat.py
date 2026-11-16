@@ -7,6 +7,8 @@ override list small and specific: prefer a working feed first, and only add a
 domain here after confirming the bot UA is the reason for the block.
 """
 
+import threading
+import time
 from urllib.parse import urlparse
 
 BROWSER_USER_AGENT = (
@@ -18,7 +20,12 @@ BROWSER_USER_AGENT = (
 # bare host (no leading "www.").
 BROWSER_UA_HOSTS = {
     "thenewpolitical.com",  # Cloudflare 403/1010 on feeds and articles
+    "dukechronicle.com",  # Identifying bot UA receives 403 on feed and articles
 }
+
+HOST_CRAWL_DELAYS = {"dukechronicle.com": 10.0}
+_last_request_by_host: dict[str, float] = {}
+_throttle_lock = threading.Lock()
 
 
 def host_key(url: str) -> str:
@@ -33,3 +40,19 @@ def host_key(url: str) -> str:
 def user_agent_for(url: str, default: str) -> str:
     """Choose the browser UA only for hosts on the override list."""
     return BROWSER_USER_AGENT if host_key(url) in BROWSER_UA_HOSTS else default
+
+
+def throttle_host(url: str) -> None:
+    """Apply site-specific crawl delays across feed and article requests."""
+    host = host_key(url)
+    delay = HOST_CRAWL_DELAYS.get(host)
+    if delay is None:
+        return
+    with _throttle_lock:
+        now = time.monotonic()
+        if host in _last_request_by_host:
+            wait = delay - (now - _last_request_by_host[host])
+            if wait > 0:
+                time.sleep(wait)
+                now = time.monotonic()
+        _last_request_by_host[host] = now

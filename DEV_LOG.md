@@ -4,6 +4,16 @@ Project memory for agents. Newest entry first. One entry per work session or che
 
 <!-- dev-log:entries -->
 
+## 2026-11-16 — Added The Duke Chronicle
+
+- **Agent:** Copilot
+- **Intent:** Add The Duke Chronicle to the news database and CI collection.
+- **Code:** Added the advertised feed to `extra_urls.txt` for both CI schedules; shared a 10-second host delay between feed and full-text requests, used the existing browser User-Agent override, and excluded the outlet from topic-model retraining. The existing hard-outlet entry remains skipped because the feed works.
+- **Data:** Captured 20 feed entries in `news_database.csv`, pending the normal nightly full-text extraction. The outlet was already in the location directory.
+- **Why:** The identifying bot User-Agent receives HTTP 403; the site's robots.txt requests a 10-second crawl delay and no AI model training. The user confirmed the Hugging Face dataset is private and approved public headline metadata.
+- **Verified:** Live feed returned 20 entries and one article yielded extractable text; three focused tests passed, CSV schema validation passed, and Pylance reported no syntax errors.
+- **Open:** Full-text extraction and dashboard updates occur in the next nightly CI run; the CI Hugging Face destination must remain private.
+
 ## 2026-11-04 — Report 2 (local vs national elections), Sep 1–Nov 4 window
 
 - **Agent:** opencode / deepseek-v4-pro

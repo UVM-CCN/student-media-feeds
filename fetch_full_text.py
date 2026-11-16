@@ -72,7 +72,7 @@ from typing import Any, Optional
 import requests
 import trafilatura
 
-from http_compat import user_agent_for
+from http_compat import throttle_host, user_agent_for
 
 try:
     from curl_cffi import requests as curl_requests
@@ -179,6 +179,7 @@ def _fetch_html(url: str, domain_delay: Optional[float] = None) -> tuple[Optiona
 
     for attempt in range(MAX_RETRIES):
         _throttle_for_domain(domain, domain_delay)
+        throttle_host(url)
         try:
             if curl_requests is not None:
                 # Browser TLS fingerprint: several outlets return 403 to the
