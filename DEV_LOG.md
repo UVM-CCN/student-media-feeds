@@ -97,3 +97,12 @@ Project memory for agents. Newest entry first. One entry per work session or che
 - **Verified:** All three `analysis-*/summary_aug2026.json` + charts regenerated; all 9 chart links in the reports resolve; corpus-index carry-overs re-checked (R1 14/777, R2 69/1,394 + 2/86, R3 0/161).
 - **Open:** Reports 1–3 in `data-researcher/reports/` are uncommitted (data-researcher/ is gitignored); UNF "presidential candidate" election FP remains unguarded; casino advertorials still ride some feeds (near-misses only); Oct 22 is a partial capture day.
 - **Git:** `main` @ `ee83989`, `DEV_LOG.md` untracked.
+
+## 2026-11-25 — Retry capture pushes
+
+- **Agent:** Copilot
+- **Intent:** Fix the failed Capture Feeds job.
+- **Code:** Retry the existing capture commit's push up to three times with bounded backoff; fail the step if all attempts fail.
+- **Why:** The capture and CSV validation succeeded, but GitHub returned an internal server error when receiving the push.
+- **Verified:** Focused workflow tests cover transient and persistent push failures, unchanged data, and commit failure; workflow YAML parses locally.
+- **Open:** A live workflow run is needed to verify the GitHub-side push.

@@ -66,4 +66,17 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add news_database.csv
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Capture new stories from feeds - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push)
+          if ! git diff --quiet || ! git diff --staged --quiet; then
+            git commit -m "Capture new stories from feeds - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            for attempt in 1 2 3; do
+              if git push; then
+                break
+              fi
+              if [ "$attempt" -eq 3 ]; then
+                echo "Push failed after $attempt attempts."
+                exit 1
+              fi
+              echo "Push failed; retrying in $((attempt * 10)) seconds."
+              sleep $((attempt * 10))
+            done
+          fi
