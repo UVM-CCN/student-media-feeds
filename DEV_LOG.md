@@ -4,6 +4,15 @@ Project memory for agents. Newest entry first. One entry per work session or che
 
 <!-- dev-log:entries -->
 
+## 2026-11-25 — Hardened nightly Pages publishing
+
+- **Agent:** Copilot
+- **Intent:** Fix the failed `publish-pages` job in Daily News Scrape.
+- **Code:** Retry Pages deployment with bounded backoff and name the uploaded artifact by workflow attempt.
+- **Why:** The artifact uploaded successfully but was absent from the immediate deployment lookup, matching an upstream artifact-visibility race; attempt-specific names also avoid duplicate matches on reruns.
+- **Verified:** Parsed the workflow and checked retry conditions, artifact names, permissions, checkout ref, and deployment URL selection locally.
+- **Open:** A live GitHub Pages deployment is needed to verify the service-side race workaround.
+
 ## 2026-11-16 — Added The Duke Chronicle
 
 - **Agent:** Copilot
